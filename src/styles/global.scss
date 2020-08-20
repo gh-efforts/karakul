@@ -1,0 +1,60 @@
+:root {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+    'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* 
+* Change Autocomplete styles in Chrome
+* https://css-tricks.com/snippets/css/change-autocomplete-styles-webkit-browsers/
+*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid #dfe1e8;
+  box-shadow: 0 0 0 1000px #fff inset;
+  -webkit-text-fill-color: #222;
+  transition: background-color 5000s ease-in-out 0s;
+}
+/*
+* glogal style
+*/
+
+.text-grey {
+  color: #666;
+}
+
+.page {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 960px;
+  min-height: 100%;
+  padding: 32px;
+  padding-top: 0;
+}
+
+.action-pointer {
+  color: #6190e8;
+  outline: none;
+  cursor: pointer;
+}
