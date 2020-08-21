@@ -1,0 +1,3 @@
+{
+  "extends": ["like", "like/typescript", "like/react"]
+}
