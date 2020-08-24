@@ -3,6 +3,7 @@ import { Layout } from "antd";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import styles from "./index.module.scss";
 import KSider from "./sider";
+import KHeader from "./header";
 
 const { Header, Sider, Content } = Layout;
 
@@ -12,16 +13,16 @@ interface LayoutProps {
 
 function KLayout({ children }: LayoutProps): React.ReactElement {
   const [collapsed, setCollapsed] = useState(false);
-  const toggle = () => {
-    setCollapsed(!collapsed);
-  };
+
   return (
     <Layout className={styles.layout}>
       <Sider className={styles.sider}>
         <KSider />
       </Sider>
       <Layout>
-        <Header className={styles.header}></Header>
+        <Header className={styles.header}>
+          <KHeader />
+        </Header>
         <Content className={styles.content}>{children}</Content>
       </Layout>
     </Layout>

@@ -25,7 +25,7 @@ export default function Svg({
       width={`${width ?? 24}`}
       height={`${height ?? 24}`}
       fill={`${color ?? "#00b2b6"}`}
-      style={{ transform: `translate(${offsetX ?? 0}px, ${offsetY ?? 6}px)` }}
+      style={{ transform: `translate(${offsetX ?? 0}px, ${offsetY ?? 0}px)` }}
       className={`${className ?? ""}`}
     >
       <use xlinkHref={`/images/sprite.svg#${name}`} />
