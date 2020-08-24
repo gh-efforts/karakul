@@ -11,11 +11,11 @@ interface LayoutProps {
 
 function KLayout({ children }: LayoutProps): React.ReactElement {
   return (
-    <Layout>
-      <Header>Header</Header>
+    <Layout className={styles.layout}>
+      <Header className={styles.header}>Header</Header>
       <Layout>
-        <Sider>Sider</Sider>
-        <Content>{children}</Content>
+        <Sider className={styles.sider}>Sider</Sider>
+        <Content className={styles.content}>{children}</Content>
       </Layout>
     </Layout>
   );
