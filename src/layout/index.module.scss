@@ -1,20 +1,19 @@
 .layout {
-    height: 100vh;
-    background: #f3fbfb;
+  height: 100vh;
+  background: #f3fbfb;
 
-    .header {
-        background: #fff !important;
-        height: 72px;
-        margin-bottom: 20px;
-    }
+  .header {
+    background: #fff !important;
+    height: 72px;
+    padding: 0;
+  }
 
-    .sider {
+  .sider {
+    background: #fff !important;
+    width: 240px;
+  }
 
-        background: #fff !important;
-        width: 240px;
-    }
-
-    .content {
-        background: #f3fbfb !important;
-    }
+  .content {
+    background: #f3fbfb !important;
+  }
 }

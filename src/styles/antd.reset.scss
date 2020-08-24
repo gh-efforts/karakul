@@ -1,128 +1,23 @@
-/*
-* Reset Input
-*/
-// input
-.ant-input,
-.ant-select-selector {
-  border-radius: 16px !important;
-}
-
-.ant-select-selector {
-  box-shadow: none !important;
-}
-
-.ant-input:focus,
-.ant-input:hover {
-  border-color: #6190e8 !important;
-  box-shadow: none !important;
-}
-
-/*
-* Reset Pagination
-*/
-.ant-pagination-item {
-  color: #6190e8 !important;
-}
-
-.ant-pagination-item:focus,
-.ant-pagination-item:hover,
-.ant-pagination-item-active {
-  border-color: #6190e8 !important;
-
-  a {
-    color: #6190e8 !important;
-  }
-}
-
-/* stylelint-disable  max-nesting-depth*/
-.ant-pagination-prev,
-.ant-pagination-next {
-  &:hover,
-  &:focus {
-    .ant-pagination-item-link {
-      color: #6190e8 !important;
-      border-color: #6190e8 !important;
-    }
-  }
-}
-
-/*
-* Reset Table
-*/
-.ant-table-placeholder {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  border-bottom: 0 !important;
-
-  .ant-table-cell {
-    padding-top: 0;
-    padding-bottom: 0;
-    border-bottom: 0;
-  }
-}
-
-/*
-* Reset Button
-*/
-.ant-btn:hover,
-.ant-btn:focus {
-  color: #6190e8 !important;
-  border-color: #6190e8 !important;
-}
-
-.ant-btn-primary:hover,
-.ant-btn-primary:focus {
+// menu
+.ant-menu-item-selected,
+.ant-menu-item-selected:hover,
+.ant-menu-item-active:hover {
   color: #fff !important;
-  background-color: #6190e8 !important;
+}
+.ant-menu-vertical .ant-menu-item::after,
+.ant-menu-vertical-left .ant-menu-item::after,
+.ant-menu-vertical-right .ant-menu-item::after,
+.ant-menu-inline .ant-menu-item::after {
+  border-right: 3px solid #00b2b6 !important;
 }
 
-.ant-btn-ghost {
-  color: #6190e8;
-  background-color: transparent;
-  border-color: #6190e8;
-}
-.ant-btn-link {
-  &:disabled {
-    color: rgba(0, 0, 0, 0.25) !important;
-  }
+.ant-menu-submenu-selected,
+.ant-menu-submenu-title:hover,
+.ant-menu-item:hover {
+  color: #00b2b6 !important;
 }
 
-/*
-* Reset Modal
-*/
-
-.ant-modal-root {
-  .ant-modal {
-    width: 545px;
-  }
-
-  .modal-small .ant-modal {
-    width: 400px !important;
-  }
-
-  .ant-modal-header {
-    border-bottom: 1px solid #fff !important;
-  }
-
-  .ant-modal-title {
-    padding-bottom: 16px;
-    border-bottom: 1px solid #dfe1e8;
-  }
-
-  .ant-modal-body {
-    padding: 0 24px;
-  }
-
-  .ant-modal-close:focus,
-  .ant-modal-close:hover {
-    color: #6988de;
-  }
-}
-
-/*
-* Reset Tooltip
-*/
-
-.ant-tooltip-inner {
-  word-break: break-all;
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: #00b2b6 !important;
+  color: #fff !important;
 }
