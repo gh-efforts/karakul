@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Layout } from "antd";
-
+import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import styles from "./index.module.scss";
+import KSider from "./sider";
 
 const { Header, Sider, Content } = Layout;
 
@@ -10,11 +11,17 @@ interface LayoutProps {
 }
 
 function KLayout({ children }: LayoutProps): React.ReactElement {
+  const [collapsed, setCollapsed] = useState(false);
+  const toggle = () => {
+    setCollapsed(!collapsed);
+  };
   return (
     <Layout className={styles.layout}>
-      <Header className={styles.header}>Header</Header>
+      <Sider className={styles.sider}>
+        <KSider />
+      </Sider>
       <Layout>
-        <Sider className={styles.sider}>Sider</Sider>
+        <Header className={styles.header}></Header>
         <Content className={styles.content}>{children}</Content>
       </Layout>
     </Layout>
