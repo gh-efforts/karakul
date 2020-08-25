@@ -1,6 +1,8 @@
 import React from "react";
 import { withLayout } from "../../layout";
-import { Table, Tag, Space } from "antd";
+import { Tag, Space } from "antd";
+import KTable from "../../components/table";
+import styles from "./index.module.scss";
 function Order() {
   const columns = [
     {
@@ -75,8 +77,13 @@ function Order() {
     },
   ];
   return (
-    <div>
-      <Table columns={columns} dataSource={data} />
+    <div className={styles.order}>
+      <KTable
+        columns={columns}
+        data={data}
+        currentPage={1}
+        total={data.length}
+      />
     </div>
   );
 }
