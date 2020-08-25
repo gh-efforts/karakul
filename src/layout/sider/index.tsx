@@ -73,11 +73,14 @@ let findKey = (value: string, compare = (a: string, b: string) => a === b) => {
 const menuItem = (selectedKeys: string[], onClick: (values: any) => void) => {
   return menuColunms.map((item) => {
     if (item.sub) {
+      const selectedItem = item.sub.find((sub) => {
+        return selectedKeys.indexOf(sub.key) > -1;
+      });
       return (
         <SubMenu
           key={item.key}
           title={item.name}
-          icon={item.icon(selectedKeys == [item.key])}
+          icon={item.icon(selectedKeys.indexOf(selectedItem?.key ?? "") > -1)}
         >
           {item.sub.map((sub) => {
             return (
@@ -93,7 +96,7 @@ const menuItem = (selectedKeys: string[], onClick: (values: any) => void) => {
         <Menu.Item
           onClick={onClick}
           key={item.key}
-          icon={item.icon(selectedKeys === [item.key])}
+          icon={item.icon(selectedKeys.indexOf(item.key) > -1)}
         >
           {item.name}
         </Menu.Item>
@@ -115,7 +118,9 @@ function KSider(): React.ReactElement {
 
   return (
     <div>
-      <div className={styles.logo} />
+      <div className={styles.logo}>
+        <img src={`/images/logo.svg`} width="164" height="35" />
+      </div>
       <Menu
         className={styles.menu}
         mode="inline"
