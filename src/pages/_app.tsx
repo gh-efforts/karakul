@@ -41,9 +41,9 @@ class MyApp extends App<{ cookie: any }> {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="theme-color" content="#000000" />
           <link rel="manifest" href="/manifest.json" />
-          <meta name="description" content="方舟数据中心管理后台" />
+          <meta name="description" content="字节方舟生产流程管理后台" />
           <link rel="apple-touch-icon" href="/logo192.png" />
-          <title>方舟数据中心管理后台</title>
+          <title>字节方舟生产流程管理后台</title>
           <link rel="stylesheet" href="/css/nprogress.css" />
           <meta name="version-control" content={BUILD_HASH} />
         </Head>
