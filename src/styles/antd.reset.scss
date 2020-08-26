@@ -59,6 +59,12 @@
   border: none !important;
 }
 
+.ant-btn-icon-only.ant-btn-lg {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 6px !important;
+}
+
 .ant-btn-primary {
   color: #fff;
   background: #00B2B6 !important;
@@ -66,4 +72,8 @@
   text-shadow: 0 -1px 0 rgba(0, 87, 89, 0.12);
   box-shadow: 0px 8px 12px rgba(0, 87, 89, 0.1) !important;
   border-radius: 6px !important;
+}
+
+.ant-btn-lg {
+  height: 48px !important;
 }
