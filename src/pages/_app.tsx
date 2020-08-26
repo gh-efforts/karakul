@@ -2,7 +2,7 @@ import React from "react";
 import App, { AppContext } from "next/app";
 import Head from "next/head";
 import NProgress from "nprogress";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import ZhCN from "antd/lib/locale/zh_CN";
 import { ConfigProvider } from "antd";
 import getConfig from "next/config";
@@ -20,6 +20,13 @@ const {
 } = getConfig();
 
 class MyApp extends App<{ cookie: any }> {
+  componentDidMount() {
+    const { asPath, query } = Router;
+    if (asPath.indexOf("/connect/feishu/redirect") > -1) {
+      Router.push({ pathname: "/login", query });
+    }
+  }
+
   static getInitialProps = async (appContext: AppContext) => {
     const request = appContext.ctx.req;
 
