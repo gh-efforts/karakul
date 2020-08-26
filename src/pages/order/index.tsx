@@ -1,8 +1,11 @@
 import React from "react";
 import { withLayout } from "../../layout";
-import { Tag, Space } from "antd";
+import { Tag, Space, Button } from "antd";
 import KTable from "../../components/table";
 import styles from "./index.module.scss";
+import SubHeader from "../../components/sub-header";
+import { PlusOutlined } from "@ant-design/icons";
+import Svg from "../../components/Svg";
 function Order() {
   const columns = [
     {
@@ -78,6 +81,15 @@ function Order() {
   ];
   return (
     <div className={styles.order}>
+      <SubHeader title="订单">
+        <Button type="primary" icon={<PlusOutlined />} size="large">
+          创建订单
+        </Button>
+        <Button
+          icon={<Svg name="ico-search-h" offsetX="-2" offsetY="2" />}
+          size="large"
+        />
+      </SubHeader>
       <KTable
         columns={columns}
         data={data}
