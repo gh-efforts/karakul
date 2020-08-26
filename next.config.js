@@ -14,7 +14,7 @@ const withCssLoader = require('./cssloder.js')
 const modifyVars = lessToJs(fs.readFileSync('./antd.value.less', 'utf8'))
 
 if (typeof require !== 'undefined') {
-  require.extensions['.less'] = file => {}
+  require.extensions['.less'] = file => { }
 }
 
 let BUILD_HASH = 'BUILD_HASH'
@@ -26,7 +26,6 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = withCssLoader({
   publicRuntimeConfig: {
     ENDPOINT: process.env.ENDPOINT,
-    ENDPOINT_JOB: process.env.ENDPOINT_JOB,
     BUILD_HASH,
   },
   lessLoaderOptions: {
@@ -55,6 +54,7 @@ module.exports = withCssLoader({
         use: 'null-loader',
       })
     }
+
 
     // replace antd moment with dayjs
     config.plugins.push(new AntdDayjsWebpackPlugin())
