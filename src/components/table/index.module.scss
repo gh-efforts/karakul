@@ -1,7 +1,7 @@
 .table-page {
     background: #fff;
     display: grid;
-    height: 100%;
+    height: calc(100% - 72px);
     padding: 0 20px;
     grid-template-rows: 1fr 60px;
 }
