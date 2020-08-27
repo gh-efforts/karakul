@@ -1,3 +1,3 @@
 // pages/index.js
 
-export { default } from "./order";
+export { default } from './order'
