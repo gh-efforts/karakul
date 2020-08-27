@@ -12,6 +12,8 @@ import '../styles/antd.reset.scss'
 import { GlobalModalProvider } from '../components'
 import { ApolloProvider } from '@apollo/client'
 import { client } from '../services'
+import { parseCookie, CookieType } from '../helpers/cookie'
+import { CookieDataCtx } from '../components/GlobalCookieData'
 
 NProgress.configure({ showSpinner: true })
 Router.events.on('routeChangeStart', () => NProgress.start())
@@ -22,7 +24,12 @@ const {
   publicRuntimeConfig: { BUILD_HASH },
 } = getConfig()
 
-class MyApp extends App {
+interface TAppInitialProps extends AppInitialProps {
+  cookie: CookieType
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+class MyApp extends App<{ cookie: any }> {
   componentDidMount(): void {
     const { asPath, query } = Router
     if (asPath.indexOf('/connect/feishu/redirect') > -1) {
@@ -30,19 +37,20 @@ class MyApp extends App {
     }
   }
 
-  static getInitialProps = async (appContext: AppContext): Promise<AppInitialProps> => {
-    // const request = appContext.ctx.req
+  static getInitialProps = async (appContext: AppContext): Promise<TAppInitialProps> => {
+    const request = appContext.ctx.req
 
     // Call the page's `getInitialProps` and fill `appProps.pageProps`
     const appProps = await App.getInitialProps(appContext)
 
     return {
       ...appProps,
+      cookie: parseCookie(request?.headers.cookie),
     }
   }
 
   render(): React.ReactElement {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps, cookie } = this.props
 
     return (
       <>
@@ -60,7 +68,9 @@ class MyApp extends App {
         <ApolloProvider client={client}>
           <ConfigProvider locale={ZhCN}>
             <GlobalModalProvider>
-              <Component {...pageProps} />
+              <CookieDataCtx.Provider value={cookie}>
+                <Component {...pageProps} />
+              </CookieDataCtx.Provider>
             </GlobalModalProvider>
           </ConfigProvider>
         </ApolloProvider>
