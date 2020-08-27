@@ -10,6 +10,8 @@ import getConfig from 'next/config'
 import '../styles/global.scss'
 import '../styles/antd.reset.scss'
 import { GlobalModalProvider } from '../components'
+import { ApolloProvider } from '@apollo/client'
+import { client } from '../services'
 
 NProgress.configure({ showSpinner: true })
 Router.events.on('routeChangeStart', () => NProgress.start())
@@ -55,12 +57,13 @@ class MyApp extends App {
           <link rel='stylesheet' href='/css/nprogress.css' />
           <meta name='version-control' content={BUILD_HASH} />
         </Head>
-
-        <ConfigProvider locale={ZhCN}>
-          <GlobalModalProvider>
-            <Component {...pageProps} />
-          </GlobalModalProvider>
-        </ConfigProvider>
+        <ApolloProvider client={client}>
+          <ConfigProvider locale={ZhCN}>
+            <GlobalModalProvider>
+              <Component {...pageProps} />
+            </GlobalModalProvider>
+          </ConfigProvider>
+        </ApolloProvider>
       </>
     )
   }
