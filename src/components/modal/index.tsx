@@ -1,48 +1,41 @@
-import React, {
-  Component,
-  createContext,
-  ComponentType,
-  useContext,
-} from "react";
-import { Modal, Button } from "antd";
+import React, { Component, createContext, ComponentType, useContext } from 'react'
+import { Modal, Button } from 'antd'
 
-export type ShowModal<T> = (
-  title: string,
-  component: ComponentType<T>,
-  props: T
-) => void;
+export type ShowModal<T> = (title: string, component: ComponentType<T>, props: T) => void
 
-export type CancelModalProps = { onSuccess?: () => void };
+export type CancelModalProps = { onSuccess?: () => void }
 
 export interface GlobalModalState<T> {
-  showModal: ShowModal<T>;
-  hideModal: () => void;
+  showModal: ShowModal<T>
+  hideModal: () => void
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const GlobalModalContext = createContext<GlobalModalState<any>>({
-  showModal: () => {},
-  hideModal: () => {},
-});
+  showModal: () => {
+    return false
+  },
+  hideModal: () => {
+    return false
+  },
+})
 
 interface GlobalModalProviderState<T> {
-  component: ComponentType<T> | null;
-  props: T;
-  title: string;
-  visiable: boolean;
+  component: ComponentType<T> | null
+  props: T
+  title: string
+  visiable: boolean
 }
 
-export class GlobalModalProvider<T> extends Component<
-  any,
-  GlobalModalProviderState<T>
-> {
-  constructor(props: any) {
-    super(props);
+export class GlobalModalProvider<T, P> extends Component<P, GlobalModalProviderState<T>> {
+  constructor(props: P) {
+    super(props)
     this.state = {
-      title: "",
+      title: '',
       visiable: false,
       props: {} as T,
       component: null,
-    };
+    }
   }
 
   showModal: ShowModal<T> = (title, component, props) => {
@@ -51,20 +44,20 @@ export class GlobalModalProvider<T> extends Component<
       props,
       visiable: true,
       component,
-    });
-  };
+    })
+  }
 
-  hideModal = () =>
+  hideModal: () => void = () =>
     this.setState({
-      title: "",
+      title: '',
       visiable: false,
       props: {} as T,
       component: null,
-    });
+    })
 
-  render() {
-    const { visiable, component: ModalView, title, props } = this.state;
-    const { children } = this.props;
+  render(): React.ReactElement {
+    const { visiable, component: ModalView, title, props } = this.state
+    const { children } = this.props
 
     return (
       <GlobalModalContext.Provider
@@ -86,36 +79,31 @@ export class GlobalModalProvider<T> extends Component<
         </Modal>
         {children}
       </GlobalModalContext.Provider>
-    );
+    )
   }
 }
 
-export const GlobalModalConsumer = GlobalModalContext.Consumer;
+export const GlobalModalConsumer = GlobalModalContext.Consumer
 
-export function CancelButton({ primary }: { primary?: boolean }) {
+export function CancelButton({ primary }: { primary?: boolean }): React.ReactElement {
   return (
     <GlobalModalConsumer>
       {({ hideModal }) => {
         return primary ? (
-          <Button
-            shape="round"
-            htmlType="button"
-            type="primary"
-            onClick={hideModal}
-          >
+          <Button shape='round' htmlType='button' type='primary' onClick={hideModal}>
             确定
           </Button>
         ) : (
-          <Button shape="round" htmlType="button" onClick={hideModal}>
+          <Button shape='round' htmlType='button' onClick={hideModal}>
             取消
           </Button>
-        );
+        )
       }}
     </GlobalModalConsumer>
-  );
+  )
 }
 
-export function useGlobalModal() {
-  const ctx = useContext(GlobalModalContext);
-  return ctx;
+export function useGlobalModal<T>(): GlobalModalState<T> {
+  const ctx = useContext(GlobalModalContext)
+  return ctx
 }

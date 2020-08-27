@@ -1,13 +1,13 @@
-import React from "react";
-import { Layout } from "antd";
-import styles from "./index.module.scss";
-import KSider from "./sider";
-import KHeader from "./header";
+import React from 'react'
+import { Layout } from 'antd'
+import styles from './index.module.scss'
+import KSider from './sider'
+import KHeader from './header'
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Content } = Layout
 
 interface LayoutProps {
-  children?: any;
+  children?: React.ReactNode
 }
 
 function KLayout({ children }: LayoutProps): React.ReactElement {
@@ -23,17 +23,17 @@ function KLayout({ children }: LayoutProps): React.ReactElement {
         <Content className={styles.content}>{children}</Content>
       </Layout>
     </Layout>
-  );
+  )
 }
 
 export function withLayout<T>(Component: React.ComponentType<T>) {
-  return function WithLayout(props: T) {
+  return function WithLayout(props: T): React.ReactElement {
     return (
       <KLayout>
         <Component {...(props || ({} as T))} />
       </KLayout>
-    );
-  };
+    )
+  }
 }
 
-export default KLayout;
+export default KLayout
