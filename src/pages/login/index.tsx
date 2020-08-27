@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Link from 'next/link'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
+import { setLocalCookie, setLocalStorage } from 'src/helpers/cookie'
 export default function Login(): React.ReactElement {
   const {
     publicRuntimeConfig: { ENDPOINT },
@@ -19,10 +20,8 @@ export default function Login(): React.ReactElement {
       })
       .then(res => res.json())
       .then(res => {
-        // Successfully logged with Strapi
-        // Now saving the jwt to use it for future authenticated requests to Strapi
-        localStorage.setItem('jwt', res.jwt)
-        localStorage.setItem('user', res.user)
+        setLocalCookie('token', `Bearer${res.jwt}` || '')
+        setLocalStorage('user', JSON.stringify(res.user) || '')
 
         setTimeout(() => router.push('/'), 3000) // Redirect to homepage after 3 sec
       })

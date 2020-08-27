@@ -4,8 +4,8 @@
   padding-right: 30px;
   height: 72px;
   .user {
-    width: 200px;
     display: grid;
+    grid-column-gap: 20px;
     grid-template-columns: 40px 1fr 32px;
     align-items: center;
   }
