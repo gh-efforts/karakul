@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Layout } from "antd";
-import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import styles from "./index.module.scss";
 import KSider from "./sider";
 import KHeader from "./header";
@@ -12,8 +11,6 @@ interface LayoutProps {
 }
 
 function KLayout({ children }: LayoutProps): React.ReactElement {
-  const [collapsed, setCollapsed] = useState(false);
-
   return (
     <Layout className={styles.layout}>
       <Sider className={styles.sider}>

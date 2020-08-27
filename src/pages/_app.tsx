@@ -2,13 +2,14 @@ import React from "react";
 import App, { AppContext } from "next/app";
 import Head from "next/head";
 import NProgress from "nprogress";
-import Router, { useRouter } from "next/router";
+import Router from "next/router";
 import ZhCN from "antd/lib/locale/zh_CN";
 import { ConfigProvider } from "antd";
 import getConfig from "next/config";
 
 import "../styles/global.scss";
 import "../styles/antd.reset.scss";
+import { GlobalModalProvider } from "../components";
 
 NProgress.configure({ showSpinner: true });
 Router.events.on("routeChangeStart", () => NProgress.start());
@@ -56,7 +57,9 @@ class MyApp extends App<{ cookie: any }> {
         </Head>
 
         <ConfigProvider locale={ZhCN}>
-          <Component {...pageProps} />
+          <GlobalModalProvider>
+            <Component {...pageProps} />
+          </GlobalModalProvider>
         </ConfigProvider>
       </>
     );

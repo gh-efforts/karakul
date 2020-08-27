@@ -27,7 +27,7 @@
 .ant-pagination-disabled .ant-pagination-item-link,
 .ant-pagination-disabled:hover .ant-pagination-item-link,
 .ant-pagination-disabled:focus .ant-pagination-item-link {
-  background: #F3FBFB;
+  background: #f3fbfb;
   border: 1px solid rgba(0, 178, 182, 0.5) !important;
   color: rgba(0, 178, 182, 0.5) !important;
   border-radius: 8px !important;
@@ -45,7 +45,7 @@
   border-radius: 8px !important;
 
   a {
-    background: #00B2B6;
+    background: #00b2b6;
     color: #fff !important;
     border-radius: 8px !important;
   }
@@ -53,7 +53,7 @@
 
 // button
 .ant-btn-icon-only {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 8px 12px rgba(0, 87, 89, 0.05) !important;
   border-radius: 6px;
   border: none !important;
@@ -67,8 +67,8 @@
 
 .ant-btn-primary {
   color: #fff;
-  background: #00B2B6 !important;
-  border-color: #00B2B6 !important;
+  background: #00b2b6 !important;
+  border-color: #00b2b6 !important;
   text-shadow: 0 -1px 0 rgba(0, 87, 89, 0.12);
   box-shadow: 0px 8px 12px rgba(0, 87, 89, 0.1) !important;
   border-radius: 6px !important;
@@ -76,4 +76,23 @@
 
 .ant-btn-lg {
   height: 48px !important;
+}
+
+// modal
+.ant-modal-content {
+  border-radius: 8px !important;
+}
+.ant-modal-header {
+  padding: 16px 24px;
+  color: #fff !important;
+  background: #00b2b6 !important;
+  border-bottom: 0px !important;
+  border-radius: 8px 8px 0 0 !important;
+}
+.ant-modal-body {
+  background: #f3fbfb !important;
+}
+.ant-modal-title,
+.ant-modal-close-icon {
+  color: #fff !important;
 }

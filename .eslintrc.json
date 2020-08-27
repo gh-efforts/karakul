@@ -1,3 +1,78 @@
 {
-  "extends": ["like", "like/typescript", "like/react"]
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "prettier",
+    "like",
+    "like/typescript",
+    "like/react"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint"],
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".js", ".jsx", ".tsx", ".ts"] }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "tsx": "never",
+        "ts": "never"
+      }
+    ],
+    "jsx-a11y/click-events-have-key-events": 0,
+    "import/prefer-default-export": 0,
+    "import/no-unresolved": 0,
+    "jsx-a11y/interactive-supports-focus": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/require-default-props": 0
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": [2, { "args": "none" }]
+      }
+    },
+    {
+      "files": ["*.test.ts", "*.test.tsx"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": [2, { "args": "none" }],
+        "import/no-extraneous-dependencies": "off",
+        "no-console": "off"
+      }
+    },
+    {
+      "files": ["**/*.test.ts", "**/*.test.tsx", "setupTest.ts"],
+      "env": {
+        "jest": true
+      }
+    }
+  ],
+  "settings": {
+    "import/extensions": [".ts", ".tsx"],
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
+      }
+    }
+  }
 }

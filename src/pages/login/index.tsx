@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import getConfig from "next/config";
 import { useRouter } from "next/router";
-import { isArray, isObject } from "util";
 export default function Login() {
   const {
     publicRuntimeConfig: { ENDPOINT },

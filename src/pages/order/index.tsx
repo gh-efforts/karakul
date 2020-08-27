@@ -1,12 +1,15 @@
 import React from "react";
 import { withLayout } from "../../layout";
 import { Tag, Space, Button } from "antd";
-import KTable from "../../components/table";
 import styles from "./index.module.scss";
-import SubHeader from "../../components/sub-header";
 import { PlusOutlined } from "@ant-design/icons";
-import Svg from "../../components/Svg";
-function Order() {
+import { SubHeader, Svg, KTable, useGlobalModal } from "../../components";
+
+function CreateModalView(): React.ReactElement {
+  return <div>模态框</div>;
+}
+
+function Order(): React.ReactElement {
   const columns = [
     {
       title: "Name",
@@ -79,10 +82,25 @@ function Order() {
       tags: ["cool", "teacher"],
     },
   ];
+
+  const { showModal, hideModal } = useGlobalModal();
+  const showCreateModal = () => {
+    showModal("新建动作", CreateModalView, {
+      onSuccess: () => {
+        hideModal();
+      },
+    });
+  };
+
   return (
     <div className={styles.order}>
       <SubHeader title="订单">
-        <Button type="primary" icon={<PlusOutlined />} size="large">
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          size="large"
+          onClick={showCreateModal}
+        >
           创建订单
         </Button>
         <Button
@@ -99,4 +117,5 @@ function Order() {
     </div>
   );
 }
+
 export default withLayout(Order);
