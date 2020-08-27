@@ -1,7 +1,8 @@
+import React from "react";
 import styles from "./index.module.scss";
 import { Avatar, Button } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import Svg from "../../components/Svg";
+import { Svg } from "../../components";
 import { useRouter } from "next/router";
 
 function KHeader() {

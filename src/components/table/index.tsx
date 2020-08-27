@@ -1,3 +1,4 @@
+import React from "react";
 import { Table, Pagination } from "antd";
 import { ColumnProps } from "antd/lib/table";
 import { TableRowSelection } from "antd/lib/table/interface";
@@ -21,7 +22,7 @@ interface DataTableProps<T extends object = any> {
 function KTable<T extends object = any>(
   props: DataTableProps<T>
 ): React.ReactElement {
-  const { data, total, pageSize, currentPage } = props;
+  const { data, total, pageSize, currentPage, onPageChange } = props;
   return (
     <div className={styles["table-page"]}>
       <Table<T>
@@ -29,7 +30,7 @@ function KTable<T extends object = any>(
         dataSource={data}
         className={styles.table}
         pagination={false}
-        rowKey={(_item, _index) => "tableRow" + _index}
+        rowKey={(_item, _index) => "tableRow" + _item}
       />
       <div className={styles.pagination}>
         <span>共{total}条记录</span>
@@ -38,6 +39,7 @@ function KTable<T extends object = any>(
           showSizeChanger
           pageSize={pageSize ?? 20}
           current={currentPage ?? 1}
+          onChange={onPageChange}
         />
       </div>
     </div>

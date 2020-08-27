@@ -1,7 +1,7 @@
+import React, { useState, useEffect } from "react";
 import { Menu } from "antd";
 import styles from "./index.module.scss";
-import Svg from "../../components/Svg";
-import React, { useState, useEffect } from "react";
+import { Svg } from "../../components";
 import { useRouter } from "next/router";
 const { SubMenu } = Menu;
 const OrderSvg = (color: string) => (
