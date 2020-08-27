@@ -14,8 +14,7 @@
     "lint:tsx": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.+(js|jsx|ts|tsx|json|yml|yaml|scss|less|css|md)\"",
     "schema:update": "env-cmd -f .env.development graphql-codegen --config src/services/codegen.dev.yml",
-    "schema:base": "graphql-codegen --config src/services/codegen.local.yml",
-    "schema": "npm-run-all schema:base schema:job"
+    "schema": "graphql-codegen --config src/services/codegen.local.yml"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
@@ -33,6 +32,7 @@
     "next": "^9.5.2",
     "node-sass": "^4.14.1",
     "nprogress": "^0.2.0",
+    "null-loader": "^4.0.0",
     "object-hash": "^2.0.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

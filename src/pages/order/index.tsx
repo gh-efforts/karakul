@@ -1,26 +1,22 @@
 import React from 'react'
-import { withLayout } from '../../layout'
 import { Button } from 'antd'
-import styles from './index.module.scss'
 import { PlusOutlined } from '@ant-design/icons'
+
+import { withLayout } from '../../layout'
 import { SubHeader, Svg, KTable, useGlobalModal } from '../../components'
+
+import columns, { TOrder } from './columns'
+
+import styles from './index.module.scss'
 
 function CreateModalView(): React.ReactElement {
   return <div>模态框</div>
 }
 
 function Order(): React.ReactElement {
-  const nameRender = (text: string): React.ReactElement => <span>{text}</span>
-  const columns = [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      render: nameRender,
-    },
+  const data: TOrder[] = [
+    { id: 'useGlobalModaluseGlobalModaluseGlobalModaluseGlobalModaluseGlobalModaluseGlobalModal' },
   ]
-
-  const data = [{}]
 
   const { showModal, hideModal } = useGlobalModal()
   const showCreateModal = () => {
@@ -39,7 +35,7 @@ function Order(): React.ReactElement {
         </Button>
         <Button icon={<Svg name='ico-search-h' offsetX='-2' offsetY='2' />} size='large' />
       </SubHeader>
-      <KTable columns={columns} data={data} currentPage={1} total={data.length} />
+      <KTable columns={columns} data={data} currentPage={1} total={data.length} rowKey='id' />
     </div>
   )
 }
