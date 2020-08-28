@@ -2,8 +2,7 @@ import React from 'react'
 import { Button } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 
-import { SubHeader, useGlobalModal } from '../../../../components'
-import FlexibleInput from '../../../../components/flexible-input'
+import { SubHeader, useGlobalModal, FlexibleInput } from '../../../../components'
 import CreateModalView from '../modal/create-modal'
 
 function OrderHeader() {

@@ -70,9 +70,6 @@
     ],
     "src/**/*.{ts,tsx}": [
       "npm run lint:tsx"
-    ],
-    "src/**/*.*ss": [
-      "npm run lint:css"
     ]
   },
   "husky": {

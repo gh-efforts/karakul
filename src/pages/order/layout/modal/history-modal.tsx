@@ -1,7 +1,6 @@
 import React from 'react'
 
-import SearchInput from '../../../../components/search-input'
-import { KTable } from '../../../../components'
+import { KTable, SearchInput } from '../../../../components'
 import { TOrder } from '../../order'
 import columns from '../columns'
 

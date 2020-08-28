@@ -2,12 +2,11 @@ import React from 'react'
 import { ClockCircleOutlined, FileAddOutlined, EditOutlined } from '@ant-design/icons'
 import { Tooltip } from 'antd'
 
-import { ColumnProps } from '../../../components/table'
 import EditModalView, { EditModalViewProps } from './modal/edit-modal'
 import HistoryModalView from './modal/history-modal'
 
 import type { TOrder } from '../order.d'
-import { useGlobalModal } from 'src/components'
+import { useGlobalModal, ColumnProps } from 'src/components'
 
 function EditButton({ order }: EditModalViewProps) {
   const { showModal } = useGlobalModal()

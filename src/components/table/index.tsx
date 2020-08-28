@@ -5,8 +5,6 @@ import { TableRowSelection } from 'antd/lib/table/interface'
 
 import styles from './index.module.scss'
 
-export type { ColumnProps }
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface DataTableProps<T extends any> extends TableProps<T> {
   data: T[]
