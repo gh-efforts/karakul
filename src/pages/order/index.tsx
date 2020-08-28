@@ -1,45 +1,35 @@
 import React from 'react'
-import { withLayout } from '../../layout'
-import { Button } from 'antd'
-import styles from './index.module.scss'
-import { PlusOutlined } from '@ant-design/icons'
-import { SubHeader, Svg, KTable, useGlobalModal } from '../../components'
 
-function CreateModalView(): React.ReactElement {
-  return <div>模态框</div>
-}
+import { withLayout } from '../../layout'
+import { KTable } from '../../components'
+
+import columns, { TOrder } from './layout/columns'
+import OrderHeader from './layout/header'
+
+import styles from './index.module.scss'
 
 function Order(): React.ReactElement {
-  const nameRender = (text: string): React.ReactElement => <span>{text}</span>
-  const columns = [
+  const data: TOrder[] = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      render: nameRender,
+      id: 'id',
+      created_at: 'created_at',
+      updated_at: 'updated_at',
+      detail: 'detail',
+      amount: 10,
+      delivery_time: 'delivery_time',
+      created_by: {
+        username: 'created_by',
+      },
+      updated_by: {
+        username: 'updated_by',
+      },
     },
   ]
 
-  const data = [{}]
-
-  const { showModal, hideModal } = useGlobalModal()
-  const showCreateModal = () => {
-    showModal('新建动作', CreateModalView, {
-      onSuccess: () => {
-        hideModal()
-      },
-    })
-  }
-
   return (
     <div className={styles.order}>
-      <SubHeader title='订单'>
-        <Button type='primary' icon={<PlusOutlined />} size='large' onClick={showCreateModal}>
-          创建订单
-        </Button>
-        <Button icon={<Svg name='ico-search-h' offsetX='-2' offsetY='2' />} size='large' />
-      </SubHeader>
-      <KTable columns={columns} data={data} currentPage={1} total={data.length} />
+      <OrderHeader />
+      <KTable<TOrder> columns={columns} data={data} currentPage={1} total={data.length} rowKey='id' />
     </div>
   )
 }

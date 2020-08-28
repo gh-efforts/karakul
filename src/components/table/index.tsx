@@ -1,10 +1,14 @@
 import React from 'react'
 import { Table, Pagination } from 'antd'
-import { ColumnProps } from 'antd/lib/table'
+import { ColumnProps, TableProps } from 'antd/lib/table'
 import { TableRowSelection } from 'antd/lib/table/interface'
+
 import styles from './index.module.scss'
+
+export type { ColumnProps }
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-interface DataTableProps<T extends any> {
+interface DataTableProps<T extends any> extends TableProps<T> {
   data: T[]
   loading?: boolean
   columns: ColumnProps<T>[]
@@ -24,6 +28,7 @@ interface DataTableProps<T extends any> {
 // eslint-disable-next-line @typescript-eslint/ban-types
 function KTable<T extends object>(props: DataTableProps<T>): React.ReactElement {
   const { data, total, pageSize, currentPage, onPageChange } = props
+
   return (
     <div className={styles['table-page']}>
       <Table<T> {...props} dataSource={data} className={styles.table} pagination={false} />
