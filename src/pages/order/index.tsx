@@ -3,8 +3,9 @@ import React from 'react'
 import { withLayout } from '../../layout'
 import { KTable } from '../../components'
 
-import columns, { TOrder } from './layout/columns'
+import columns from './layout/columns'
 import OrderHeader from './layout/header'
+import type { TOrder } from './order.d'
 
 import styles from './index.module.scss'
 

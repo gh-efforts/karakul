@@ -2,9 +2,9 @@ import React from 'react'
 import { EditOutlined, ClockCircleOutlined, FileAddOutlined } from '@ant-design/icons'
 
 import { ColumnProps } from '../../../components/table'
-import { OrderQuery } from '../../../services'
+import EditButton from './modal/edit-modal'
 
-export type TOrder = NonNullable<OrderQuery['order']>
+import type { TOrder } from '../order.d'
 
 const columns: ColumnProps<TOrder>[] = [
   {
@@ -43,10 +43,10 @@ const columns: ColumnProps<TOrder>[] = [
   {
     title: '操作',
     width: 160,
-    render() {
+    render(_, order) {
       return (
         <span className='table-operation-group'>
-          <EditOutlined style={{ color: '#FF9C7C' }} />
+          <EditButton order={order} />
           <ClockCircleOutlined style={{ color: '#FFC01F' }} />
           <FileAddOutlined style={{ color: '#00B2B6' }} />
         </span>

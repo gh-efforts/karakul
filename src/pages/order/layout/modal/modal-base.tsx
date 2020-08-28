@@ -1,23 +1,25 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { Form, Input, DatePicker, InputNumber } from 'antd'
 import type { Store } from 'antd/lib/form/interface'
+import moment from 'moment'
 
 import { ModalButtonGroup } from '../../../../components'
 import styles from './index.module.scss'
 
 interface OrderFormVal {
-  detail: string
-  amount: number
-  time: string
+  detail?: string | null | undefined
+  amount?: number | null | undefined
+  time?: string | null | undefined
 }
 
 interface ModalBase {
   OKText: string
   onOK: (val: OrderFormVal) => void
   loading?: boolean
+  initialValues?: OrderFormVal
 }
 
-function ModalBase({ onOK, OKText, loading }: ModalBase) {
+function ModalBase({ onOK, OKText, loading, initialValues }: ModalBase) {
   const onFinish = ({ detail, amount, time }: Store) => {
     onOK({
       detail,
@@ -34,6 +36,16 @@ function ModalBase({ onOK, OKText, loading }: ModalBase) {
     return parseInt(`${value}`.replace(/[^0-9.]/g, '')) || 0
   }, [])
 
+  const initialVals = useMemo(() => {
+    const { detail, amount, time } = initialValues || {}
+
+    return {
+      detail,
+      amount,
+      time: moment(time),
+    }
+  }, [initialValues])
+
   return (
     <div className={styles.box}>
       <div className={styles.title}>
@@ -42,7 +54,7 @@ function ModalBase({ onOK, OKText, loading }: ModalBase) {
         <span>交付时间</span>
       </div>
 
-      <Form className={styles.form} onFinish={onFinish}>
+      <Form className={styles.form} onFinish={onFinish} initialValues={initialVals}>
         <Form.Item name='detail'>
           <Input placeholder='请输入详情' allowClear />
         </Form.Item>
