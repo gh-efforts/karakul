@@ -1,8 +1,8 @@
 import React from 'react'
 import { EditOutlined, ClockCircleOutlined, FileAddOutlined } from '@ant-design/icons'
 
-import { ColumnProps } from '../../components/table'
-import { OrderQuery } from '../../services'
+import { ColumnProps } from '../../../components/table'
+import { OrderQuery } from '../../../services'
 
 export type TOrder = NonNullable<OrderQuery['order']>
 

@@ -3,20 +3,12 @@ import { Button } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 
 import { withLayout } from '../../layout'
-import { SubHeader, Svg, KTable, useGlobalModal, ModalButtonGroup } from '../../components'
+import { SubHeader, Svg, KTable, useGlobalModal } from '../../components'
 
-import columns, { TOrder } from './columns'
+import columns, { TOrder } from './layout/columns'
+import CreateModalView from './layout/modal/create-modal'
 
 import styles from './index.module.scss'
-
-function CreateModalView(): React.ReactElement {
-  return (
-    <div>
-      模态框
-      <ModalButtonGroup />
-    </div>
-  )
-}
 
 function Order(): React.ReactElement {
   const data: TOrder[] = [
@@ -36,13 +28,10 @@ function Order(): React.ReactElement {
     },
   ]
 
-  const { showModal, hideModal } = useGlobalModal()
+  const { showModal } = useGlobalModal()
+
   const showCreateModal = () => {
-    showModal('新建动作', CreateModalView, {
-      onSuccess: () => {
-        hideModal()
-      },
-    })
+    showModal('创建订单', CreateModalView, {})
   }
 
   return (

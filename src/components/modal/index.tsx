@@ -110,13 +110,14 @@ export interface ModalButtonGroupProps {
   onOK?: () => void
   loading?: boolean
   position?: 'left' | 'center' | 'right'
+  className?: string
 }
-export function ModalButtonGroup({ OKText, onOK, loading, position = 'center' }: ModalButtonGroupProps) {
+export function ModalButtonGroup({ OKText, onOK, loading, className, position = 'center' }: ModalButtonGroupProps) {
   return (
     <GlobalModalConsumer>
       {({ hideModal }) => {
         return (
-          <div className={`${styles.btns} ${styles[`btns-${position}`]}`}>
+          <div className={`${styles.btns} ${styles[`btns-${position}`]} ${className ?? ''}`}>
             <Button shape='round' size='large' htmlType='button' type='primary' loading={loading} onClick={onOK}>
               {OKText ?? '确定'}
             </Button>
