@@ -15,7 +15,21 @@ function CreateModalView(): React.ReactElement {
 
 function Order(): React.ReactElement {
   const data: TOrder[] = [
-    { id: 'useGlobalModaluseGlobalModaluseGlobalModaluseGlobalModaluseGlobalModaluseGlobalModal' },
+    {
+      id: 'id',
+      created_at: 'created_at',
+
+      updated_at: 'updated_at',
+      detail: 'detail',
+      amount: 10,
+      delivery_time: 'delivery_time',
+      created_by: {
+        username: 'created_by',
+      },
+      updated_by: {
+        username: 'updated_by',
+      },
+    },
   ]
 
   const { showModal, hideModal } = useGlobalModal()
@@ -35,7 +49,7 @@ function Order(): React.ReactElement {
         </Button>
         <Button icon={<Svg name='ico-search-h' offsetX='-2' offsetY='2' />} size='large' />
       </SubHeader>
-      <KTable columns={columns} data={data} currentPage={1} total={data.length} rowKey='id' />
+      <KTable<TOrder> columns={columns} data={data} currentPage={1} total={data.length} rowKey='id' />
     </div>
   )
 }

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import styles from './index.module.scss'
 import { Avatar, Button } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
-import { Svg } from '../../components'
 import { useRouter } from 'next/router'
+
 import { getLocalStore, clearLocalStorage, clearLocalCookie } from '../../helpers/cookie'
+import { Svg } from '../../components'
+import styles from './index.module.scss'
+
 interface User {
   username: string
   avatar: string
@@ -18,14 +20,17 @@ function KHeader(): React.ReactElement {
     router.replace('/login')
   }
   const [user, setUser] = useState<User>({
-    username: 'admin',
+    username: '',
     avatar: '',
     id: '',
   })
+
   useEffect(() => {
-    const user: User = JSON.parse(getLocalStore('user') ?? '')
-    setUser(user)
-  }, [user])
+    try {
+      const user: User = JSON.parse(getLocalStore('user') || '')
+      setUser(user)
+    } catch {}
+  }, [])
 
   return (
     <div className={styles.header}>

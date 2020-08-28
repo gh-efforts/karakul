@@ -1,4 +1,21 @@
-query Orders($id: ID!) {
+query Orders($sort: String, $limit: Int, $start: Int, $where: JSON) {
+  orders(sort: $sort, limit: $limit, start: $start, where: $where) {
+    id
+    created_at
+    updated_at
+    detail
+    amount
+    delivery_time
+    created_by {
+      username
+    }
+    updated_by {
+      username
+    }
+  }
+}
+
+query Order($id: ID!) {
   order(id: $id) {
     id
     created_at
@@ -6,5 +23,11 @@ query Orders($id: ID!) {
     detail
     amount
     delivery_time
+    created_by {
+      username
+    }
+    updated_by {
+      username
+    }
   }
 }
