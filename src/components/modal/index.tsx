@@ -1,6 +1,8 @@
 import React, { Component, createContext, ComponentType, useContext } from 'react'
 import { Modal, Button } from 'antd'
 
+import styles from './index.module.scss'
+
 export type ShowModal<T> = (title: string, component: ComponentType<T>, props: T) => void
 
 export type CancelModalProps = { onSuccess?: () => void }
@@ -97,6 +99,31 @@ export function CancelButton({ primary }: { primary?: boolean }): React.ReactEle
           <Button shape='round' htmlType='button' onClick={hideModal}>
             取消
           </Button>
+        )
+      }}
+    </GlobalModalConsumer>
+  )
+}
+
+export interface ModalButtonGroupProps {
+  OKText?: string
+  onOK?: () => void
+  loading?: boolean
+  position?: 'left' | 'center' | 'right'
+}
+export function ModalButtonGroup({ OKText, onOK, loading, position = 'center' }: ModalButtonGroupProps) {
+  return (
+    <GlobalModalConsumer>
+      {({ hideModal }) => {
+        return (
+          <div className={`${styles.btns} ${styles[`btns-${position}`]}`}>
+            <Button shape='round' size='large' htmlType='button' type='primary' loading={loading} onClick={onOK}>
+              {OKText ?? '确定'}
+            </Button>
+            <Button shape='round' size='large' htmlType='button' type='default' onClick={hideModal}>
+              取消
+            </Button>
+          </div>
         )
       }}
     </GlobalModalConsumer>

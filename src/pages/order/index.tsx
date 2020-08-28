@@ -3,14 +3,19 @@ import { Button } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 
 import { withLayout } from '../../layout'
-import { SubHeader, Svg, KTable, useGlobalModal } from '../../components'
+import { SubHeader, Svg, KTable, useGlobalModal, ModalButtonGroup } from '../../components'
 
 import columns, { TOrder } from './columns'
 
 import styles from './index.module.scss'
 
 function CreateModalView(): React.ReactElement {
-  return <div>模态框</div>
+  return (
+    <div>
+      模态框
+      <ModalButtonGroup />
+    </div>
+  )
 }
 
 function Order(): React.ReactElement {
@@ -18,7 +23,6 @@ function Order(): React.ReactElement {
     {
       id: 'id',
       created_at: 'created_at',
-
       updated_at: 'updated_at',
       detail: 'detail',
       amount: 10,
