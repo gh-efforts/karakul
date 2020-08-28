@@ -1,0 +1,37 @@
+.search {
+  :global {
+    .ant-input {
+      &,
+      &:focus,
+      &:hover {
+        border: none;
+        box-shadow: none;
+        height: 38px;
+      }
+    }
+
+    .ant-input-group-addon {
+      border: none;
+      padding: 0;
+      background-color: #fff;
+    }
+
+    .ant-input-group {
+      height: 40px;
+      border-radius: 6px;
+      border: 1px solid #fff;
+      box-shadow: 0px 8px 12px rgba(0, 87, 89, 0.05);
+      transition: all 0.3s;
+
+      .anticon-search {
+        padding: 12px 13px 12px 12px;
+      }
+
+      &:focus,
+      &:hover {
+        height: 38px;
+        border: 1px solid #00b2b6;
+      }
+    }
+  }
+}

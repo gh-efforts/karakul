@@ -1,10 +1,40 @@
 import React from 'react'
-import { EditOutlined, ClockCircleOutlined, FileAddOutlined } from '@ant-design/icons'
+import { ClockCircleOutlined, FileAddOutlined, EditOutlined } from '@ant-design/icons'
+import { Tooltip } from 'antd'
 
-import { ColumnProps } from '../../../components/table'
-import { OrderQuery } from '../../../services'
+import EditModalView, { EditModalViewProps } from './modal/edit-modal'
+import HistoryModalView from './modal/history-modal'
 
-export type TOrder = NonNullable<OrderQuery['order']>
+import type { TOrder } from '../order.d'
+import { useGlobalModal, ColumnProps } from 'src/components'
+
+function EditButton({ order }: EditModalViewProps) {
+  const { showModal } = useGlobalModal()
+
+  const show = () => {
+    showModal('编辑订单', EditModalView, { order })
+  }
+
+  return <EditOutlined style={{ color: '#FF9C7C' }} onClick={show} />
+}
+
+function AddButton() {
+  return (
+    <Tooltip title='原材料预定'>
+      <FileAddOutlined style={{ color: '#00B2B6' }} />
+    </Tooltip>
+  )
+}
+
+function HistoryButton() {
+  const { showModal } = useGlobalModal()
+
+  const show = () => {
+    showModal('订单历史', HistoryModalView, {})
+  }
+
+  return <ClockCircleOutlined style={{ color: '#FFC01F' }} onClick={show} />
+}
 
 const columns: ColumnProps<TOrder>[] = [
   {
@@ -43,12 +73,12 @@ const columns: ColumnProps<TOrder>[] = [
   {
     title: '操作',
     width: 160,
-    render() {
+    render(_, order) {
       return (
         <span className='table-operation-group'>
-          <EditOutlined style={{ color: '#FF9C7C' }} />
-          <ClockCircleOutlined style={{ color: '#FFC01F' }} />
-          <FileAddOutlined style={{ color: '#00B2B6' }} />
+          <EditButton order={order} />
+          <HistoryButton />
+          <AddButton />
         </span>
       )
     },
