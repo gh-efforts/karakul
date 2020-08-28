@@ -37,6 +37,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "sass": "^1.26.10",
+    "use-onclickoutside": "^0.3.1",
     "webpack-filter-warnings-plugin": "^1.2.1"
   },
   "devDependencies": {
