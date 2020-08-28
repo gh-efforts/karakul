@@ -100,3 +100,19 @@
 .ant-avatar-image {
   box-shadow: 1px 1px 16px 5px rgba(0, 87, 89, 0.1);
 }
+
+//breadcrumb
+.ant-breadcrumb {
+  font-size: 20px !important;
+}
+
+//table
+.ant-spin-nested-loading,
+.ant-spin-container,
+.ant-table-container,
+.ant-table,
+.ant-table-empty,
+.ant-table-content,
+.ant-table table {
+  height: 100%;
+}
