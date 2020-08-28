@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ModalBase from './modal-base'
+import ModalBase from './order-modal-base'
 import { useGlobalModal } from '../../../../components'
 
 function CreateModalView() {

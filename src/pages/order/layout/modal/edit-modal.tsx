@@ -1,13 +1,12 @@
 import React from 'react'
-import { EditOutlined } from '@ant-design/icons'
 
-import ModalBase from './modal-base'
+import ModalBase from './order-modal-base'
 import { useGlobalModal } from '../../../../components'
 import type { TOrder } from '../../order.d'
 
 import styles from './index.module.scss'
 
-interface EditModalViewProps {
+export interface EditModalViewProps {
   order?: TOrder
   children?: React.ReactNode
 }
@@ -30,21 +29,11 @@ function EditModalView({ order }: EditModalViewProps): React.ReactElement {
         initialValues={{
           detail,
           amount,
-          time: undefined,
+          time: delivery_time,
         }}
       />
     </div>
   )
 }
 
-function EditButton({ order }: EditModalViewProps) {
-  const { showModal } = useGlobalModal()
-
-  const show = () => {
-    showModal('编辑订单', EditModalView, { order })
-  }
-
-  return <EditOutlined style={{ color: '#FF9C7C' }} onClick={show} />
-}
-
-export default EditButton
+export default EditModalView

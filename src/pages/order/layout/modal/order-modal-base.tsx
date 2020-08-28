@@ -38,11 +38,12 @@ function ModalBase({ onOK, OKText, loading, initialValues }: ModalBase) {
 
   const initialVals = useMemo(() => {
     const { detail, amount, time } = initialValues || {}
+    const t = moment(time).isValid() ? moment(time) : undefined
 
     return {
       detail,
       amount,
-      time: moment(time),
+      time: t,
     }
   }, [initialValues])
 
