@@ -6,7 +6,33 @@
 
   .title {
     font-size: 20px;
-    font-weight: bold;
     color: #123046;
+  }
+}
+
+.navs {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: auto;
+  justify-content: start;
+  grid-gap: 24px;
+  align-items: center;
+  color: #657683;
+  font-size: 20px;
+
+  a {
+    color: #657683;
+    font-weight: normal;
+  }
+
+  .nav-active {
+    a {
+      color: #123046;
+    }
+  }
+
+  .nav-line {
+    border-left: 1px solid #b0b7bd;
+    height: 12px;
   }
 }
