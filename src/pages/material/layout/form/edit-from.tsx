@@ -1,26 +1,34 @@
 import React, { useState } from 'react'
-import { Form, Input, Button, Upload } from 'antd'
+import { Form, Input, Button, Upload, Select } from 'antd'
 import styles from './index.module.scss'
 import { message } from '../../../../components'
-import { PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined, PlusCircleFilled } from '@ant-design/icons'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { UploadFile } from 'antd/lib/upload/interface'
 export default function EditForm() {
   const [form] = Form.useForm()
+  const { Option } = Select
+  const handleChange = () => {
+    return false
+  }
   return (
     <div className={styles['edit-form']}>
       <Form layout={'inline'} form={form}>
         <Form.Item name='layout'>
-          <Input size='large' placeholder='input placeholder' />
+          <Select size='large' style={{ width: 188 }} onChange={handleChange} placeholder='请选择分类'>
+            <Option value='lucy'>Jack</Option>
+          </Select>
         </Form.Item>
         <Form.Item>
-          <Input size='large' placeholder='input placeholder' />
+          <Input size='large' placeholder='请输入型号' />
         </Form.Item>
         <Form.Item>
-          <Input size='large' placeholder='input placeholder' />
+          <Input size='large' placeholder='请输入备注信息' />
         </Form.Item>
         <Form.Item>
-          <Input size='large' placeholder='input placeholder' />
+          <Select size='large' style={{ width: 188 }} onChange={handleChange} placeholder='请选择行为'>
+            <Option value='lucy'>Jack</Option>
+          </Select>
         </Form.Item>
         <Form.Item>
           <Button type='link'>保存</Button>
@@ -49,7 +57,7 @@ function RemarkFrom() {
   }
   const uploadButton = (
     <div>
-      <PlusOutlined />
+      <PlusCircleFilled style={{ color: '#00B2B6' }} />
       <div className='ant-upload-text'>上传图片</div>
     </div>
   )
@@ -57,7 +65,7 @@ function RemarkFrom() {
     <div className={styles['rename-form']}>
       <Form layout={'vertical'} form={form}>
         <Form.Item label='附件' name='附件'>
-          <Input.TextArea placeholder='input placeholder' autoSize={{ minRows: 5, maxRows: 7 }} />
+          <Input.TextArea placeholder='请输入附件信息' autoSize={{ minRows: 5, maxRows: 7 }} />
         </Form.Item>
         <Form.Item>
           <Upload
@@ -74,7 +82,7 @@ function RemarkFrom() {
           </Upload>
         </Form.Item>
         <Form.Item label='备注' name='备注'>
-          <Input size='large' placeholder='input placeholder' />
+          <Input size='large' placeholder='请输入备注信息' />
         </Form.Item>
       </Form>
     </div>

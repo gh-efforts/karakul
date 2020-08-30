@@ -125,5 +125,16 @@
 //input
 .ant-input {
   border-color: #00b2b6 !important;
-  border-radius: 6px!important;
+  border-radius: 6px !important;
+}
+
+//select
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  border-color: #00b2b6 !important;
+}
+//upload
+.ant-upload.ant-upload-select-picture-card {
+  background: #f3fbfb !important;
+  border-radius: 6px !important;
+  border: none !important;
 }
