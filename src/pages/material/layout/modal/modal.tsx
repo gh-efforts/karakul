@@ -5,8 +5,8 @@ import { ModalButtonGroup } from '../../../../components'
 
 interface ModalProps {
   orderId: string
-  OKText: string
-  onOK: () => void
+  OKText: string | false
+  onOK?: () => void
   loading?: boolean
   children: React.ReactNode
 }
@@ -17,7 +17,17 @@ function ModalView({ orderId, OKText, onOK, loading, children }: ModalProps): Re
       <div className={styles.content}>
         <div>
           {children}
-          <ModalButtonGroup OKText={OKText} onOK={onOK} loading={loading} className={styles.btns} position='left' />
+          {OKText ? (
+            <ModalButtonGroup
+              OKText={OKText || ''}
+              onOK={onOK}
+              loading={loading}
+              className={styles.btns}
+              position='left'
+            />
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </div>

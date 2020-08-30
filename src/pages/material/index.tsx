@@ -13,6 +13,7 @@ import { ParsedUrlQuery } from 'querystring'
 import { OrderMaterial } from '../../services'
 import CreateModalView from './layout/modal/creat-modal'
 import EditModalView from './layout/modal/edit-modal'
+import HistroyModalView from './layout/modal/history-modal'
 
 export const getServerSideProps = async ({
   req: { headers },
@@ -63,6 +64,19 @@ function Material({ data, limit, start }: InferGetServerSidePropsType<typeof get
       1072
     )
   }
+
+  const showHistroyModal = () => {
+    showModal(
+      '原材料订单历史',
+      HistroyModalView,
+      {
+        onSuccess: () => {
+          hideModal()
+        },
+      },
+      1072
+    )
+  }
   const onChange = () => {
     return false
   }
@@ -88,8 +102,11 @@ function Material({ data, limit, start }: InferGetServerSidePropsType<typeof get
           icon={<Svg name='btn-revise-h' color='#FF9C7C' offsetY='3' />}
           onClick={showEditModal}
         ></Button>
-
-        <Svg name='btn-history-h' color='#FFBB0B' offsetY='3' />
+        <Button
+          type='text'
+          icon={<Svg name='btn-history-h' color='#FFBB0B' offsetY='3' />}
+          onClick={showHistroyModal}
+        ></Button>
       </TableHeader>
       <KTable<OrderMaterialType>
         columns={columns}
