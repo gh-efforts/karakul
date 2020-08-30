@@ -52,10 +52,15 @@
 }
 
 // button
+
 .ant-btn-lg {
   min-width: 136px;
   height: 40px;
   border-radius: 6px !important;
+}
+.ant-btn-default {
+  color: #657683 !important;
+  border-color: #657683 !important;
 }
 
 .ant-btn-primary {
@@ -115,4 +120,10 @@
 .ant-table-content,
 .ant-table table {
   height: 100%;
+}
+
+//input
+.ant-input {
+  border-color: #00b2b6 !important;
+  border-radius: 6px!important;
 }

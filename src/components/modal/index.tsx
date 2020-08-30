@@ -3,7 +3,7 @@ import { Modal, Button } from 'antd'
 
 import styles from './index.module.scss'
 
-export type ShowModal<T> = (title: string, component: ComponentType<T>, props: T) => void
+export type ShowModal<T> = (title: string, component: ComponentType<T>, props: T, width?: number) => void
 
 export type CancelModalProps = { onSuccess?: () => void }
 
@@ -42,8 +42,8 @@ export class GlobalModalProvider<T, P> extends Component<P, GlobalModalProviderS
     }
   }
 
-  showModal: ShowModal<T> = (title, component, props, width) => {
-    this.setState({
+  showModal: ShowModal<T> = (title: string, component: ComponentType<T> | null, props: T, width?: number) => {
+    return this.setState({
       title,
       props,
       visiable: true,
