@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, Pagination } from 'antd'
 import { ColumnProps, TableProps } from 'antd/lib/table'
-import { TableRowSelection, TablePaginationConfig } from 'antd/lib/table/interface'
+import { TableRowSelection } from 'antd/lib/table/interface'
 
 import styles from './index.module.scss'
 
@@ -21,29 +21,25 @@ interface DataTableProps<T extends any> extends TableProps<T> {
   onShowSizeChange?: ((current: number, size: number) => void) | undefined
   footerslot?: React.ReactElement
   minWidth?: string
-  pagination?: false | TablePaginationConfig | undefined
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 function KTable<T extends object>(props: DataTableProps<T>): React.ReactElement {
-  const { data, total, pageSize, currentPage, onPageChange, pagination } = props
+  const { data, total, pageSize, currentPage, onPageChange } = props
 
   return (
     <div className={styles['table-page']}>
       <Table<T> {...props} dataSource={data} className={styles.table} pagination={false} />
-
-      {pagination ?? (
-        <div className={styles.pagination}>
-          <span>共{total}条记录</span>
-          <Pagination
-            total={total}
-            showSizeChanger
-            pageSize={pageSize ?? 20}
-            current={currentPage ?? 1}
-            onChange={onPageChange}
-          />
-        </div>
-      )}
+      <div className={styles.pagination}>
+        <span>共{total}条记录</span>
+        <Pagination
+          total={total}
+          showSizeChanger
+          pageSize={pageSize ?? 20}
+          current={currentPage ?? 1}
+          onChange={onPageChange}
+        />
+      </div>
     </div>
   )
 }
