@@ -1,5 +1,24 @@
 import * as Types from './schemas'
 
+export type OrderMaterialsQueryVariables = Types.Exact<{
+  limit?: Types.Maybe<Types.Scalars['Int']>
+  start?: Types.Maybe<Types.Scalars['Int']>
+  where?: Types.Maybe<Types.Scalars['JSON']>
+  sort?: Types.Maybe<Types.Scalars['String']>
+}>
+
+export type OrderMaterialsQuery = {
+  orderMaterials?: Types.Maybe<
+    Array<
+      Types.Maybe<
+        Pick<Types.OrderMaterial, 'id' | 'created_at' | 'updated_at' | 'order_id' | 'material' | 'amount' | 'model'> & {
+          user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'id' | 'username'>>
+        }
+      >
+    >
+  >
+}
+
 export type OrdersQueryVariables = Types.Exact<{
   sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
