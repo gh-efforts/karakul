@@ -3,6 +3,45 @@ import * as Types from './operations'
 import { gql } from '@apollo/client'
 import * as Apollo from '@apollo/client'
 
+export const OrderMaterialsDocument = gql`
+  query OrderMaterials($limit: Int, $start: Int, $where: JSON, $sort: String) {
+    orderMaterials(limit: $limit, start: $start, where: $where, sort: $sort) {
+      id
+      created_at
+      updated_at
+      order_id
+      material
+      amount
+      model
+      user {
+        id
+        username
+      }
+    }
+  }
+`
+export function useOrderMaterialsQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.OrderMaterialsQuery, Types.OrderMaterialsQueryVariables>
+) {
+  return Apollo.useQuery<Types.OrderMaterialsQuery, Types.OrderMaterialsQueryVariables>(
+    OrderMaterialsDocument,
+    baseOptions
+  )
+}
+export function useOrderMaterialsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.OrderMaterialsQuery, Types.OrderMaterialsQueryVariables>
+) {
+  return Apollo.useLazyQuery<Types.OrderMaterialsQuery, Types.OrderMaterialsQueryVariables>(
+    OrderMaterialsDocument,
+    baseOptions
+  )
+}
+export type OrderMaterialsQueryHookResult = ReturnType<typeof useOrderMaterialsQuery>
+export type OrderMaterialsLazyQueryHookResult = ReturnType<typeof useOrderMaterialsLazyQuery>
+export type OrderMaterialsQueryResult = Apollo.QueryResult<
+  Types.OrderMaterialsQuery,
+  Types.OrderMaterialsQueryVariables
+>
 export const OrdersDocument = gql`
   query Orders($sort: String, $limit: Int, $start: Int, $where: JSON) {
     orders(sort: $sort, limit: $limit, start: $start, where: $where) {
