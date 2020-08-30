@@ -11,10 +11,7 @@ import { filterPaginationValue } from '../../helpers/params'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 import { OrderMaterial } from '../../services'
-
-function CreateModalView(): React.ReactElement {
-  return <div>模态框</div>
-}
+import CreateModalView from './modal/creat-modal'
 
 export const getServerSideProps = async ({
   req: { headers },
@@ -41,11 +38,16 @@ export const getServerSideProps = async ({
 function Material({ data, limit, start }: InferGetServerSidePropsType<typeof getServerSideProps>): React.ReactElement {
   const { showModal, hideModal } = useGlobalModal()
   const showCreateModal = () => {
-    showModal('新建动作', CreateModalView, {
-      onSuccess: () => {
-        hideModal()
+    showModal(
+      '预定原材料',
+      CreateModalView,
+      {
+        onSuccess: () => {
+          hideModal()
+        },
       },
-    })
+      1072
+    )
   }
   const onChange = () => {
     return false
@@ -77,7 +79,7 @@ function Material({ data, limit, start }: InferGetServerSidePropsType<typeof get
         pageSize={limit ?? 1}
         currentPage={start}
         total={data?.length ?? 0}
-        rowKey={(item: OrderMaterial, index: number | undefined) => item?.id ?? `OrderMaterial-${index}`}
+        rowKey={(item: OrderMaterial) => item?.id}
         onPageChange={onChange}
       />
     </div>

@@ -26,6 +26,7 @@ interface GlobalModalProviderState<T> {
   component: ComponentType<T> | null
   props: T
   title: string
+  width: number
   visiable: boolean
 }
 
@@ -37,15 +38,17 @@ export class GlobalModalProvider<T, P> extends Component<P, GlobalModalProviderS
       visiable: false,
       props: {} as T,
       component: null,
+      width: 520,
     }
   }
 
-  showModal: ShowModal<T> = (title, component, props) => {
+  showModal: ShowModal<T> = (title, component, props, width) => {
     this.setState({
       title,
       props,
       visiable: true,
       component,
+      width: width ?? 520,
     })
   }
 
@@ -58,7 +61,7 @@ export class GlobalModalProvider<T, P> extends Component<P, GlobalModalProviderS
     })
 
   render(): React.ReactElement {
-    const { visiable, component: ModalView, title, props } = this.state
+    const { visiable, component: ModalView, title, width, props } = this.state
     const { children } = this.props
 
     return (
@@ -75,6 +78,7 @@ export class GlobalModalProvider<T, P> extends Component<P, GlobalModalProviderS
           footer={null}
           onCancel={this.hideModal}
           centered
+          width={width}
           // wrapClassName='modal-small'
         >
           {ModalView ? <ModalView {...props} /> : null}
