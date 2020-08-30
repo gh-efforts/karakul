@@ -1,0 +1,10 @@
+.table-header {
+  height: 68px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr auto;
+  justify-content: space-between;
+  background: #fff;
+  padding: 0 32px;
+  border-bottom: 1px #efefef solid;
+}
