@@ -1,7 +1,5 @@
 import React from 'react'
-import { Space } from 'antd'
-
-import Link from 'next/link'
+import { Space, Breadcrumb } from 'antd'
 
 import styles from './index.module.scss'
 
@@ -19,29 +17,23 @@ interface NavLink {
 
 interface SubNavProps {
   links?: NavLink[]
-  active?: string
 }
 
-export function SubNav({ links, active }: SubNavProps) {
+export function SubNav({ links }: SubNavProps) {
   const len = links?.length || 0
 
   return (
-    <ul className={styles.navs}>
+    <Breadcrumb separator=' | '>
       {links?.map((link, idx) => {
         return (
-          <React.Fragment key={`Fragment ${link.name} ${link.name}`}>
-            <li key={link.name} className={`${active === link.name && styles['nav-active']}`}>
-              {link?.url && (
-                <Link href={link.url}>
-                  <span>{link.name}</span>
-                </Link>
-              )}
-            </li>
-            {len > 1 && len > idx + 1 ? <li className={styles['nav-line']} /> : null}
-          </React.Fragment>
+          link?.url && (
+            <Breadcrumb.Item href={len === 1 || idx === len - 1 ? undefined : link.url} key={link.url ?? idx}>
+              {link.name}
+            </Breadcrumb.Item>
+          )
         )
       })}
-    </ul>
+    </Breadcrumb>
   )
 }
 

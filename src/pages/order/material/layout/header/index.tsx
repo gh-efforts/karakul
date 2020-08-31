@@ -20,7 +20,6 @@ function OrderMHeader() {
             { name: '订单', url: '/order' },
             { name: '原材料', url: '#' },
           ]}
-          active='原材料'
         />
       }
     >
