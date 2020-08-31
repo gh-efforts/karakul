@@ -1,0 +1,46 @@
+.tablebox {
+  height: 100%;
+  padding: 32px 32px 0 32px;
+  background-color: #fff;
+  :global {
+    .ant-table-wrapper {
+      height: 100%;
+    }
+
+    .ant-table {
+      height: calc(100% - 72px);
+    }
+    .ant-table-cell {
+      background-color: #fff;
+    }
+    .ant-table-thead {
+      display: none;
+    }
+  }
+
+  .table1 {
+    :global {
+      .ant-table {
+        height: calc(100% - 72px);
+      }
+      .ant-table-thead {
+        display: table-header-group;
+      }
+    }
+  }
+  .table2 {
+    :global {
+      .ant-table {
+        height: 100%;
+      }
+      .ant-table-thead {
+        display: table-header-group;
+      }
+    }
+  }
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+}

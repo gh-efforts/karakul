@@ -33,18 +33,18 @@ const menuColunms = [
     sub: [
       {
         key: '3',
-        name: '商品列表',
+        name: '商品',
         path: '/goods',
       },
       {
         key: '4',
-        name: '商品流向',
-        path: '/goods',
+        name: '仓库',
+        path: '/goods/store',
       },
       {
         key: '5',
-        name: '商品分类管理',
-        path: '/goods',
+        name: '商品类型管理',
+        path: '/goods/type',
       },
     ],
   },
