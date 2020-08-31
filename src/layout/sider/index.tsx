@@ -44,7 +44,7 @@ const menuColunms = [
       {
         key: '5',
         name: '商品类型管理',
-        path: '/goods/type',
+        path: '/goods-types',
       },
     ],
   },
@@ -53,8 +53,8 @@ const menuColunms = [
 const menuValues: MenuValues = {
   '1': '/order',
   '3': '/goods',
-  '4': '/goods',
-  '5': '/goods',
+  '4': '/goods/store',
+  '5': '/goods-types',
 }
 
 const findKey = (value: string, compare = (a: string, b: string) => a === b) => {
