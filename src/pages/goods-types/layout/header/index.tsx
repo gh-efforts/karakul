@@ -5,7 +5,7 @@ import { PlusOutlined } from '@ant-design/icons'
 import { SubHeader, useGlobalModal, FlexibleInput } from '../../../../components'
 import CreateModalView from '../modal/create-modal'
 
-function ProductTypesHeader() {
+function GoodsTypesHeader() {
   const { showModal, hideModal } = useGlobalModal()
   const showCreateModal = () => {
     showModal(
@@ -30,4 +30,4 @@ function ProductTypesHeader() {
   )
 }
 
-export default ProductTypesHeader
+export default GoodsTypesHeader

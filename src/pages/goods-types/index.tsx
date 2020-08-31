@@ -1,14 +1,14 @@
 import React from 'react'
-import ProductTypesHeader from './layout/header'
+import GoodsTypesHeader from './layout/header'
 import { withLayout } from '../../layout'
 import { KTable } from 'src/components'
 import columns from './layout/table/columns'
-function ProductTypes() {
+function GoodsTypes() {
   return (
     <div>
-      <ProductTypesHeader />
+      <GoodsTypesHeader />
       <KTable data={[]} columns={columns} total={10} currentPage={1} rowKey={item => item} />
     </div>
   )
 }
-export default withLayout(ProductTypes)
+export default withLayout(GoodsTypes)
