@@ -28,6 +28,9 @@ export type Query = {
   orderHistory?: Maybe<OrderHistory>
   orderHistories?: Maybe<Array<Maybe<OrderHistory>>>
   orderHistoriesConnection?: Maybe<OrderHistoryConnection>
+  orderMaterialHistory?: Maybe<OrderMaterialHistory>
+  orderMaterialHistories?: Maybe<Array<Maybe<OrderMaterialHistory>>>
+  orderMaterialHistoriesConnection?: Maybe<OrderMaterialHistoryConnection>
   orderMaterial?: Maybe<OrderMaterial>
   orderMaterials?: Maybe<Array<Maybe<OrderMaterial>>>
   orderMaterialsConnection?: Maybe<OrderMaterialConnection>
@@ -76,6 +79,24 @@ export type QueryOrderHistoriesArgs = {
 }
 
 export type QueryOrderHistoriesConnectionArgs = {
+  sort?: Maybe<Scalars['String']>
+  limit?: Maybe<Scalars['Int']>
+  start?: Maybe<Scalars['Int']>
+  where?: Maybe<Scalars['JSON']>
+}
+
+export type QueryOrderMaterialHistoryArgs = {
+  id: Scalars['ID']
+}
+
+export type QueryOrderMaterialHistoriesArgs = {
+  sort?: Maybe<Scalars['String']>
+  limit?: Maybe<Scalars['Int']>
+  start?: Maybe<Scalars['Int']>
+  where?: Maybe<Scalars['JSON']>
+}
+
+export type QueryOrderMaterialHistoriesConnectionArgs = {
   sort?: Maybe<Scalars['String']>
   limit?: Maybe<Scalars['Int']>
   start?: Maybe<Scalars['Int']>
@@ -395,6 +416,117 @@ export type OrderHistoryAggregatorMax = {
   amount?: Maybe<Scalars['Float']>
 }
 
+export type OrderMaterialHistory = {
+  id: Scalars['ID']
+  created_at: Scalars['DateTime']
+  updated_at: Scalars['DateTime']
+  order_id?: Maybe<Scalars['Int']>
+  material?: Maybe<Scalars['String']>
+  amount?: Maybe<Scalars['Int']>
+  model?: Maybe<Scalars['String']>
+  user?: Maybe<UsersPermissionsUser>
+  created_by?: Maybe<AdminUser>
+  updated_by?: Maybe<AdminUser>
+}
+
+export type OrderMaterialHistoryConnection = {
+  values?: Maybe<Array<Maybe<OrderMaterialHistory>>>
+  groupBy?: Maybe<OrderMaterialHistoryGroupBy>
+  aggregate?: Maybe<OrderMaterialHistoryAggregator>
+}
+
+export type OrderMaterialHistoryGroupBy = {
+  id?: Maybe<Array<Maybe<OrderMaterialHistoryConnectionId>>>
+  created_at?: Maybe<Array<Maybe<OrderMaterialHistoryConnectionCreated_At>>>
+  updated_at?: Maybe<Array<Maybe<OrderMaterialHistoryConnectionUpdated_At>>>
+  order_id?: Maybe<Array<Maybe<OrderMaterialHistoryConnectionOrder_Id>>>
+  material?: Maybe<Array<Maybe<OrderMaterialHistoryConnectionMaterial>>>
+  amount?: Maybe<Array<Maybe<OrderMaterialHistoryConnectionAmount>>>
+  model?: Maybe<Array<Maybe<OrderMaterialHistoryConnectionModel>>>
+  user?: Maybe<Array<Maybe<OrderMaterialHistoryConnectionUser>>>
+  created_by?: Maybe<Array<Maybe<OrderMaterialHistoryConnectionCreated_By>>>
+  updated_by?: Maybe<Array<Maybe<OrderMaterialHistoryConnectionUpdated_By>>>
+}
+
+export type OrderMaterialHistoryConnectionId = {
+  key?: Maybe<Scalars['ID']>
+  connection?: Maybe<OrderMaterialHistoryConnection>
+}
+
+export type OrderMaterialHistoryConnectionCreated_At = {
+  key?: Maybe<Scalars['DateTime']>
+  connection?: Maybe<OrderMaterialHistoryConnection>
+}
+
+export type OrderMaterialHistoryConnectionUpdated_At = {
+  key?: Maybe<Scalars['DateTime']>
+  connection?: Maybe<OrderMaterialHistoryConnection>
+}
+
+export type OrderMaterialHistoryConnectionOrder_Id = {
+  key?: Maybe<Scalars['Int']>
+  connection?: Maybe<OrderMaterialHistoryConnection>
+}
+
+export type OrderMaterialHistoryConnectionMaterial = {
+  key?: Maybe<Scalars['String']>
+  connection?: Maybe<OrderMaterialHistoryConnection>
+}
+
+export type OrderMaterialHistoryConnectionAmount = {
+  key?: Maybe<Scalars['Int']>
+  connection?: Maybe<OrderMaterialHistoryConnection>
+}
+
+export type OrderMaterialHistoryConnectionModel = {
+  key?: Maybe<Scalars['String']>
+  connection?: Maybe<OrderMaterialHistoryConnection>
+}
+
+export type OrderMaterialHistoryConnectionUser = {
+  key?: Maybe<Scalars['ID']>
+  connection?: Maybe<OrderMaterialHistoryConnection>
+}
+
+export type OrderMaterialHistoryConnectionCreated_By = {
+  key?: Maybe<Scalars['ID']>
+  connection?: Maybe<OrderMaterialHistoryConnection>
+}
+
+export type OrderMaterialHistoryConnectionUpdated_By = {
+  key?: Maybe<Scalars['ID']>
+  connection?: Maybe<OrderMaterialHistoryConnection>
+}
+
+export type OrderMaterialHistoryAggregator = {
+  count?: Maybe<Scalars['Int']>
+  totalCount?: Maybe<Scalars['Int']>
+  sum?: Maybe<OrderMaterialHistoryAggregatorSum>
+  avg?: Maybe<OrderMaterialHistoryAggregatorAvg>
+  min?: Maybe<OrderMaterialHistoryAggregatorMin>
+  max?: Maybe<OrderMaterialHistoryAggregatorMax>
+}
+
+export type OrderMaterialHistoryAggregatorSum = {
+  order_id?: Maybe<Scalars['Float']>
+  amount?: Maybe<Scalars['Float']>
+}
+
+export type OrderMaterialHistoryAggregatorAvg = {
+  order_id?: Maybe<Scalars['Float']>
+  amount?: Maybe<Scalars['Float']>
+}
+
+export type OrderMaterialHistoryAggregatorMin = {
+  order_id?: Maybe<Scalars['Float']>
+  amount?: Maybe<Scalars['Float']>
+}
+
+export type OrderMaterialHistoryAggregatorMax = {
+  order_id?: Maybe<Scalars['Float']>
+  amount?: Maybe<Scalars['Float']>
+}
+
 export type OrderMaterial = {
   id: Scalars['ID']
   created_at: Scalars['DateTime']
@@ -676,6 +808,27 @@ export type Morph =
   | CreateOrderHistoryPayload
   | UpdateOrderHistoryPayload
   | DeleteOrderHistoryPayload
+  | OrderMaterialHistory
+  | OrderMaterialHistoryConnection
+  | OrderMaterialHistoryAggregator
+  | OrderMaterialHistoryAggregatorSum
+  | OrderMaterialHistoryAggregatorAvg
+  | OrderMaterialHistoryAggregatorMin
+  | OrderMaterialHistoryAggregatorMax
+  | OrderMaterialHistoryGroupBy
+  | OrderMaterialHistoryConnectionId
+  | OrderMaterialHistoryConnectionCreated_At
+  | OrderMaterialHistoryConnectionUpdated_At
+  | OrderMaterialHistoryConnectionOrder_Id
+  | OrderMaterialHistoryConnectionMaterial
+  | OrderMaterialHistoryConnectionAmount
+  | OrderMaterialHistoryConnectionModel
+  | OrderMaterialHistoryConnectionUser
+  | OrderMaterialHistoryConnectionCreated_By
+  | OrderMaterialHistoryConnectionUpdated_By
+  | CreateOrderMaterialHistoryPayload
+  | UpdateOrderMaterialHistoryPayload
+  | DeleteOrderMaterialHistoryPayload
   | OrderMaterial
   | OrderMaterialConnection
   | OrderMaterialAggregator
@@ -826,6 +979,18 @@ export type UpdateOrderHistoryPayload = {
 
 export type DeleteOrderHistoryPayload = {
   orderHistory?: Maybe<OrderHistory>
+}
+
+export type CreateOrderMaterialHistoryPayload = {
+  orderMaterialHistory?: Maybe<OrderMaterialHistory>
+}
+
+export type UpdateOrderMaterialHistoryPayload = {
+  orderMaterialHistory?: Maybe<OrderMaterialHistory>
+}
+
+export type DeleteOrderMaterialHistoryPayload = {
+  orderMaterialHistory?: Maybe<OrderMaterialHistory>
 }
 
 export type CreateOrderMaterialPayload = {
@@ -1181,6 +1346,9 @@ export type Mutation = {
   createOrderHistory?: Maybe<CreateOrderHistoryPayload>
   updateOrderHistory?: Maybe<UpdateOrderHistoryPayload>
   deleteOrderHistory?: Maybe<DeleteOrderHistoryPayload>
+  createOrderMaterialHistory?: Maybe<CreateOrderMaterialHistoryPayload>
+  updateOrderMaterialHistory?: Maybe<UpdateOrderMaterialHistoryPayload>
+  deleteOrderMaterialHistory?: Maybe<DeleteOrderMaterialHistoryPayload>
   createOrderMaterial?: Maybe<CreateOrderMaterialPayload>
   updateOrderMaterial?: Maybe<UpdateOrderMaterialPayload>
   deleteOrderMaterial?: Maybe<DeleteOrderMaterialPayload>
@@ -1230,6 +1398,18 @@ export type MutationUpdateOrderHistoryArgs = {
 
 export type MutationDeleteOrderHistoryArgs = {
   input?: Maybe<DeleteOrderHistoryInput>
+}
+
+export type MutationCreateOrderMaterialHistoryArgs = {
+  input?: Maybe<CreateOrderMaterialHistoryInput>
+}
+
+export type MutationUpdateOrderMaterialHistoryArgs = {
+  input?: Maybe<UpdateOrderMaterialHistoryInput>
+}
+
+export type MutationDeleteOrderMaterialHistoryArgs = {
+  input?: Maybe<DeleteOrderMaterialHistoryInput>
 }
 
 export type MutationCreateOrderMaterialArgs = {
@@ -1377,6 +1557,39 @@ export type EditOrderHistoryInput = {
 }
 
 export type DeleteOrderHistoryInput = {
+  where?: Maybe<InputId>
+}
+
+export type CreateOrderMaterialHistoryInput = {
+  data?: Maybe<OrderMaterialHistoryInput>
+}
+
+export type OrderMaterialHistoryInput = {
+  order_id?: Maybe<Scalars['Int']>
+  material?: Maybe<Scalars['String']>
+  amount?: Maybe<Scalars['Int']>
+  model?: Maybe<Scalars['String']>
+  user?: Maybe<Scalars['ID']>
+  created_by?: Maybe<Scalars['ID']>
+  updated_by?: Maybe<Scalars['ID']>
+}
+
+export type UpdateOrderMaterialHistoryInput = {
+  where?: Maybe<InputId>
+  data?: Maybe<EditOrderMaterialHistoryInput>
+}
+
+export type EditOrderMaterialHistoryInput = {
+  order_id?: Maybe<Scalars['Int']>
+  material?: Maybe<Scalars['String']>
+  amount?: Maybe<Scalars['Int']>
+  model?: Maybe<Scalars['String']>
+  user?: Maybe<Scalars['ID']>
+  created_by?: Maybe<Scalars['ID']>
+  updated_by?: Maybe<Scalars['ID']>
+}
+
+export type DeleteOrderMaterialHistoryInput = {
   where?: Maybe<InputId>
 }
 

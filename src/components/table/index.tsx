@@ -26,10 +26,10 @@ interface DataTableProps<T extends any> extends TableProps<T> {
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 function KTable<T extends object>(props: DataTableProps<T>): React.ReactElement {
-  const { data, total, pageSize, currentPage, onPageChange, pagination } = props
+  const { data, total, pageSize, currentPage, onPageChange, pagination, className } = props
 
   return (
-    <div className={styles['table-page']}>
+    <div className={`${styles['table-page']} ${className}`}>
       <Table<T> {...props} dataSource={data} className={styles.table} pagination={false} />
 
       {pagination ?? (

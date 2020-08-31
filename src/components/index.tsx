@@ -1,8 +1,8 @@
 import { ColumnProps, TableProps } from 'antd/lib/table'
 
 export { default as KTable } from './table'
-export { default as SubHeader } from './sub-header'
 export { default as TableHeader } from './table-header'
+export { default as SubHeader, SubNav } from './sub-header'
 export * from './modal'
 export { default as Svg } from './Svg'
 export { default as message } from './message'

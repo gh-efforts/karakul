@@ -1,3 +1,28 @@
+fragment orderHistory on OrderMaterialHistory {
+  id
+  created_at
+  updated_at
+  order_id
+  material
+  amount
+  model
+  user {
+    username
+  }
+}
+
+query OMHrys($sort: String, $limit: Int, $start: Int, $where: JSON) {
+  hrys: orderMaterialHistories(sort: $sort, limit: $limit, start: $start, where: $where) {
+    ...orderHistory
+  }
+}
+
+query OMHry($id: ID!) {
+  hry: orderMaterialHistory(id: $id) {
+    ...orderHistory
+  }
+}
+
 query OrderMaterials($limit: Int, $start: Int, $where: JSON, $sort: String) {
   orderMaterials(limit: $limit, start: $start, where: $where, sort: $sort) {
     id

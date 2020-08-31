@@ -35,6 +35,21 @@ type Query {
   """
 
   """
+  orderMaterialHistory(id: ID!): OrderMaterialHistory
+
+  """
+
+  """
+  orderMaterialHistories(sort: String, limit: Int, start: Int, where: JSON): [OrderMaterialHistory]
+
+  """
+
+  """
+  orderMaterialHistoriesConnection(sort: String, limit: Int, start: Int, where: JSON): OrderMaterialHistoryConnection
+
+  """
+
+  """
   orderMaterial(id: ID!): OrderMaterial
 
   """
@@ -857,6 +872,381 @@ type OrderHistoryAggregatorMin {
 
 """
 type OrderHistoryAggregatorMax {
+  """
+
+  """
+  order_id: Float
+
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type OrderMaterialHistory {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  created_at: DateTime!
+
+  """
+
+  """
+  updated_at: DateTime!
+
+  """
+
+  """
+  order_id: Int
+
+  """
+
+  """
+  material: String
+
+  """
+
+  """
+  amount: Int
+
+  """
+
+  """
+  model: String
+
+  """
+
+  """
+  user: UsersPermissionsUser
+
+  """
+
+  """
+  created_by: AdminUser
+
+  """
+
+  """
+  updated_by: AdminUser
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnection {
+  """
+
+  """
+  values: [OrderMaterialHistory]
+
+  """
+
+  """
+  groupBy: OrderMaterialHistoryGroupBy
+
+  """
+
+  """
+  aggregate: OrderMaterialHistoryAggregator
+}
+
+"""
+
+"""
+type OrderMaterialHistoryGroupBy {
+  """
+
+  """
+  id: [OrderMaterialHistoryConnectionId]
+
+  """
+
+  """
+  created_at: [OrderMaterialHistoryConnectionCreated_at]
+
+  """
+
+  """
+  updated_at: [OrderMaterialHistoryConnectionUpdated_at]
+
+  """
+
+  """
+  order_id: [OrderMaterialHistoryConnectionOrder_id]
+
+  """
+
+  """
+  material: [OrderMaterialHistoryConnectionMaterial]
+
+  """
+
+  """
+  amount: [OrderMaterialHistoryConnectionAmount]
+
+  """
+
+  """
+  model: [OrderMaterialHistoryConnectionModel]
+
+  """
+
+  """
+  user: [OrderMaterialHistoryConnectionUser]
+
+  """
+
+  """
+  created_by: [OrderMaterialHistoryConnectionCreated_by]
+
+  """
+
+  """
+  updated_by: [OrderMaterialHistoryConnectionUpdated_by]
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionId {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionCreated_at {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionUpdated_at {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionOrder_id {
+  """
+
+  """
+  key: Int
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionMaterial {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionAmount {
+  """
+
+  """
+  key: Int
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionModel {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionUser {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionCreated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionUpdated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryAggregator {
+  """
+
+  """
+  count: Int
+
+  """
+
+  """
+  totalCount: Int
+
+  """
+
+  """
+  sum: OrderMaterialHistoryAggregatorSum
+
+  """
+
+  """
+  avg: OrderMaterialHistoryAggregatorAvg
+
+  """
+
+  """
+  min: OrderMaterialHistoryAggregatorMin
+
+  """
+
+  """
+  max: OrderMaterialHistoryAggregatorMax
+}
+
+"""
+
+"""
+type OrderMaterialHistoryAggregatorSum {
+  """
+
+  """
+  order_id: Float
+
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type OrderMaterialHistoryAggregatorAvg {
+  """
+
+  """
+  order_id: Float
+
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type OrderMaterialHistoryAggregatorMin {
+  """
+
+  """
+  order_id: Float
+
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type OrderMaterialHistoryAggregatorMax {
   """
 
   """
@@ -1725,6 +2115,27 @@ union Morph =
   | createOrderHistoryPayload
   | updateOrderHistoryPayload
   | deleteOrderHistoryPayload
+  | OrderMaterialHistory
+  | OrderMaterialHistoryConnection
+  | OrderMaterialHistoryAggregator
+  | OrderMaterialHistoryAggregatorSum
+  | OrderMaterialHistoryAggregatorAvg
+  | OrderMaterialHistoryAggregatorMin
+  | OrderMaterialHistoryAggregatorMax
+  | OrderMaterialHistoryGroupBy
+  | OrderMaterialHistoryConnectionId
+  | OrderMaterialHistoryConnectionCreated_at
+  | OrderMaterialHistoryConnectionUpdated_at
+  | OrderMaterialHistoryConnectionOrder_id
+  | OrderMaterialHistoryConnectionMaterial
+  | OrderMaterialHistoryConnectionAmount
+  | OrderMaterialHistoryConnectionModel
+  | OrderMaterialHistoryConnectionUser
+  | OrderMaterialHistoryConnectionCreated_by
+  | OrderMaterialHistoryConnectionUpdated_by
+  | createOrderMaterialHistoryPayload
+  | updateOrderMaterialHistoryPayload
+  | deleteOrderMaterialHistoryPayload
   | OrderMaterial
   | OrderMaterialConnection
   | OrderMaterialAggregator
@@ -1971,6 +2382,36 @@ type deleteOrderHistoryPayload {
 
   """
   orderHistory: OrderHistory
+}
+
+"""
+
+"""
+type createOrderMaterialHistoryPayload {
+  """
+
+  """
+  orderMaterialHistory: OrderMaterialHistory
+}
+
+"""
+
+"""
+type updateOrderMaterialHistoryPayload {
+  """
+
+  """
+  orderMaterialHistory: OrderMaterialHistory
+}
+
+"""
+
+"""
+type deleteOrderMaterialHistoryPayload {
+  """
+
+  """
+  orderMaterialHistory: OrderMaterialHistory
 }
 
 """
@@ -3110,6 +3551,21 @@ type Mutation {
   """
 
   """
+  createOrderMaterialHistory(input: createOrderMaterialHistoryInput): createOrderMaterialHistoryPayload
+
+  """
+
+  """
+  updateOrderMaterialHistory(input: updateOrderMaterialHistoryInput): updateOrderMaterialHistoryPayload
+
+  """
+
+  """
+  deleteOrderMaterialHistory(input: deleteOrderMaterialHistoryInput): deleteOrderMaterialHistoryPayload
+
+  """
+
+  """
   createOrderMaterial(input: createOrderMaterialInput): createOrderMaterialPayload
 
   """
@@ -3397,6 +3853,121 @@ input editOrderHistoryInput {
 
 """
 input deleteOrderHistoryInput {
+  """
+
+  """
+  where: InputID
+}
+
+"""
+
+"""
+input createOrderMaterialHistoryInput {
+  """
+
+  """
+  data: OrderMaterialHistoryInput
+}
+
+"""
+
+"""
+input OrderMaterialHistoryInput {
+  """
+
+  """
+  order_id: Int
+
+  """
+
+  """
+  material: String
+
+  """
+
+  """
+  amount: Int
+
+  """
+
+  """
+  model: String
+
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input updateOrderMaterialHistoryInput {
+  """
+
+  """
+  where: InputID
+
+  """
+
+  """
+  data: editOrderMaterialHistoryInput
+}
+
+"""
+
+"""
+input editOrderMaterialHistoryInput {
+  """
+
+  """
+  order_id: Int
+
+  """
+
+  """
+  material: String
+
+  """
+
+  """
+  amount: Int
+
+  """
+
+  """
+  model: String
+
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input deleteOrderMaterialHistoryInput {
   """
 
   """
