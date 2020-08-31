@@ -10,7 +10,7 @@
     "prebuild": "node scripts/version.js",
     "build": "next build",
     "prod": "next start",
-    "icon:merge": "svg-sprite-generate -d src/images/ -o public/images/sprite.svg",
+    "icon": "svg-sprite-generate -d src/images/ -o public/images/sprite.svg",
     "lint:tsx": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "format": "prettier --write \"src/**/*.+(js|jsx|ts|tsx|json|yml|yaml|scss|less|css|md)\"",
     "schema:update": "env-cmd -f .env.development graphql-codegen --config src/services/codegen.dev.yml",

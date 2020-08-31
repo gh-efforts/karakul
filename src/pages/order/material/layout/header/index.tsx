@@ -2,11 +2,11 @@ import React from 'react'
 import { Button } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 
-import { SubHeader, useGlobalModal, FlexibleInput, SubNav } from '../../../../../components'
+import { SubHeader, FlexibleInput, SubNav } from '../../../../../components'
 // import CreateModalView from '../modal/create-modal'
 
 function OrderMHeader() {
-  const { showModal } = useGlobalModal()
+  // const { showModal } = useGlobalModal()
 
   const showCreateModal = () => {
     // showModal('创建订单', CreateModalView, {})
@@ -20,7 +20,6 @@ function OrderMHeader() {
             { name: '订单', url: '/order' },
             { name: '原材料', url: '#' },
           ]}
-          active='原材料'
         />
       }
     >
