@@ -53,8 +53,8 @@ const menuColunms = [
 const menuValues: MenuValues = {
   '1': '/order',
   '3': '/goods',
-  '4': '/goods',
-  '5': '/goods',
+  '4': '/goods/store',
+  '5': '/goods/type',
 }
 
 const findKey = (value: string, compare = (a: string, b: string) => a === b) => {
