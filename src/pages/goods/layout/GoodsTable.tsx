@@ -1,9 +1,11 @@
 import React from 'react'
 import { Table, Button } from 'antd'
+import { ColumnProps } from 'antd/lib/table'
 
 import styles from './layout.module.scss'
 import { Svg, useGlobalModal } from '../../../components'
 import CreateGoodsView from './create-goods'
+import GoodsHistoryView from './goods-history'
 
 function CreateGoodsBtn({ id }: { id?: string }) {
   const { showModal } = useGlobalModal()
@@ -19,7 +21,22 @@ function CreateGoodsBtn({ id }: { id?: string }) {
   )
 }
 
-const GoodsTypeColumns = [
+function GoodsHistoryBtn({ id }: { id?: string }) {
+  const { showModal } = useGlobalModal()
+
+  const show = () => {
+    console.log({ id })
+    if (!id) {
+      return
+    }
+
+    showModal('商品历史', GoodsHistoryView, { id })
+  }
+
+  return <Svg name='btn-history-h' onClick={show} />
+}
+
+const GoodsTypeColumns: ColumnProps<GoodsType>[] = [
   { title: '配件编号', dataIndex: ['id'] },
   { title: '分类', dataIndex: ['type'] },
   { title: '型号', dataIndex: ['modal'] },
@@ -28,11 +45,17 @@ const GoodsTypeColumns = [
 
 function GoodsTypeTable(record: Goods) {
   return (
-    <Table className={styles.table2} dataSource={record?.types ?? []} columns={GoodsTypeColumns} pagination={false} />
+    <Table
+      className={styles.table2}
+      dataSource={record?.types ?? []}
+      columns={GoodsTypeColumns}
+      pagination={false}
+      rowKey='id'
+    />
   )
 }
 
-const GoodsNumColumns = [
+const GoodsNumColumns: ColumnProps<Goods>[] = [
   { title: '商品编号', dataIndex: ['id'] },
   {
     title: '商品类型',
@@ -59,11 +82,11 @@ const GoodsNumColumns = [
         </span>
       )
     },
-    render() {
+    render(_, record) {
       return (
         <span className={styles.btns}>
           <Svg name='btn-edit-h' />
-          <Svg name='btn-history-h' />
+          <GoodsHistoryBtn id={record?.id} />
         </span>
       )
     },
@@ -79,11 +102,12 @@ function GoodsNumTable(record: GoodsOrder) {
       pagination={false}
       dataSource={record?.goods ?? []}
       expandable={{ expandedRowRender: GoodsTypeTable }}
+      rowKey='id'
     />
   )
 }
 
-const GoodsColumns = [
+const GoodsColumns: ColumnProps<GoodsOrder>[] = [
   {
     title: 'no',
     dataIndex: 'id',
@@ -157,7 +181,12 @@ interface GoodsTableProps {
 function GoodsTable({ data = data1 }: GoodsTableProps) {
   return (
     <div className={styles.tablebox}>
-      <Table<GoodsOrder> columns={GoodsColumns} expandable={{ expandedRowRender: GoodsNumTable }} dataSource={data} />
+      <Table<GoodsOrder>
+        columns={GoodsColumns}
+        expandable={{ expandedRowRender: GoodsNumTable }}
+        dataSource={data}
+        rowKey='id'
+      />
     </div>
   )
 }
