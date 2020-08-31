@@ -6,7 +6,7 @@ import { TableRowSelection } from 'antd/lib/table/interface'
 import styles from './index.module.scss'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-interface DataTableProps<T extends any> extends Omit<TableProps<T>, 'pagination'> {
+interface DataTableProps<T extends any> extends Omit<TableProps<T>, 'pagination' | 'dataSource'> {
   data: T[]
   loading?: boolean
   columns: ColumnProps<T>[]
