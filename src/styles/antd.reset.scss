@@ -111,15 +111,22 @@
   font-size: 20px !important;
 }
 
-//table
+// table
 .ant-spin-nested-loading,
 .ant-spin-container,
 .ant-table-container,
-.ant-table,
-.ant-table-empty,
-.ant-table-content,
-.ant-table table {
+.ant-table-empty {
   height: 100%;
+}
+
+.ant-table-empty {
+  height: 100%;
+  .ant-table-content {
+    height: 100%;
+    table {
+      height: 100%;
+    }
+  }
 }
 
 //input

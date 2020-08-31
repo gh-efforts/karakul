@@ -1,6 +1,7 @@
 import React from 'react'
 import { ClockCircleOutlined, FileAddOutlined, EditOutlined } from '@ant-design/icons'
 import { Tooltip } from 'antd'
+import Link from 'next/link'
 
 import EditModalView, { EditModalViewProps } from './modal/edit-modal'
 import HistoryModalView from './modal/history-modal'
@@ -18,10 +19,12 @@ function EditButton({ order }: EditModalViewProps) {
   return <EditOutlined style={{ color: '#FF9C7C' }} onClick={show} />
 }
 
-function AddButton() {
+function AddButton({ id }: { id: string }) {
   return (
     <Tooltip title='原材料预定'>
-      <FileAddOutlined style={{ color: '#00B2B6' }} />
+      <Link href={`/order/material/${id}`} disable={!!id}>
+        <FileAddOutlined style={{ color: '#00B2B6' }} />
+      </Link>
     </Tooltip>
   )
 }
@@ -78,7 +81,7 @@ const columns: ColumnProps<TOrder>[] = [
         <span className='table-operation-group'>
           <EditButton order={order} />
           <HistoryButton />
-          <AddButton />
+          <AddButton id={order?.id ?? ''} />
         </span>
       )
     },
