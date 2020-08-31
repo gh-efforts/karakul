@@ -1,6 +1,6 @@
 import React from 'react'
 
-interface SvgProps {
+interface SvgProps extends React.SVGProps<SVGSVGElement> {
   name: string
   color?: string
   width?: string | number
@@ -10,7 +10,16 @@ interface SvgProps {
   offsetX?: string | number
 }
 
-export default function Svg({ width, height, className, color, name, offsetX, offsetY }: SvgProps): React.ReactElement {
+export default function Svg({
+  width,
+  height,
+  className,
+  color,
+  name,
+  offsetX,
+  offsetY,
+  ...resetProps
+}: SvgProps): React.ReactElement {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -19,6 +28,7 @@ export default function Svg({ width, height, className, color, name, offsetX, of
       fill={`${color ?? '#00b2b6'}`}
       style={{ transform: `translate(${offsetX ?? 0}px, ${offsetY ?? 0}px)`, cursor: 'pointer' }}
       className={`${className ?? ''}`}
+      {...resetProps}
     >
       <use xlinkHref={`/images/sprite.svg#${name}`} />
     </svg>

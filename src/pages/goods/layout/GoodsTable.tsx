@@ -2,11 +2,18 @@ import React from 'react'
 import { Table, Button } from 'antd'
 
 import styles from './layout.module.scss'
-import { Svg } from '../../../components'
+import { Svg, useGlobalModal } from '../../../components'
+import CreateGoodsView from './create-goods'
 
-function CreateGoodsBtn() {
+function CreateGoodsBtn({ id }: { id?: string }) {
+  const { showModal } = useGlobalModal()
+
+  const show = () => {
+    showModal('创建商品', CreateGoodsView, { id })
+  }
+
   return (
-    <Button type='text' className='action-pointer'>
+    <Button type='text' className='action-pointer' onClick={show} disabled={!!id}>
       创建商品
     </Button>
   )
