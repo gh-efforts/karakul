@@ -39,7 +39,7 @@ const menuColunms = [
       {
         key: '4',
         name: '仓库',
-        path: '/goods/store',
+        path: '/goods-warehouse',
       },
       {
         key: '5',
@@ -53,7 +53,7 @@ const menuColunms = [
 const menuValues: MenuValues = {
   '1': '/order',
   '3': '/goods',
-  '4': '/goods/store',
+  '4': '/goods-warehouse',
   '5': '/goods-types',
 }
 
