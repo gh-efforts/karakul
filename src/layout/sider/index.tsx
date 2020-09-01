@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Menu } from 'antd'
-import styles from './index.module.scss'
-import { Svg } from '../../components'
 import { useRouter } from 'next/router'
+
+import { Svg } from '../../components'
+
+import styles from './index.module.scss'
+
 const { SubMenu } = Menu
 interface MenuInfo {
   key: React.Key

@@ -10,6 +10,7 @@ export type OrderMaterialType = Pick<
   OrderMaterial,
   'id' | 'created_at' | 'updated_at' | 'order_id' | 'material' | 'amount' | 'model'
 >
+
 async function fetchOrderMaterials(
   val: OrderMaterialsQueryVariables & { Authorization?: string | undefined }
 ): Promise<OrderMaterialType[]> {
@@ -19,6 +20,7 @@ async function fetchOrderMaterials(
       variables: val,
       fetchPolicy: 'network-only',
     })
+
     return (data?.orderMaterials ?? {}) as OrderMaterialType[]
   } catch (e) {
     return [] as OrderMaterialType[]

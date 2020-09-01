@@ -1,12 +1,17 @@
 import React from 'react'
 import { Form, Input, Button, Select } from 'antd'
+
 import styles from './index.module.scss'
+
+const { Option } = Select
+
 export default function CreateForm() {
   const [form] = Form.useForm()
-  const { Option } = Select
+
   const handleChange = () => {
     return false
   }
+
   return (
     <div className={styles['create-form']}>
       <Form layout={'inline'} form={form}>

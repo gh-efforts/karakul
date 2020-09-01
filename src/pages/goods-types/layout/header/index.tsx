@@ -7,6 +7,7 @@ import CreateModalView from '../modal/create-modal'
 
 function GoodsTypesHeader() {
   const { showModal, hideModal } = useGlobalModal()
+
   const showCreateModal = () => {
     showModal(
       '创建商品类型',

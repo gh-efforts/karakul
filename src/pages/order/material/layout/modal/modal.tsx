@@ -10,6 +10,7 @@ interface ModalProps {
   loading?: boolean
   children: React.ReactNode
 }
+
 function ModalView({ orderId, OKText, onOK, loading, children }: ModalProps): React.ReactElement {
   return (
     <div>

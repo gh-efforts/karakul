@@ -7,7 +7,7 @@ import EditModalView, { EditModalViewProps } from './modal/edit-modal'
 import HistoryModalView from './modal/history-modal'
 
 import type { TOrder } from '../order.d'
-import { useGlobalModal, ColumnProps } from 'src/components'
+import { useGlobalModal, ColumnProps } from '../../../components'
 
 function EditButton({ order }: EditModalViewProps) {
   const { showModal } = useGlobalModal()
@@ -16,7 +16,11 @@ function EditButton({ order }: EditModalViewProps) {
     showModal('编辑订单', EditModalView, { order })
   }
 
-  return <EditOutlined style={{ color: '#FF9C7C' }} onClick={show} />
+  return (
+    <Tooltip title='编辑订单'>
+      <EditOutlined style={{ color: '#FF9C7C' }} onClick={show} />
+    </Tooltip>
+  )
 }
 
 function AddButton({ id }: { id: string }) {
@@ -40,7 +44,11 @@ function HistoryButton() {
     showModal('订单历史', HistoryModalView, {})
   }
 
-  return <ClockCircleOutlined style={{ color: '#FFC01F' }} onClick={show} />
+  return (
+    <Tooltip title='订单历史'>
+      <ClockCircleOutlined style={{ color: '#FFC01F' }} onClick={show} />
+    </Tooltip>
+  )
 }
 
 const columns: ColumnProps<TOrder>[] = [

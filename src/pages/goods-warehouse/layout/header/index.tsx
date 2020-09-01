@@ -7,6 +7,7 @@ import CreateModalView from '../modal/create-modal'
 
 function GoodsWarehouseHeader() {
   const { showModal, hideModal } = useGlobalModal()
+
   const showCreateModal = () => {
     showModal('新建仓库', CreateModalView, {
       onSuccess: () => {

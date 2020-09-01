@@ -1,5 +1,6 @@
-import { OrderMaterial } from '../../../../../services'
 import { ColumnProps } from 'antd/lib/table'
+
+import { OrderMaterial } from '../../../../../services'
 
 const modalColumns: ColumnProps<OrderMaterial>[] = [
   {

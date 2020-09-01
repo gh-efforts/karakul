@@ -5,6 +5,7 @@ function HistoryButton() {
   const onDelete = () => {
     return false
   }
+
   return <MinusCircleOutlined style={{ color: '#657683' }} onClick={onDelete} />
 }
 

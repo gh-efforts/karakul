@@ -1,16 +1,21 @@
 import React, { useState } from 'react'
 import { Form, Input, Button, Upload, Select } from 'antd'
-import styles from './index.module.scss'
-import { message } from '../../../../../components'
 import { PlusCircleFilled } from '@ant-design/icons'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { UploadFile } from 'antd/lib/upload/interface'
+
+import styles from './index.module.scss'
+import { message } from '../../../../../components'
+
+const { Option } = Select
+
 export default function EditForm() {
   const [form] = Form.useForm()
-  const { Option } = Select
+
   const handleChange = () => {
     return false
   }
+
   return (
     <div className={styles['edit-form']}>
       <Form layout={'inline'} form={form}>
@@ -38,6 +43,7 @@ export default function EditForm() {
     </div>
   )
 }
+
 function beforeUpload(file: { type: string; size: number }) {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
   if (!isJpgOrPng) {
@@ -49,18 +55,23 @@ function beforeUpload(file: { type: string; size: number }) {
   }
   return isJpgOrPng && isLt2M
 }
+
 function RemarkFrom() {
   const [form] = Form.useForm()
+
   const [fileList, setFileList] = useState<UploadFile[]>([])
+
   const handleChange = ({ fileList }: UploadChangeParam<UploadFile>) => {
     setFileList(fileList)
   }
+
   const uploadButton = (
     <div>
       <PlusCircleFilled style={{ color: '#00B2B6' }} />
       <div className='ant-upload-text'>上传图片</div>
     </div>
   )
+
   return (
     <div className={styles['rename-form']}>
       <Form layout={'vertical'} form={form}>

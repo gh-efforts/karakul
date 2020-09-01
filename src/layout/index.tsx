@@ -1,8 +1,10 @@
 import React from 'react'
 import { Layout } from 'antd'
-import styles from './index.module.scss'
+
 import KSider from './sider'
 import KHeader from './header'
+
+import styles from './index.module.scss'
 
 const { Header, Sider, Content } = Layout
 

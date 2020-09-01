@@ -5,12 +5,14 @@ import { KTable, useGlobalModal } from '../../../../../components'
 import { OrderMaterial } from '../../../../../services'
 import modalColumns from '../table/create-modal-column'
 import ModalView from './modal'
+
 function CreateModalView(): React.ReactElement {
   const { hideModal } = useGlobalModal()
 
   const onOK = () => {
     hideModal()
   }
+
   return (
     <ModalView orderId={'123'} OKText='创建' onOK={onOK}>
       <CreateForm />

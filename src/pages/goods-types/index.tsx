@@ -1,8 +1,10 @@
 import React from 'react'
+
 import GoodsTypesHeader from './layout/header'
 import { withLayout } from '../../layout'
-import { KTable } from 'src/components'
+import { KTable } from '../../components'
 import columns from './layout/table/columns'
+
 function GoodsTypes() {
   return (
     <div>
@@ -11,4 +13,5 @@ function GoodsTypes() {
     </div>
   )
 }
+
 export default withLayout(GoodsTypes)
