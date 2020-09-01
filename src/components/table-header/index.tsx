@@ -1,6 +1,7 @@
 import React from 'react'
-import styles from './index.module.scss'
 import { Space } from 'antd'
+
+import styles from './index.module.scss'
 
 interface TableHeaderProps {
   title: React.ReactNode

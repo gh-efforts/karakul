@@ -2,13 +2,18 @@ import React, { useEffect } from 'react'
 import Link from 'next/link'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
-import { setLocalCookie, setLocalStorage } from 'src/helpers/cookie'
+
+import { setLocalCookie, setLocalStorage } from '../../helpers/cookie'
+
 export default function Login(): React.ReactElement {
   const {
     publicRuntimeConfig: { ENDPOINT },
   } = getConfig()
-  const backendUrl = ENDPOINT
+
   const router = useRouter()
+
+  const backendUrl = ENDPOINT
+
   useEffect(() => {
     const callback = router.asPath.split('?')
     fetch(`${backendUrl}/auth/feishu/callback?${callback[1]}`)
@@ -29,6 +34,7 @@ export default function Login(): React.ReactElement {
         console.log(err)
       })
   }, [router, backendUrl])
+
   return (
     <div>
       <Link href={`${backendUrl}/connect/feishu`}>

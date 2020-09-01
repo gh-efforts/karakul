@@ -37,7 +37,7 @@ class MyApp extends App<{ cookie: any }> {
     }
   }
 
-  static getInitialProps = async (appContext: AppContext): Promise<TAppInitialProps> => {
+  static getServerSideProps = async (appContext: AppContext): Promise<TAppInitialProps> => {
     const request = appContext.ctx.req
 
     // Call the page's `getInitialProps` and fill `appProps.pageProps`

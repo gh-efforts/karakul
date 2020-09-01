@@ -1,15 +1,12 @@
 import React from 'react'
 
-import { withLayout } from '../../layout/layout'
-import { KTable } from '../../components'
+import { KTable, SearchInput } from '../../../components'
+import { TOrder } from '../order.d'
+import columns from '../columns'
 
-import columns from '../../layout/order/columns'
-import OrderHeader from '../../layout/order/header'
-import type { TOrder } from '../../layout/order/order.d'
+import styles from './history.module.scss'
 
-import styles from './index.module.scss'
-
-function Order(): React.ReactElement {
+function HistoryModalView() {
   const data: TOrder[] = [
     {
       id: 'id',
@@ -28,11 +25,14 @@ function Order(): React.ReactElement {
   ]
 
   return (
-    <div className={styles.order}>
-      <OrderHeader />
+    <div>
+      <div className={styles['order-no']}>
+        <span> 订单编号：3647 </span>
+        <SearchInput />
+      </div>
       <KTable<TOrder> columns={columns} data={data} currentPage={1} total={data.length} rowKey='id' />
     </div>
   )
 }
 
-export default withLayout(Order)
+export default HistoryModalView
