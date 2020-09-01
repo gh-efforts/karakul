@@ -5,12 +5,14 @@ import * as Apollo from '@apollo/client'
 export const OrderHistoryFragmentDoc = gql`
   fragment orderHistory on OrderMaterialHistory {
     id
-    created_at
-    updated_at
-    order_id
-    material
-    amount
-    model
+    createdAt
+    updatedAt
+    order_id {
+      id
+    }
+    remark
+    attachment_desc
+    content
     user {
       username
     }
@@ -19,8 +21,8 @@ export const OrderHistoryFragmentDoc = gql`
 export const OrderFragmentDoc = gql`
   fragment order on Order {
     id
-    created_at
-    updated_at
+    createdAt
+    updatedAt
     detail
     amount
     delivery_time
@@ -74,9 +76,11 @@ export const OrderMaterialsDocument = gql`
   query OrderMaterials($limit: Int, $start: Int, $where: JSON, $sort: String) {
     orderMaterials(limit: $limit, start: $start, where: $where, sort: $sort) {
       id
-      created_at
-      updated_at
-      order_id
+      createdAt
+      updatedAt
+      order_id {
+        id
+      }
       material
       amount
       model
@@ -147,3 +151,132 @@ export function useOrderLazyQuery(
 export type OrderQueryHookResult = ReturnType<typeof useOrderQuery>
 export type OrderLazyQueryHookResult = ReturnType<typeof useOrderLazyQuery>
 export type OrderQueryResult = Apollo.QueryResult<Types.OrderQuery, Types.OrderQueryVariables>
+export const WarehousesDocument = gql`
+  query Warehouses($sort: String, $limit: Int, $start: Int, $where: JSON) {
+    warehouses(sort: $sort, limit: $limit, start: $start, where: $where) {
+      id
+      createdAt
+      updatedAt
+      name
+      user {
+        id
+        username
+      }
+    }
+  }
+`
+export function useWarehousesQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.WarehousesQuery, Types.WarehousesQueryVariables>
+) {
+  return Apollo.useQuery<Types.WarehousesQuery, Types.WarehousesQueryVariables>(WarehousesDocument, baseOptions)
+}
+export function useWarehousesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.WarehousesQuery, Types.WarehousesQueryVariables>
+) {
+  return Apollo.useLazyQuery<Types.WarehousesQuery, Types.WarehousesQueryVariables>(WarehousesDocument, baseOptions)
+}
+export type WarehousesQueryHookResult = ReturnType<typeof useWarehousesQuery>
+export type WarehousesLazyQueryHookResult = ReturnType<typeof useWarehousesLazyQuery>
+export type WarehousesQueryResult = Apollo.QueryResult<Types.WarehousesQuery, Types.WarehousesQueryVariables>
+export const CreateWarehouseDocument = gql`
+  mutation CreateWarehouse($data: WarehouseInput) {
+    createWarehouse(input: { data: $data }) {
+      warehouse {
+        id
+        createdAt
+        updatedAt
+        name
+        user {
+          id
+          username
+        }
+      }
+    }
+  }
+`
+export type CreateWarehouseMutationFn = Apollo.MutationFunction<
+  Types.CreateWarehouseMutation,
+  Types.CreateWarehouseMutationVariables
+>
+export function useCreateWarehouseMutation(
+  baseOptions?: Apollo.MutationHookOptions<Types.CreateWarehouseMutation, Types.CreateWarehouseMutationVariables>
+) {
+  return Apollo.useMutation<Types.CreateWarehouseMutation, Types.CreateWarehouseMutationVariables>(
+    CreateWarehouseDocument,
+    baseOptions
+  )
+}
+export type CreateWarehouseMutationHookResult = ReturnType<typeof useCreateWarehouseMutation>
+export type CreateWarehouseMutationResult = Apollo.MutationResult<Types.CreateWarehouseMutation>
+export type CreateWarehouseMutationOptions = Apollo.BaseMutationOptions<
+  Types.CreateWarehouseMutation,
+  Types.CreateWarehouseMutationVariables
+>
+export const DeleteWarehouseDocument = gql`
+  mutation DeleteWarehouse($id: ID!) {
+    deleteWarehouse(input: { where: { id: $id } }) {
+      warehouse {
+        id
+        createdAt
+        updatedAt
+        name
+        user {
+          id
+          username
+        }
+      }
+    }
+  }
+`
+export type DeleteWarehouseMutationFn = Apollo.MutationFunction<
+  Types.DeleteWarehouseMutation,
+  Types.DeleteWarehouseMutationVariables
+>
+export function useDeleteWarehouseMutation(
+  baseOptions?: Apollo.MutationHookOptions<Types.DeleteWarehouseMutation, Types.DeleteWarehouseMutationVariables>
+) {
+  return Apollo.useMutation<Types.DeleteWarehouseMutation, Types.DeleteWarehouseMutationVariables>(
+    DeleteWarehouseDocument,
+    baseOptions
+  )
+}
+export type DeleteWarehouseMutationHookResult = ReturnType<typeof useDeleteWarehouseMutation>
+export type DeleteWarehouseMutationResult = Apollo.MutationResult<Types.DeleteWarehouseMutation>
+export type DeleteWarehouseMutationOptions = Apollo.BaseMutationOptions<
+  Types.DeleteWarehouseMutation,
+  Types.DeleteWarehouseMutationVariables
+>
+export const UpdateWarehouseDocument = gql`
+  mutation UpdateWarehouse($id: ID!, $data: editWarehouseInput) {
+    updateWarehouse(input: { where: { id: $id }, data: $data }) {
+      warehouse {
+        id
+        createdAt
+        updatedAt
+        name
+        user {
+          id
+          username
+        }
+      }
+    }
+  }
+`
+export type UpdateWarehouseMutationFn = Apollo.MutationFunction<
+  Types.UpdateWarehouseMutation,
+  Types.UpdateWarehouseMutationVariables
+>
+export function useUpdateWarehouseMutation(
+  baseOptions?: Apollo.MutationHookOptions<Types.UpdateWarehouseMutation, Types.UpdateWarehouseMutationVariables>
+) {
+  return Apollo.useMutation<Types.UpdateWarehouseMutation, Types.UpdateWarehouseMutationVariables>(
+    UpdateWarehouseDocument,
+    baseOptions
+  )
+}
+export type UpdateWarehouseMutationHookResult = ReturnType<typeof useUpdateWarehouseMutation>
+export type UpdateWarehouseMutationResult = Apollo.MutationResult<Types.UpdateWarehouseMutation>
+export type UpdateWarehouseMutationOptions = Apollo.BaseMutationOptions<
+  Types.UpdateWarehouseMutation,
+  Types.UpdateWarehouseMutationVariables
+>

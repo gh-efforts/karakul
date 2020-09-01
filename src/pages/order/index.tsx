@@ -13,8 +13,8 @@ function Order(): React.ReactElement {
   const data: TOrder[] = [
     {
       id: 'id',
-      created_at: 'created_at',
-      updated_at: 'updated_at',
+      createdAt: 'createdAt',
+      updatedAt: 'updatedAt',
       detail: 'detail',
       amount: 10,
       delivery_time: 'delivery_time',

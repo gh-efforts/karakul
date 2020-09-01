@@ -1,11 +1,13 @@
 fragment orderHistory on OrderMaterialHistory {
   id
-  created_at
-  updated_at
-  order_id
-  material
-  amount
-  model
+  createdAt
+  updatedAt
+  order_id {
+    id
+  }
+  remark
+  attachment_desc
+  content
   user {
     username
   }
@@ -26,9 +28,11 @@ query OMHry($id: ID!) {
 query OrderMaterials($limit: Int, $start: Int, $where: JSON, $sort: String) {
   orderMaterials(limit: $limit, start: $start, where: $where, sort: $sort) {
     id
-    created_at
-    updated_at
-    order_id
+    createdAt
+    updatedAt
+    order_id {
+      id
+    }
     material
     amount
     model

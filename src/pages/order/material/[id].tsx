@@ -8,7 +8,6 @@ import columns from '../../../layout/order-material/table/column'
 import { getValueFromCookie } from '../../../helpers/cookie'
 import { filterPaginationValue } from '../../../helpers/params'
 import MaterialHeader from '../../../layout/order-material/header'
-import { OrderMaterial } from '../../../services'
 import { fetchOrderMaterials, OrderMaterialType } from '../../../layout/order-material/service'
 
 import styles from './index.module.scss'
@@ -50,7 +49,7 @@ function Material({ data, limit, start }: InferGetServerSidePropsType<typeof get
         pageSize={limit ?? 1}
         currentPage={start}
         total={data?.length ?? 0}
-        rowKey={(item: OrderMaterial) => item?.id}
+        rowKey={(item: OrderMaterialType) => item?.id}
         onPageChange={onChange}
       />
     </div>

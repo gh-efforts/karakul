@@ -1,8 +1,7 @@
 import { ColumnProps } from 'antd/lib/table'
+import { OrderMaterialType } from '../service'
 
-import { OrderMaterial } from '../../../services'
-
-const columns: ColumnProps<OrderMaterial>[] = [
+const columns: ColumnProps<OrderMaterialType>[] = [
   {
     title: '分类',
     dataIndex: 'name',
