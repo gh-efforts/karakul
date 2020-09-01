@@ -1,10 +1,17 @@
+.box {
+  background: #f3fbfb;
+}
+
 .logo {
-  height: 36px;
-  margin: 18px;
+  height: 72px;
+  padding: 18px 32px;
+  background-color: #fff;
+  box-sizing: border-box;
 }
 
 .menu {
-  margin-top: 20px;
+  margin-top: 16px;
+  background-color: #fff;
 
   svg {
     margin: 0px 12px 0px 0px;
