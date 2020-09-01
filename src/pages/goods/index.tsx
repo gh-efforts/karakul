@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { withLayout } from '../../layout'
-import GoodsHeader from './layout/header'
-import ExpandTable from './layout/GoodsTable'
+import { withLayout } from '../../layout/layout'
+import GoodsHeader from '../../layout/goods/header'
+import ExpandTable from '../../layout/goods/GoodsTable'
 
 import styles from './index.module.scss'
 

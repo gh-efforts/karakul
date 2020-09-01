@@ -1,9 +1,12 @@
-import { writeFileSync } from 'fs'
-import { resolve, join } from 'path'
+const fs = require('fs')
+const path = require('path')
 
 function writeVersion() {
   try {
-    writeFileSync(resolve(join(__dirname, '../version.js')), `module.exports='${new Date().toLocaleString()}'`)
+    fs.writeFileSync(
+      path.resolve(path.join(__dirname, '../version.js')),
+      `module.exports='${new Date().toLocaleString()}'`
+    )
   } catch (e) {
     return false
   }

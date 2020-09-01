@@ -2,14 +2,14 @@ import React from 'react'
 import { ParsedUrlQuery } from 'querystring'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 
-import { withLayout } from '../../../layout'
+import { withLayout } from '../../../layout/layout'
 import { KTable } from '../../../components'
-import columns from './layout/table/column'
+import columns from '../../../layout/order-material/table/column'
 import { getValueFromCookie } from '../../../helpers/cookie'
 import { filterPaginationValue } from '../../../helpers/params'
-import MaterialHeader from './layout/header'
+import MaterialHeader from '../../../layout/order-material/header'
 import { OrderMaterial } from '../../../services'
-import { fetchOrderMaterials, OrderMaterialType } from './service'
+import { fetchOrderMaterials, OrderMaterialType } from '../../../layout/order-material/service'
 
 import styles from './index.module.scss'
 
