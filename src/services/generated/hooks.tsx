@@ -153,14 +153,19 @@ export type OrderLazyQueryHookResult = ReturnType<typeof useOrderLazyQuery>
 export type OrderQueryResult = Apollo.QueryResult<Types.OrderQuery, Types.OrderQueryVariables>
 export const WarehousesDocument = gql`
   query Warehouses($sort: String, $limit: Int, $start: Int, $where: JSON) {
-    warehouses(sort: $sort, limit: $limit, start: $start, where: $where) {
-      id
-      createdAt
-      updatedAt
-      name
-      user {
+    warehousesConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+      values {
         id
-        username
+        createdAt
+        updatedAt
+        name
+        user {
+          id
+          username
+        }
+      }
+      aggregate {
+        totalCount
       }
     }
   }

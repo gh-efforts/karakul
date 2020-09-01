@@ -25,10 +25,10 @@ function filterStringParams(valArr: string[]) {
 }
 
 function filterPaginationValue(
-  page: string | number | undefined | null | string[],
-  size: string | number | undefined | null | string[]
+  limit: string | number | undefined | null | string[],
+  start: string | number | undefined | null | string[]
 ) {
-  return [Number(page) || 1, Number(size) || 10]
+  return [Number(limit) || 10, Number(start) || 1]
 }
 
 function ceilLastPage(count: string | number | undefined | null, size: string | number | undefined | null | string[]) {

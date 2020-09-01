@@ -3,17 +3,13 @@ import { Button } from 'antd'
 import { PlusOutlined } from '@ant-design/icons'
 
 import { SubHeader, useGlobalModal, FlexibleInput } from '../../../components'
-import CreateModalView from '../modal/create-modal'
+import { CreateModalView } from '../modal/create-modal'
 
 function GoodsWarehouseHeader() {
-  const { showModal, hideModal } = useGlobalModal()
+  const { showModal } = useGlobalModal()
 
   const showCreateModal = () => {
-    showModal('新建仓库', CreateModalView, {
-      onSuccess: () => {
-        hideModal()
-      },
-    })
+    showModal('新建仓库', CreateModalView, null, 400)
   }
 
   return (

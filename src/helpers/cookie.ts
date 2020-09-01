@@ -43,7 +43,7 @@ function clearLocalStorage(): void {
 }
 
 function clearLocalCookie(): void {
-  LocalCookie.remove('token')
+  LocalCookie.remove('Authorization')
 }
 
 export {
