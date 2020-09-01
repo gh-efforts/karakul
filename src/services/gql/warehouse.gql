@@ -1,0 +1,57 @@
+query Warehouses($sort: String, $limit: Int, $start: Int, $where: JSON) {
+  warehouses(sort: $sort, limit: $limit, start: $start, where: $where) {
+    id
+    createdAt
+    updatedAt
+    name
+    user {
+      id
+      username
+    }
+  }
+}
+
+mutation CreateWarehouse($data: WarehouseInput) {
+  createWarehouse(input: { data: $data }) {
+    warehouse {
+      id
+      createdAt
+      updatedAt
+      name
+      user {
+        id
+        username
+      }
+    }
+  }
+}
+
+mutation DeleteWarehouse($id: ID!) {
+  deleteWarehouse(input: { where: { id: $id } }) {
+    warehouse {
+      id
+      createdAt
+      updatedAt
+      name
+      user {
+        id
+        username
+      }
+    }
+  }
+}
+
+mutation UpdateWarehouse($id: ID!, $data: editWarehouseInput) {
+  updateWarehouse(input: { where: { id: $id }, data: $data }) {
+    warehouse {
+      id
+      createdAt
+      updatedAt
+      name
+      user {
+        id
+        username
+      }
+    }
+  }
+}

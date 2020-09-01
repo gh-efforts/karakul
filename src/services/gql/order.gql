@@ -1,7 +1,7 @@
 fragment order on Order {
   id
-  created_at
-  updated_at
+  createdAt
+  updatedAt
   detail
   amount
   delivery_time
