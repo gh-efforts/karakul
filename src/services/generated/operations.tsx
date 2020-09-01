@@ -66,6 +66,56 @@ export type OrderQueryVariables = Types.Exact<{
 
 export type OrderQuery = { order?: Types.Maybe<OrderFragment> }
 
+export type CommodityTypesQueryVariables = Types.Exact<{
+  sort?: Types.Maybe<Types.Scalars['String']>
+  limit?: Types.Maybe<Types.Scalars['Int']>
+  start?: Types.Maybe<Types.Scalars['Int']>
+  where?: Types.Maybe<Types.Scalars['JSON']>
+}>
+
+export type CommodityTypesQuery = {
+  commodityTypesConnection?: Types.Maybe<{
+    values?: Types.Maybe<
+      Array<
+        Types.Maybe<
+          Pick<Types.CommodityType, 'id' | 'createdAt' | 'updatedAt' | 'name'> & {
+            user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'id' | 'username'>>
+          }
+        >
+      >
+    >
+    aggregate?: Types.Maybe<Pick<Types.CommodityTypeAggregator, 'totalCount'>>
+  }>
+}
+
+export type CreateCommodityTypeMutationVariables = Types.Exact<{
+  data?: Types.Maybe<Types.CommodityTypeInput>
+}>
+
+export type CreateCommodityTypeMutation = {
+  createCommodityType?: Types.Maybe<{
+    commodityType?: Types.Maybe<
+      Pick<Types.CommodityType, 'id' | 'createdAt' | 'updatedAt' | 'name'> & {
+        user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'id' | 'username'>>
+      }
+    >
+  }>
+}
+
+export type DeleteCommodityTypeMutationVariables = Types.Exact<{
+  id: Types.Scalars['ID']
+}>
+
+export type DeleteCommodityTypeMutation = {
+  deleteCommodityType?: Types.Maybe<{
+    commodityType?: Types.Maybe<
+      Pick<Types.CommodityType, 'id' | 'createdAt' | 'updatedAt' | 'name'> & {
+        user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'id' | 'username'>>
+      }
+    >
+  }>
+}
+
 export type WarehousesQueryVariables = Types.Exact<{
   sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>

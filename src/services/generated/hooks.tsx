@@ -151,6 +151,121 @@ export function useOrderLazyQuery(
 export type OrderQueryHookResult = ReturnType<typeof useOrderQuery>
 export type OrderLazyQueryHookResult = ReturnType<typeof useOrderLazyQuery>
 export type OrderQueryResult = Apollo.QueryResult<Types.OrderQuery, Types.OrderQueryVariables>
+export const CommodityTypesDocument = gql`
+  query CommodityTypes($sort: String, $limit: Int, $start: Int, $where: JSON) {
+    commodityTypesConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+      values {
+        id
+        createdAt
+        updatedAt
+        name
+        user {
+          id
+          username
+        }
+      }
+      aggregate {
+        totalCount
+      }
+    }
+  }
+`
+export function useCommodityTypesQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.CommodityTypesQuery, Types.CommodityTypesQueryVariables>
+) {
+  return Apollo.useQuery<Types.CommodityTypesQuery, Types.CommodityTypesQueryVariables>(
+    CommodityTypesDocument,
+    baseOptions
+  )
+}
+export function useCommodityTypesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.CommodityTypesQuery, Types.CommodityTypesQueryVariables>
+) {
+  return Apollo.useLazyQuery<Types.CommodityTypesQuery, Types.CommodityTypesQueryVariables>(
+    CommodityTypesDocument,
+    baseOptions
+  )
+}
+export type CommodityTypesQueryHookResult = ReturnType<typeof useCommodityTypesQuery>
+export type CommodityTypesLazyQueryHookResult = ReturnType<typeof useCommodityTypesLazyQuery>
+export type CommodityTypesQueryResult = Apollo.QueryResult<
+  Types.CommodityTypesQuery,
+  Types.CommodityTypesQueryVariables
+>
+export const CreateCommodityTypeDocument = gql`
+  mutation CreateCommodityType($data: CommodityTypeInput) {
+    createCommodityType(input: { data: $data }) {
+      commodityType {
+        id
+        createdAt
+        updatedAt
+        name
+        user {
+          id
+          username
+        }
+      }
+    }
+  }
+`
+export type CreateCommodityTypeMutationFn = Apollo.MutationFunction<
+  Types.CreateCommodityTypeMutation,
+  Types.CreateCommodityTypeMutationVariables
+>
+export function useCreateCommodityTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.CreateCommodityTypeMutation,
+    Types.CreateCommodityTypeMutationVariables
+  >
+) {
+  return Apollo.useMutation<Types.CreateCommodityTypeMutation, Types.CreateCommodityTypeMutationVariables>(
+    CreateCommodityTypeDocument,
+    baseOptions
+  )
+}
+export type CreateCommodityTypeMutationHookResult = ReturnType<typeof useCreateCommodityTypeMutation>
+export type CreateCommodityTypeMutationResult = Apollo.MutationResult<Types.CreateCommodityTypeMutation>
+export type CreateCommodityTypeMutationOptions = Apollo.BaseMutationOptions<
+  Types.CreateCommodityTypeMutation,
+  Types.CreateCommodityTypeMutationVariables
+>
+export const DeleteCommodityTypeDocument = gql`
+  mutation DeleteCommodityType($id: ID!) {
+    deleteCommodityType(input: { where: { id: $id } }) {
+      commodityType {
+        id
+        createdAt
+        updatedAt
+        name
+        user {
+          id
+          username
+        }
+      }
+    }
+  }
+`
+export type DeleteCommodityTypeMutationFn = Apollo.MutationFunction<
+  Types.DeleteCommodityTypeMutation,
+  Types.DeleteCommodityTypeMutationVariables
+>
+export function useDeleteCommodityTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.DeleteCommodityTypeMutation,
+    Types.DeleteCommodityTypeMutationVariables
+  >
+) {
+  return Apollo.useMutation<Types.DeleteCommodityTypeMutation, Types.DeleteCommodityTypeMutationVariables>(
+    DeleteCommodityTypeDocument,
+    baseOptions
+  )
+}
+export type DeleteCommodityTypeMutationHookResult = ReturnType<typeof useDeleteCommodityTypeMutation>
+export type DeleteCommodityTypeMutationResult = Apollo.MutationResult<Types.DeleteCommodityTypeMutation>
+export type DeleteCommodityTypeMutationOptions = Apollo.BaseMutationOptions<
+  Types.DeleteCommodityTypeMutation,
+  Types.DeleteCommodityTypeMutationVariables
+>
 export const WarehousesDocument = gql`
   query Warehouses($sort: String, $limit: Int, $start: Int, $where: JSON) {
     warehousesConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
