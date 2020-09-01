@@ -74,15 +74,18 @@ export type WarehousesQueryVariables = Types.Exact<{
 }>
 
 export type WarehousesQuery = {
-  warehouses?: Types.Maybe<
-    Array<
-      Types.Maybe<
-        Pick<Types.Warehouse, 'id' | 'createdAt' | 'updatedAt' | 'name'> & {
-          user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'id' | 'username'>>
-        }
+  warehousesConnection?: Types.Maybe<{
+    values?: Types.Maybe<
+      Array<
+        Types.Maybe<
+          Pick<Types.Warehouse, 'id' | 'createdAt' | 'updatedAt' | 'name'> & {
+            user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'id' | 'username'>>
+          }
+        >
       >
     >
-  >
+    aggregate?: Types.Maybe<Pick<Types.WarehouseAggregator, 'totalCount'>>
+  }>
 }
 
 export type CreateWarehouseMutationVariables = Types.Exact<{

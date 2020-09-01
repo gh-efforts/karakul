@@ -7,7 +7,7 @@ import { getLocalStore, clearLocalStorage, clearLocalCookie } from '../../../hel
 import { Svg } from '../../../components'
 import styles from './index.module.scss'
 
-interface User {
+export interface User {
   username: string
   avatar: string
   id: string

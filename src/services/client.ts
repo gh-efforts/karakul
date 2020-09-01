@@ -37,11 +37,11 @@ const trimLink = new ApolloLink((operation, forward) => {
   return forward(operation)
 })
 
-// check request token
+// check request Authorization
 const tokenLink = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
-      token: operation.variables.token || Cookies.get('token'),
+      Authorization: operation.variables.Authorization || Cookies.get('Authorization'),
     },
   })
   return forward(operation)

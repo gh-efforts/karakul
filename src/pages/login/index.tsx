@@ -25,9 +25,9 @@ export default function Login(): React.ReactElement {
       })
       .then(res => res.json())
       .then(res => {
-        setLocalCookie('token', `Bearer${res.jwt}` || '')
+        setLocalCookie('Authorization', `Bearer${res.jwt}` || '')
         setLocalStorage('user', JSON.stringify(res.user) || '')
-
+        setLocalStorage('userId', res.user.id || '')
         setTimeout(() => router.push('/'), 3000) // Redirect to homepage after 3 sec
       })
       .catch(err => {
