@@ -1,23 +1,36 @@
+import React from 'react'
+import { MinusCircleOutlined } from '@ant-design/icons'
+
+function HistoryButton() {
+  const onDelete = () => {
+    return false
+  }
+  return <MinusCircleOutlined style={{ color: '#657683' }} onClick={onDelete} />
+}
+
 const columns = [
   {
-    title: '商品编号',
+    title: '仓库名称',
     dataIndex: 'name',
   },
   {
-    title: '商品类型',
+    title: '创建时间',
     dataIndex: 'name',
   },
   {
-    title: '所在仓库',
-    dataIndex: 'callType',
+    title: '创建人',
+    dataIndex: 'name',
   },
   {
-    title: '入库时间',
-    dataIndex: 'type',
-  },
-  {
-    title: '操作人',
-    dataIndex: 'type',
+    title: '操作',
+    width: 160,
+    render() {
+      return (
+        <span className='table-operation-group'>
+          <HistoryButton />
+        </span>
+      )
+    },
   },
 ]
 

@@ -8,7 +8,7 @@ export default function CreateModalView() {
   }
   return (
     <div className={styles['create-modal']}>
-      <Input placeholder='请输入商品类型' />
+      <Input placeholder='请输入仓库名称' />
       <Divider />
       <ModalButtonGroup OKText={'创建'} onOK={onOK} loading={false} className={styles.btns} position='left' />
     </div>
