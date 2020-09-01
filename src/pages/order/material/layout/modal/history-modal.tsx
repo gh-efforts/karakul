@@ -1,8 +1,8 @@
 import React from 'react'
 
 import ModalView from './modal'
-import { OrderMaterial } from '../../../../services'
-import { KTable } from '../../../../components'
+import { OrderMaterial } from '../../../../../services'
+import { KTable } from '../../../../../components'
 import modalColumns from '../table/history-modal-column'
 import styles from './index.module.scss'
 function HistroyModalView(): React.ReactElement {

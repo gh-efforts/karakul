@@ -1,8 +1,8 @@
 import React from 'react'
 
 import ModalView from './modal'
-import { OrderMaterial } from '../../../../services'
-import { KTable, useGlobalModal } from '../../../../components'
+import { OrderMaterial } from '../../../../../services'
+import { KTable, useGlobalModal } from '../../../../../components'
 import modalColumns from '../table/edit-modal-column'
 import EditForm, { RemarkFrom } from '../form/edit-from'
 function EditModalView(): React.ReactElement {

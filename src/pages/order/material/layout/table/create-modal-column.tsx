@@ -1,4 +1,4 @@
-import { OrderMaterial } from '../../../../services'
+import { OrderMaterial } from '../../../../../services'
 import { ColumnProps } from 'antd/lib/table'
 
 const modalColumns: ColumnProps<OrderMaterial>[] = [
@@ -12,10 +12,6 @@ const modalColumns: ColumnProps<OrderMaterial>[] = [
   },
   {
     title: '数量',
-    dataIndex: 'type',
-  },
-  {
-    title: '行为',
     dataIndex: 'type',
   },
   {

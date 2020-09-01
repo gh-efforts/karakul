@@ -4,7 +4,7 @@ import {
   OrderMaterialsQuery,
   OrderMaterialsDocument,
   OrderMaterial,
-} from '../../services'
+} from '../../../services'
 
 export type OrderMaterialType = Pick<
   OrderMaterial,

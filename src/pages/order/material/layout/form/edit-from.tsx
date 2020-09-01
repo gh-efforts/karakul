@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form, Input, Button, Upload, Select } from 'antd'
 import styles from './index.module.scss'
-import { message } from '../../../../components'
+import { message } from '../../../../../components'
 import { PlusCircleFilled } from '@ant-design/icons'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { UploadFile } from 'antd/lib/upload/interface'

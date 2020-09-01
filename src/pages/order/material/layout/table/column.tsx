@@ -1,4 +1,4 @@
-import { OrderMaterial } from '../../../../services'
+import { OrderMaterial } from '../../../../../services'
 import { ColumnProps } from 'antd/lib/table'
 
 const columns: ColumnProps<OrderMaterial>[] = [

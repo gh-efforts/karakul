@@ -1,8 +1,8 @@
 import React from 'react'
 
 import CreateForm from '../form/creat-form'
-import { KTable, useGlobalModal } from '../../../../components'
-import { OrderMaterial } from '../../../../services'
+import { KTable, useGlobalModal } from '../../../../../components'
+import { OrderMaterial } from '../../../../../services'
 import modalColumns from '../table/create-modal-column'
 import ModalView from './modal'
 function CreateModalView(): React.ReactElement {

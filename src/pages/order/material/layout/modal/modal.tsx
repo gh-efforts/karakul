@@ -1,7 +1,7 @@
 import React from 'react'
 
 import styles from './index.module.scss'
-import { ModalButtonGroup } from '../../../../components'
+import { ModalButtonGroup } from '../../../../../components'
 
 interface ModalProps {
   orderId: string
