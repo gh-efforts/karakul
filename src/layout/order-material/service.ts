@@ -8,7 +8,7 @@ import {
 
 export type OrderMaterialType = Pick<
   OrderMaterial,
-  'id' | 'created_at' | 'updated_at' | 'order_id' | 'material' | 'amount' | 'model'
+  'id' | 'createdAt' | 'updatedAt' | 'order_id' | 'material' | 'amount' | 'model'
 >
 
 async function fetchOrderMaterials(
