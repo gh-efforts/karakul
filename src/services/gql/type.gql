@@ -1,0 +1,47 @@
+query CommodityTypes($sort: String, $limit: Int, $start: Int, $where: JSON) {
+  commodityTypesConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+    values {
+      id
+      createdAt
+      updatedAt
+      name
+      user {
+        id
+        username
+      }
+    }
+    aggregate {
+      totalCount
+    }
+  }
+}
+
+mutation CreateCommodityType($data: CommodityTypeInput) {
+  createCommodityType(input: { data: $data }) {
+    commodityType {
+      id
+      createdAt
+      updatedAt
+      name
+      user {
+        id
+        username
+      }
+    }
+  }
+}
+
+mutation DeleteCommodityType($id: ID!) {
+  deleteCommodityType(input: { where: { id: $id } }) {
+    commodityType {
+      id
+      createdAt
+      updatedAt
+      name
+      user {
+        id
+        username
+      }
+    }
+  }
+}

@@ -8,7 +8,7 @@ import {
   useCreateWarehouseMutation,
   useDeleteWarehouseMutation,
 } from '../../services'
-import { getLocalStore } from 'src/helpers/cookie'
+import { getLocalStore } from '../../helpers/cookie'
 export type WarehouseType = Pick<Warehouse, 'id' | 'createdAt' | 'updatedAt' | 'name' | 'user'>
 export type WarehouseConnectionType = Pick<WarehouseConnection, 'values' | 'aggregate'>
 async function fetchWarehouses(
