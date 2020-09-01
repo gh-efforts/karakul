@@ -6,12 +6,13 @@ import styles from './layout.module.scss'
 import { Svg, useGlobalModal } from '../../../components'
 import CreateGoodsView from './create-goods'
 import GoodsHistoryView from './goods-history'
+import ExWarehouseView from './ex-warehouse'
 
 function CreateGoodsBtn({ id }: { id?: string }) {
   const { showModal } = useGlobalModal()
 
   const show = () => {
-    showModal('创建商品', CreateGoodsView, { id })
+    showModal('创建商品', CreateGoodsView, { id }, 800)
   }
 
   return (
@@ -25,15 +26,28 @@ function GoodsHistoryBtn({ id }: { id?: string }) {
   const { showModal } = useGlobalModal()
 
   const show = () => {
-    console.log({ id })
     if (!id) {
       return
     }
 
-    showModal('商品历史', GoodsHistoryView, { id })
+    showModal('商品历史', GoodsHistoryView, { id }, 800)
   }
 
   return <Svg name='btn-history-h' onClick={show} />
+}
+
+function ExWarehouseBtn({ id }: { id?: string }) {
+  const { showModal } = useGlobalModal()
+
+  const show = () => {
+    if (!id) {
+      return
+    }
+
+    showModal('商品出库', ExWarehouseView, { id }, 800)
+  }
+
+  return <Svg name='btn-sell-h' onClick={show} />
 }
 
 const GoodsTypeColumns: ColumnProps<GoodsType>[] = [
@@ -74,14 +88,7 @@ const GoodsNumColumns: ColumnProps<Goods>[] = [
     dataIndex: ['user', 'username'],
   },
   {
-    title() {
-      return (
-        <span className={styles.btns}>
-          <Svg name='btn-sell-h' />
-          <Svg name='btn-stock-h' />
-        </span>
-      )
-    },
+    title: '操作',
     render(_, record) {
       return (
         <span className={styles.btns}>
@@ -117,8 +124,14 @@ const GoodsColumns: ColumnProps<GoodsOrder>[] = [
   },
   {
     title: 'Action',
-    render() {
-      return <CreateGoodsBtn />
+    render(record) {
+      return (
+        <span className={styles.btns}>
+          <ExWarehouseBtn id={record?.id} />
+          <Svg name='btn-stock-h' />
+          <CreateGoodsBtn />
+        </span>
+      )
     },
     width: 100,
   },

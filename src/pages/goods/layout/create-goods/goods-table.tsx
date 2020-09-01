@@ -200,6 +200,7 @@ function CreateGoodsTable() {
       columns={columns}
       pagination={false}
       className={styles.table}
+      rowKey='id'
     />
   )
 }
