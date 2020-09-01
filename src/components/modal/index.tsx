@@ -38,7 +38,7 @@ export class GlobalModalProvider<T, P> extends Component<P, GlobalModalProviderS
       visiable: false,
       props: {} as T,
       component: null,
-      width: 520,
+      width: 800,
     }
   }
 
@@ -48,7 +48,7 @@ export class GlobalModalProvider<T, P> extends Component<P, GlobalModalProviderS
       props,
       visiable: true,
       component,
-      width: width ?? 520,
+      width: width ?? 800,
     })
   }
 

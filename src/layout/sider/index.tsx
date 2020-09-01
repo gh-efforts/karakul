@@ -91,6 +91,7 @@ const menuItem = (selectedKeys: string[], onClick: (values: MenuInfo) => void) =
 function KSider(): React.ReactElement {
   const router = useRouter()
   const [selectedKeys, setSelectedKeys] = useState<string[]>([])
+
   useEffect(() => {
     setSelectedKeys([findKey(router.pathname) ?? '1'])
   }, [router.pathname])
@@ -100,9 +101,9 @@ function KSider(): React.ReactElement {
   }
 
   return (
-    <div>
+    <div className={styles.box}>
       <div className={styles.logo}>
-        <img src={`/images/logo.svg`} width='164' height='35' alt='logo' />
+        <img src={`/images/logo.svg`} alt='logo' />
       </div>
       <Menu
         className={styles.menu}

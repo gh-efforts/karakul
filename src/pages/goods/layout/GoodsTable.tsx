@@ -12,7 +12,7 @@ function CreateGoodsBtn({ id }: { id?: string }) {
   const { showModal } = useGlobalModal()
 
   const show = () => {
-    showModal('创建商品', CreateGoodsView, { id }, 800)
+    showModal('创建商品', CreateGoodsView, { id })
   }
 
   return (
@@ -30,7 +30,7 @@ function GoodsHistoryBtn({ id }: { id?: string }) {
       return
     }
 
-    showModal('商品历史', GoodsHistoryView, { id }, 800)
+    showModal('商品历史', GoodsHistoryView, { id })
   }
 
   return <Svg name='btn-history-h' onClick={show} />
@@ -44,7 +44,7 @@ function ExWarehouseBtn({ id }: { id?: string }) {
       return
     }
 
-    showModal('商品出库', ExWarehouseView, { id }, 800)
+    showModal('商品出库', ExWarehouseView, { id })
   }
 
   return <Svg name='btn-sell-h' onClick={show} />
@@ -127,9 +127,9 @@ const GoodsColumns: ColumnProps<GoodsOrder>[] = [
     render(record) {
       return (
         <span className={styles.btns}>
+          <CreateGoodsBtn />
           <ExWarehouseBtn id={record?.id} />
           <Svg name='btn-stock-h' />
-          <CreateGoodsBtn />
         </span>
       )
     },

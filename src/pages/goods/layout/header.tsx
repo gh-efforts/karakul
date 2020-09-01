@@ -8,7 +8,7 @@ function Goodsheader() {
   // const { showModal } = useGlobalModal()
 
   const showCreateModal = () => {
-    // showModal('创建订单', CreateModalView, {},800)
+    // showModal('创建订单', CreateModalView, {})
   }
 
   return (
