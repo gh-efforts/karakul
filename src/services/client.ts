@@ -47,7 +47,7 @@ const tokenLink = new ApolloLink((operation, forward) => {
   return forward(operation)
 })
 
-const initialLink = createHttpLink({ uri: ENDPOINT, fetch, credentials: 'same-origin' })
+const initialLink = createHttpLink({ uri: `${ENDPOINT}/graphql`, fetch, credentials: 'same-origin' })
 
 const processLink = new ApolloLink((operation, forward) => {
   if (typeof window !== 'undefined') {

@@ -3,8 +3,9 @@ import React from 'react'
 interface ExpandIconProps {
   expanded?: boolean
   onClick?: () => void
+  disabled?: boolean
 }
-function ExpandIcon({ expanded, onClick }: ExpandIconProps) {
+function ExpandIcon({ expanded, onClick, disabled }: ExpandIconProps) {
   return (
     <button
       type='button'
@@ -12,6 +13,7 @@ function ExpandIcon({ expanded, onClick }: ExpandIconProps) {
         expanded ? 'ant-table-row-expand-icon-expanded' : 'ant-table-row-expand-icon-collapsed'
       }`}
       onClick={onClick}
+      disabled={disabled}
     />
   )
 }

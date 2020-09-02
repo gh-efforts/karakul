@@ -88,6 +88,7 @@ interface GoodsItemTableProps {
   expanded?: boolean
   data?: OrderCommodity[]
 }
+
 function GoodsItemTable({ data = goods, expanded }: GoodsItemTableProps) {
   return (
     <div className={`${styles.table} ${expanded ? styles['table-show'] : styles['table-hide']}`}>
