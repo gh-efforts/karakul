@@ -388,7 +388,7 @@ export type OrdersConnectionQueryResult = Apollo.QueryResult<
 >
 export const CreateOrderDocument = gql`
   mutation CreateOrder($data: OrderInput) {
-    createOrder(input: { data: $data }) {
+    createNewOrder(input: { data: $data }) {
       order {
         ...order
       }
@@ -416,7 +416,7 @@ export type CreateOrderMutationOptions = Apollo.BaseMutationOptions<
 >
 export const UpdateOrderDocument = gql`
   mutation UpdateOrder($id: ID!, $data: editOrderInput) {
-    updateOrder(input: { where: { id: $id }, data: $data }) {
+    updateOldOrder(input: { where: { id: $id }, data: $data }) {
       order {
         ...order
       }
@@ -443,8 +443,8 @@ export type UpdateOrderMutationOptions = Apollo.BaseMutationOptions<
   Types.UpdateOrderMutationVariables
 >
 export const OrderHistoriesConnectionDocument = gql`
-  query OrderHistoriesConnection($sort: String, $limit: Int, $start: Int, $where: JSON) {
-    orderHistoriesConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+  query OrderHistoriesConnection($sort: String, $limit: Int, $start: Int, $id: ID!) {
+    orderHistoriesConnection(sort: $sort, limit: $limit, start: $start, where: { id: $id }) {
       values {
         id
         createdAt

@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { withLayout } from '../../layout/layout'
 import { KTable } from '../../components'
 
-import columns from '../../layout/order/columns'
+import columns from '../../layout/order/table/columns'
 import OrderHeader from '../../layout/order/header'
 import type { TOrder } from '../../layout/order/order.d'
 
@@ -13,11 +13,12 @@ import { ParsedUrlQuery } from 'querystring'
 import { filterPaginationValue } from '../../helpers/params'
 import { getValueFromCookie } from '../../helpers/cookie'
 import { fetchOrders } from '../../layout/order/services'
+import { useRouter } from 'next/router'
 export const getServerSideProps = async ({
   req: { headers },
   query: { limit, start },
 }: GetServerSidePropsContext<ParsedUrlQuery>): Promise<{
-  props: { data: TOrder[]; currentPage: number; limit: number; total: number }
+  props: { data: TOrder[]; limit: number; total: number }
 }> => {
   const [$limit, $start] = filterPaginationValue(limit, start)
 
@@ -30,17 +31,23 @@ export const getServerSideProps = async ({
     props: {
       data: (data?.values ?? []) as TOrder[],
       total: data.aggregate?.totalCount ?? 0,
-      currentPage: Math.floor($start % $limit) ?? 1,
       limit: $limit,
     },
   }
 }
-function Order({
-  data,
-  currentPage,
-  limit,
-  total,
-}: InferGetServerSidePropsType<typeof getServerSideProps>): React.ReactElement {
+function Order({ data, limit, total }: InferGetServerSidePropsType<typeof getServerSideProps>): React.ReactElement {
+  const route = useRouter()
+  const [current, setCurrent] = useState(1)
+  const onPageChange = (page: number, size?: number) => {
+    setCurrent(page)
+    route.replace({
+      pathname: '/order',
+      query: {
+        limit: size || 10,
+        start: (page - 1) * (size || 10),
+      },
+    })
+  }
   return (
     <div className={styles.order}>
       <OrderHeader />
@@ -48,9 +55,10 @@ function Order({
         data={(data ?? []) as TOrder[]}
         columns={columns}
         total={total}
-        currentPage={currentPage}
+        currentPage={current}
         pageSize={limit}
         rowKey={item => item.id}
+        onPageChange={onPageChange}
       />
     </div>
   )

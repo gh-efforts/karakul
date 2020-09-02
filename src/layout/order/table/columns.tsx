@@ -3,11 +3,11 @@ import { ClockCircleOutlined, FileAddOutlined, EditOutlined } from '@ant-design/
 import { Tooltip } from 'antd'
 import Link from 'next/link'
 
-import EditModalView, { EditModalViewProps } from './modal/edit-modal'
-import HistoryModalView from './modal/history-modal'
+import EditModalView, { EditModalViewProps } from '../modal/edit-modal'
+import HistoryModalView, { HistoryModalViewProps } from '../modal/history-modal'
 
-import type { TOrder } from './order.d'
-import { useGlobalModal, ColumnProps } from '../../components'
+import type { TOrder } from '../order'
+import { useGlobalModal, ColumnProps } from '../../../components'
 import moment from 'moment'
 
 function EditButton({ order }: EditModalViewProps) {
@@ -38,11 +38,11 @@ function AddButton({ id }: { id: string }) {
   )
 }
 
-function HistoryButton() {
+function HistoryButton({ order }: HistoryModalViewProps) {
   const { showModal } = useGlobalModal()
 
   const show = () => {
-    showModal('订单历史', HistoryModalView, {})
+    showModal('订单历史', HistoryModalView, { order }, 1072)
   }
 
   return (
@@ -75,12 +75,6 @@ const columns: ColumnProps<TOrder>[] = [
     dataIndex: 'amount',
   },
   {
-    title: '创建时间',
-    dataIndex: 'createdAt',
-    ellipsis: true,
-    render: text => moment(text).format('YYYY-MM-DD hh:mm:ss'),
-  },
-  {
     title: '交付时间',
     dataIndex: 'delivery_time',
     ellipsis: true,
@@ -109,7 +103,7 @@ const columns: ColumnProps<TOrder>[] = [
       return (
         <span className='table-operation-group'>
           <EditButton order={order} />
-          <HistoryButton />
+          <HistoryButton order={order} />
           <AddButton id={order?.id ?? ''} />
         </span>
       )

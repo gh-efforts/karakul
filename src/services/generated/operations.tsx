@@ -148,20 +148,20 @@ export type CreateOrderMutationVariables = Types.Exact<{
   data?: Types.Maybe<Types.OrderInput>
 }>
 
-export type CreateOrderMutation = { createOrder?: Types.Maybe<{ order?: Types.Maybe<OrderFragment> }> }
+export type CreateOrderMutation = { createNewOrder?: Types.Maybe<{ order?: Types.Maybe<OrderFragment> }> }
 
 export type UpdateOrderMutationVariables = Types.Exact<{
   id: Types.Scalars['ID']
   data?: Types.Maybe<Types.EditOrderInput>
 }>
 
-export type UpdateOrderMutation = { updateOrder?: Types.Maybe<{ order?: Types.Maybe<OrderFragment> }> }
+export type UpdateOrderMutation = { updateOldOrder?: Types.Maybe<{ order?: Types.Maybe<OrderFragment> }> }
 
 export type OrderHistoriesConnectionQueryVariables = Types.Exact<{
   sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
   start?: Types.Maybe<Types.Scalars['Int']>
-  where?: Types.Maybe<Types.Scalars['JSON']>
+  id: Types.Scalars['ID']
 }>
 
 export type OrderHistoriesConnectionQuery = {

@@ -36,7 +36,7 @@ query OrdersConnection($sort: String, $limit: Int, $start: Int, $where: JSON) {
 }
 
 mutation CreateOrder($data: OrderInput) {
-  createOrder(input: { data: $data }) {
+  createNewOrder(input: { data: $data }) {
     order {
       ...order
     }
@@ -44,15 +44,15 @@ mutation CreateOrder($data: OrderInput) {
 }
 
 mutation UpdateOrder($id: ID!, $data: editOrderInput) {
-  updateOrder(input: { where: { id: $id }, data: $data }) {
+  updateOldOrder(input: { where: { id: $id }, data: $data }) {
     order {
       ...order
     }
   }
 }
 
-query OrderHistoriesConnection($sort: String, $limit: Int, $start: Int, $where: JSON) {
-  orderHistoriesConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+query OrderHistoriesConnection($sort: String, $limit: Int, $start: Int, $id: ID!) {
+  orderHistoriesConnection(sort: $sort, limit: $limit, start: $start, where: { id: $id }) {
     values {
       id
       createdAt
