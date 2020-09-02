@@ -30,7 +30,7 @@ export const getServerSideProps = async ({
   return {
     props: {
       data: (data?.values ?? []) as TOrder[],
-      total: data.aggregate?.totalCount ?? 0,
+      total: data.aggregate?.count ?? 0,
       limit: $limit,
     },
   }

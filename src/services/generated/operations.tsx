@@ -140,7 +140,7 @@ export type OrdersConnectionQueryVariables = Types.Exact<{
 export type OrdersConnectionQuery = {
   ordersConnection?: Types.Maybe<{
     values?: Types.Maybe<Array<Types.Maybe<OrderFragment>>>
-    aggregate?: Types.Maybe<Pick<Types.OrderAggregator, 'count' | 'totalCount'>>
+    aggregate?: Types.Maybe<Pick<Types.OrderAggregator, 'count'>>
   }>
 }
 
@@ -176,7 +176,7 @@ export type OrderHistoriesConnectionQuery = {
         >
       >
     >
-    aggregate?: Types.Maybe<Pick<Types.OrderHistoryAggregator, 'count' | 'totalCount'>>
+    aggregate?: Types.Maybe<Pick<Types.OrderHistoryAggregator, 'count'>>
   }>
 }
 
@@ -198,7 +198,7 @@ export type CommodityTypesQuery = {
         >
       >
     >
-    aggregate?: Types.Maybe<Pick<Types.CommodityTypeAggregator, 'totalCount'>>
+    aggregate?: Types.Maybe<Pick<Types.CommodityTypeAggregator, 'count'>>
   }>
 }
 
@@ -248,7 +248,7 @@ export type WarehousesQuery = {
         >
       >
     >
-    aggregate?: Types.Maybe<Pick<Types.WarehouseAggregator, 'totalCount'>>
+    aggregate?: Types.Maybe<Pick<Types.WarehouseAggregator, 'count'>>
   }>
 }
 

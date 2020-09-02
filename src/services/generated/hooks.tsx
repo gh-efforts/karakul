@@ -149,7 +149,6 @@ export const GoodsOrdersDocument = gql`
       }
       aggregate {
         count
-        totalCount
       }
     }
   }
@@ -358,7 +357,6 @@ export const OrdersConnectionDocument = gql`
       }
       aggregate {
         count
-        totalCount
       }
     }
   }
@@ -509,7 +507,7 @@ export const CommodityTypesDocument = gql`
         }
       }
       aggregate {
-        totalCount
+        count
       }
     }
   }
@@ -624,7 +622,7 @@ export const WarehousesDocument = gql`
         }
       }
       aggregate {
-        totalCount
+        count
       }
     }
   }

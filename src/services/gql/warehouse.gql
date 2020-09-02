@@ -11,7 +11,7 @@ query Warehouses($sort: String, $limit: Int, $start: Int, $where: JSON) {
       }
     }
     aggregate {
-      totalCount
+      count
     }
   }
 }

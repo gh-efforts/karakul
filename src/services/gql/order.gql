@@ -30,7 +30,6 @@ query OrdersConnection($sort: String, $limit: Int, $start: Int, $where: JSON) {
     }
     aggregate {
       count
-      totalCount
     }
   }
 }
@@ -52,7 +51,7 @@ mutation UpdateOrder($id: ID!, $data: editOrderInput) {
 }
 
 query OrderHistoriesConnection($sort: String, $limit: Int, $start: Int, $id: ID!) {
-  orderHistoriesConnection(sort: $sort, limit: $limit, start: $start, where: { id: $id }) {
+  orderHistoriesConnection(sort: $sort, limit: $limit, start: $start, where: { order: $id }) {
     values {
       id
       createdAt
@@ -70,7 +69,6 @@ query OrderHistoriesConnection($sort: String, $limit: Int, $start: Int, $id: ID!
     }
     aggregate {
       count
-      totalCount
     }
   }
 }

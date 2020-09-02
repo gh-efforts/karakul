@@ -35,10 +35,9 @@ function HistoryModalView({ order }: HistoryModalViewProps) {
   })
   const onPageChange = (page: number, size?: number) => {
     setCurrent(page)
-    // limit: size || 10,
-    // start: (page - 1) * (size || 10),
     setLimit(size || 10)
     setStart((page - 1) * (size || 10))
+
     fetchData()
   }
   return (
@@ -53,7 +52,7 @@ function HistoryModalView({ order }: HistoryModalViewProps) {
         loading={loading}
         currentPage={current}
         pageSize={limit}
-        total={data?.orderHistoriesConnection?.aggregate?.totalCount ?? 0}
+        total={data?.orderHistoriesConnection?.aggregate?.count ?? 0}
         rowKey='id'
         onPageChange={onPageChange}
       />

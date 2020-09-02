@@ -28,7 +28,7 @@ export const getServerSideProps = async ({
   return {
     props: {
       data: (data?.values ?? []) as WarehouseType[],
-      total: data.aggregate?.totalCount ?? 0,
+      total: data.aggregate?.count ?? 0,
       limit: $limit,
     },
   }
@@ -44,7 +44,7 @@ function GoodsWarehouse({
   const onPageChange = (page: number, size?: number) => {
     setCurrent(page)
     route.replace({
-      pathname: '/order',
+      pathname: '/goods-warehouse',
       query: {
         limit: size || 10,
         start: (page - 1) * (size || 10),
