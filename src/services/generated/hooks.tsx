@@ -21,15 +21,13 @@ export const OrderHistoryFragmentDoc = gql`
 export const OrderFragmentDoc = gql`
   fragment order on Order {
     id
+    name
     createdAt
     updatedAt
     detail
     amount
     delivery_time
-    created_by {
-      username
-    }
-    updated_by {
+    user {
       username
     }
   }
@@ -151,7 +149,6 @@ export const GoodsOrdersDocument = gql`
       }
       aggregate {
         count
-        totalCount
       }
     }
   }
@@ -352,6 +349,150 @@ export function useOrderLazyQuery(
 export type OrderQueryHookResult = ReturnType<typeof useOrderQuery>
 export type OrderLazyQueryHookResult = ReturnType<typeof useOrderLazyQuery>
 export type OrderQueryResult = Apollo.QueryResult<Types.OrderQuery, Types.OrderQueryVariables>
+export const OrdersConnectionDocument = gql`
+  query OrdersConnection($sort: String, $limit: Int, $start: Int, $where: JSON) {
+    ordersConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+      values {
+        ...order
+      }
+      aggregate {
+        count
+      }
+    }
+  }
+  ${OrderFragmentDoc}
+`
+export function useOrdersConnectionQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.OrdersConnectionQuery, Types.OrdersConnectionQueryVariables>
+) {
+  return Apollo.useQuery<Types.OrdersConnectionQuery, Types.OrdersConnectionQueryVariables>(
+    OrdersConnectionDocument,
+    baseOptions
+  )
+}
+export function useOrdersConnectionLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.OrdersConnectionQuery, Types.OrdersConnectionQueryVariables>
+) {
+  return Apollo.useLazyQuery<Types.OrdersConnectionQuery, Types.OrdersConnectionQueryVariables>(
+    OrdersConnectionDocument,
+    baseOptions
+  )
+}
+export type OrdersConnectionQueryHookResult = ReturnType<typeof useOrdersConnectionQuery>
+export type OrdersConnectionLazyQueryHookResult = ReturnType<typeof useOrdersConnectionLazyQuery>
+export type OrdersConnectionQueryResult = Apollo.QueryResult<
+  Types.OrdersConnectionQuery,
+  Types.OrdersConnectionQueryVariables
+>
+export const CreateOrderDocument = gql`
+  mutation CreateOrder($data: OrderInput) {
+    createNewOrder(input: { data: $data }) {
+      order {
+        ...order
+      }
+    }
+  }
+  ${OrderFragmentDoc}
+`
+export type CreateOrderMutationFn = Apollo.MutationFunction<
+  Types.CreateOrderMutation,
+  Types.CreateOrderMutationVariables
+>
+export function useCreateOrderMutation(
+  baseOptions?: Apollo.MutationHookOptions<Types.CreateOrderMutation, Types.CreateOrderMutationVariables>
+) {
+  return Apollo.useMutation<Types.CreateOrderMutation, Types.CreateOrderMutationVariables>(
+    CreateOrderDocument,
+    baseOptions
+  )
+}
+export type CreateOrderMutationHookResult = ReturnType<typeof useCreateOrderMutation>
+export type CreateOrderMutationResult = Apollo.MutationResult<Types.CreateOrderMutation>
+export type CreateOrderMutationOptions = Apollo.BaseMutationOptions<
+  Types.CreateOrderMutation,
+  Types.CreateOrderMutationVariables
+>
+export const UpdateOrderDocument = gql`
+  mutation UpdateOrder($id: ID!, $data: editOrderInput) {
+    updateOldOrder(input: { where: { id: $id }, data: $data }) {
+      order {
+        ...order
+      }
+    }
+  }
+  ${OrderFragmentDoc}
+`
+export type UpdateOrderMutationFn = Apollo.MutationFunction<
+  Types.UpdateOrderMutation,
+  Types.UpdateOrderMutationVariables
+>
+export function useUpdateOrderMutation(
+  baseOptions?: Apollo.MutationHookOptions<Types.UpdateOrderMutation, Types.UpdateOrderMutationVariables>
+) {
+  return Apollo.useMutation<Types.UpdateOrderMutation, Types.UpdateOrderMutationVariables>(
+    UpdateOrderDocument,
+    baseOptions
+  )
+}
+export type UpdateOrderMutationHookResult = ReturnType<typeof useUpdateOrderMutation>
+export type UpdateOrderMutationResult = Apollo.MutationResult<Types.UpdateOrderMutation>
+export type UpdateOrderMutationOptions = Apollo.BaseMutationOptions<
+  Types.UpdateOrderMutation,
+  Types.UpdateOrderMutationVariables
+>
+export const OrderHistoriesConnectionDocument = gql`
+  query OrderHistoriesConnection($sort: String, $limit: Int, $start: Int, $id: ID!) {
+    orderHistoriesConnection(sort: $sort, limit: $limit, start: $start, where: { id: $id }) {
+      values {
+        id
+        createdAt
+        updatedAt
+        detail
+        amount
+        delivery_time
+        order {
+          id
+          name
+        }
+        user {
+          username
+        }
+      }
+      aggregate {
+        count
+        totalCount
+      }
+    }
+  }
+`
+export function useOrderHistoriesConnectionQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.OrderHistoriesConnectionQuery,
+    Types.OrderHistoriesConnectionQueryVariables
+  >
+) {
+  return Apollo.useQuery<Types.OrderHistoriesConnectionQuery, Types.OrderHistoriesConnectionQueryVariables>(
+    OrderHistoriesConnectionDocument,
+    baseOptions
+  )
+}
+export function useOrderHistoriesConnectionLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.OrderHistoriesConnectionQuery,
+    Types.OrderHistoriesConnectionQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<Types.OrderHistoriesConnectionQuery, Types.OrderHistoriesConnectionQueryVariables>(
+    OrderHistoriesConnectionDocument,
+    baseOptions
+  )
+}
+export type OrderHistoriesConnectionQueryHookResult = ReturnType<typeof useOrderHistoriesConnectionQuery>
+export type OrderHistoriesConnectionLazyQueryHookResult = ReturnType<typeof useOrderHistoriesConnectionLazyQuery>
+export type OrderHistoriesConnectionQueryResult = Apollo.QueryResult<
+  Types.OrderHistoriesConnectionQuery,
+  Types.OrderHistoriesConnectionQueryVariables
+>
 export const CommodityTypesDocument = gql`
   query CommodityTypes($sort: String, $limit: Int, $start: Int, $where: JSON) {
     commodityTypesConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
@@ -366,7 +507,7 @@ export const CommodityTypesDocument = gql`
         }
       }
       aggregate {
-        totalCount
+        count
       }
     }
   }
@@ -481,7 +622,7 @@ export const WarehousesDocument = gql`
         }
       }
       aggregate {
-        totalCount
+        count
       }
     }
   }

@@ -53,7 +53,9 @@ const processLink = new ApolloLink((operation, forward) => {
   if (typeof window !== 'undefined') {
     NProgress.start()
     return forward(operation).map(res => {
+      console.log(res)
       if (res.data) {
+        console.log(res.data)
         NProgress.done()
       }
       return res

@@ -1,14 +1,12 @@
 fragment order on Order {
   id
+  name
   createdAt
   updatedAt
   detail
   amount
   delivery_time
-  created_by {
-    username
-  }
-  updated_by {
+  user {
     username
   }
 }
@@ -22,5 +20,55 @@ query Orders($sort: String, $limit: Int, $start: Int, $where: JSON) {
 query Order($id: ID!) {
   order(id: $id) {
     ...order
+  }
+}
+
+query OrdersConnection($sort: String, $limit: Int, $start: Int, $where: JSON) {
+  ordersConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+    values {
+      ...order
+    }
+    aggregate {
+      count
+    }
+  }
+}
+
+mutation CreateOrder($data: OrderInput) {
+  createNewOrder(input: { data: $data }) {
+    order {
+      ...order
+    }
+  }
+}
+
+mutation UpdateOrder($id: ID!, $data: editOrderInput) {
+  updateOldOrder(input: { where: { id: $id }, data: $data }) {
+    order {
+      ...order
+    }
+  }
+}
+
+query OrderHistoriesConnection($sort: String, $limit: Int, $start: Int, $id: ID!) {
+  orderHistoriesConnection(sort: $sort, limit: $limit, start: $start, where: { order: $id }) {
+    values {
+      id
+      createdAt
+      updatedAt
+      detail
+      amount
+      delivery_time
+      order {
+        id
+        name
+      }
+      user {
+        username
+      }
+    }
+    aggregate {
+      count
+    }
   }
 }

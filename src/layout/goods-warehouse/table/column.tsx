@@ -3,6 +3,8 @@ import { MinusCircleOutlined } from '@ant-design/icons'
 import { WarehouseType, useDeleteWarehouseApi } from '../service'
 import { ColumnProps } from 'antd/lib/table'
 import { message, useGlobalModal } from 'src/components'
+import { useRouter } from 'next/router'
+import moment from 'moment'
 
 interface DeleteButtonProps {
   id: string
@@ -11,14 +13,16 @@ interface DeleteButtonProps {
 function DeleteButton({ id }: DeleteButtonProps) {
   const { submit, loading } = useDeleteWarehouseApi()
   const { hideModal } = useGlobalModal()
+  const router = useRouter()
   const onDelete = () => {
     submit(id)
       .then(() => {
-        message.success('创建成功')
+        message.success('删除成功')
         hideModal()
+        router.replace('/goods-warehouse')
       })
       .catch(() => {
-        message.success('创建失败')
+        message.success('删除失败')
       })
   }
 
@@ -29,14 +33,23 @@ const columns: ColumnProps<WarehouseType>[] = [
   {
     title: '仓库名称',
     dataIndex: 'name',
+    ellipsis: true,
   },
   {
     title: '创建时间',
-    dataIndex: 'name',
+    dataIndex: 'createdAt',
+    ellipsis: true,
+    render: text => moment(text).format('YYYY-MM-DD hh:mm:ss'),
   },
   {
     title: '创建人',
-    dataIndex: 'name',
+    dataIndex: ['user', 'username'],
+  },
+  {
+    title: '创建时间',
+    dataIndex: 'createdAt',
+    ellipsis: true,
+    render: text => moment(text).format('YYYY-MM-DD hh:mm:ss'),
   },
   {
     title: '操作',

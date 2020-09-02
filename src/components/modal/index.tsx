@@ -122,7 +122,7 @@ export function ModalButtonGroup({ OKText, onOK, loading, className, position = 
       {({ hideModal }) => {
         return (
           <div className={`${styles.btns} ${styles[`btns-${position}`]} ${className ?? ''}`}>
-            <Button shape='round' size='large' htmlType='button' type='primary' loading={loading} onClick={onOK}>
+            <Button shape='round' size='large' htmlType='submit' type='primary' loading={loading} onClick={onOK}>
               {OKText ?? '确定'}
             </Button>
             <Button shape='round' size='large' htmlType='button' type='default' onClick={hideModal}>
