@@ -8,5 +8,6 @@ export { default as Svg } from './Svg'
 export { default as message } from './message'
 export { default as FlexibleInput } from './flexible-input'
 export { default as SearchInput } from './search-input'
+export * from './form'
 
 export type { ColumnProps, TableProps }

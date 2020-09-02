@@ -11,6 +11,7 @@ module.exports = {
         'no-alert': 2,
         'no-debugger': 2,
         'no-unused-vars': 1,
+        camelcase: 0,
       },
     },
   ],

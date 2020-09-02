@@ -80,7 +80,6 @@ const columns: ColumnProps<TOrder>[] = [
   {
     title: '操作人',
     render(_, order) {
-      // eslint-disable-next-line camelcase
       return order?.updated_by?.username ?? order?.created_by?.username
     },
     ellipsis: true,

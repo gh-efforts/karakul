@@ -42,3 +42,11 @@ query OrderMaterials($limit: Int, $start: Int, $where: JSON, $sort: String) {
     }
   }
 }
+
+# Materials select
+query Materials {
+  materials(limit: 1000, start: 0) {
+    id
+    name
+  }
+}

@@ -17,7 +17,6 @@ function EditModalView({ order }: EditModalViewProps): React.ReactElement {
     hideModal()
   }
 
-  // eslint-disable-next-line camelcase
   const { detail, amount, delivery_time } = order || {}
 
   return (

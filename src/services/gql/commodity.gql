@@ -8,7 +8,7 @@ query Commodities($sort: String, $limit: Int, $start: Int, $where: JSON) {
 
 # 创建商品
 
-mutation createCommodity($data: CommodityInput) {
+mutation CreateCommodity($data: CommodityInput) {
   res: createCommodity(input: { data: $data }) {
     commodity {
       id

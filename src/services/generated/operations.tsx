@@ -17,6 +17,16 @@ export type CreateCommodityMutationVariables = Types.Exact<{
 
 export type CreateCommodityMutation = { res?: Types.Maybe<{ commodity?: Types.Maybe<Pick<Types.Commodity, 'id'>> }> }
 
+export type CommodityTypesSelectQueryVariables = Types.Exact<{ [key: string]: never }>
+
+export type CommodityTypesSelectQuery = {
+  types?: Types.Maybe<Array<Types.Maybe<Pick<Types.CommodityType, 'id' | 'name'>>>>
+}
+
+export type WarehousesSelectQueryVariables = Types.Exact<{ [key: string]: never }>
+
+export type WarehousesSelectQuery = { pos?: Types.Maybe<Array<Types.Maybe<Pick<Types.Warehouse, 'id' | 'name'>>>> }
+
 export type GoodsOrdersQueryVariables = Types.Exact<{
   sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
@@ -95,6 +105,10 @@ export type OrderMaterialsQuery = {
     >
   >
 }
+
+export type MaterialsQueryVariables = Types.Exact<{ [key: string]: never }>
+
+export type MaterialsQuery = { materials?: Types.Maybe<Array<Types.Maybe<Pick<Types.Material, 'id' | 'name'>>>> }
 
 export type OrderFragment = Pick<
   Types.Order,

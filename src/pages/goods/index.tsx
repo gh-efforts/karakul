@@ -53,9 +53,9 @@ function Goods({ data, page, size, total }: InferGetServerSidePropsType<typeof g
       <GoodsHeader />
       <div className={styles.table}>
         <div className={styles['table-items']}>
-          <GoodsItem id={'11'} />
+          <GoodsItem id={'11'} name={'11'} />
           {data?.map(order => {
-            return <GoodsItem key={order?.id} id={order?.id} />
+            return <GoodsItem key={order?.id} id={order?.id} name={order?.name} />
           })}
         </div>
         <KPagination total={total} pageSize={size} currentPage={page} onPageChange={onPageChange} />
