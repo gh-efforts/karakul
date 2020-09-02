@@ -6,7 +6,8 @@ import moment from 'moment'
 import { ModalButtonGroup } from '../../../components'
 import styles from './index.module.scss'
 
-interface OrderFormVal {
+export interface OrderFormVal {
+  name?: string | null | undefined
   detail?: string | null | undefined
   amount?: number | null | undefined
   time?: string | null | undefined
@@ -20,11 +21,14 @@ interface ModalBase {
 }
 
 function ModalBase({ onOK, OKText, loading, initialValues }: ModalBase) {
-  const onFinish = ({ detail, amount, time }: Store) => {
+  const onFinish = ({ name, detail, amount, time }: Store) => {
+    const t = moment(time).format('YYYY-MM-DD')
+
     onOK({
+      name,
       detail,
       amount,
-      time,
+      time: t,
     })
   }
 
@@ -37,10 +41,12 @@ function ModalBase({ onOK, OKText, loading, initialValues }: ModalBase) {
   }, [])
 
   const initialVals = useMemo(() => {
-    const { detail, amount, time } = initialValues || {}
+    const { name, detail, amount, time } = initialValues || {}
+
     const t = moment(time).isValid() ? moment(time) : undefined
 
     return {
+      name,
       detail,
       amount,
       time: t,
@@ -50,12 +56,16 @@ function ModalBase({ onOK, OKText, loading, initialValues }: ModalBase) {
   return (
     <div className={styles.box}>
       <div className={styles.title}>
+        <span>订单名称</span>
         <span>详情</span>
         <span>数量</span>
         <span>交付时间</span>
       </div>
 
       <Form className={styles.form} onFinish={onFinish} initialValues={initialVals}>
+        <Form.Item name='name'>
+          <Input placeholder='请输入订单名称' allowClear />
+        </Form.Item>
         <Form.Item name='detail'>
           <Input placeholder='请输入详情' allowClear />
         </Form.Item>

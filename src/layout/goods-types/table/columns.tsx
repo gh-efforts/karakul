@@ -4,6 +4,7 @@ import { CommodityTypeType, useDeleteCommodityTypeApi } from '../service'
 import { ColumnProps } from 'antd/lib/table'
 import { message, useGlobalModal } from 'src/components'
 import { useRouter } from 'next/router'
+import moment from 'moment'
 
 interface DeleteButtonProps {
   id: string
@@ -32,14 +33,18 @@ const columns: ColumnProps<CommodityTypeType>[] = [
   {
     title: '商品类型',
     dataIndex: 'name',
+    ellipsis: true,
+  },
+
+  {
+    title: '创建人',
+    dataIndex: ['user', 'username'],
   },
   {
     title: '创建时间',
     dataIndex: 'createdAt',
-  },
-  {
-    title: '创建人',
-    dataIndex: ['user', 'username'],
+    ellipsis: true,
+    render: text => moment(text).format('YYYY-MM-DD hh:mm:ss'),
   },
   {
     title: '操作',

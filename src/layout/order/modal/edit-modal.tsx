@@ -17,15 +17,17 @@ function EditModalView({ order }: EditModalViewProps): React.ReactElement {
     hideModal()
   }
 
-  const { detail, amount, delivery_time } = order || {}
+  // eslint-disable-next-line camelcase
+  const { id, detail, name, amount, delivery_time } = order || {}
 
   return (
     <div>
-      <div className={styles['order-no']}>订单编号：3647 </div>
+      <div className={styles['order-no']}>订单编号：{id} </div>
       <ModalBase
         OKText='保存'
         onOK={onSuccess}
         initialValues={{
+          name,
           detail,
           amount,
           time: delivery_time,

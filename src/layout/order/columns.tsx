@@ -8,6 +8,7 @@ import HistoryModalView from './modal/history-modal'
 
 import type { TOrder } from './order.d'
 import { useGlobalModal, ColumnProps } from '../../components'
+import moment from 'moment'
 
 function EditButton({ order }: EditModalViewProps) {
   const { showModal } = useGlobalModal()
@@ -59,6 +60,12 @@ const columns: ColumnProps<TOrder>[] = [
     ellipsis: true,
   },
   {
+    title: '订单名称',
+    dataIndex: 'name',
+    key: 'name',
+    ellipsis: true,
+  },
+  {
     title: '详情',
     dataIndex: 'detail',
     ellipsis: true,
@@ -69,8 +76,9 @@ const columns: ColumnProps<TOrder>[] = [
   },
   {
     title: '创建时间',
-    dataIndex: 'created_at',
+    dataIndex: 'createdAt',
     ellipsis: true,
+    render: text => moment(text).format('YYYY-MM-DD hh:mm:ss'),
   },
   {
     title: '交付时间',
@@ -79,10 +87,20 @@ const columns: ColumnProps<TOrder>[] = [
   },
   {
     title: '操作人',
-    render(_, order) {
-      return order?.updated_by?.username ?? order?.created_by?.username
-    },
+    dataIndex: ['user', 'username'],
     ellipsis: true,
+  },
+  {
+    title: '创建时间',
+    dataIndex: 'createdAt',
+    ellipsis: true,
+    render: text => moment(text).format('YYYY-MM-DD hh:mm:ss'),
+  },
+  {
+    title: '更新时间',
+    dataIndex: 'updatedAt',
+    ellipsis: true,
+    render: text => moment(text).format('YYYY-MM-DD hh:mm:ss'),
   },
   {
     title: '操作',

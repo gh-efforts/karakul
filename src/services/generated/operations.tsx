@@ -112,11 +112,8 @@ export type MaterialsQuery = { materials?: Types.Maybe<Array<Types.Maybe<Pick<Ty
 
 export type OrderFragment = Pick<
   Types.Order,
-  'id' | 'createdAt' | 'updatedAt' | 'detail' | 'amount' | 'delivery_time'
-> & {
-  created_by?: Types.Maybe<Pick<Types.AdminUser, 'username'>>
-  updated_by?: Types.Maybe<Pick<Types.AdminUser, 'username'>>
-}
+  'id' | 'name' | 'createdAt' | 'updatedAt' | 'detail' | 'amount' | 'delivery_time'
+> & { user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'username'>> }
 
 export type OrdersQueryVariables = Types.Exact<{
   sort?: Types.Maybe<Types.Scalars['String']>
@@ -132,6 +129,56 @@ export type OrderQueryVariables = Types.Exact<{
 }>
 
 export type OrderQuery = { order?: Types.Maybe<OrderFragment> }
+
+export type OrdersConnectionQueryVariables = Types.Exact<{
+  sort?: Types.Maybe<Types.Scalars['String']>
+  limit?: Types.Maybe<Types.Scalars['Int']>
+  start?: Types.Maybe<Types.Scalars['Int']>
+  where?: Types.Maybe<Types.Scalars['JSON']>
+}>
+
+export type OrdersConnectionQuery = {
+  ordersConnection?: Types.Maybe<{
+    values?: Types.Maybe<Array<Types.Maybe<OrderFragment>>>
+    aggregate?: Types.Maybe<Pick<Types.OrderAggregator, 'count' | 'totalCount'>>
+  }>
+}
+
+export type CreateOrderMutationVariables = Types.Exact<{
+  data?: Types.Maybe<Types.OrderInput>
+}>
+
+export type CreateOrderMutation = { createOrder?: Types.Maybe<{ order?: Types.Maybe<OrderFragment> }> }
+
+export type UpdateOrderMutationVariables = Types.Exact<{
+  id: Types.Scalars['ID']
+  data?: Types.Maybe<Types.EditOrderInput>
+}>
+
+export type UpdateOrderMutation = { updateOrder?: Types.Maybe<{ order?: Types.Maybe<OrderFragment> }> }
+
+export type OrderHistoriesConnectionQueryVariables = Types.Exact<{
+  sort?: Types.Maybe<Types.Scalars['String']>
+  limit?: Types.Maybe<Types.Scalars['Int']>
+  start?: Types.Maybe<Types.Scalars['Int']>
+  where?: Types.Maybe<Types.Scalars['JSON']>
+}>
+
+export type OrderHistoriesConnectionQuery = {
+  orderHistoriesConnection?: Types.Maybe<{
+    values?: Types.Maybe<
+      Array<
+        Types.Maybe<
+          Pick<Types.OrderHistory, 'id' | 'createdAt' | 'updatedAt' | 'detail' | 'amount' | 'delivery_time'> & {
+            order?: Types.Maybe<Pick<Types.Order, 'id' | 'name'>>
+            user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'username'>>
+          }
+        >
+      >
+    >
+    aggregate?: Types.Maybe<Pick<Types.OrderHistoryAggregator, 'count' | 'totalCount'>>
+  }>
+}
 
 export type CommodityTypesQueryVariables = Types.Exact<{
   sort?: Types.Maybe<Types.Scalars['String']>
