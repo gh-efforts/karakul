@@ -4,6 +4,7 @@ import { Input, Divider } from 'antd'
 import { ModalButtonGroup, message, useGlobalModal } from '../../../components'
 import styles from './index.module.scss'
 import { useCreateWarehouseApi } from '../service'
+import { useRouter } from 'next/router'
 
 export function CreateModalView() {
   const [name, setname] = useState('')
@@ -13,12 +14,14 @@ export function CreateModalView() {
     const { value } = e.target
     setname(value)
   }
+  const router = useRouter()
   const onOK = () => {
     if (name) {
       create(name)
         .then(() => {
           message.success('创建成功')
           hideModal()
+          router.replace('/goods-warehouse')
         })
         .catch(() => {
           message.success('创建失败')
