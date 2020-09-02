@@ -14,10 +14,11 @@ export interface HistoryModalViewProps {
 function HistoryModalView({ order }: HistoryModalViewProps) {
   const [fetch, { data, loading }] = useOrderHistoriesConnectionLazyQuery({ fetchPolicy: 'network-only' })
   const { id } = order || {}
-  const [currentPage] = useState(1)
-  const [limit] = useState(10)
-  const [start] = useState(0)
-  useEffect(() => {
+  const [current, setCurrent] = useState(1)
+  const [limit, setLimit] = useState(10)
+  const [start, setStart] = useState(0)
+
+  const fetchData = () => {
     if (order) {
       fetch({
         variables: {
@@ -27,7 +28,19 @@ function HistoryModalView({ order }: HistoryModalViewProps) {
         },
       })
     }
+  }
+
+  useEffect(() => {
+    fetchData()
   })
+  const onPageChange = (page: number, size?: number) => {
+    setCurrent(page)
+    // limit: size || 10,
+    // start: (page - 1) * (size || 10),
+    setLimit(size || 10)
+    setStart((page - 1) * (size || 10))
+    fetchData()
+  }
   return (
     <div>
       <div className={styles['order-no']}>
@@ -38,9 +51,11 @@ function HistoryModalView({ order }: HistoryModalViewProps) {
         columns={columns}
         data={(data?.orderHistoriesConnection?.values ?? []) as TOrderHistories[]}
         loading={loading}
-        currentPage={currentPage}
+        currentPage={current}
+        pageSize={limit}
         total={data?.orderHistoriesConnection?.aggregate?.totalCount ?? 0}
         rowKey='id'
+        onPageChange={onPageChange}
       />
     </div>
   )

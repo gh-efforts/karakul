@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { withLayout } from '../../layout/layout'
 import GoodsWarehouseHeader from '../../layout/goods-warehouse/header'
@@ -10,12 +10,13 @@ import { fetchWarehouses, WarehouseType } from '../../layout/goods-warehouse/ser
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 import { getValueFromCookie } from '../../helpers/cookie'
+import { useRouter } from 'next/router'
 
 export const getServerSideProps = async ({
   req: { headers },
   query: { limit, start },
 }: GetServerSidePropsContext<ParsedUrlQuery>): Promise<{
-  props: { data: WarehouseType[]; currentPage: number; limit: number; total: number }
+  props: { data: WarehouseType[]; limit: number; total: number }
 }> => {
   const [$limit, $start] = filterPaginationValue(limit, start)
 
@@ -28,7 +29,6 @@ export const getServerSideProps = async ({
     props: {
       data: (data?.values ?? []) as WarehouseType[],
       total: data.aggregate?.totalCount ?? 0,
-      currentPage: Math.floor($start % $limit) ?? 1,
       limit: $limit,
     },
   }
@@ -36,10 +36,21 @@ export const getServerSideProps = async ({
 
 function GoodsWarehouse({
   data,
-  currentPage,
   limit,
   total,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): React.ReactElement {
+  const route = useRouter()
+  const [current, setCurrent] = useState(1)
+  const onPageChange = (page: number, size?: number) => {
+    setCurrent(page)
+    route.replace({
+      pathname: '/order',
+      query: {
+        limit: size || 10,
+        start: (page - 1) * (size || 10),
+      },
+    })
+  }
   return (
     <div className={styles.warehouse}>
       <GoodsWarehouseHeader />
@@ -47,9 +58,10 @@ function GoodsWarehouse({
         data={(data ?? []) as WarehouseType[]}
         columns={columns}
         total={total}
-        currentPage={currentPage}
+        currentPage={current}
         pageSize={limit}
         rowKey={item => item.id}
+        onPageChange={onPageChange}
       />
     </div>
   )
