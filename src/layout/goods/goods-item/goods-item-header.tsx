@@ -52,13 +52,14 @@ function GoodsHistoryBtn({ id }: { id?: string }) {
 
 interface GoodsItemHeaderProps {
   children?: React.ReactNode
+  name?: string
 }
 
-function GoodsItemHeader({ children }: GoodsItemHeaderProps) {
+function GoodsItemHeader({ children, name }: GoodsItemHeaderProps) {
   return (
     <div className={styles.header}>
       <span>{children}</span>
-      <span>title</span>
+      <span>{name}</span>
       <CreateGoodsBtn />
       <ExWarehouseBtn />
       <GoodsHistoryBtn />

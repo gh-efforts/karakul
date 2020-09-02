@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 //  S for schema
 
-import { OrderCommoditiesQuery } from '../../services'
+import { OrderCommoditiesQuery, Order } from '../../services'
 
 // 商品零件
 export interface SAccessory {
@@ -21,3 +21,5 @@ export interface SAccessory {
 export type OrderCommodity = NonNullable<
   NonNullable<NonNullable<OrderCommoditiesQuery['order']>['commodities']>[number]
 >
+
+export type GoodsOrder = Pick<Order, 'id' | 'name'>

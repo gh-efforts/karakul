@@ -1,17 +1,26 @@
 import { message } from 'antd'
 
-import { useCreateCommodityMutation, useCommoditiesLazyQuery } from '../../services'
+import {
+  useCreateCommodityMutation,
+  useCommoditiesLazyQuery,
+  client,
+  GoodsOrdersDocument,
+  GoodsOrdersQuery,
+  GoodsOrdersQueryVariables,
+} from '../../services'
 import { pageToStart } from '../../helpers/params'
-import { SAccessorie } from './goods.d'
+import { SAccessory, GoodsOrder } from './goods.d'
 
 function useCreateCommodityApi() {
   const [create, { loading }] = useCreateCommodityMutation({ fetchPolicy: 'no-cache' })
 
-  const createCommodit = async (data: SAccessorie) => {
+  const createCommodit = async (data: SAccessory[]) => {
     try {
       await create({
         variables: {
-          data,
+          data: {
+            accessories: data,
+          },
         },
       })
 
@@ -44,4 +53,18 @@ function useCommoditiesApi() {
   }
 }
 
-export { useCreateCommodityApi, useCommoditiesApi }
+async function fetchGoodsOrders(variables: GoodsOrdersQueryVariables & { Authorization?: string | undefined }) {
+  try {
+    const { data } = await client.query<GoodsOrdersQuery, GoodsOrdersQueryVariables>({
+      query: GoodsOrdersDocument,
+      variables,
+      fetchPolicy: 'network-only',
+    })
+
+    return { data: (data?.orders?.values ?? []) as GoodsOrder[], total: data?.orders?.aggregate?.count ?? 0 }
+  } catch {
+    return { data: [], total: 0 }
+  }
+}
+
+export { useCreateCommodityApi, useCommoditiesApi, fetchGoodsOrders }

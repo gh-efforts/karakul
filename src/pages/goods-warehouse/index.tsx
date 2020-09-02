@@ -33,6 +33,7 @@ export const getServerSideProps = async ({
     },
   }
 }
+
 function GoodsWarehouse({
   data,
   currentPage,

@@ -6,7 +6,12 @@ import ExpandIcon from './expand-icon'
 
 import styles from './index.module.scss'
 
-function GoodsItem() {
+interface GoodsItemProps {
+  id?: string
+  name?: string
+}
+
+function GoodsItem({ id, name }: GoodsItemProps) {
   const [expanded, setExpanded] = useState(false)
 
   const toggle = () => {
@@ -15,7 +20,7 @@ function GoodsItem() {
 
   return (
     <div className={styles.item}>
-      <GoodsItemHeader>
+      <GoodsItemHeader name={name}>
         <ExpandIcon expanded={expanded} onClick={toggle} />
       </GoodsItemHeader>
       <GoodsItemTable expanded={expanded} />
