@@ -1,24 +1,23 @@
 /* eslint-disable camelcase */
 //  S for schema
 
+import { OrderCommoditiesQuery } from '../../services'
+
 // 商品零件
 export interface SAccessory {
-  // 配件编号
-  id?: string
   // 型号
-  type?: string
+  model?: string
   // 标示
   label?: string
   // 分类名称
-  mName?: string
-  // 分类 id
-  mId?: string
+  material?: string
+  // 流程行为
+  action?: number
+  // 数量
+  amount?: number
 }
 
 // 商品属性
-export interface SAccessorie {
-  id?: string
-  commodity_type?: string
-  warehouse?: string
-  accessories?: SAccessory[]
-}
+export type OrderCommodity = NonNullable<
+  NonNullable<NonNullable<OrderCommoditiesQuery['order']>['commodities']>[number]
+>

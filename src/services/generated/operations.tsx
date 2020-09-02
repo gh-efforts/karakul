@@ -17,6 +17,42 @@ export type CreateCommodityMutationVariables = Types.Exact<{
 
 export type CreateCommodityMutation = { res?: Types.Maybe<{ commodity?: Types.Maybe<Pick<Types.Commodity, 'id'>> }> }
 
+export type GoodsOrdersQueryVariables = Types.Exact<{
+  sort?: Types.Maybe<Types.Scalars['String']>
+  limit?: Types.Maybe<Types.Scalars['Int']>
+  start?: Types.Maybe<Types.Scalars['Int']>
+  where?: Types.Maybe<Types.Scalars['JSON']>
+}>
+
+export type GoodsOrdersQuery = {
+  orders?: Types.Maybe<{
+    values?: Types.Maybe<Array<Types.Maybe<Pick<Types.Order, 'id' | 'name'>>>>
+    aggregate?: Types.Maybe<Pick<Types.OrderAggregator, 'count' | 'totalCount'>>
+  }>
+}
+
+export type OrderCommoditiesQueryVariables = Types.Exact<{
+  id: Types.Scalars['ID']
+}>
+
+export type OrderCommoditiesQuery = {
+  order?: Types.Maybe<
+    Pick<Types.Order, 'id'> & {
+      commodities?: Types.Maybe<
+        Array<
+          Types.Maybe<
+            Pick<Types.Commodity, 'id' | 'createdAt' | 'accessories'> & {
+              commodity_type?: Types.Maybe<Pick<Types.CommodityType, 'id' | 'name'>>
+              warehouse?: Types.Maybe<Pick<Types.Warehouse, 'name' | 'id'>>
+              user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'username'>>
+            }
+          >
+        >
+      >
+    }
+  >
+}
+
 export type OrderHistoryFragment = Pick<
   Types.OrderMaterialHistory,
   'id' | 'createdAt' | 'updatedAt' | 'remark' | 'attachment_desc' | 'content'

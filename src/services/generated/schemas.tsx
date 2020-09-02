@@ -436,6 +436,7 @@ export type Order = {
   amount?: Maybe<Scalars['Int']>
   delivery_time?: Maybe<Scalars['Date']>
   user?: Maybe<UsersPermissionsUser>
+  name?: Maybe<Scalars['String']>
   created_by?: Maybe<AdminUser>
   updated_by?: Maybe<AdminUser>
   order_materials?: Maybe<Array<Maybe<OrderMaterial>>>
@@ -851,6 +852,7 @@ export type Morph =
   | OrderConnectionAmount
   | OrderConnectionDelivery_Time
   | OrderConnectionUser
+  | OrderConnectionName
   | OrderConnectionCreated_By
   | OrderConnectionUpdated_By
   | CreateOrderPayload
@@ -1475,6 +1477,7 @@ export type OrderGroupBy = {
   amount?: Maybe<Array<Maybe<OrderConnectionAmount>>>
   delivery_time?: Maybe<Array<Maybe<OrderConnectionDelivery_Time>>>
   user?: Maybe<Array<Maybe<OrderConnectionUser>>>
+  name?: Maybe<Array<Maybe<OrderConnectionName>>>
   created_by?: Maybe<Array<Maybe<OrderConnectionCreated_By>>>
   updated_by?: Maybe<Array<Maybe<OrderConnectionUpdated_By>>>
 }
@@ -1524,6 +1527,12 @@ export type OrderConnectionDelivery_Time = {
 export type OrderConnectionUser = {
   __typename?: 'OrderConnectionUser'
   key?: Maybe<Scalars['ID']>
+  connection?: Maybe<OrderConnection>
+}
+
+export type OrderConnectionName = {
+  __typename?: 'OrderConnectionName'
+  key?: Maybe<Scalars['String']>
   connection?: Maybe<OrderConnection>
 }
 
@@ -2515,6 +2524,7 @@ export type OrderInput = {
   order_materials?: Maybe<Array<Maybe<Scalars['ID']>>>
   order_histories?: Maybe<Array<Maybe<Scalars['ID']>>>
   commodities?: Maybe<Array<Maybe<Scalars['ID']>>>
+  name?: Maybe<Scalars['String']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
 }
@@ -2532,6 +2542,7 @@ export type EditOrderInput = {
   order_materials?: Maybe<Array<Maybe<Scalars['ID']>>>
   order_histories?: Maybe<Array<Maybe<Scalars['ID']>>>
   commodities?: Maybe<Array<Maybe<Scalars['ID']>>>
+  name?: Maybe<Scalars['String']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
 }
