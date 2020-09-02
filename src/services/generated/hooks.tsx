@@ -34,6 +34,54 @@ export const OrderFragmentDoc = gql`
     }
   }
 `
+export const CommoditiesDocument = gql`
+  query Commodities($sort: String, $limit: Int, $start: Int, $where: JSON) {
+    commodities(sort: $sort, limit: $limit, start: $start, where: $where) {
+      id
+      accessories
+    }
+  }
+`
+export function useCommoditiesQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>
+) {
+  return Apollo.useQuery<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>(CommoditiesDocument, baseOptions)
+}
+export function useCommoditiesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>
+) {
+  return Apollo.useLazyQuery<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>(CommoditiesDocument, baseOptions)
+}
+export type CommoditiesQueryHookResult = ReturnType<typeof useCommoditiesQuery>
+export type CommoditiesLazyQueryHookResult = ReturnType<typeof useCommoditiesLazyQuery>
+export type CommoditiesQueryResult = Apollo.QueryResult<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>
+export const CreateCommodityDocument = gql`
+  mutation createCommodity($data: CommodityInput) {
+    res: createCommodity(input: { data: $data }) {
+      commodity {
+        id
+      }
+    }
+  }
+`
+export type CreateCommodityMutationFn = Apollo.MutationFunction<
+  Types.CreateCommodityMutation,
+  Types.CreateCommodityMutationVariables
+>
+export function useCreateCommodityMutation(
+  baseOptions?: Apollo.MutationHookOptions<Types.CreateCommodityMutation, Types.CreateCommodityMutationVariables>
+) {
+  return Apollo.useMutation<Types.CreateCommodityMutation, Types.CreateCommodityMutationVariables>(
+    CreateCommodityDocument,
+    baseOptions
+  )
+}
+export type CreateCommodityMutationHookResult = ReturnType<typeof useCreateCommodityMutation>
+export type CreateCommodityMutationResult = Apollo.MutationResult<Types.CreateCommodityMutation>
+export type CreateCommodityMutationOptions = Apollo.BaseMutationOptions<
+  Types.CreateCommodityMutation,
+  Types.CreateCommodityMutationVariables
+>
 export const OmHrysDocument = gql`
   query OMHrys($sort: String, $limit: Int, $start: Int, $where: JSON) {
     hrys: orderMaterialHistories(sort: $sort, limit: $limit, start: $start, where: $where) {
