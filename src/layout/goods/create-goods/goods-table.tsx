@@ -1,23 +1,17 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useMemo } from 'react'
 import { ColumnProps } from 'antd/lib/table'
 import { Table, Input, Form, Button } from 'antd'
 
 import styles from './index.module.scss'
 import { Svg } from '../../../components'
-
-interface GoodsItem {
-  id?: string
-  type?: string
-  madel?: string
-  label?: string
-}
+import { SAccessory } from '../goods.d'
 
 interface EditableCellProps extends React.EmbedHTMLAttributes<HTMLElement> {
   editing?: boolean
   dataIndex?: string
   title?: string
   inputType?: 'text' | 'type'
-  record: GoodsItem
+  record: SAccessory
   index?: number
   children?: React.ReactNode
 }
@@ -36,56 +30,57 @@ function EditableCell({ editing, children, dataIndex, ...restProps }: EditableCe
   )
 }
 
-const isEditing = (key: string | undefined, record: GoodsItem) => record?.id === key
-type CellEmit = (type: 'edit' | 'cancel' | 'save' | 'del', data?: string) => void
+const isEditing = (record: SAccessory, key: string | undefined) => record?.id === key
 
-const generateColumns = (key: string | undefined, emit: CellEmit): ColumnProps<GoodsItem>[] => {
+export type CellEmit = (type: 'edit' | 'cancel' | 'save' | 'del', data?: string) => void
+
+const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps<SAccessory>[] => {
   return [
     {
-      title: '配件编号',
-      dataIndex: 'id',
-      onCell(record: GoodsItem) {
-        return {
-          record,
-          dataIndex: 'id',
-          title: '配件编号',
-          editing: isEditing(key, record),
-        } as EditableCellProps
-      },
-    },
-    {
       title: '分类',
-      dataIndex: 'type',
-      onCell(record: GoodsItem) {
+      dataIndex: 'mName',
+      onCell(record: SAccessory) {
         return {
           record,
-          title: '型号',
-          dataIndex: 'madel',
-          editing: isEditing(key, record),
+          title: '分类',
+          dataIndex: 'mName',
+          editing: isEditing(record, key),
         } as EditableCellProps
       },
     },
     {
       title: '型号',
-      dataIndex: 'madel',
-      onCell(record: GoodsItem) {
+      dataIndex: 'type',
+      onCell(record: SAccessory) {
         return {
           record,
           title: '型号',
-          dataIndex: 'madel',
-          editing: isEditing(key, record),
+          dataIndex: 'type',
+          editing: isEditing(record, key),
         } as EditableCellProps
       },
     },
     {
       title: '标示',
       dataIndex: 'label',
-      onCell(record: GoodsItem) {
+      onCell(record: SAccessory) {
         return {
           record,
           title: '标示',
           dataIndex: 'label',
-          editing: isEditing(key, record),
+          editing: isEditing(record, key),
+        } as EditableCellProps
+      },
+    },
+    {
+      title: '配件编号',
+      dataIndex: 'id',
+      onCell(record: SAccessory) {
+        return {
+          record,
+          dataIndex: 'id',
+          title: '配件编号',
+          editing: isEditing(record, key),
         } as EditableCellProps
       },
     },
@@ -93,14 +88,14 @@ const generateColumns = (key: string | undefined, emit: CellEmit): ColumnProps<G
       title: '操作',
       width: 160,
       render(_, record) {
-        const editing = isEditing(key, record)
+        const editing = isEditing(record, key)
 
         return editing ? (
           <span>
             <Button
               type='text'
               onClick={() => {
-                emit('save', record?.id)
+                emit?.('save', record?.id)
               }}
               style={{
                 color: '#00B2B6',
@@ -111,7 +106,7 @@ const generateColumns = (key: string | undefined, emit: CellEmit): ColumnProps<G
             <Button
               type='text'
               onClick={() => {
-                emit('cancel')
+                emit?.('cancel', record?.id)
               }}
             >
               取消
@@ -122,13 +117,13 @@ const generateColumns = (key: string | undefined, emit: CellEmit): ColumnProps<G
             <Svg
               name='btn-edit-h'
               onClick={() => {
-                emit('edit', record?.id)
+                emit?.('edit', record?.id)
               }}
             />
             <Svg
               name='btn-del-h'
               onClick={() => {
-                emit('del', record?.id)
+                emit?.('del', record?.id)
               }}
             />
           </span>
@@ -138,56 +133,16 @@ const generateColumns = (key: string | undefined, emit: CellEmit): ColumnProps<G
   ]
 }
 
-const data: GoodsItem[] = [
-  {
-    id: 'id',
-    type: 'type',
-    madel: 'madel',
-    label: 'label',
-  },
-]
+interface CreateGoodsTableProps {
+  data?: SAccessory[]
+  emit?: CellEmit
+  editingKey?: string
+}
 
-function CreateGoodsTable() {
-  const [form] = Form.useForm()
-  const [editingKey, setEditingKey] = useState<string | undefined>('')
-
-  const edit = useCallback(
-    (id?: string) => {
-      form.setFieldsValue({ name: '', age: '', address: '' })
-      setEditingKey(id)
-    },
-    [form]
-  )
-
-  const cancel = useCallback(() => {
-    setEditingKey('')
-  }, [])
-
-  const emit = useCallback<CellEmit>(
-    (type, id) => {
-      switch (type) {
-        case 'edit':
-          edit(id)
-          break
-        case 'cancel':
-          cancel()
-          break
-        case 'del':
-          cancel()
-          break
-        case 'save':
-          cancel()
-          break
-        default:
-          break
-      }
-    },
-    [cancel, edit]
-  )
-
+function CreateGoodsTable({ data, editingKey, emit }: CreateGoodsTableProps) {
   const columns = useMemo(() => {
-    return generateColumns(editingKey, emit)
-  }, [editingKey, emit])
+    return generateColumns(emit, editingKey)
+  }, [emit, editingKey])
 
   return (
     <Table

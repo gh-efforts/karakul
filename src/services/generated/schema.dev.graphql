@@ -765,6 +765,11 @@ type Order {
   """
 
   """
+  name: String
+
+  """
+
+  """
   created_by: AdminUser
 
   """
@@ -1697,6 +1702,7 @@ union Morph =
   | OrderConnectionAmount
   | OrderConnectionDelivery_time
   | OrderConnectionUser
+  | OrderConnectionName
   | OrderConnectionCreated_by
   | OrderConnectionUpdated_by
   | createOrderPayload
@@ -3206,6 +3212,11 @@ type OrderGroupBy {
   """
 
   """
+  name: [OrderConnectionName]
+
+  """
+
+  """
   created_by: [OrderConnectionCreated_by]
 
   """
@@ -3327,6 +3338,21 @@ type OrderConnectionUser {
 
   """
   key: ID
+
+  """
+
+  """
+  connection: OrderConnection
+}
+
+"""
+
+"""
+type OrderConnectionName {
+  """
+
+  """
+  key: String
 
   """
 
@@ -5791,6 +5817,11 @@ input OrderInput {
   """
 
   """
+  name: String
+
+  """
+
+  """
   created_by: ID
 
   """
@@ -5852,6 +5883,11 @@ input editOrderInput {
 
   """
   commodities: [ID]
+
+  """
+
+  """
+  name: String
 
   """
 

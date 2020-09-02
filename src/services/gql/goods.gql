@@ -1,0 +1,37 @@
+# 商品页订单详情
+query GoodsOrders($sort: String, $limit: Int, $start: Int, $where: JSON) {
+  orders: ordersConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+    values {
+      id
+      name
+    }
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+
+# 商品页 order 对应的商品列表
+# TODO: commodities 需要分页
+query OrderCommodities($id: ID!) {
+  order(id: $id) {
+    id
+    commodities(start: 0, limit: 1000) {
+      id
+      commodity_type {
+        id
+        name
+      }
+      warehouse {
+        name
+        id
+      }
+      createdAt
+      user {
+        username
+      }
+      accessories
+    }
+  }
+}

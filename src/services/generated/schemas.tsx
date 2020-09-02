@@ -22,6 +22,7 @@ export type Scalars = {
 }
 
 export type Query = {
+  __typename?: 'Query'
   commodityType?: Maybe<CommodityType>
   commodityTypes?: Maybe<Array<Maybe<CommodityType>>>
   commodityTypesConnection?: Maybe<CommodityTypeConnection>
@@ -253,6 +254,7 @@ export type QueryUsersConnectionArgs = {
 }
 
 export type CommodityType = {
+  __typename?: 'CommodityType'
   id: Scalars['ID']
   _id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -264,6 +266,7 @@ export type CommodityType = {
 }
 
 export type UsersPermissionsUser = {
+  __typename?: 'UsersPermissionsUser'
   id: Scalars['ID']
   _id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -280,6 +283,7 @@ export type UsersPermissionsUser = {
 }
 
 export type UsersPermissionsRole = {
+  __typename?: 'UsersPermissionsRole'
   id: Scalars['ID']
   _id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -308,11 +312,13 @@ export type UsersPermissionsRoleUsersArgs = {
 }
 
 export type AdminUser = {
+  __typename?: 'AdminUser'
   id: Scalars['ID']
   username?: Maybe<Scalars['String']>
 }
 
 export type UsersPermissionsPermission = {
+  __typename?: 'UsersPermissionsPermission'
   id: Scalars['ID']
   _id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -328,12 +334,14 @@ export type UsersPermissionsPermission = {
 }
 
 export type CommodityTypeConnection = {
+  __typename?: 'CommodityTypeConnection'
   values?: Maybe<Array<Maybe<CommodityType>>>
   groupBy?: Maybe<CommodityTypeGroupBy>
   aggregate?: Maybe<CommodityTypeAggregator>
 }
 
 export type CommodityTypeGroupBy = {
+  __typename?: 'CommodityTypeGroupBy'
   id?: Maybe<Array<Maybe<CommodityTypeConnectionId>>>
   _id?: Maybe<Array<Maybe<CommodityTypeConnection_Id>>>
   createdAt?: Maybe<Array<Maybe<CommodityTypeConnectionCreatedAt>>>
@@ -345,51 +353,61 @@ export type CommodityTypeGroupBy = {
 }
 
 export type CommodityTypeConnectionId = {
+  __typename?: 'CommodityTypeConnectionId'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityTypeConnection>
 }
 
 export type CommodityTypeConnection_Id = {
+  __typename?: 'CommodityTypeConnection_id'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityTypeConnection>
 }
 
 export type CommodityTypeConnectionCreatedAt = {
+  __typename?: 'CommodityTypeConnectionCreatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<CommodityTypeConnection>
 }
 
 export type CommodityTypeConnectionUpdatedAt = {
+  __typename?: 'CommodityTypeConnectionUpdatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<CommodityTypeConnection>
 }
 
 export type CommodityTypeConnectionName = {
+  __typename?: 'CommodityTypeConnectionName'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<CommodityTypeConnection>
 }
 
 export type CommodityTypeConnectionUser = {
+  __typename?: 'CommodityTypeConnectionUser'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityTypeConnection>
 }
 
 export type CommodityTypeConnectionCreated_By = {
+  __typename?: 'CommodityTypeConnectionCreated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityTypeConnection>
 }
 
 export type CommodityTypeConnectionUpdated_By = {
+  __typename?: 'CommodityTypeConnectionUpdated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityTypeConnection>
 }
 
 export type CommodityTypeAggregator = {
+  __typename?: 'CommodityTypeAggregator'
   count?: Maybe<Scalars['Int']>
   totalCount?: Maybe<Scalars['Int']>
 }
 
 export type Commodity = {
+  __typename?: 'Commodity'
   id: Scalars['ID']
   _id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -409,6 +427,7 @@ export type Commodity = {
 }
 
 export type Order = {
+  __typename?: 'Order'
   id: Scalars['ID']
   _id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -417,6 +436,7 @@ export type Order = {
   amount?: Maybe<Scalars['Int']>
   delivery_time?: Maybe<Scalars['Date']>
   user?: Maybe<UsersPermissionsUser>
+  name?: Maybe<Scalars['String']>
   created_by?: Maybe<AdminUser>
   updated_by?: Maybe<AdminUser>
   order_materials?: Maybe<Array<Maybe<OrderMaterial>>>
@@ -446,6 +466,7 @@ export type OrderCommoditiesArgs = {
 }
 
 export type OrderMaterial = {
+  __typename?: 'OrderMaterial'
   id: Scalars['ID']
   _id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -460,6 +481,7 @@ export type OrderMaterial = {
 }
 
 export type OrderHistory = {
+  __typename?: 'OrderHistory'
   id: Scalars['ID']
   _id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -474,6 +496,7 @@ export type OrderHistory = {
 }
 
 export type Warehouse = {
+  __typename?: 'Warehouse'
   id: Scalars['ID']
   _id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -490,12 +513,14 @@ export enum Enum_Commodity_State {
 }
 
 export type CommodityConnection = {
+  __typename?: 'CommodityConnection'
   values?: Maybe<Array<Maybe<Commodity>>>
   groupBy?: Maybe<CommodityGroupBy>
   aggregate?: Maybe<CommodityAggregator>
 }
 
 export type CommodityGroupBy = {
+  __typename?: 'CommodityGroupBy'
   id?: Maybe<Array<Maybe<CommodityConnectionId>>>
   _id?: Maybe<Array<Maybe<CommodityConnection_Id>>>
   createdAt?: Maybe<Array<Maybe<CommodityConnectionCreatedAt>>>
@@ -515,91 +540,109 @@ export type CommodityGroupBy = {
 }
 
 export type CommodityConnectionId = {
+  __typename?: 'CommodityConnectionId'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnection_Id = {
+  __typename?: 'CommodityConnection_id'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnectionCreatedAt = {
+  __typename?: 'CommodityConnectionCreatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnectionUpdatedAt = {
+  __typename?: 'CommodityConnectionUpdatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnectionUser = {
+  __typename?: 'CommodityConnectionUser'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnectionOrder = {
+  __typename?: 'CommodityConnectionOrder'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnectionCode = {
+  __typename?: 'CommodityConnectionCode'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnectionAccessories = {
+  __typename?: 'CommodityConnectionAccessories'
   key?: Maybe<Scalars['JSON']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnectionWarehouse = {
+  __typename?: 'CommodityConnectionWarehouse'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnectionCommodity_Type = {
+  __typename?: 'CommodityConnectionCommodity_type'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnectionDestination = {
+  __typename?: 'CommodityConnectionDestination'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnectionDelivery_Time = {
+  __typename?: 'CommodityConnectionDelivery_time'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnectionState = {
+  __typename?: 'CommodityConnectionState'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnectionOutbound_User = {
+  __typename?: 'CommodityConnectionOutbound_user'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnectionCreated_By = {
+  __typename?: 'CommodityConnectionCreated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityConnectionUpdated_By = {
+  __typename?: 'CommodityConnectionUpdated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<CommodityConnection>
 }
 
 export type CommodityAggregator = {
+  __typename?: 'CommodityAggregator'
   count?: Maybe<Scalars['Int']>
   totalCount?: Maybe<Scalars['Int']>
 }
 
 export type Material = {
+  __typename?: 'Material'
   id: Scalars['ID']
   _id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -618,6 +661,7 @@ export type MaterialOrder_Material_HistoriesArgs = {
 }
 
 export type OrderMaterialHistory = {
+  __typename?: 'OrderMaterialHistory'
   id: Scalars['ID']
   _id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -640,6 +684,7 @@ export type OrderMaterialHistoryAttachmentArgs = {
 }
 
 export type UploadFile = {
+  __typename?: 'UploadFile'
   id: Scalars['ID']
   _id: Scalars['ID']
   createdAt: Scalars['DateTime']
@@ -807,6 +852,7 @@ export type Morph =
   | OrderConnectionAmount
   | OrderConnectionDelivery_Time
   | OrderConnectionUser
+  | OrderConnectionName
   | OrderConnectionCreated_By
   | OrderConnectionUpdated_By
   | CreateOrderPayload
@@ -895,10 +941,12 @@ export type Morph =
   | DeleteUserPayload
 
 export type OrderMaterials = {
+  __typename?: 'OrderMaterials'
   order_id: Scalars['ID']
 }
 
 export type UsersPermissionsMe = {
+  __typename?: 'UsersPermissionsMe'
   id: Scalars['ID']
   username: Scalars['String']
   email: Scalars['String']
@@ -908,6 +956,7 @@ export type UsersPermissionsMe = {
 }
 
 export type UsersPermissionsMeRole = {
+  __typename?: 'UsersPermissionsMeRole'
   id: Scalars['ID']
   name: Scalars['String']
   description?: Maybe<Scalars['String']>
@@ -915,45 +964,55 @@ export type UsersPermissionsMeRole = {
 }
 
 export type UsersPermissionsLoginPayload = {
+  __typename?: 'UsersPermissionsLoginPayload'
   jwt?: Maybe<Scalars['String']>
   user: UsersPermissionsMe
 }
 
 export type UserPermissionsPasswordPayload = {
+  __typename?: 'UserPermissionsPasswordPayload'
   ok: Scalars['Boolean']
 }
 
 export type CreateCommodityTypePayload = {
+  __typename?: 'createCommodityTypePayload'
   commodityType?: Maybe<CommodityType>
 }
 
 export type UpdateCommodityTypePayload = {
+  __typename?: 'updateCommodityTypePayload'
   commodityType?: Maybe<CommodityType>
 }
 
 export type DeleteCommodityTypePayload = {
+  __typename?: 'deleteCommodityTypePayload'
   commodityType?: Maybe<CommodityType>
 }
 
 export type CreateCommodityPayload = {
+  __typename?: 'createCommodityPayload'
   commodity?: Maybe<Commodity>
 }
 
 export type UpdateCommodityPayload = {
+  __typename?: 'updateCommodityPayload'
   commodity?: Maybe<Commodity>
 }
 
 export type DeleteCommodityPayload = {
+  __typename?: 'deleteCommodityPayload'
   commodity?: Maybe<Commodity>
 }
 
 export type MaterialConnection = {
+  __typename?: 'MaterialConnection'
   values?: Maybe<Array<Maybe<Material>>>
   groupBy?: Maybe<MaterialGroupBy>
   aggregate?: Maybe<MaterialAggregator>
 }
 
 export type MaterialGroupBy = {
+  __typename?: 'MaterialGroupBy'
   id?: Maybe<Array<Maybe<MaterialConnectionId>>>
   _id?: Maybe<Array<Maybe<MaterialConnection_Id>>>
   createdAt?: Maybe<Array<Maybe<MaterialConnectionCreatedAt>>>
@@ -964,64 +1023,77 @@ export type MaterialGroupBy = {
 }
 
 export type MaterialConnectionId = {
+  __typename?: 'MaterialConnectionId'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<MaterialConnection>
 }
 
 export type MaterialConnection_Id = {
+  __typename?: 'MaterialConnection_id'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<MaterialConnection>
 }
 
 export type MaterialConnectionCreatedAt = {
+  __typename?: 'MaterialConnectionCreatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<MaterialConnection>
 }
 
 export type MaterialConnectionUpdatedAt = {
+  __typename?: 'MaterialConnectionUpdatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<MaterialConnection>
 }
 
 export type MaterialConnectionName = {
+  __typename?: 'MaterialConnectionName'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<MaterialConnection>
 }
 
 export type MaterialConnectionCreated_By = {
+  __typename?: 'MaterialConnectionCreated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<MaterialConnection>
 }
 
 export type MaterialConnectionUpdated_By = {
+  __typename?: 'MaterialConnectionUpdated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<MaterialConnection>
 }
 
 export type MaterialAggregator = {
+  __typename?: 'MaterialAggregator'
   count?: Maybe<Scalars['Int']>
   totalCount?: Maybe<Scalars['Int']>
 }
 
 export type CreateMaterialPayload = {
+  __typename?: 'createMaterialPayload'
   material?: Maybe<Material>
 }
 
 export type UpdateMaterialPayload = {
+  __typename?: 'updateMaterialPayload'
   material?: Maybe<Material>
 }
 
 export type DeleteMaterialPayload = {
+  __typename?: 'deleteMaterialPayload'
   material?: Maybe<Material>
 }
 
 export type OrderHistoryConnection = {
+  __typename?: 'OrderHistoryConnection'
   values?: Maybe<Array<Maybe<OrderHistory>>>
   groupBy?: Maybe<OrderHistoryGroupBy>
   aggregate?: Maybe<OrderHistoryAggregator>
 }
 
 export type OrderHistoryGroupBy = {
+  __typename?: 'OrderHistoryGroupBy'
   id?: Maybe<Array<Maybe<OrderHistoryConnectionId>>>
   _id?: Maybe<Array<Maybe<OrderHistoryConnection_Id>>>
   createdAt?: Maybe<Array<Maybe<OrderHistoryConnectionCreatedAt>>>
@@ -1036,61 +1108,73 @@ export type OrderHistoryGroupBy = {
 }
 
 export type OrderHistoryConnectionId = {
+  __typename?: 'OrderHistoryConnectionId'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderHistoryConnection>
 }
 
 export type OrderHistoryConnection_Id = {
+  __typename?: 'OrderHistoryConnection_id'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderHistoryConnection>
 }
 
 export type OrderHistoryConnectionCreatedAt = {
+  __typename?: 'OrderHistoryConnectionCreatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<OrderHistoryConnection>
 }
 
 export type OrderHistoryConnectionUpdatedAt = {
+  __typename?: 'OrderHistoryConnectionUpdatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<OrderHistoryConnection>
 }
 
 export type OrderHistoryConnectionDetail = {
+  __typename?: 'OrderHistoryConnectionDetail'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<OrderHistoryConnection>
 }
 
 export type OrderHistoryConnectionAmount = {
+  __typename?: 'OrderHistoryConnectionAmount'
   key?: Maybe<Scalars['Int']>
   connection?: Maybe<OrderHistoryConnection>
 }
 
 export type OrderHistoryConnectionDelivery_Time = {
+  __typename?: 'OrderHistoryConnectionDelivery_time'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderHistoryConnection>
 }
 
 export type OrderHistoryConnectionUser = {
+  __typename?: 'OrderHistoryConnectionUser'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderHistoryConnection>
 }
 
 export type OrderHistoryConnectionOrder = {
+  __typename?: 'OrderHistoryConnectionOrder'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderHistoryConnection>
 }
 
 export type OrderHistoryConnectionCreated_By = {
+  __typename?: 'OrderHistoryConnectionCreated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderHistoryConnection>
 }
 
 export type OrderHistoryConnectionUpdated_By = {
+  __typename?: 'OrderHistoryConnectionUpdated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderHistoryConnection>
 }
 
 export type OrderHistoryAggregator = {
+  __typename?: 'OrderHistoryAggregator'
   count?: Maybe<Scalars['Int']>
   totalCount?: Maybe<Scalars['Int']>
   sum?: Maybe<OrderHistoryAggregatorSum>
@@ -1100,40 +1184,49 @@ export type OrderHistoryAggregator = {
 }
 
 export type OrderHistoryAggregatorSum = {
+  __typename?: 'OrderHistoryAggregatorSum'
   amount?: Maybe<Scalars['Float']>
 }
 
 export type OrderHistoryAggregatorAvg = {
+  __typename?: 'OrderHistoryAggregatorAvg'
   amount?: Maybe<Scalars['Float']>
 }
 
 export type OrderHistoryAggregatorMin = {
+  __typename?: 'OrderHistoryAggregatorMin'
   amount?: Maybe<Scalars['Float']>
 }
 
 export type OrderHistoryAggregatorMax = {
+  __typename?: 'OrderHistoryAggregatorMax'
   amount?: Maybe<Scalars['Float']>
 }
 
 export type CreateOrderHistoryPayload = {
+  __typename?: 'createOrderHistoryPayload'
   orderHistory?: Maybe<OrderHistory>
 }
 
 export type UpdateOrderHistoryPayload = {
+  __typename?: 'updateOrderHistoryPayload'
   orderHistory?: Maybe<OrderHistory>
 }
 
 export type DeleteOrderHistoryPayload = {
+  __typename?: 'deleteOrderHistoryPayload'
   orderHistory?: Maybe<OrderHistory>
 }
 
 export type OrderMaterialHistoryConnection = {
+  __typename?: 'OrderMaterialHistoryConnection'
   values?: Maybe<Array<Maybe<OrderMaterialHistory>>>
   groupBy?: Maybe<OrderMaterialHistoryGroupBy>
   aggregate?: Maybe<OrderMaterialHistoryAggregator>
 }
 
 export type OrderMaterialHistoryGroupBy = {
+  __typename?: 'OrderMaterialHistoryGroupBy'
   id?: Maybe<Array<Maybe<OrderMaterialHistoryConnectionId>>>
   _id?: Maybe<Array<Maybe<OrderMaterialHistoryConnection_Id>>>
   createdAt?: Maybe<Array<Maybe<OrderMaterialHistoryConnectionCreatedAt>>>
@@ -1148,84 +1241,101 @@ export type OrderMaterialHistoryGroupBy = {
 }
 
 export type OrderMaterialHistoryConnectionId = {
+  __typename?: 'OrderMaterialHistoryConnectionId'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderMaterialHistoryConnection>
 }
 
 export type OrderMaterialHistoryConnection_Id = {
+  __typename?: 'OrderMaterialHistoryConnection_id'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderMaterialHistoryConnection>
 }
 
 export type OrderMaterialHistoryConnectionCreatedAt = {
+  __typename?: 'OrderMaterialHistoryConnectionCreatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<OrderMaterialHistoryConnection>
 }
 
 export type OrderMaterialHistoryConnectionUpdatedAt = {
+  __typename?: 'OrderMaterialHistoryConnectionUpdatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<OrderMaterialHistoryConnection>
 }
 
 export type OrderMaterialHistoryConnectionRemark = {
+  __typename?: 'OrderMaterialHistoryConnectionRemark'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<OrderMaterialHistoryConnection>
 }
 
 export type OrderMaterialHistoryConnectionUser = {
+  __typename?: 'OrderMaterialHistoryConnectionUser'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderMaterialHistoryConnection>
 }
 
 export type OrderMaterialHistoryConnectionAttachment_Desc = {
+  __typename?: 'OrderMaterialHistoryConnectionAttachment_desc'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<OrderMaterialHistoryConnection>
 }
 
 export type OrderMaterialHistoryConnectionContent = {
+  __typename?: 'OrderMaterialHistoryConnectionContent'
   key?: Maybe<Scalars['JSON']>
   connection?: Maybe<OrderMaterialHistoryConnection>
 }
 
 export type OrderMaterialHistoryConnectionOrder_Id = {
+  __typename?: 'OrderMaterialHistoryConnectionOrder_id'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderMaterialHistoryConnection>
 }
 
 export type OrderMaterialHistoryConnectionCreated_By = {
+  __typename?: 'OrderMaterialHistoryConnectionCreated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderMaterialHistoryConnection>
 }
 
 export type OrderMaterialHistoryConnectionUpdated_By = {
+  __typename?: 'OrderMaterialHistoryConnectionUpdated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderMaterialHistoryConnection>
 }
 
 export type OrderMaterialHistoryAggregator = {
+  __typename?: 'OrderMaterialHistoryAggregator'
   count?: Maybe<Scalars['Int']>
   totalCount?: Maybe<Scalars['Int']>
 }
 
 export type CreateOrderMaterialHistoryPayload = {
+  __typename?: 'createOrderMaterialHistoryPayload'
   orderMaterialHistory?: Maybe<OrderMaterialHistory>
 }
 
 export type UpdateOrderMaterialHistoryPayload = {
+  __typename?: 'updateOrderMaterialHistoryPayload'
   orderMaterialHistory?: Maybe<OrderMaterialHistory>
 }
 
 export type DeleteOrderMaterialHistoryPayload = {
+  __typename?: 'deleteOrderMaterialHistoryPayload'
   orderMaterialHistory?: Maybe<OrderMaterialHistory>
 }
 
 export type OrderMaterialConnection = {
+  __typename?: 'OrderMaterialConnection'
   values?: Maybe<Array<Maybe<OrderMaterial>>>
   groupBy?: Maybe<OrderMaterialGroupBy>
   aggregate?: Maybe<OrderMaterialAggregator>
 }
 
 export type OrderMaterialGroupBy = {
+  __typename?: 'OrderMaterialGroupBy'
   id?: Maybe<Array<Maybe<OrderMaterialConnectionId>>>
   _id?: Maybe<Array<Maybe<OrderMaterialConnection_Id>>>
   createdAt?: Maybe<Array<Maybe<OrderMaterialConnectionCreatedAt>>>
@@ -1240,61 +1350,73 @@ export type OrderMaterialGroupBy = {
 }
 
 export type OrderMaterialConnectionId = {
+  __typename?: 'OrderMaterialConnectionId'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderMaterialConnection>
 }
 
 export type OrderMaterialConnection_Id = {
+  __typename?: 'OrderMaterialConnection_id'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderMaterialConnection>
 }
 
 export type OrderMaterialConnectionCreatedAt = {
+  __typename?: 'OrderMaterialConnectionCreatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<OrderMaterialConnection>
 }
 
 export type OrderMaterialConnectionUpdatedAt = {
+  __typename?: 'OrderMaterialConnectionUpdatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<OrderMaterialConnection>
 }
 
 export type OrderMaterialConnectionMaterial = {
+  __typename?: 'OrderMaterialConnectionMaterial'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<OrderMaterialConnection>
 }
 
 export type OrderMaterialConnectionAmount = {
+  __typename?: 'OrderMaterialConnectionAmount'
   key?: Maybe<Scalars['Int']>
   connection?: Maybe<OrderMaterialConnection>
 }
 
 export type OrderMaterialConnectionModel = {
+  __typename?: 'OrderMaterialConnectionModel'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<OrderMaterialConnection>
 }
 
 export type OrderMaterialConnectionUser = {
+  __typename?: 'OrderMaterialConnectionUser'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderMaterialConnection>
 }
 
 export type OrderMaterialConnectionOrder_Id = {
+  __typename?: 'OrderMaterialConnectionOrder_id'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderMaterialConnection>
 }
 
 export type OrderMaterialConnectionCreated_By = {
+  __typename?: 'OrderMaterialConnectionCreated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderMaterialConnection>
 }
 
 export type OrderMaterialConnectionUpdated_By = {
+  __typename?: 'OrderMaterialConnectionUpdated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderMaterialConnection>
 }
 
 export type OrderMaterialAggregator = {
+  __typename?: 'OrderMaterialAggregator'
   count?: Maybe<Scalars['Int']>
   totalCount?: Maybe<Scalars['Int']>
   sum?: Maybe<OrderMaterialAggregatorSum>
@@ -1304,40 +1426,49 @@ export type OrderMaterialAggregator = {
 }
 
 export type OrderMaterialAggregatorSum = {
+  __typename?: 'OrderMaterialAggregatorSum'
   amount?: Maybe<Scalars['Float']>
 }
 
 export type OrderMaterialAggregatorAvg = {
+  __typename?: 'OrderMaterialAggregatorAvg'
   amount?: Maybe<Scalars['Float']>
 }
 
 export type OrderMaterialAggregatorMin = {
+  __typename?: 'OrderMaterialAggregatorMin'
   amount?: Maybe<Scalars['Float']>
 }
 
 export type OrderMaterialAggregatorMax = {
+  __typename?: 'OrderMaterialAggregatorMax'
   amount?: Maybe<Scalars['Float']>
 }
 
 export type CreateOrderMaterialPayload = {
+  __typename?: 'createOrderMaterialPayload'
   orderMaterial?: Maybe<OrderMaterial>
 }
 
 export type UpdateOrderMaterialPayload = {
+  __typename?: 'updateOrderMaterialPayload'
   orderMaterial?: Maybe<OrderMaterial>
 }
 
 export type DeleteOrderMaterialPayload = {
+  __typename?: 'deleteOrderMaterialPayload'
   orderMaterial?: Maybe<OrderMaterial>
 }
 
 export type OrderConnection = {
+  __typename?: 'OrderConnection'
   values?: Maybe<Array<Maybe<Order>>>
   groupBy?: Maybe<OrderGroupBy>
   aggregate?: Maybe<OrderAggregator>
 }
 
 export type OrderGroupBy = {
+  __typename?: 'OrderGroupBy'
   id?: Maybe<Array<Maybe<OrderConnectionId>>>
   _id?: Maybe<Array<Maybe<OrderConnection_Id>>>
   createdAt?: Maybe<Array<Maybe<OrderConnectionCreatedAt>>>
@@ -1346,61 +1477,79 @@ export type OrderGroupBy = {
   amount?: Maybe<Array<Maybe<OrderConnectionAmount>>>
   delivery_time?: Maybe<Array<Maybe<OrderConnectionDelivery_Time>>>
   user?: Maybe<Array<Maybe<OrderConnectionUser>>>
+  name?: Maybe<Array<Maybe<OrderConnectionName>>>
   created_by?: Maybe<Array<Maybe<OrderConnectionCreated_By>>>
   updated_by?: Maybe<Array<Maybe<OrderConnectionUpdated_By>>>
 }
 
 export type OrderConnectionId = {
+  __typename?: 'OrderConnectionId'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderConnection>
 }
 
 export type OrderConnection_Id = {
+  __typename?: 'OrderConnection_id'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderConnection>
 }
 
 export type OrderConnectionCreatedAt = {
+  __typename?: 'OrderConnectionCreatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<OrderConnection>
 }
 
 export type OrderConnectionUpdatedAt = {
+  __typename?: 'OrderConnectionUpdatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<OrderConnection>
 }
 
 export type OrderConnectionDetail = {
+  __typename?: 'OrderConnectionDetail'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<OrderConnection>
 }
 
 export type OrderConnectionAmount = {
+  __typename?: 'OrderConnectionAmount'
   key?: Maybe<Scalars['Int']>
   connection?: Maybe<OrderConnection>
 }
 
 export type OrderConnectionDelivery_Time = {
+  __typename?: 'OrderConnectionDelivery_time'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderConnection>
 }
 
 export type OrderConnectionUser = {
+  __typename?: 'OrderConnectionUser'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderConnection>
 }
 
+export type OrderConnectionName = {
+  __typename?: 'OrderConnectionName'
+  key?: Maybe<Scalars['String']>
+  connection?: Maybe<OrderConnection>
+}
+
 export type OrderConnectionCreated_By = {
+  __typename?: 'OrderConnectionCreated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderConnection>
 }
 
 export type OrderConnectionUpdated_By = {
+  __typename?: 'OrderConnectionUpdated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<OrderConnection>
 }
 
 export type OrderAggregator = {
+  __typename?: 'OrderAggregator'
   count?: Maybe<Scalars['Int']>
   totalCount?: Maybe<Scalars['Int']>
   sum?: Maybe<OrderAggregatorSum>
@@ -1410,40 +1559,49 @@ export type OrderAggregator = {
 }
 
 export type OrderAggregatorSum = {
+  __typename?: 'OrderAggregatorSum'
   amount?: Maybe<Scalars['Float']>
 }
 
 export type OrderAggregatorAvg = {
+  __typename?: 'OrderAggregatorAvg'
   amount?: Maybe<Scalars['Float']>
 }
 
 export type OrderAggregatorMin = {
+  __typename?: 'OrderAggregatorMin'
   amount?: Maybe<Scalars['Float']>
 }
 
 export type OrderAggregatorMax = {
+  __typename?: 'OrderAggregatorMax'
   amount?: Maybe<Scalars['Float']>
 }
 
 export type CreateOrderPayload = {
+  __typename?: 'createOrderPayload'
   order?: Maybe<Order>
 }
 
 export type UpdateOrderPayload = {
+  __typename?: 'updateOrderPayload'
   order?: Maybe<Order>
 }
 
 export type DeleteOrderPayload = {
+  __typename?: 'deleteOrderPayload'
   order?: Maybe<Order>
 }
 
 export type WarehouseConnection = {
+  __typename?: 'WarehouseConnection'
   values?: Maybe<Array<Maybe<Warehouse>>>
   groupBy?: Maybe<WarehouseGroupBy>
   aggregate?: Maybe<WarehouseAggregator>
 }
 
 export type WarehouseGroupBy = {
+  __typename?: 'WarehouseGroupBy'
   id?: Maybe<Array<Maybe<WarehouseConnectionId>>>
   _id?: Maybe<Array<Maybe<WarehouseConnection_Id>>>
   createdAt?: Maybe<Array<Maybe<WarehouseConnectionCreatedAt>>>
@@ -1455,69 +1613,83 @@ export type WarehouseGroupBy = {
 }
 
 export type WarehouseConnectionId = {
+  __typename?: 'WarehouseConnectionId'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<WarehouseConnection>
 }
 
 export type WarehouseConnection_Id = {
+  __typename?: 'WarehouseConnection_id'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<WarehouseConnection>
 }
 
 export type WarehouseConnectionCreatedAt = {
+  __typename?: 'WarehouseConnectionCreatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<WarehouseConnection>
 }
 
 export type WarehouseConnectionUpdatedAt = {
+  __typename?: 'WarehouseConnectionUpdatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<WarehouseConnection>
 }
 
 export type WarehouseConnectionName = {
+  __typename?: 'WarehouseConnectionName'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<WarehouseConnection>
 }
 
 export type WarehouseConnectionUser = {
+  __typename?: 'WarehouseConnectionUser'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<WarehouseConnection>
 }
 
 export type WarehouseConnectionCreated_By = {
+  __typename?: 'WarehouseConnectionCreated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<WarehouseConnection>
 }
 
 export type WarehouseConnectionUpdated_By = {
+  __typename?: 'WarehouseConnectionUpdated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<WarehouseConnection>
 }
 
 export type WarehouseAggregator = {
+  __typename?: 'WarehouseAggregator'
   count?: Maybe<Scalars['Int']>
   totalCount?: Maybe<Scalars['Int']>
 }
 
 export type CreateWarehousePayload = {
+  __typename?: 'createWarehousePayload'
   warehouse?: Maybe<Warehouse>
 }
 
 export type UpdateWarehousePayload = {
+  __typename?: 'updateWarehousePayload'
   warehouse?: Maybe<Warehouse>
 }
 
 export type DeleteWarehousePayload = {
+  __typename?: 'deleteWarehousePayload'
   warehouse?: Maybe<Warehouse>
 }
 
 export type UploadFileConnection = {
+  __typename?: 'UploadFileConnection'
   values?: Maybe<Array<Maybe<UploadFile>>>
   groupBy?: Maybe<UploadFileGroupBy>
   aggregate?: Maybe<UploadFileAggregator>
 }
 
 export type UploadFileGroupBy = {
+  __typename?: 'UploadFileGroupBy'
   id?: Maybe<Array<Maybe<UploadFileConnectionId>>>
   _id?: Maybe<Array<Maybe<UploadFileConnection_Id>>>
   createdAt?: Maybe<Array<Maybe<UploadFileConnectionCreatedAt>>>
@@ -1542,111 +1714,133 @@ export type UploadFileGroupBy = {
 }
 
 export type UploadFileConnectionId = {
+  __typename?: 'UploadFileConnectionId'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnection_Id = {
+  __typename?: 'UploadFileConnection_id'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionCreatedAt = {
+  __typename?: 'UploadFileConnectionCreatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionUpdatedAt = {
+  __typename?: 'UploadFileConnectionUpdatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionName = {
+  __typename?: 'UploadFileConnectionName'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionAlternativeText = {
+  __typename?: 'UploadFileConnectionAlternativeText'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionCaption = {
+  __typename?: 'UploadFileConnectionCaption'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionWidth = {
+  __typename?: 'UploadFileConnectionWidth'
   key?: Maybe<Scalars['Int']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionHeight = {
+  __typename?: 'UploadFileConnectionHeight'
   key?: Maybe<Scalars['Int']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionFormats = {
+  __typename?: 'UploadFileConnectionFormats'
   key?: Maybe<Scalars['JSON']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionHash = {
+  __typename?: 'UploadFileConnectionHash'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionExt = {
+  __typename?: 'UploadFileConnectionExt'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionMime = {
+  __typename?: 'UploadFileConnectionMime'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionSize = {
+  __typename?: 'UploadFileConnectionSize'
   key?: Maybe<Scalars['Float']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionUrl = {
+  __typename?: 'UploadFileConnectionUrl'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionHttpUrl = {
+  __typename?: 'UploadFileConnectionHttpUrl'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionPreviewUrl = {
+  __typename?: 'UploadFileConnectionPreviewUrl'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionProvider = {
+  __typename?: 'UploadFileConnectionProvider'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionProvider_Metadata = {
+  __typename?: 'UploadFileConnectionProvider_metadata'
   key?: Maybe<Scalars['JSON']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionCreated_By = {
+  __typename?: 'UploadFileConnectionCreated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileConnectionUpdated_By = {
+  __typename?: 'UploadFileConnectionUpdated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<UploadFileConnection>
 }
 
 export type UploadFileAggregator = {
+  __typename?: 'UploadFileAggregator'
   count?: Maybe<Scalars['Int']>
   totalCount?: Maybe<Scalars['Int']>
   sum?: Maybe<UploadFileAggregatorSum>
@@ -1656,36 +1850,42 @@ export type UploadFileAggregator = {
 }
 
 export type UploadFileAggregatorSum = {
+  __typename?: 'UploadFileAggregatorSum'
   width?: Maybe<Scalars['Float']>
   height?: Maybe<Scalars['Float']>
   size?: Maybe<Scalars['Float']>
 }
 
 export type UploadFileAggregatorAvg = {
+  __typename?: 'UploadFileAggregatorAvg'
   width?: Maybe<Scalars['Float']>
   height?: Maybe<Scalars['Float']>
   size?: Maybe<Scalars['Float']>
 }
 
 export type UploadFileAggregatorMin = {
+  __typename?: 'UploadFileAggregatorMin'
   width?: Maybe<Scalars['Float']>
   height?: Maybe<Scalars['Float']>
   size?: Maybe<Scalars['Float']>
 }
 
 export type UploadFileAggregatorMax = {
+  __typename?: 'UploadFileAggregatorMax'
   width?: Maybe<Scalars['Float']>
   height?: Maybe<Scalars['Float']>
   size?: Maybe<Scalars['Float']>
 }
 
 export type UsersPermissionsRoleConnection = {
+  __typename?: 'UsersPermissionsRoleConnection'
   values?: Maybe<Array<Maybe<UsersPermissionsRole>>>
   groupBy?: Maybe<UsersPermissionsRoleGroupBy>
   aggregate?: Maybe<UsersPermissionsRoleAggregator>
 }
 
 export type UsersPermissionsRoleGroupBy = {
+  __typename?: 'UsersPermissionsRoleGroupBy'
   id?: Maybe<Array<Maybe<UsersPermissionsRoleConnectionId>>>
   _id?: Maybe<Array<Maybe<UsersPermissionsRoleConnection_Id>>>
   createdAt?: Maybe<Array<Maybe<UsersPermissionsRoleConnectionCreatedAt>>>
@@ -1698,74 +1898,89 @@ export type UsersPermissionsRoleGroupBy = {
 }
 
 export type UsersPermissionsRoleConnectionId = {
+  __typename?: 'UsersPermissionsRoleConnectionId'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<UsersPermissionsRoleConnection>
 }
 
 export type UsersPermissionsRoleConnection_Id = {
+  __typename?: 'UsersPermissionsRoleConnection_id'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<UsersPermissionsRoleConnection>
 }
 
 export type UsersPermissionsRoleConnectionCreatedAt = {
+  __typename?: 'UsersPermissionsRoleConnectionCreatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<UsersPermissionsRoleConnection>
 }
 
 export type UsersPermissionsRoleConnectionUpdatedAt = {
+  __typename?: 'UsersPermissionsRoleConnectionUpdatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<UsersPermissionsRoleConnection>
 }
 
 export type UsersPermissionsRoleConnectionName = {
+  __typename?: 'UsersPermissionsRoleConnectionName'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UsersPermissionsRoleConnection>
 }
 
 export type UsersPermissionsRoleConnectionDescription = {
+  __typename?: 'UsersPermissionsRoleConnectionDescription'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UsersPermissionsRoleConnection>
 }
 
 export type UsersPermissionsRoleConnectionType = {
+  __typename?: 'UsersPermissionsRoleConnectionType'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UsersPermissionsRoleConnection>
 }
 
 export type UsersPermissionsRoleConnectionCreated_By = {
+  __typename?: 'UsersPermissionsRoleConnectionCreated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<UsersPermissionsRoleConnection>
 }
 
 export type UsersPermissionsRoleConnectionUpdated_By = {
+  __typename?: 'UsersPermissionsRoleConnectionUpdated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<UsersPermissionsRoleConnection>
 }
 
 export type UsersPermissionsRoleAggregator = {
+  __typename?: 'UsersPermissionsRoleAggregator'
   count?: Maybe<Scalars['Int']>
   totalCount?: Maybe<Scalars['Int']>
 }
 
 export type CreateRolePayload = {
+  __typename?: 'createRolePayload'
   role?: Maybe<UsersPermissionsRole>
 }
 
 export type UpdateRolePayload = {
+  __typename?: 'updateRolePayload'
   role?: Maybe<UsersPermissionsRole>
 }
 
 export type DeleteRolePayload = {
+  __typename?: 'deleteRolePayload'
   role?: Maybe<UsersPermissionsRole>
 }
 
 export type UsersPermissionsUserConnection = {
+  __typename?: 'UsersPermissionsUserConnection'
   values?: Maybe<Array<Maybe<UsersPermissionsUser>>>
   groupBy?: Maybe<UsersPermissionsUserGroupBy>
   aggregate?: Maybe<UsersPermissionsUserAggregator>
 }
 
 export type UsersPermissionsUserGroupBy = {
+  __typename?: 'UsersPermissionsUserGroupBy'
   id?: Maybe<Array<Maybe<UsersPermissionsUserConnectionId>>>
   _id?: Maybe<Array<Maybe<UsersPermissionsUserConnection_Id>>>
   createdAt?: Maybe<Array<Maybe<UsersPermissionsUserConnectionCreatedAt>>>
@@ -1782,88 +1997,106 @@ export type UsersPermissionsUserGroupBy = {
 }
 
 export type UsersPermissionsUserConnectionId = {
+  __typename?: 'UsersPermissionsUserConnectionId'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
 export type UsersPermissionsUserConnection_Id = {
+  __typename?: 'UsersPermissionsUserConnection_id'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
 export type UsersPermissionsUserConnectionCreatedAt = {
+  __typename?: 'UsersPermissionsUserConnectionCreatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
 export type UsersPermissionsUserConnectionUpdatedAt = {
+  __typename?: 'UsersPermissionsUserConnectionUpdatedAt'
   key?: Maybe<Scalars['DateTime']>
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
 export type UsersPermissionsUserConnectionUsername = {
+  __typename?: 'UsersPermissionsUserConnectionUsername'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
 export type UsersPermissionsUserConnectionEmail = {
+  __typename?: 'UsersPermissionsUserConnectionEmail'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
 export type UsersPermissionsUserConnectionProvider = {
+  __typename?: 'UsersPermissionsUserConnectionProvider'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
 export type UsersPermissionsUserConnectionConfirmed = {
+  __typename?: 'UsersPermissionsUserConnectionConfirmed'
   key?: Maybe<Scalars['Boolean']>
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
 export type UsersPermissionsUserConnectionBlocked = {
+  __typename?: 'UsersPermissionsUserConnectionBlocked'
   key?: Maybe<Scalars['Boolean']>
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
 export type UsersPermissionsUserConnectionRole = {
+  __typename?: 'UsersPermissionsUserConnectionRole'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
 export type UsersPermissionsUserConnectionAvatar = {
+  __typename?: 'UsersPermissionsUserConnectionAvatar'
   key?: Maybe<Scalars['String']>
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
 export type UsersPermissionsUserConnectionCreated_By = {
+  __typename?: 'UsersPermissionsUserConnectionCreated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
 export type UsersPermissionsUserConnectionUpdated_By = {
+  __typename?: 'UsersPermissionsUserConnectionUpdated_by'
   key?: Maybe<Scalars['ID']>
   connection?: Maybe<UsersPermissionsUserConnection>
 }
 
 export type UsersPermissionsUserAggregator = {
+  __typename?: 'UsersPermissionsUserAggregator'
   count?: Maybe<Scalars['Int']>
   totalCount?: Maybe<Scalars['Int']>
 }
 
 export type CreateUserPayload = {
+  __typename?: 'createUserPayload'
   user?: Maybe<UsersPermissionsUser>
 }
 
 export type UpdateUserPayload = {
+  __typename?: 'updateUserPayload'
   user?: Maybe<UsersPermissionsUser>
 }
 
 export type DeleteUserPayload = {
+  __typename?: 'deleteUserPayload'
   user?: Maybe<UsersPermissionsUser>
 }
 
 export type Mutation = {
+  __typename?: 'Mutation'
   createCommodityType?: Maybe<CreateCommodityTypePayload>
   updateCommodityType?: Maybe<UpdateCommodityTypePayload>
   deleteCommodityType?: Maybe<DeleteCommodityTypePayload>
@@ -2291,6 +2524,7 @@ export type OrderInput = {
   order_materials?: Maybe<Array<Maybe<Scalars['ID']>>>
   order_histories?: Maybe<Array<Maybe<Scalars['ID']>>>
   commodities?: Maybe<Array<Maybe<Scalars['ID']>>>
+  name?: Maybe<Scalars['String']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
 }
@@ -2308,6 +2542,7 @@ export type EditOrderInput = {
   order_materials?: Maybe<Array<Maybe<Scalars['ID']>>>
   order_histories?: Maybe<Array<Maybe<Scalars['ID']>>>
   commodities?: Maybe<Array<Maybe<Scalars['ID']>>>
+  name?: Maybe<Scalars['String']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
 }

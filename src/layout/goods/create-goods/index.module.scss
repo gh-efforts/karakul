@@ -1,8 +1,9 @@
 .title {
   display: grid;
-  grid-template-columns: auto auto;
-  justify-content: space-between;
+  grid-template-columns: 1fr auto auto;
+  gap: 16px;
   align-items: center;
+
   padding-bottom: 24px;
 
   .title-right {
@@ -10,6 +11,7 @@
     align-items: center;
     gap: 8px;
     color: #00b2b6;
+    cursor: pointer;
   }
 }
 
@@ -39,13 +41,18 @@
   grid-column: 1 / 4;
 }
 
-.btns,
 .table {
-  grid-column: 1 / 4;
+  margin: 0 32px;
+  height: 500px;
+  overflow-y: scroll;
 }
 
 .order-no {
   padding-bottom: 24px;
+}
+
+.btns {
+  margin: 0 32px;
 }
 
 .opt-btns {

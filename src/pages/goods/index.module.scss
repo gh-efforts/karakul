@@ -5,3 +5,14 @@
   display: grid;
   grid-template-rows: auto 1fr;
 }
+
+.table {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 0 32px 32px 32px;
+  background-color: #fff;
+}
+
+.table-items {
+  overflow-y: scroll;
+}

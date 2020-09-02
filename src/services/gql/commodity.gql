@@ -1,0 +1,17 @@
+# 查询订单列表
+query Commodities($sort: String, $limit: Int, $start: Int, $where: JSON) {
+  commodities(sort: $sort, limit: $limit, start: $start, where: $where) {
+    id
+    accessories
+  }
+}
+
+# 创建商品
+
+mutation createCommodity($data: CommodityInput) {
+  res: createCommodity(input: { data: $data }) {
+    commodity {
+      id
+    }
+  }
+}
