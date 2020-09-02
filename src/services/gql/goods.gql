@@ -35,3 +35,19 @@ query OrderCommodities($id: ID!) {
     }
   }
 }
+
+# 查询商品分类
+query CommodityTypesSelect {
+  types: commodityTypes(start: 0, limit: 1000) {
+    id
+    name
+  }
+}
+
+# 查询仓库信息
+query WarehousesSelect {
+  pos: warehouses(start: 0, limit: 1000) {
+    id
+    name
+  }
+}

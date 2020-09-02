@@ -910,6 +910,11 @@ type OrderHistory {
   """
 
   """
+  name: String
+
+  """
+
+  """
   created_by: AdminUser
 
   """
@@ -1641,6 +1646,7 @@ union Morph =
   | OrderHistoryConnectionDelivery_time
   | OrderHistoryConnectionUser
   | OrderHistoryConnectionOrder
+  | OrderHistoryConnectionName
   | OrderHistoryConnectionCreated_by
   | OrderHistoryConnectionUpdated_by
   | createOrderHistoryPayload
@@ -2227,6 +2233,11 @@ type OrderHistoryGroupBy {
   """
 
   """
+  name: [OrderHistoryConnectionName]
+
+  """
+
+  """
   created_by: [OrderHistoryConnectionCreated_by]
 
   """
@@ -2363,6 +2374,21 @@ type OrderHistoryConnectionOrder {
 
   """
   key: ID
+
+  """
+
+  """
+  connection: OrderHistoryConnection
+}
+
+"""
+
+"""
+type OrderHistoryConnectionName {
+  """
+
+  """
+  key: String
 
   """
 
@@ -5032,6 +5058,16 @@ type Mutation {
   """
 
   """
+  createNewOrder(input: createOrderInput): createOrderPayload
+
+  """
+
+  """
+  updateOldOrder(input: updateOrderInput): updateOrderPayload
+
+  """
+
+  """
   upload(refId: ID, ref: String, field: String, source: String, file: Upload!): UploadFile!
 
   """
@@ -5452,6 +5488,11 @@ input OrderHistoryInput {
   """
 
   """
+  name: String
+
+  """
+
+  """
   created_by: ID
 
   """
@@ -5503,6 +5544,11 @@ input editOrderHistoryInput {
 
   """
   order: ID
+
+  """
+
+  """
+  name: String
 
   """
 

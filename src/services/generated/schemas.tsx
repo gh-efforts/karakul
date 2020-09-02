@@ -491,6 +491,7 @@ export type OrderHistory = {
   delivery_time?: Maybe<Scalars['Date']>
   user?: Maybe<UsersPermissionsUser>
   order?: Maybe<Order>
+  name?: Maybe<Scalars['String']>
   created_by?: Maybe<AdminUser>
   updated_by?: Maybe<AdminUser>
 }
@@ -791,6 +792,7 @@ export type Morph =
   | OrderHistoryConnectionDelivery_Time
   | OrderHistoryConnectionUser
   | OrderHistoryConnectionOrder
+  | OrderHistoryConnectionName
   | OrderHistoryConnectionCreated_By
   | OrderHistoryConnectionUpdated_By
   | CreateOrderHistoryPayload
@@ -1103,6 +1105,7 @@ export type OrderHistoryGroupBy = {
   delivery_time?: Maybe<Array<Maybe<OrderHistoryConnectionDelivery_Time>>>
   user?: Maybe<Array<Maybe<OrderHistoryConnectionUser>>>
   order?: Maybe<Array<Maybe<OrderHistoryConnectionOrder>>>
+  name?: Maybe<Array<Maybe<OrderHistoryConnectionName>>>
   created_by?: Maybe<Array<Maybe<OrderHistoryConnectionCreated_By>>>
   updated_by?: Maybe<Array<Maybe<OrderHistoryConnectionUpdated_By>>>
 }
@@ -1158,6 +1161,12 @@ export type OrderHistoryConnectionUser = {
 export type OrderHistoryConnectionOrder = {
   __typename?: 'OrderHistoryConnectionOrder'
   key?: Maybe<Scalars['ID']>
+  connection?: Maybe<OrderHistoryConnection>
+}
+
+export type OrderHistoryConnectionName = {
+  __typename?: 'OrderHistoryConnectionName'
+  key?: Maybe<Scalars['String']>
   connection?: Maybe<OrderHistoryConnection>
 }
 
@@ -2135,6 +2144,8 @@ export type Mutation = {
   deleteUser?: Maybe<DeleteUserPayload>
   batchCreateMaterials?: Maybe<OrderMaterials>
   batchUpdateMaterials?: Maybe<OrderMaterials>
+  createNewOrder?: Maybe<CreateOrderPayload>
+  updateOldOrder?: Maybe<UpdateOrderPayload>
   upload: UploadFile
   multipleUpload: Array<Maybe<UploadFile>>
   login: UsersPermissionsLoginPayload
@@ -2270,6 +2281,14 @@ export type MutationBatchCreateMaterialsArgs = {
 
 export type MutationBatchUpdateMaterialsArgs = {
   input?: Maybe<UpdateOrderMaterialsInput>
+}
+
+export type MutationCreateNewOrderArgs = {
+  input?: Maybe<CreateOrderInput>
+}
+
+export type MutationUpdateOldOrderArgs = {
+  input?: Maybe<UpdateOrderInput>
 }
 
 export type MutationUploadArgs = {
@@ -2421,6 +2440,7 @@ export type OrderHistoryInput = {
   delivery_time?: Maybe<Scalars['Date']>
   user?: Maybe<Scalars['ID']>
   order?: Maybe<Scalars['ID']>
+  name?: Maybe<Scalars['String']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
 }
@@ -2436,6 +2456,7 @@ export type EditOrderHistoryInput = {
   delivery_time?: Maybe<Scalars['Date']>
   user?: Maybe<Scalars['ID']>
   order?: Maybe<Scalars['ID']>
+  name?: Maybe<Scalars['String']>
   created_by?: Maybe<Scalars['ID']>
   updated_by?: Maybe<Scalars['ID']>
 }

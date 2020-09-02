@@ -56,7 +56,7 @@ export type CommoditiesQueryHookResult = ReturnType<typeof useCommoditiesQuery>
 export type CommoditiesLazyQueryHookResult = ReturnType<typeof useCommoditiesLazyQuery>
 export type CommoditiesQueryResult = Apollo.QueryResult<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>
 export const CreateCommodityDocument = gql`
-  mutation createCommodity($data: CommodityInput) {
+  mutation CreateCommodity($data: CommodityInput) {
     res: createCommodity(input: { data: $data }) {
       commodity {
         id
@@ -81,6 +81,66 @@ export type CreateCommodityMutationResult = Apollo.MutationResult<Types.CreateCo
 export type CreateCommodityMutationOptions = Apollo.BaseMutationOptions<
   Types.CreateCommodityMutation,
   Types.CreateCommodityMutationVariables
+>
+export const CommodityTypesSelectDocument = gql`
+  query CommodityTypesSelect {
+    types: commodityTypes(start: 0, limit: 1000) {
+      id
+      name
+    }
+  }
+`
+export function useCommodityTypesSelectQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.CommodityTypesSelectQuery, Types.CommodityTypesSelectQueryVariables>
+) {
+  return Apollo.useQuery<Types.CommodityTypesSelectQuery, Types.CommodityTypesSelectQueryVariables>(
+    CommodityTypesSelectDocument,
+    baseOptions
+  )
+}
+export function useCommodityTypesSelectLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.CommodityTypesSelectQuery, Types.CommodityTypesSelectQueryVariables>
+) {
+  return Apollo.useLazyQuery<Types.CommodityTypesSelectQuery, Types.CommodityTypesSelectQueryVariables>(
+    CommodityTypesSelectDocument,
+    baseOptions
+  )
+}
+export type CommodityTypesSelectQueryHookResult = ReturnType<typeof useCommodityTypesSelectQuery>
+export type CommodityTypesSelectLazyQueryHookResult = ReturnType<typeof useCommodityTypesSelectLazyQuery>
+export type CommodityTypesSelectQueryResult = Apollo.QueryResult<
+  Types.CommodityTypesSelectQuery,
+  Types.CommodityTypesSelectQueryVariables
+>
+export const WarehousesSelectDocument = gql`
+  query WarehousesSelect {
+    pos: warehouses(start: 0, limit: 1000) {
+      id
+      name
+    }
+  }
+`
+export function useWarehousesSelectQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.WarehousesSelectQuery, Types.WarehousesSelectQueryVariables>
+) {
+  return Apollo.useQuery<Types.WarehousesSelectQuery, Types.WarehousesSelectQueryVariables>(
+    WarehousesSelectDocument,
+    baseOptions
+  )
+}
+export function useWarehousesSelectLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.WarehousesSelectQuery, Types.WarehousesSelectQueryVariables>
+) {
+  return Apollo.useLazyQuery<Types.WarehousesSelectQuery, Types.WarehousesSelectQueryVariables>(
+    WarehousesSelectDocument,
+    baseOptions
+  )
+}
+export type WarehousesSelectQueryHookResult = ReturnType<typeof useWarehousesSelectQuery>
+export type WarehousesSelectLazyQueryHookResult = ReturnType<typeof useWarehousesSelectLazyQuery>
+export type WarehousesSelectQueryResult = Apollo.QueryResult<
+  Types.WarehousesSelectQuery,
+  Types.WarehousesSelectQueryVariables
 >
 export const GoodsOrdersDocument = gql`
   query GoodsOrders($sort: String, $limit: Int, $start: Int, $where: JSON) {
@@ -233,6 +293,27 @@ export type OrderMaterialsQueryResult = Apollo.QueryResult<
   Types.OrderMaterialsQuery,
   Types.OrderMaterialsQueryVariables
 >
+export const MaterialsDocument = gql`
+  query Materials {
+    materials(limit: 1000, start: 0) {
+      id
+      name
+    }
+  }
+`
+export function useMaterialsQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.MaterialsQuery, Types.MaterialsQueryVariables>
+) {
+  return Apollo.useQuery<Types.MaterialsQuery, Types.MaterialsQueryVariables>(MaterialsDocument, baseOptions)
+}
+export function useMaterialsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.MaterialsQuery, Types.MaterialsQueryVariables>
+) {
+  return Apollo.useLazyQuery<Types.MaterialsQuery, Types.MaterialsQueryVariables>(MaterialsDocument, baseOptions)
+}
+export type MaterialsQueryHookResult = ReturnType<typeof useMaterialsQuery>
+export type MaterialsLazyQueryHookResult = ReturnType<typeof useMaterialsLazyQuery>
+export type MaterialsQueryResult = Apollo.QueryResult<Types.MaterialsQuery, Types.MaterialsQueryVariables>
 export const OrdersDocument = gql`
   query Orders($sort: String, $limit: Int, $start: Int, $where: JSON) {
     orders(sort: $sort, limit: $limit, start: $start, where: $where) {

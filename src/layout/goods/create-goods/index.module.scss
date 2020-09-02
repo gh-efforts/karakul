@@ -13,6 +13,10 @@
     color: #00b2b6;
     cursor: pointer;
   }
+
+  .btn-disable {
+    color: rgba(0, 0, 0, 0.25);
+  }
 }
 
 .content {
@@ -57,5 +61,12 @@
 
 .opt-btns {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+
+  :global {
+    .ant-btn-text {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
 }

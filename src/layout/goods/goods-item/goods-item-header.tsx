@@ -8,21 +8,29 @@ import { Svg, useGlobalModal } from '../../../components'
 
 import styles from './index.module.scss'
 
-function CreateGoodsBtn({ id }: { id?: string }) {
+interface BtnProps {
+  id?: string | null | undefined
+}
+
+function CreateGoodsBtn({ id }: BtnProps) {
   const { showModal } = useGlobalModal()
 
   const show = () => {
+    if (!id) {
+      return
+    }
+
     showModal('创建商品', CreateGoodsView, { id })
   }
 
   return (
-    <Button type='text' className='action-pointer' onClick={show} disabled={!!id}>
+    <Button type='text' className='action-pointer' onClick={show} disabled={!id}>
       创建商品
     </Button>
   )
 }
 
-function ExWarehouseBtn({ id }: { id?: string }) {
+function ExWarehouseBtn({ id }: BtnProps) {
   const { showModal } = useGlobalModal()
 
   const show = () => {
@@ -36,7 +44,7 @@ function ExWarehouseBtn({ id }: { id?: string }) {
   return <Svg name='btn-sell-h' onClick={show} />
 }
 
-function GoodsHistoryBtn({ id }: { id?: string }) {
+function GoodsHistoryBtn({ id }: BtnProps) {
   const { showModal } = useGlobalModal()
 
   const show = () => {
@@ -52,15 +60,16 @@ function GoodsHistoryBtn({ id }: { id?: string }) {
 
 interface GoodsItemHeaderProps {
   children?: React.ReactNode
-  name?: string
+  name?: string | null | undefined
+  id?: string | null | undefined
 }
 
-function GoodsItemHeader({ children, name }: GoodsItemHeaderProps) {
+function GoodsItemHeader({ children, name, id }: GoodsItemHeaderProps) {
   return (
     <div className={styles.header}>
       <span>{children}</span>
       <span>{name}</span>
-      <CreateGoodsBtn />
+      <CreateGoodsBtn id={id} />
       <ExWarehouseBtn />
       <GoodsHistoryBtn />
     </div>
