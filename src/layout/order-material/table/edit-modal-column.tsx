@@ -1,23 +1,23 @@
 import { ColumnProps } from 'antd/lib/table'
 
-import { OrderMaterial } from '../../../services'
+import { Material } from '../material'
 
-const modalColumns: ColumnProps<OrderMaterial>[] = [
+const modalColumns: ColumnProps<Material>[] = [
   {
     title: '分类',
-    dataIndex: 'name',
+    dataIndex: 'material',
   },
   {
     title: '型号',
-    dataIndex: 'callType',
+    dataIndex: 'model',
   },
   {
     title: '数量',
-    dataIndex: 'type',
+    dataIndex: 'amount',
   },
   {
     title: '行为',
-    dataIndex: 'type',
+    dataIndex: 'action',
   },
   {
     title: '操作',

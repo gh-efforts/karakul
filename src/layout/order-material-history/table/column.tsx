@@ -1,19 +1,12 @@
 import { ColumnProps } from 'antd/lib/table'
-import { OrderMaterialType } from '../service'
+import { HistoryInfo } from '../history'
 
-const columns: ColumnProps<OrderMaterialType>[] = [
+const columns: ColumnProps<HistoryInfo>[] = [
   {
-    title: '分类',
-    dataIndex: 'material',
+    title: '编号',
+    dataIndex: 'id',
   },
-  {
-    title: '型号',
-    dataIndex: 'model',
-  },
-  {
-    title: '数量',
-    dataIndex: 'amount',
-  },
+
   {
     title: '创建时间',
     dataIndex: 'createdAt',
@@ -25,6 +18,10 @@ const columns: ColumnProps<OrderMaterialType>[] = [
   {
     title: '操作人',
     dataIndex: ['user', 'username'],
+  },
+  {
+    title: '操作',
+    width: 220,
   },
 ]
 

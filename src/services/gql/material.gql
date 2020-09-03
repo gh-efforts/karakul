@@ -43,6 +43,65 @@ query OrderMaterials($limit: Int, $start: Int, $where: JSON, $sort: String) {
   }
 }
 
+query OrderMaterialsConnection($limit: Int, $start: Int, $where: JSON, $sort: String) {
+  orderMaterialsConnection(limit: $limit, start: $start, where: $where, sort: $sort) {
+    values {
+      id
+      createdAt
+      updatedAt
+      order_id {
+        id
+      }
+      material
+      amount
+      model
+      user {
+        id
+        username
+      }
+    }
+
+    aggregate {
+      count
+    }
+  }
+}
+
+mutation CreateOrderMaterials($input: CreateOrderMaterialsInput) {
+  batchCreateMaterials(input: $input) {
+    order_id
+  }
+}
+
+mutation UpdateOrderMaterials($input: UpdateOrderMaterialsInput) {
+  batchUpdateMaterials(input: $input) {
+    order_id
+  }
+}
+
+query OrderMaterialHistoriesConnection($limit: Int, $start: Int, $id: ID) {
+  orderMaterialHistoriesConnection(limit: $limit, start: $start, where: { order_id: $id }) {
+    values {
+      id
+      createdAt
+      updatedAt
+      remark
+      user {
+        username
+      }
+      attachment_desc
+      content
+      attachment {
+        id
+        url
+      }
+    }
+    aggregate {
+      count
+    }
+  }
+}
+
 # Materials select
 query Materials {
   materials(limit: 1000, start: 0) {

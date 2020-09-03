@@ -24,9 +24,9 @@ function EditButton({ order }: EditModalViewProps) {
   )
 }
 
-function AddButton({ id }: { id: string }) {
+function AddButton({ id, name }: { id: string; name: string }) {
   return id ? (
-    <Link href={`/order/material/${id}`}>
+    <Link href={`/order/material/${id}?name=${name}`}>
       <Tooltip title='原材料预定'>
         <FileAddOutlined style={{ color: '#00B2B6' }} />
       </Tooltip>
@@ -104,7 +104,7 @@ const columns: ColumnProps<TOrder>[] = [
         <span className='table-operation-group'>
           <EditButton order={order} />
           <HistoryButton order={order} />
-          <AddButton id={order?.id ?? ''} />
+          <AddButton id={order?.id ?? ''} name={order.name ?? ''} />
         </span>
       )
     },
