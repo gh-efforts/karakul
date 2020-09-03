@@ -79,6 +79,29 @@ mutation UpdateOrderMaterials($input: UpdateOrderMaterialsInput) {
   }
 }
 
+query OrderMaterialHistoriesConnection($limit: Int, $start: Int, $id: ID) {
+  orderMaterialHistoriesConnection(limit: $limit, start: $start, where: { order_id: $id }) {
+    values {
+      id
+      createdAt
+      updatedAt
+      remark
+      user {
+        username
+      }
+      attachment_desc
+      content
+      attachment {
+        id
+        url
+      }
+    }
+    aggregate {
+      count
+    }
+  }
+}
+
 # Materials select
 query Materials {
   materials(limit: 1000, start: 0) {

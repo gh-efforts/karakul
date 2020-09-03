@@ -1,5 +1,75 @@
 import * as Types from './schemas'
 
+export type UploadMutationVariables = Types.Exact<{
+  refId?: Types.Maybe<Types.Scalars['ID']>
+  ref?: Types.Maybe<Types.Scalars['String']>
+  field?: Types.Maybe<Types.Scalars['String']>
+  source?: Types.Maybe<Types.Scalars['String']>
+  file: Types.Scalars['Upload']
+}>
+
+export type UploadMutation = {
+  upload: Pick<
+    Types.UploadFile,
+    | 'id'
+    | '_id'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'name'
+    | 'alternativeText'
+    | 'caption'
+    | 'width'
+    | 'height'
+    | 'formats'
+    | 'hash'
+    | 'ext'
+    | 'mime'
+    | 'size'
+    | 'url'
+    | 'httpUrl'
+    | 'previewUrl'
+    | 'provider'
+    | 'provider_metadata'
+  >
+}
+
+export type MultipleUploadMutationVariables = Types.Exact<{
+  refId?: Types.Maybe<Types.Scalars['ID']>
+  ref?: Types.Maybe<Types.Scalars['String']>
+  field?: Types.Maybe<Types.Scalars['String']>
+  source?: Types.Maybe<Types.Scalars['String']>
+  files: Array<Types.Maybe<Types.Scalars['Upload']>>
+}>
+
+export type MultipleUploadMutation = {
+  multipleUpload: Array<
+    Types.Maybe<
+      Pick<
+        Types.UploadFile,
+        | 'id'
+        | '_id'
+        | 'createdAt'
+        | 'updatedAt'
+        | 'name'
+        | 'alternativeText'
+        | 'caption'
+        | 'width'
+        | 'height'
+        | 'formats'
+        | 'hash'
+        | 'ext'
+        | 'mime'
+        | 'size'
+        | 'url'
+        | 'httpUrl'
+        | 'previewUrl'
+        | 'provider'
+        | 'provider_metadata'
+      >
+    >
+  >
+}
+
 export type GoodsOrdersQueryVariables = Types.Exact<{
   sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
@@ -217,6 +287,31 @@ export type UpdateOrderMaterialsMutationVariables = Types.Exact<{
 
 export type UpdateOrderMaterialsMutation = {
   batchUpdateMaterials?: Types.Maybe<Pick<Types.OrderMaterials, 'order_id'>>
+}
+
+export type OrderMaterialHistoriesConnectionQueryVariables = Types.Exact<{
+  limit?: Types.Maybe<Types.Scalars['Int']>
+  start?: Types.Maybe<Types.Scalars['Int']>
+  id?: Types.Maybe<Types.Scalars['ID']>
+}>
+
+export type OrderMaterialHistoriesConnectionQuery = {
+  orderMaterialHistoriesConnection?: Types.Maybe<{
+    values?: Types.Maybe<
+      Array<
+        Types.Maybe<
+          Pick<
+            Types.OrderMaterialHistory,
+            'id' | 'createdAt' | 'updatedAt' | 'remark' | 'attachment_desc' | 'content'
+          > & {
+            user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'username'>>
+            attachment?: Types.Maybe<Array<Types.Maybe<Pick<Types.UploadFile, 'id' | 'url'>>>>
+          }
+        >
+      >
+    >
+    aggregate?: Types.Maybe<Pick<Types.OrderMaterialHistoryAggregator, 'count'>>
+  }>
 }
 
 export type MaterialsQueryVariables = Types.Exact<{ [key: string]: never }>

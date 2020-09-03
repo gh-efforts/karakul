@@ -22,7 +22,7 @@ mutation Upload($refId: ID, $ref: String, $field: String, $source: String, $file
   }
 }
 
-mutation MultipleUpload($refId: ID, $ref: String, $field: String, $source: String, $file: [Upload]!) {
+mutation MultipleUpload($refId: ID, $ref: String, $field: String, $source: String, $files: [Upload]!) {
   multipleUpload(refId: $refId, ref: $ref, field: $field, source: $source, files: $files) {
     id
     _id

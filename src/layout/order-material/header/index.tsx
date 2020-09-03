@@ -5,14 +5,14 @@ import { PlusOutlined } from '@ant-design/icons'
 import { SubHeader, FlexibleInput, SubNav, useGlobalModal, TableHeader, Svg } from '../../../components'
 import CreateModalView from '../modal/creat-modal'
 import EditModalView from '../modal/edit-modal'
-import HistroyModalView from '../modal/history-modal'
+import { useRouter } from 'next/router'
 export interface OrderMHeaderProps {
   id: string | string[]
   name: string | string[]
 }
 function OrderMHeader({ id, name }: OrderMHeaderProps) {
   const { showModal } = useGlobalModal()
-
+  const router = useRouter()
   const showCreateModal = () => {
     showModal(
       '预定原材料',
@@ -36,14 +36,15 @@ function OrderMHeader({ id, name }: OrderMHeaderProps) {
   }
 
   const showHistroyModal = () => {
-    showModal(
-      '原材料订单历史',
-      HistroyModalView,
-      {
-        id,
-      },
-      1072
-    )
+    // showModal(
+    //   '原材料订单历史',
+    //   HistroyModalView,
+    //   {
+    //     id,
+    //   },
+    //   1072
+    // )
+    router.push('/order/material/history/' + id)
   }
 
   return (

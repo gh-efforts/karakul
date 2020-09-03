@@ -32,6 +32,83 @@ export const OrderFragmentDoc = gql`
     }
   }
 `
+export const UploadDocument = gql`
+  mutation Upload($refId: ID, $ref: String, $field: String, $source: String, $file: Upload!) {
+    upload(refId: $refId, ref: $ref, field: $field, source: $source, file: $file) {
+      id
+      _id
+      createdAt
+      updatedAt
+      name
+      alternativeText
+      caption
+      width
+      height
+      formats
+      hash
+      ext
+      mime
+      size
+      url
+      httpUrl
+      previewUrl
+      provider
+      provider_metadata
+    }
+  }
+`
+export type UploadMutationFn = Apollo.MutationFunction<Types.UploadMutation, Types.UploadMutationVariables>
+export function useUploadMutation(
+  baseOptions?: Apollo.MutationHookOptions<Types.UploadMutation, Types.UploadMutationVariables>
+) {
+  return Apollo.useMutation<Types.UploadMutation, Types.UploadMutationVariables>(UploadDocument, baseOptions)
+}
+export type UploadMutationHookResult = ReturnType<typeof useUploadMutation>
+export type UploadMutationResult = Apollo.MutationResult<Types.UploadMutation>
+export type UploadMutationOptions = Apollo.BaseMutationOptions<Types.UploadMutation, Types.UploadMutationVariables>
+export const MultipleUploadDocument = gql`
+  mutation MultipleUpload($refId: ID, $ref: String, $field: String, $source: String, $files: [Upload]!) {
+    multipleUpload(refId: $refId, ref: $ref, field: $field, source: $source, files: $files) {
+      id
+      _id
+      createdAt
+      updatedAt
+      name
+      alternativeText
+      caption
+      width
+      height
+      formats
+      hash
+      ext
+      mime
+      size
+      url
+      httpUrl
+      previewUrl
+      provider
+      provider_metadata
+    }
+  }
+`
+export type MultipleUploadMutationFn = Apollo.MutationFunction<
+  Types.MultipleUploadMutation,
+  Types.MultipleUploadMutationVariables
+>
+export function useMultipleUploadMutation(
+  baseOptions?: Apollo.MutationHookOptions<Types.MultipleUploadMutation, Types.MultipleUploadMutationVariables>
+) {
+  return Apollo.useMutation<Types.MultipleUploadMutation, Types.MultipleUploadMutationVariables>(
+    MultipleUploadDocument,
+    baseOptions
+  )
+}
+export type MultipleUploadMutationHookResult = ReturnType<typeof useMultipleUploadMutation>
+export type MultipleUploadMutationResult = Apollo.MutationResult<Types.MultipleUploadMutation>
+export type MultipleUploadMutationOptions = Apollo.BaseMutationOptions<
+  Types.MultipleUploadMutation,
+  Types.MultipleUploadMutationVariables
+>
 export const GoodsOrdersDocument = gql`
   query GoodsOrders($sort: String, $limit: Int, $start: Int, $where: JSON) {
     orders: ordersConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
@@ -572,6 +649,62 @@ export type UpdateOrderMaterialsMutationResult = Apollo.MutationResult<Types.Upd
 export type UpdateOrderMaterialsMutationOptions = Apollo.BaseMutationOptions<
   Types.UpdateOrderMaterialsMutation,
   Types.UpdateOrderMaterialsMutationVariables
+>
+export const OrderMaterialHistoriesConnectionDocument = gql`
+  query OrderMaterialHistoriesConnection($limit: Int, $start: Int, $id: ID) {
+    orderMaterialHistoriesConnection(limit: $limit, start: $start, where: { order_id: $id }) {
+      values {
+        id
+        createdAt
+        updatedAt
+        remark
+        user {
+          username
+        }
+        attachment_desc
+        content
+        attachment {
+          id
+          url
+        }
+      }
+      aggregate {
+        count
+      }
+    }
+  }
+`
+export function useOrderMaterialHistoriesConnectionQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.OrderMaterialHistoriesConnectionQuery,
+    Types.OrderMaterialHistoriesConnectionQueryVariables
+  >
+) {
+  return Apollo.useQuery<
+    Types.OrderMaterialHistoriesConnectionQuery,
+    Types.OrderMaterialHistoriesConnectionQueryVariables
+  >(OrderMaterialHistoriesConnectionDocument, baseOptions)
+}
+export function useOrderMaterialHistoriesConnectionLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.OrderMaterialHistoriesConnectionQuery,
+    Types.OrderMaterialHistoriesConnectionQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<
+    Types.OrderMaterialHistoriesConnectionQuery,
+    Types.OrderMaterialHistoriesConnectionQueryVariables
+  >(OrderMaterialHistoriesConnectionDocument, baseOptions)
+}
+export type OrderMaterialHistoriesConnectionQueryHookResult = ReturnType<
+  typeof useOrderMaterialHistoriesConnectionQuery
+>
+export type OrderMaterialHistoriesConnectionLazyQueryHookResult = ReturnType<
+  typeof useOrderMaterialHistoriesConnectionLazyQuery
+>
+export type OrderMaterialHistoriesConnectionQueryResult = Apollo.QueryResult<
+  Types.OrderMaterialHistoriesConnectionQuery,
+  Types.OrderMaterialHistoriesConnectionQueryVariables
 >
 export const MaterialsDocument = gql`
   query Materials {
