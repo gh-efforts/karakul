@@ -9,26 +9,27 @@ import {
   GoodsOrdersQueryVariables,
   OutboundCommodityInput,
   useCommodityExWarehouseMutation,
+  CommodityInput,
 } from '../../services'
 import { pageToStart } from '../../helpers/params'
-import { SAccessory, GoodsOrder } from './goods.d'
+import { GoodsOrder } from './goods.d'
 
 function useCreateCommodityApi() {
   const [create, { loading }] = useCreateCommodityMutation({ fetchPolicy: 'no-cache' })
 
-  const createCommodit = async (data: SAccessory[]) => {
+  const createCommodit = async (data: CommodityInput) => {
     try {
       await create({
         variables: {
-          data: {
-            accessories: data,
-          },
+          data,
         },
       })
 
       message.success('创建商品成功')
+      return true
     } catch {
       message.error('创建商品失败')
+      return false
     }
   }
 

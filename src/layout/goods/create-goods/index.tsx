@@ -4,10 +4,13 @@ import React, { useState, useCallback } from 'react'
 import { PlusSquareOutlined } from '@ant-design/icons'
 import { Form } from 'antd'
 
-import { ModalButtonGroup, getRealValue } from '../../../components'
+import { ModalButtonGroup, getRealValue, message, useGlobalModal } from '../../../components'
 import CreateGoodsTable, { CellEmit } from './goods-table'
 import { SAccessory } from '../goods.d'
 import GoodsForm from './goods-form'
+import { useCreateCommodityApi } from '../service'
+import { getLocalStore } from '../../../helpers/cookie'
+import { Enum_Commodity_State } from '../../../services'
 
 import styles from './index.module.scss'
 
@@ -17,6 +20,9 @@ interface CreateGoodsViewProps {
 }
 
 function CreateGoodsView({ id }: CreateGoodsViewProps) {
+  const { createCommodit, loading } = useCreateCommodityApi()
+  const { hideModal } = useGlobalModal()
+
   // 新增数据
   const [data, setData] = useState<SAccessory[]>([])
   // 商品表单
@@ -126,22 +132,30 @@ function CreateGoodsView({ id }: CreateGoodsViewProps) {
     [cancel, edit, save, del]
   )
 
-  const onOk = () => {
+  const onOk = async () => {
     const { code, commodity_type, warehouse } = form.getFieldsValue()
-    const [cid, cname] = getRealValue(commodity_type)
-    const [wid, wname] = getRealValue(warehouse)
+    const [cid] = getRealValue(commodity_type)
+    const [wid] = getRealValue(warehouse)
 
-    return {
+    const uid = getLocalStore('userId')
+
+    if (!uid || !id) {
+      message.error('数据错误')
+      return
+    }
+
+    const flag = await createCommodit({
+      user: uid,
+      order: id,
       code,
-      commodity_type: {
-        id: cid,
-        name: cname,
-      },
-      warehouse: {
-        id: wid,
-        name: wname,
-      },
+      commodity_type: cid,
+      warehouse: wid,
+      state: Enum_Commodity_State.In,
       accessories: data,
+    })
+
+    if (flag) {
+      hideModal()
     }
   }
 
@@ -162,7 +176,7 @@ function CreateGoodsView({ id }: CreateGoodsViewProps) {
         <GoodsForm form={form} />
         <div className={styles.horizontal} />
         <CreateGoodsTable data={data} editingKey={editingKey} emit={emit} form={tableForm} />
-        <ModalButtonGroup onOK={onOk} OKText='保存' className={styles.btns} position='left' />
+        <ModalButtonGroup onOK={onOk} OKText='保存' className={styles.btns} position='left' loading={loading} />
       </div>
     </div>
   )

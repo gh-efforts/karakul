@@ -1,22 +1,5 @@
 import * as Types from './schemas'
 
-export type CommoditiesQueryVariables = Types.Exact<{
-  sort?: Types.Maybe<Types.Scalars['String']>
-  limit?: Types.Maybe<Types.Scalars['Int']>
-  start?: Types.Maybe<Types.Scalars['Int']>
-  where?: Types.Maybe<Types.Scalars['JSON']>
-}>
-
-export type CommoditiesQuery = {
-  commodities?: Types.Maybe<Array<Types.Maybe<Pick<Types.Commodity, 'id' | 'accessories'>>>>
-}
-
-export type CreateCommodityMutationVariables = Types.Exact<{
-  data?: Types.Maybe<Types.CommodityInput>
-}>
-
-export type CreateCommodityMutation = { res?: Types.Maybe<{ commodity?: Types.Maybe<Pick<Types.Commodity, 'id'>> }> }
-
 export type GoodsOrdersQueryVariables = Types.Exact<{
   sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
@@ -90,6 +73,69 @@ export type CommodityExWarehouseMutationVariables = Types.Exact<{
 }>
 
 export type CommodityExWarehouseMutation = { commodities?: Types.Maybe<Pick<Types.Commodities, 'data'>> }
+
+export type CommoditiesQueryVariables = Types.Exact<{
+  sort?: Types.Maybe<Types.Scalars['String']>
+  limit?: Types.Maybe<Types.Scalars['Int']>
+  start?: Types.Maybe<Types.Scalars['Int']>
+  where?: Types.Maybe<Types.Scalars['JSON']>
+}>
+
+export type CommoditiesQuery = {
+  commodities?: Types.Maybe<Array<Types.Maybe<Pick<Types.Commodity, 'id' | 'accessories'>>>>
+}
+
+export type CreateCommodityMutationVariables = Types.Exact<{
+  data?: Types.Maybe<Types.CommodityInput>
+}>
+
+export type CreateCommodityMutation = { res?: Types.Maybe<{ commodity?: Types.Maybe<Pick<Types.Commodity, 'id'>> }> }
+
+export type ExWarehouseHistoryQueryVariables = Types.Exact<{
+  sort?: Types.Maybe<Types.Scalars['String']>
+  limit?: Types.Maybe<Types.Scalars['Int']>
+  start?: Types.Maybe<Types.Scalars['Int']>
+  orderId?: Types.Maybe<Types.Scalars['ID']>
+}>
+
+export type ExWarehouseHistoryQuery = {
+  commodities?: Types.Maybe<{
+    values?: Types.Maybe<
+      Array<
+        Types.Maybe<
+          Pick<Types.Commodity, 'id' | 'code' | 'destination' | 'delivery_time'> & {
+            user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'username'>>
+          }
+        >
+      >
+    >
+    aggregate?: Types.Maybe<Pick<Types.CommodityAggregator, 'count'>>
+  }>
+}
+
+export type CommoditiesInWarehouseQueryVariables = Types.Exact<{
+  sort?: Types.Maybe<Types.Scalars['String']>
+  limit?: Types.Maybe<Types.Scalars['Int']>
+  start?: Types.Maybe<Types.Scalars['Int']>
+  orderId?: Types.Maybe<Types.Scalars['ID']>
+}>
+
+export type CommoditiesInWarehouseQuery = {
+  commodities?: Types.Maybe<{
+    values?: Types.Maybe<
+      Array<
+        Types.Maybe<
+          Pick<Types.Commodity, 'id' | 'code' | 'createdAt'> & {
+            commodity_type?: Types.Maybe<Pick<Types.CommodityType, 'name'>>
+            warehouse?: Types.Maybe<Pick<Types.Warehouse, 'name'>>
+            user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'username'>>
+          }
+        >
+      >
+    >
+    aggregate?: Types.Maybe<Pick<Types.CommodityAggregator, 'count'>>
+  }>
+}
 
 export type OrderHistoryFragment = Pick<
   Types.OrderMaterialHistory,
