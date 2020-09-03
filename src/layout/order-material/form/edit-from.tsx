@@ -8,6 +8,7 @@ import styles from './index.module.scss'
 import { message, OrderMaterialsSelect } from '../../../components'
 import { Material } from '../material'
 import { Store } from 'antd/lib/form/interface'
+import { FormInstance } from 'antd/lib/form'
 
 const { Option } = Select
 export interface EditFormProps {
@@ -16,15 +17,7 @@ export interface EditFormProps {
 }
 
 export interface RenameFormProps {
-  onFinish: ({
-    attachment,
-    attachment_desc,
-    remark,
-  }: {
-    attachment: string[]
-    attachment_desc: string
-    remark: string
-  }) => void
+  form: FormInstance
 }
 
 export default function EditForm({ orderId, onSubmit }: EditFormProps) {
@@ -88,9 +81,7 @@ function beforeUpload(file: { type: string; size: number }) {
   return isJpgOrPng && isLt2M
 }
 
-function RemarkFrom({ onFinish }: RenameFormProps) {
-  const [form] = Form.useForm()
-
+function RemarkFrom({ form }: RenameFormProps) {
   const [fileList, setFileList] = useState<UploadFile[]>([])
 
   const handleChange = ({ fileList }: UploadChangeParam<UploadFile>) => {
@@ -104,15 +95,9 @@ function RemarkFrom({ onFinish }: RenameFormProps) {
     </div>
   )
 
-  const onSubmit = (values: Store) => {
-    const { attachment, attachment_desc, remark } = values
-    console.log(values)
-    onFinish({ attachment, attachment_desc, remark })
-  }
-
   return (
     <div className={styles['rename-form']}>
-      <Form layout={'vertical'} form={form} onFinish={onSubmit}>
+      <Form layout={'vertical'} form={form}>
         <Form.Item label='附件' name='attachment_desc'>
           <Input.TextArea placeholder='请输入附件信息' autoSize={{ minRows: 5, maxRows: 7 }} />
         </Form.Item>
