@@ -32,54 +32,6 @@ export const OrderFragmentDoc = gql`
     }
   }
 `
-export const CommoditiesDocument = gql`
-  query Commodities($sort: String, $limit: Int, $start: Int, $where: JSON) {
-    commodities(sort: $sort, limit: $limit, start: $start, where: $where) {
-      id
-      accessories
-    }
-  }
-`
-export function useCommoditiesQuery(
-  baseOptions?: Apollo.QueryHookOptions<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>
-) {
-  return Apollo.useQuery<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>(CommoditiesDocument, baseOptions)
-}
-export function useCommoditiesLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>
-) {
-  return Apollo.useLazyQuery<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>(CommoditiesDocument, baseOptions)
-}
-export type CommoditiesQueryHookResult = ReturnType<typeof useCommoditiesQuery>
-export type CommoditiesLazyQueryHookResult = ReturnType<typeof useCommoditiesLazyQuery>
-export type CommoditiesQueryResult = Apollo.QueryResult<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>
-export const CreateCommodityDocument = gql`
-  mutation CreateCommodity($data: CommodityInput) {
-    res: createCommodity(input: { data: $data }) {
-      commodity {
-        id
-      }
-    }
-  }
-`
-export type CreateCommodityMutationFn = Apollo.MutationFunction<
-  Types.CreateCommodityMutation,
-  Types.CreateCommodityMutationVariables
->
-export function useCreateCommodityMutation(
-  baseOptions?: Apollo.MutationHookOptions<Types.CreateCommodityMutation, Types.CreateCommodityMutationVariables>
-) {
-  return Apollo.useMutation<Types.CreateCommodityMutation, Types.CreateCommodityMutationVariables>(
-    CreateCommodityDocument,
-    baseOptions
-  )
-}
-export type CreateCommodityMutationHookResult = ReturnType<typeof useCreateCommodityMutation>
-export type CreateCommodityMutationResult = Apollo.MutationResult<Types.CreateCommodityMutation>
-export type CreateCommodityMutationOptions = Apollo.BaseMutationOptions<
-  Types.CreateCommodityMutation,
-  Types.CreateCommodityMutationVariables
->
 export const GoodsOrdersDocument = gql`
   query GoodsOrders($sort: String, $limit: Int, $start: Int, $where: JSON) {
     orders: ordersConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
@@ -287,6 +239,152 @@ export type CommodityExWarehouseMutationResult = Apollo.MutationResult<Types.Com
 export type CommodityExWarehouseMutationOptions = Apollo.BaseMutationOptions<
   Types.CommodityExWarehouseMutation,
   Types.CommodityExWarehouseMutationVariables
+>
+export const CommoditiesDocument = gql`
+  query Commodities($sort: String, $limit: Int, $start: Int, $where: JSON) {
+    commodities(sort: $sort, limit: $limit, start: $start, where: $where) {
+      id
+      accessories
+    }
+  }
+`
+export function useCommoditiesQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>
+) {
+  return Apollo.useQuery<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>(CommoditiesDocument, baseOptions)
+}
+export function useCommoditiesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>
+) {
+  return Apollo.useLazyQuery<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>(CommoditiesDocument, baseOptions)
+}
+export type CommoditiesQueryHookResult = ReturnType<typeof useCommoditiesQuery>
+export type CommoditiesLazyQueryHookResult = ReturnType<typeof useCommoditiesLazyQuery>
+export type CommoditiesQueryResult = Apollo.QueryResult<Types.CommoditiesQuery, Types.CommoditiesQueryVariables>
+export const CreateCommodityDocument = gql`
+  mutation CreateCommodity($data: CommodityInput) {
+    res: createCommodity(input: { data: $data }) {
+      commodity {
+        id
+      }
+    }
+  }
+`
+export type CreateCommodityMutationFn = Apollo.MutationFunction<
+  Types.CreateCommodityMutation,
+  Types.CreateCommodityMutationVariables
+>
+export function useCreateCommodityMutation(
+  baseOptions?: Apollo.MutationHookOptions<Types.CreateCommodityMutation, Types.CreateCommodityMutationVariables>
+) {
+  return Apollo.useMutation<Types.CreateCommodityMutation, Types.CreateCommodityMutationVariables>(
+    CreateCommodityDocument,
+    baseOptions
+  )
+}
+export type CreateCommodityMutationHookResult = ReturnType<typeof useCreateCommodityMutation>
+export type CreateCommodityMutationResult = Apollo.MutationResult<Types.CreateCommodityMutation>
+export type CreateCommodityMutationOptions = Apollo.BaseMutationOptions<
+  Types.CreateCommodityMutation,
+  Types.CreateCommodityMutationVariables
+>
+export const ExWarehouseHistoryDocument = gql`
+  query ExWarehouseHistory($sort: String, $limit: Int, $start: Int, $orderId: ID) {
+    commodities: commoditiesConnection(
+      sort: $sort
+      limit: $limit
+      start: $start
+      where: { order: $orderId, state: "out" }
+    ) {
+      values {
+        id
+        code
+        destination
+        delivery_time
+        user {
+          username
+        }
+      }
+      aggregate {
+        count
+      }
+    }
+  }
+`
+export function useExWarehouseHistoryQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.ExWarehouseHistoryQuery, Types.ExWarehouseHistoryQueryVariables>
+) {
+  return Apollo.useQuery<Types.ExWarehouseHistoryQuery, Types.ExWarehouseHistoryQueryVariables>(
+    ExWarehouseHistoryDocument,
+    baseOptions
+  )
+}
+export function useExWarehouseHistoryLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.ExWarehouseHistoryQuery, Types.ExWarehouseHistoryQueryVariables>
+) {
+  return Apollo.useLazyQuery<Types.ExWarehouseHistoryQuery, Types.ExWarehouseHistoryQueryVariables>(
+    ExWarehouseHistoryDocument,
+    baseOptions
+  )
+}
+export type ExWarehouseHistoryQueryHookResult = ReturnType<typeof useExWarehouseHistoryQuery>
+export type ExWarehouseHistoryLazyQueryHookResult = ReturnType<typeof useExWarehouseHistoryLazyQuery>
+export type ExWarehouseHistoryQueryResult = Apollo.QueryResult<
+  Types.ExWarehouseHistoryQuery,
+  Types.ExWarehouseHistoryQueryVariables
+>
+export const CommoditiesInWarehouseDocument = gql`
+  query CommoditiesInWarehouse($sort: String, $limit: Int, $start: Int, $orderId: ID) {
+    commodities: commoditiesConnection(
+      sort: $sort
+      limit: $limit
+      start: $start
+      where: { order: $orderId, state: "in" }
+    ) {
+      values {
+        id
+        code
+        commodity_type {
+          name
+        }
+        warehouse {
+          name
+        }
+        createdAt
+        user {
+          username
+        }
+      }
+      aggregate {
+        count
+      }
+    }
+  }
+`
+export function useCommoditiesInWarehouseQuery(
+  baseOptions?: Apollo.QueryHookOptions<Types.CommoditiesInWarehouseQuery, Types.CommoditiesInWarehouseQueryVariables>
+) {
+  return Apollo.useQuery<Types.CommoditiesInWarehouseQuery, Types.CommoditiesInWarehouseQueryVariables>(
+    CommoditiesInWarehouseDocument,
+    baseOptions
+  )
+}
+export function useCommoditiesInWarehouseLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.CommoditiesInWarehouseQuery,
+    Types.CommoditiesInWarehouseQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<Types.CommoditiesInWarehouseQuery, Types.CommoditiesInWarehouseQueryVariables>(
+    CommoditiesInWarehouseDocument,
+    baseOptions
+  )
+}
+export type CommoditiesInWarehouseQueryHookResult = ReturnType<typeof useCommoditiesInWarehouseQuery>
+export type CommoditiesInWarehouseLazyQueryHookResult = ReturnType<typeof useCommoditiesInWarehouseLazyQuery>
+export type CommoditiesInWarehouseQueryResult = Apollo.QueryResult<
+  Types.CommoditiesInWarehouseQuery,
+  Types.CommoditiesInWarehouseQueryVariables
 >
 export const OmHrysDocument = gql`
   query OMHrys($sort: String, $limit: Int, $start: Int, $where: JSON) {

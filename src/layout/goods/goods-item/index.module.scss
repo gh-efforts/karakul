@@ -1,11 +1,18 @@
 .header {
   display: grid;
-  grid-template-columns: auto 1fr auto auto auto;
+  grid-template-columns: auto 1fr repeat(4, auto);
   grid-gap: 16px;
   align-items: center;
   min-height: 70px;
   border-bottom: 1px solid #efefef;
   box-sizing: border-box;
+
+  :global {
+    .ant-btn-text {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
 }
 
 .table {
