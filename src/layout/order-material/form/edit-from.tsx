@@ -5,11 +5,13 @@ import { UploadChangeParam } from 'antd/lib/upload'
 import { UploadFile } from 'antd/lib/upload/interface'
 
 import styles from './index.module.scss'
-import { message } from '../../../components'
+import { message, OrderMaterialsSelect } from '../../../components'
 
 const { Option } = Select
-
-export default function EditForm() {
+export interface CreateFoemProps {
+  orderId?: string
+}
+export default function EditForm({ orderId }: CreateFoemProps) {
   const [form] = Form.useForm()
 
   const handleChange = () => {
@@ -19,11 +21,7 @@ export default function EditForm() {
   return (
     <div className={styles['edit-form']}>
       <Form layout={'inline'} form={form}>
-        <Form.Item name='layout'>
-          <Select size='large' style={{ width: 188 }} onChange={handleChange} placeholder='请选择分类'>
-            <Option value='lucy'>Jack</Option>
-          </Select>
-        </Form.Item>
+        <OrderMaterialsSelect name='material' noLabel style={{ width: 188 }} required id={orderId} />
         <Form.Item>
           <Input size='large' placeholder='请输入型号' />
         </Form.Item>

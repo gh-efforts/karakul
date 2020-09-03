@@ -465,6 +465,114 @@ export type OrderMaterialsQueryResult = Apollo.QueryResult<
   Types.OrderMaterialsQuery,
   Types.OrderMaterialsQueryVariables
 >
+export const OrderMaterialsConnectionDocument = gql`
+  query OrderMaterialsConnection($limit: Int, $start: Int, $where: JSON, $sort: String) {
+    orderMaterialsConnection(limit: $limit, start: $start, where: $where, sort: $sort) {
+      values {
+        id
+        createdAt
+        updatedAt
+        order_id {
+          id
+        }
+        material
+        amount
+        model
+        user {
+          id
+          username
+        }
+      }
+      aggregate {
+        count
+      }
+    }
+  }
+`
+export function useOrderMaterialsConnectionQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    Types.OrderMaterialsConnectionQuery,
+    Types.OrderMaterialsConnectionQueryVariables
+  >
+) {
+  return Apollo.useQuery<Types.OrderMaterialsConnectionQuery, Types.OrderMaterialsConnectionQueryVariables>(
+    OrderMaterialsConnectionDocument,
+    baseOptions
+  )
+}
+export function useOrderMaterialsConnectionLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    Types.OrderMaterialsConnectionQuery,
+    Types.OrderMaterialsConnectionQueryVariables
+  >
+) {
+  return Apollo.useLazyQuery<Types.OrderMaterialsConnectionQuery, Types.OrderMaterialsConnectionQueryVariables>(
+    OrderMaterialsConnectionDocument,
+    baseOptions
+  )
+}
+export type OrderMaterialsConnectionQueryHookResult = ReturnType<typeof useOrderMaterialsConnectionQuery>
+export type OrderMaterialsConnectionLazyQueryHookResult = ReturnType<typeof useOrderMaterialsConnectionLazyQuery>
+export type OrderMaterialsConnectionQueryResult = Apollo.QueryResult<
+  Types.OrderMaterialsConnectionQuery,
+  Types.OrderMaterialsConnectionQueryVariables
+>
+export const CreateOrderMaterialsDocument = gql`
+  mutation CreateOrderMaterials($input: CreateOrderMaterialsInput) {
+    batchCreateMaterials(input: $input) {
+      order_id
+    }
+  }
+`
+export type CreateOrderMaterialsMutationFn = Apollo.MutationFunction<
+  Types.CreateOrderMaterialsMutation,
+  Types.CreateOrderMaterialsMutationVariables
+>
+export function useCreateOrderMaterialsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.CreateOrderMaterialsMutation,
+    Types.CreateOrderMaterialsMutationVariables
+  >
+) {
+  return Apollo.useMutation<Types.CreateOrderMaterialsMutation, Types.CreateOrderMaterialsMutationVariables>(
+    CreateOrderMaterialsDocument,
+    baseOptions
+  )
+}
+export type CreateOrderMaterialsMutationHookResult = ReturnType<typeof useCreateOrderMaterialsMutation>
+export type CreateOrderMaterialsMutationResult = Apollo.MutationResult<Types.CreateOrderMaterialsMutation>
+export type CreateOrderMaterialsMutationOptions = Apollo.BaseMutationOptions<
+  Types.CreateOrderMaterialsMutation,
+  Types.CreateOrderMaterialsMutationVariables
+>
+export const UpdateOrderMaterialsDocument = gql`
+  mutation UpdateOrderMaterials($input: UpdateOrderMaterialsInput) {
+    batchUpdateMaterials(input: $input) {
+      order_id
+    }
+  }
+`
+export type UpdateOrderMaterialsMutationFn = Apollo.MutationFunction<
+  Types.UpdateOrderMaterialsMutation,
+  Types.UpdateOrderMaterialsMutationVariables
+>
+export function useUpdateOrderMaterialsMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.UpdateOrderMaterialsMutation,
+    Types.UpdateOrderMaterialsMutationVariables
+  >
+) {
+  return Apollo.useMutation<Types.UpdateOrderMaterialsMutation, Types.UpdateOrderMaterialsMutationVariables>(
+    UpdateOrderMaterialsDocument,
+    baseOptions
+  )
+}
+export type UpdateOrderMaterialsMutationHookResult = ReturnType<typeof useUpdateOrderMaterialsMutation>
+export type UpdateOrderMaterialsMutationResult = Apollo.MutationResult<Types.UpdateOrderMaterialsMutation>
+export type UpdateOrderMaterialsMutationOptions = Apollo.BaseMutationOptions<
+  Types.UpdateOrderMaterialsMutation,
+  Types.UpdateOrderMaterialsMutationVariables
+>
 export const MaterialsDocument = gql`
   query Materials {
     materials(limit: 1000, start: 0) {

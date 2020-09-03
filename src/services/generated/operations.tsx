@@ -180,6 +180,45 @@ export type OrderMaterialsQuery = {
   >
 }
 
+export type OrderMaterialsConnectionQueryVariables = Types.Exact<{
+  limit?: Types.Maybe<Types.Scalars['Int']>
+  start?: Types.Maybe<Types.Scalars['Int']>
+  where?: Types.Maybe<Types.Scalars['JSON']>
+  sort?: Types.Maybe<Types.Scalars['String']>
+}>
+
+export type OrderMaterialsConnectionQuery = {
+  orderMaterialsConnection?: Types.Maybe<{
+    values?: Types.Maybe<
+      Array<
+        Types.Maybe<
+          Pick<Types.OrderMaterial, 'id' | 'createdAt' | 'updatedAt' | 'material' | 'amount' | 'model'> & {
+            order_id?: Types.Maybe<Pick<Types.Order, 'id'>>
+            user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'id' | 'username'>>
+          }
+        >
+      >
+    >
+    aggregate?: Types.Maybe<Pick<Types.OrderMaterialAggregator, 'count'>>
+  }>
+}
+
+export type CreateOrderMaterialsMutationVariables = Types.Exact<{
+  input?: Types.Maybe<Types.CreateOrderMaterialsInput>
+}>
+
+export type CreateOrderMaterialsMutation = {
+  batchCreateMaterials?: Types.Maybe<Pick<Types.OrderMaterials, 'order_id'>>
+}
+
+export type UpdateOrderMaterialsMutationVariables = Types.Exact<{
+  input?: Types.Maybe<Types.UpdateOrderMaterialsInput>
+}>
+
+export type UpdateOrderMaterialsMutation = {
+  batchUpdateMaterials?: Types.Maybe<Pick<Types.OrderMaterials, 'order_id'>>
+}
+
 export type MaterialsQueryVariables = Types.Exact<{ [key: string]: never }>
 
 export type MaterialsQuery = { materials?: Types.Maybe<Array<Types.Maybe<Pick<Types.Material, 'id' | 'name'>>>> }

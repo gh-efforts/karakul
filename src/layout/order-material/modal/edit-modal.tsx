@@ -5,8 +5,11 @@ import { OrderMaterial } from '../../../services'
 import { KTable, useGlobalModal } from '../../../components'
 import modalColumns from '../table/edit-modal-column'
 import EditForm, { RemarkFrom } from '../form/edit-from'
-
-function EditModalView(): React.ReactElement {
+export interface EditModalViewProps {
+  id?: string
+  children?: React.ReactNode
+}
+function EditModalView({ id }: EditModalViewProps): React.ReactElement {
   const { hideModal } = useGlobalModal()
 
   const onOK = () => {
@@ -14,8 +17,8 @@ function EditModalView(): React.ReactElement {
   }
 
   return (
-    <ModalView orderId={'123'} OKText='编辑' onOK={onOK}>
-      <EditForm />
+    <ModalView orderId={id ?? ''} OKText='编辑' onOK={onOK}>
+      <EditForm orderId={id ?? ''} />
       <KTable<OrderMaterial>
         data={[] as OrderMaterial[]}
         columns={modalColumns}

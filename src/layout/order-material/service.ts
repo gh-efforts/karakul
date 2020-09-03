@@ -1,30 +1,55 @@
 import {
   client,
   OrderMaterialsQueryVariables,
-  OrderMaterialsQuery,
-  OrderMaterialsDocument,
   OrderMaterial,
+  OrderMaterialsConnectionQuery,
+  OrderMaterialsConnectionQueryVariables,
+  OrderMaterialsConnectionDocument,
+  useCreateOrderMaterialsMutation,
+  MaterialsInput,
 } from '../../services'
+import { getLocalStore } from 'src/helpers/cookie'
 
 export type OrderMaterialType = Pick<
   OrderMaterial,
   'id' | 'createdAt' | 'updatedAt' | 'order_id' | 'material' | 'amount' | 'model'
 >
 
+export type OMConnectionType = NonNullable<OrderMaterialsConnectionQuery['orderMaterialsConnection']>
+
 async function fetchOrderMaterials(
-  val: OrderMaterialsQueryVariables & { Authorization?: string | undefined }
-): Promise<OrderMaterialType[]> {
+  val: OrderMaterialsConnectionQueryVariables & { Authorization?: string | undefined }
+): Promise<OMConnectionType> {
   try {
-    const { data } = await client.query<OrderMaterialsQuery, OrderMaterialsQueryVariables>({
-      query: OrderMaterialsDocument,
+    const { data } = await client.query<OrderMaterialsConnectionQuery, OrderMaterialsQueryVariables>({
+      query: OrderMaterialsConnectionDocument,
       variables: val,
       fetchPolicy: 'network-only',
     })
 
-    return (data?.orderMaterials ?? {}) as OrderMaterialType[]
+    return data?.orderMaterialsConnection ?? {}
   } catch (e) {
-    return [] as OrderMaterialType[]
+    return {} as OMConnectionType
   }
 }
 
-export { fetchOrderMaterials }
+function useCreateOrderMaterialsApi() {
+  const [create, { loading }] = useCreateOrderMaterialsMutation()
+
+  const user = getLocalStore('userId') || ''
+  const submit = async (data: MaterialsInput[], id: string) => {
+    await create({
+      variables: {
+        input: { order_id: id, materials: data, user },
+      },
+      fetchPolicy: 'no-cache',
+    })
+  }
+
+  return {
+    submit,
+    loading,
+  }
+}
+
+export { fetchOrderMaterials, useCreateOrderMaterialsApi }

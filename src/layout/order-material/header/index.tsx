@@ -6,16 +6,19 @@ import { SubHeader, FlexibleInput, SubNav, useGlobalModal, TableHeader, Svg } fr
 import CreateModalView from '../modal/creat-modal'
 import EditModalView from '../modal/edit-modal'
 import HistroyModalView from '../modal/history-modal'
-
-function OrderMHeader() {
-  const { showModal, hideModal } = useGlobalModal()
+export interface OrderMHeaderProps {
+  id: string | string[]
+  name: string | string[]
+}
+function OrderMHeader({ id, name }: OrderMHeaderProps) {
+  const { showModal } = useGlobalModal()
 
   const showCreateModal = () => {
     showModal(
       '预定原材料',
       CreateModalView,
       {
-        onSuccess: hideModal,
+        id,
       },
       1072
     )
@@ -23,10 +26,10 @@ function OrderMHeader() {
 
   const showEditModal = () => {
     showModal(
-      '预定原材料',
+      '修改原材料',
       EditModalView,
       {
-        onSuccess: hideModal,
+        id,
       },
       1072
     )
@@ -37,7 +40,7 @@ function OrderMHeader() {
       '原材料订单历史',
       HistroyModalView,
       {
-        onSuccess: hideModal,
+        id,
       },
       1072
     )
@@ -60,7 +63,7 @@ function OrderMHeader() {
         </Button>
         <FlexibleInput />
       </SubHeader>
-      <TableHeader title={<span>订单编号：1234</span>}>
+      <TableHeader title={<span>订单编号：{`${id}-${name}`}</span>}>
         <Button
           type='text'
           icon={<Svg name='btn-revise-h' color='#FF9C7C' offsetY='3' />}

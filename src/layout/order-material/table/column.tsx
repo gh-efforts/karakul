@@ -4,15 +4,15 @@ import { OrderMaterialType } from '../service'
 const columns: ColumnProps<OrderMaterialType>[] = [
   {
     title: '分类',
-    dataIndex: 'name',
+    dataIndex: 'material',
   },
   {
     title: '型号',
-    dataIndex: 'callType',
+    dataIndex: 'model',
   },
   {
     title: '数量',
-    dataIndex: 'type',
+    dataIndex: 'amount',
   },
   {
     title: '创建时间',
@@ -23,8 +23,8 @@ const columns: ColumnProps<OrderMaterialType>[] = [
     dataIndex: 'updatedAt',
   },
   {
-    title: '操作',
-    width: 220,
+    title: '操作人',
+    dataIndex: ['user', 'username'],
   },
 ]
 
