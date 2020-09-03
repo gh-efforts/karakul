@@ -33,7 +33,7 @@ function filterStringParams(valArr: string[]) {
 
 // query 筛选分页参数
 function filterPaginationValue(limit: ParamsType, start: ParamsType) {
-  return [Number(limit) || 10, Number(start) || 1]
+  return [Number(limit) || 10, Number(start) || 0]
 }
 
 // 根据 count size 获取最后一页
