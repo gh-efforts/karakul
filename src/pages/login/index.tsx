@@ -30,8 +30,8 @@ export default function Login(): React.ReactElement {
         setLocalStorage('userId', res.user.id || '')
         setTimeout(() => router.push('/'), 3000) // Redirect to homepage after 3 sec
       })
-      .catch(err => {
-        console.log(err)
+      .catch(e => {
+        return e
       })
   }, [router, backendUrl])
 

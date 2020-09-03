@@ -7,6 +7,8 @@ import {
   GoodsOrdersDocument,
   GoodsOrdersQuery,
   GoodsOrdersQueryVariables,
+  OutboundCommodityInput,
+  useCommodityExWarehouseMutation,
 } from '../../services'
 import { pageToStart } from '../../helpers/params'
 import { SAccessory, GoodsOrder } from './goods.d'
@@ -67,4 +69,29 @@ async function fetchGoodsOrders(variables: GoodsOrdersQueryVariables & { Authori
   }
 }
 
-export { useCreateCommodityApi, useCommoditiesApi, fetchGoodsOrders }
+function useCommodityExWarehouseApi() {
+  const [exWarehouseapi, { loading }] = useCommodityExWarehouseMutation()
+
+  const exWarehouse = async (input: OutboundCommodityInput) => {
+    try {
+      await exWarehouseapi({
+        variables: {
+          input,
+        },
+      })
+
+      message.success('出库成功')
+      return true
+    } catch {
+      message.error('出库失败')
+      return false
+    }
+  }
+
+  return {
+    exWarehouse,
+    loading,
+  }
+}
+
+export { useCreateCommodityApi, useCommoditiesApi, fetchGoodsOrders, useCommodityExWarehouseApi }

@@ -41,7 +41,7 @@ function ExWarehouseBtn({ id }: BtnProps) {
     showModal('商品出库', ExWarehouseView, { id })
   }
 
-  return <Svg name='btn-sell-h' onClick={show} />
+  return <Svg name='btn-sell-h' onClick={show} disabled={!id} />
 }
 
 function GoodsHistoryBtn({ id }: BtnProps) {
@@ -70,7 +70,7 @@ function GoodsItemHeader({ children, name, id }: GoodsItemHeaderProps) {
       <span>{children}</span>
       <span>{name}</span>
       <CreateGoodsBtn id={id} />
-      <ExWarehouseBtn />
+      <ExWarehouseBtn id={id} />
       <GoodsHistoryBtn />
     </div>
   )

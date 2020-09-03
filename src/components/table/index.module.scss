@@ -1,12 +1,11 @@
 .table-page {
   background: #fff;
-  display: grid;
-
   padding: 0 20px;
-  grid-template-rows: 1fr 110px;
 }
 
 .table-with-pagination {
+  display: grid;
+  grid-template-rows: 1fr 110px;
   height: calc(100% - 72px);
 }
 
