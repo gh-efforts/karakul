@@ -12,8 +12,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 32px;
-  padding-top: 24px;
-  margin: 0 32px;
+  padding: 24px 32px 0 32px;
+  border-bottom: 1px solid #efefef;
 
   :global {
     .ant-input-number,
@@ -23,12 +23,13 @@
   }
 }
 
-.horizontal {
-  border-bottom: 1px solid #efefef;
+.btns {
+  padding: 32px;
   grid-column: 1 / 4;
 }
 
-.btns,
-.table {
-  grid-column: 1 / 4;
+.pagination {
+  padding: 16px 0;
+  margin: 0 20px;
+  border-bottom: 1px solid #efefef;
 }

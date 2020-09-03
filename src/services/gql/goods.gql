@@ -19,6 +19,7 @@ query OrderCommodities($id: ID!) {
     id
     commodities(start: 0, limit: 1000) {
       id
+      code
       commodity_type {
         id
         name
@@ -36,6 +37,28 @@ query OrderCommodities($id: ID!) {
   }
 }
 
+# 商品页 order 出库弹窗对应的商品列表
+query OrderCommoditiesSimple($id: ID!, $start: Int, $limit: Int) {
+  commodities: commoditiesConnection(start: $start, limit: $limit, where: { order: $id }) {
+    values {
+      id
+      code
+      commodity_type {
+        id
+        name
+      }
+      warehouse {
+        name
+        id
+      }
+    }
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+
 # 查询商品分类
 query CommodityTypesSelect {
   types: commodityTypes(start: 0, limit: 1000) {
@@ -49,5 +72,12 @@ query WarehousesSelect {
   pos: warehouses(start: 0, limit: 1000) {
     id
     name
+  }
+}
+
+# 商品出库
+mutation CommodityExWarehouse($input: outboundCommodityInput) {
+  commodities: outboundCommodity(input: $input) {
+    data
   }
 }

@@ -1,8 +1,12 @@
-import React from 'react'
-import { Form, Input, DatePicker } from 'antd'
+import React, { useRef } from 'react'
+import { Form } from 'antd'
+import moment from 'moment'
 
-import { ModalButtonGroup } from '../../../components'
+import { ModalButtonGroup, message, useGlobalModal } from '../../../components'
+import { useCommodityExWarehouseApi } from '../service'
+import { getLocalStore } from '../../../helpers/cookie'
 import GoodsTable from './goods-table'
+import ExWarehouseForm from './goods-form'
 
 import styles from './index.module.scss'
 
@@ -12,8 +16,42 @@ interface ExWarehouseViewProps {
 }
 
 function ExWarehouseView({ id }: ExWarehouseViewProps) {
-  const onFinish = () => {
-    return {}
+  const [form] = Form.useForm()
+  const tablreRef = useRef<{ selectedRowKeys: string[] } | null>(null)
+  const { hideModal } = useGlobalModal()
+
+  const { exWarehouse, loading } = useCommodityExWarehouseApi()
+
+  const onOK = async () => {
+    const id = getLocalStore('userId')
+
+    if (!id) {
+      message.error('数据错误')
+      return
+    }
+
+    try {
+      await form.validateFields()
+    } catch {
+      message.info('请确认数据')
+    }
+
+    const { destination, delivery_time } = form.getFieldsValue()
+    const time = moment(delivery_time).format()
+
+    const flag = await exWarehouse({
+      id: tablreRef?.current?.selectedRowKeys ?? [],
+      destination,
+      delivery_time: time,
+      outbound_user: id,
+    })
+
+    if (flag) {
+      // 出库正常
+      form.resetFields()
+      hideModal()
+      return flag
+    }
   }
 
   return (
@@ -22,17 +60,9 @@ function ExWarehouseView({ id }: ExWarehouseViewProps) {
         <span>订单编号{id}</span>
       </div>
       <div className={styles.content}>
-        <Form className={styles.form} onFinish={onFinish}>
-          <Form.Item name='num'>
-            <Input placeholder='请输入商品编号' allowClear />
-          </Form.Item>
-          <Form.Item name='time'>
-            <DatePicker placeholder='请选择仓库' allowClear />
-          </Form.Item>
-          <div className={styles.horizontal} />
-          <GoodsTable />
-          <ModalButtonGroup OKText='保存' className={styles.btns} position='left' />
-        </Form>
+        <ExWarehouseForm form={form} />
+        <GoodsTable ref={tablreRef} id={id || ''} />
+        <ModalButtonGroup onOK={onOK} OKText='保存' className={styles.btns} position='left' loading={loading} />
       </div>
     </div>
   )

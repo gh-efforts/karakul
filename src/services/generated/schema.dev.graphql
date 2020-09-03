@@ -1572,7 +1572,8 @@ type UploadFile {
 
 """
 union Morph =
-    OrderMaterials
+    Commodities
+  | OrderMaterials
   | UsersPermissionsMe
   | UsersPermissionsMeRole
   | UsersPermissionsLoginPayload
@@ -1795,6 +1796,16 @@ union Morph =
   | createUserPayload
   | updateUserPayload
   | deleteUserPayload
+
+"""
+
+"""
+type Commodities {
+  """
+
+  """
+  data: [String]
+}
 
 """
 
@@ -5048,6 +5059,11 @@ type Mutation {
   """
 
   """
+  outboundCommodity(input: outboundCommodityInput): Commodities
+
+  """
+
+  """
   batchCreateMaterials(input: CreateOrderMaterialsInput): OrderMaterials
 
   """
@@ -6309,6 +6325,31 @@ input deleteUserInput {
 
   """
   where: InputID
+}
+
+"""
+
+"""
+input outboundCommodityInput {
+  """
+
+  """
+  id: [ID!]
+
+  """
+
+  """
+  destination: String!
+
+  """
+
+  """
+  delivery_time: Date
+
+  """
+
+  """
+  outbound_user: ID!
 }
 
 """
