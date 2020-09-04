@@ -1,0 +1,34 @@
+.content {
+  background: #fff;
+  margin-top: 24px;
+}
+
+.btns {
+  margin-left: 32px;
+}
+
+.remake {
+  margin: 32px;
+  padding: 24px 0;
+
+  .content {
+    background: #f3fbfb;
+    border-radius: 6px;
+    width: 480px;
+    padding: 12px;
+    margin: 16px 0;
+  }
+
+  .picture-box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .picture {
+      width: 230px;
+      height: 180px;
+      background: #f3fbfb;
+      margin: 0 16px 16px 0;
+    }
+  }
+}

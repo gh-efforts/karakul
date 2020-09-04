@@ -16,5 +16,7 @@
   .content {
     background: #f3fbfb !important;
     padding: 40px 32px;
+    height: calc(100% - 72px);
+    overflow: hidden;
   }
 }
