@@ -48,8 +48,9 @@ function History({ data, limit, total }: InferGetServerSidePropsType<typeof getS
   const onChange = (page: number, size?: number) => {
     setCurrent(page)
     router.replace({
-      pathname: '/order/material/history' + id + '?name=' + name,
+      pathname: '/order/material/history/' + id,
       query: {
+        name,
         limit: size || 10,
         start: (page - 1) * (size || 10),
       },

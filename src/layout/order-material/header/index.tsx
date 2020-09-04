@@ -44,7 +44,7 @@ function OrderMHeader({ id, name }: OrderMHeaderProps) {
     //   },
     //   1072
     // )
-    router.push('/order/material/history/' + id)
+    router.push('/order/material/history/' + id + '?name=' + name)
   }
 
   return (

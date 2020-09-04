@@ -1,6 +1,8 @@
+import React from 'react'
 import type { TOrderHistories } from '../order'
 import { ColumnProps } from '../../../components'
 import moment from 'moment'
+import { Tooltip } from 'antd'
 
 const columns: ColumnProps<TOrderHistories>[] = [
   {
@@ -13,6 +15,13 @@ const columns: ColumnProps<TOrderHistories>[] = [
     title: '详情',
     dataIndex: 'detail',
     ellipsis: true,
+    render(text: string) {
+      return (
+        <Tooltip title={text}>
+          <span> {text}</span>
+        </Tooltip>
+      )
+    },
   },
   {
     title: '数量',
@@ -34,7 +43,13 @@ const columns: ColumnProps<TOrderHistories>[] = [
     title: '更新时间',
     dataIndex: 'updatedAt',
     ellipsis: true,
-    render: text => moment(text).format('YYYY-MM-DD hh:mm:ss'),
+    render(text: string) {
+      return (
+        <Tooltip title={moment(text).format('YYYY-MM-DD hh:mm:ss')}>
+          <span> {moment(text).format('YYYY-MM-DD hh:mm:ss')}</span>
+        </Tooltip>
+      )
+    },
   },
 ]
 

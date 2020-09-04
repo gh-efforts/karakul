@@ -1,13 +1,15 @@
-import React, { useState, ReactNode } from 'react'
+import React, { useState, ReactNode, useCallback } from 'react'
 
 import CreateForm from '../form/creat-form'
-import { KTable, useGlobalModal, message } from '../../../components'
-import modalColumns from '../table/create-modal-column'
+import { useGlobalModal, message, getRealValue } from '../../../components'
+
 import ModalView from './modal'
 import { Material } from '../material'
 import { useCreateOrderMaterialsApi } from '../service'
 import { MaterialsInput } from 'src/services'
 import { useRouter } from 'next/router'
+import CreateMaterialsTable, { CellEmit } from '../table/create-material-table'
+import { Form } from 'antd'
 export interface CreateModalViewProps {
   id?: string
   children?: ReactNode
@@ -16,9 +18,93 @@ function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
   const { hideModal } = useGlobalModal()
   const router = useRouter()
   const [data, setData] = useState<Material[]>([])
-  const [current, setCurrent] = useState(1)
 
   const { submit, loading } = useCreateOrderMaterialsApi()
+
+  // 表格表单
+  const [tableForm] = Form.useForm()
+  // 正在编辑的 item key 值
+  const [editingKey, setEditingKey] = useState<string | undefined>('')
+
+  // 编辑单元格
+  const edit = useCallback(
+    (record?: Material) => {
+      // 编辑时赋值
+      tableForm.setFieldsValue({
+        id: record?.id,
+        amount: record?.amount,
+        material: record?.material,
+        model: record?.model,
+      } as Material)
+
+      setEditingKey(record?.id)
+    },
+    [tableForm]
+  )
+
+  // 取消编辑单元格
+  const cancel = useCallback(() => {
+    setEditingKey('')
+  }, [])
+
+  // 保存编辑单元格
+  const save = useCallback(
+    key => {
+      const { amount, material, model } = tableForm.getFieldsValue()
+
+      const [mid, mname] = getRealValue(material)
+
+      setData(d =>
+        d.map(i => {
+          if (i?.id !== key) {
+            return i
+          }
+          return {
+            amount,
+            model,
+            id: key,
+            material: {
+              id: mid,
+              name: mname,
+            },
+          } as Material
+        })
+      )
+
+      tableForm.resetFields()
+      setEditingKey('')
+    },
+    [tableForm]
+  )
+
+  // 删除单元格
+  const del = useCallback(key => {
+    setData(d => d.filter(i => i?.id !== key))
+  }, [])
+
+  // 单元格逻辑
+  const emit = useCallback<CellEmit>(
+    (type, id, record) => {
+      switch (type) {
+        case 'edit':
+          edit(record)
+
+          break
+        case 'cancel':
+          cancel()
+          break
+        case 'del':
+          del(id)
+          break
+        case 'save':
+          save(id)
+          break
+        default:
+          break
+      }
+    },
+    [cancel, edit, save, del]
+  )
   const onOK = () => {
     if (data && id) {
       const subData: MaterialsInput[] = data.map(item => {
@@ -47,21 +133,11 @@ function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
   const onSubmit = (values: Material) => {
     setData([...data, values])
   }
-  const onPageChange = (page: number) => {
-    setCurrent(page)
-  }
+
   return (
     <ModalView orderId={id ?? ''} OKText='创建' onOK={onOK} loading={loading}>
       <CreateForm onSubmit={onSubmit} />
-      <KTable<Material>
-        data={data}
-        columns={modalColumns}
-        total={data.length ?? 0}
-        currentPage={current ?? 1}
-        rowKey={item => item.id}
-        pageSize={10}
-        onPageChange={onPageChange}
-      />
+      <CreateMaterialsTable data={data} editingKey={editingKey} emit={emit} form={tableForm} />
     </ModalView>
   )
 }
