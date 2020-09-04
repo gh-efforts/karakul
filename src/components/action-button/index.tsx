@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './index.module.scss'
 
-export default function CallToActionButton({
+export default function ActionButton({
   className,
   ...restProps
 }: React.HTMLAttributes<HTMLButtonElement>): JSX.Element {
