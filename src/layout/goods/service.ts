@@ -10,6 +10,7 @@ import {
   OutboundCommodityInput,
   useCommodityExWarehouseMutation,
   CommodityInput,
+  useUpdateCommodityMutation,
 } from '../../services'
 import { pageToStart } from '../../helpers/params'
 import { GoodsOrder } from './goods.d'
@@ -36,6 +37,28 @@ function useCreateCommodityApi() {
   return { createCommodit, loading }
 }
 
+function useUpdateCommodityApi() {
+  const [update, { loading }] = useUpdateCommodityMutation({ fetchPolicy: 'no-cache' })
+
+  const updateCommodit = async (id: string, data: CommodityInput) => {
+    try {
+      await update({
+        variables: {
+          id,
+          data,
+        },
+      })
+
+      message.success('修改商品成功')
+      return true
+    } catch {
+      message.error('修改商品失败')
+      return false
+    }
+  }
+
+  return { updateCommodit, loading }
+}
 function useCommoditiesApi() {
   const [fetch, { data, loading }] = useCommoditiesLazyQuery()
 
@@ -95,4 +118,4 @@ function useCommodityExWarehouseApi() {
   }
 }
 
-export { useCreateCommodityApi, useCommoditiesApi, fetchGoodsOrders, useCommodityExWarehouseApi }
+export { useCreateCommodityApi, useCommoditiesApi, fetchGoodsOrders, useCommodityExWarehouseApi, useUpdateCommodityApi }

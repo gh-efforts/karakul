@@ -122,15 +122,15 @@ function WarehousesSelect({ name, required, className, label, noLabel, style, in
 
   return (
     <Form.Item
-      label={noLabel ? undefined : label ?? '选择商品分类'}
+      label={noLabel ? undefined : label ?? '选择仓库分类'}
       name={name ?? 'warehouse'}
       colon={false}
-      rules={required ? [{ required: true, message: '请选择商品分类' }] : []}
+      rules={required ? [{ required: true, message: '请选择仓库分类' }] : []}
       className={`${styles.item} ${className ?? ''}`}
       style={style}
       initialValue={initialValue}
     >
-      <Select loading={loading} placeholder='请选择商品分类' disabled={loading} allowClear>
+      <Select loading={loading} placeholder='请选择仓库分类' disabled={loading} allowClear>
         {data?.pos
           ?.filter(p => p && p?.id)
           .map(p => (

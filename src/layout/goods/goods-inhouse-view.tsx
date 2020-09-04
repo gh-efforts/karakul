@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import styles from './modal.module.scss'
 import { KTable } from '../../components'
 import { CommoditiesInWarehouseQuery, useCommoditiesInWarehouseQuery } from '../../services'
+import moment from 'moment'
 
 type GoodsInhouseItem = NonNullable<
   NonNullable<NonNullable<CommoditiesInWarehouseQuery['commodities']>['values']>[number]
@@ -14,12 +15,13 @@ const columns = [
     dataIndex: 'code',
   },
   {
-    title: '目的地',
-    dataIndex: 'destination',
+    title: '所在仓库',
+    dataIndex: ['warehouse', 'name'],
   },
   {
-    title: '出库时间',
-    dataIndex: 'delivery_time',
+    title: '入库时间',
+    dataIndex: 'createdAt',
+    render: (text: string) => moment(text).format('YYYY-MM-DD hh:mm:ss'),
   },
   {
     title: '操作人',

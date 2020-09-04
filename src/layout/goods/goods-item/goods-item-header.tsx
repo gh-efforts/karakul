@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'antd'
+import { Button, Tooltip } from 'antd'
 
 import CreateGoodsView from './../create-goods'
 import GoodsHistoryView from '../goods-exhouse-history'
@@ -40,7 +40,11 @@ function GoodsExWarehouseBtn({ id }: BtnProps) {
     }
     showModal('提货记录', GoodsHistoryView, { id })
   }
-  return <Svg name='btn-history-h' onClick={show} disabled={!id} />
+  return (
+    <Tooltip title='提货记录'>
+      <Svg name='btn-sellhistory-h' onClick={show} disabled={!id} />
+    </Tooltip>
+  )
 }
 
 function GoodsInWarehouseBtn({ id }: BtnProps) {
@@ -53,9 +57,9 @@ function GoodsInWarehouseBtn({ id }: BtnProps) {
     showModal('商品库存', GoodsInhouseView, { id })
   }
   return (
-    <Button type='text' className='action-pointer' onClick={show} disabled={!id}>
-      商品库存
-    </Button>
+    <Tooltip title='商品库存'>
+      <Svg name='btn-stock-h' onClick={show} disabled={!id} />
+    </Tooltip>
   )
 }
 
@@ -69,7 +73,11 @@ function ExWarehouseBtn({ id }: BtnProps) {
     showModal('商品出库', ExWarehouseView, { id })
   }
 
-  return <Svg name='btn-sell-h' onClick={show} disabled={!id} />
+  return (
+    <Tooltip title='商品出库'>
+      <Svg name='btn-sell-h' onClick={show} disabled={!id} />
+    </Tooltip>
+  )
 }
 
 interface GoodsItemHeaderProps {
@@ -85,8 +93,8 @@ function GoodsItemHeader({ children, name, id }: GoodsItemHeaderProps) {
       <span>{name}</span>
       <CreateGoodsBtn id={id} />
       <GoodsInWarehouseBtn id={id} />
-      <GoodsExWarehouseBtn id={id} />
       <ExWarehouseBtn id={id} />
+      <GoodsExWarehouseBtn id={id} />
     </div>
   )
 }

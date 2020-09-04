@@ -365,6 +365,33 @@ export type CreateCommodityMutationOptions = Apollo.BaseMutationOptions<
   Types.CreateCommodityMutation,
   Types.CreateCommodityMutationVariables
 >
+export const UpdateCommodityDocument = gql`
+  mutation UpdateCommodity($id: ID!, $data: editCommodityInput) {
+    res: updateCommodity(input: { where: { id: $id }, data: $data }) {
+      commodity {
+        id
+      }
+    }
+  }
+`
+export type UpdateCommodityMutationFn = Apollo.MutationFunction<
+  Types.UpdateCommodityMutation,
+  Types.UpdateCommodityMutationVariables
+>
+export function useUpdateCommodityMutation(
+  baseOptions?: Apollo.MutationHookOptions<Types.UpdateCommodityMutation, Types.UpdateCommodityMutationVariables>
+) {
+  return Apollo.useMutation<Types.UpdateCommodityMutation, Types.UpdateCommodityMutationVariables>(
+    UpdateCommodityDocument,
+    baseOptions
+  )
+}
+export type UpdateCommodityMutationHookResult = ReturnType<typeof useUpdateCommodityMutation>
+export type UpdateCommodityMutationResult = Apollo.MutationResult<Types.UpdateCommodityMutation>
+export type UpdateCommodityMutationOptions = Apollo.BaseMutationOptions<
+  Types.UpdateCommodityMutation,
+  Types.UpdateCommodityMutationVariables
+>
 export const ExWarehouseHistoryDocument = gql`
   query ExWarehouseHistory($sort: String, $limit: Int, $start: Int, $orderId: ID) {
     commodities: commoditiesConnection(
