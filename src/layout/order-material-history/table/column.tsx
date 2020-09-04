@@ -3,6 +3,7 @@ import { ColumnProps } from 'antd/lib/table'
 import { HistoryInfo, MaterialHistories, MaterialHistory } from '../history'
 import { KTable, Svg, useGlobalModal } from '../../../components'
 import HistroyModalView from '../modal/history-modal'
+import moment from 'moment'
 interface ViewButtonProps {
   record: HistoryInfo
 }
@@ -23,10 +24,12 @@ const columns: ColumnProps<HistoryInfo>[] = [
   {
     title: '创建时间',
     dataIndex: 'createdAt',
+    render: text => moment(text).format('YYYY-MM-DD hh:mm:ss'),
   },
   {
     title: '更新时间',
     dataIndex: 'updatedAt',
+    render: text => moment(text).format('YYYY-MM-DD hh:mm:ss'),
   },
   {
     title: '操作人',
