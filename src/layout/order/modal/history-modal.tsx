@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 import { KTable, SearchInput } from '../../../components'
 import { TOrder, TOrderHistories } from '../order.d'
@@ -18,7 +18,7 @@ function HistoryModalView({ order }: HistoryModalViewProps) {
   const [limit, setLimit] = useState(10)
   const [start, setStart] = useState(0)
 
-  const fetchData = () => {
+  const fetchData = useCallback(() => {
     if (order) {
       fetch({
         variables: {
@@ -28,18 +28,19 @@ function HistoryModalView({ order }: HistoryModalViewProps) {
         },
       })
     }
-  }
+  }, [order, fetch, limit, start])
 
   useEffect(() => {
     fetchData()
-  })
+  }, [fetchData])
+
   const onPageChange = (page: number, size?: number) => {
     setCurrent(page)
     setLimit(size || 10)
     setStart((page - 1) * (size || 10))
-
     fetchData()
   }
+
   return (
     <div>
       <div className={styles['order-no']}>
