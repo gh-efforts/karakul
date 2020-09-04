@@ -33,7 +33,7 @@ export default function Loading({ backendUrl }: { backendUrl: string }): JSX.Ele
         setLocalCookie('Authorization', `Bearer ${res.jwt}` || '')
         setLocalStorage('user', JSON.stringify(res.user) || '')
         setLocalStorage('userId', res.user.id || '')
-        router.push('/')
+        router.replace('/order')
       })
       .catch(e => {
         return e
