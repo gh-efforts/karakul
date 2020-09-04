@@ -30,13 +30,6 @@ interface TAppInitialProps extends AppInitialProps {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 class MyApp extends App<{ cookie: any }> {
-  componentDidMount(): void {
-    const { asPath, query } = Router
-    if (asPath.indexOf('/connect/feishu/redirect') > -1) {
-      Router.push({ pathname: '/login', query })
-    }
-  }
-
   static getServerSideProps = async (appContext: AppContext): Promise<TAppInitialProps> => {
     const request = appContext.ctx.req
 

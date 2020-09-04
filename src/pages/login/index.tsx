@@ -1,42 +1,22 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import getConfig from 'next/config'
-import { useRouter } from 'next/router'
 import ActionButton from '../../components/action-button'
 import styles from './index.module.scss'
 
-import { setLocalCookie, setLocalStorage } from '../../helpers/cookie'
-
-export default function Login(): React.ReactElement {
+export const getServerSideProps = async () => {
   const {
     publicRuntimeConfig: { ENDPOINT },
   } = getConfig()
 
-  const router = useRouter()
+  return {
+    props: {
+      backendUrl: ENDPOINT,
+    },
+  }
+}
 
-  const backendUrl = ENDPOINT
-
-  useEffect(() => {
-    const callback = router.asPath.split('?')
-    fetch(`${backendUrl}/auth/feishu/callback?${callback[1]}`)
-      .then(res => {
-        if (res.status !== 200) {
-          throw new Error(`Couldn't login to Strapi. Status: ${res.status}`)
-        }
-        return res
-      })
-      .then(res => res.json())
-      .then(res => {
-        setLocalCookie('Authorization', `Bearer ${res.jwt}` || '')
-        setLocalStorage('user', JSON.stringify(res.user) || '')
-        setLocalStorage('userId', res.user.id || '')
-        setTimeout(() => router.push('/'), 3000) // Redirect to homepage after 3 sec
-      })
-      .catch(e => {
-        return e
-      })
-  }, [router, backendUrl])
-
+export default function Login({ backendUrl }: { backendUrl: string }): React.ReactElement {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
