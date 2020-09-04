@@ -1,33 +1,51 @@
 import React from 'react'
-import { Table } from 'antd'
+import { Table, Tooltip } from 'antd'
 import { ColumnProps } from 'antd/lib/table'
 
-import { Svg } from '../../../components'
-import { OrderCommodity } from '../goods.d'
+import { Svg, useGlobalModal } from '../../../components'
+import { OrderCommodity, SAccessory } from '../goods.d'
 
 import styles from './index.module.scss'
+import UpdateGoodsView from '../update-goods'
 
-const GoodsTypeColumns: ColumnProps<OrderCommodity>[] = [
-  { title: '分类', dataIndex: ['material'] },
+interface EditButtonProps {
+  record: OrderCommodity
+}
+
+function EditButton({ record }: EditButtonProps) {
+  const { showModal } = useGlobalModal()
+  const onshow = () => {
+    showModal('修改商品', UpdateGoodsView, { record })
+  }
+  return (
+    <Tooltip title='修改商品'>
+      <Svg name='btn-edit-h' onClick={onshow} />
+    </Tooltip>
+  )
+}
+
+const GoodsTypeColumns: ColumnProps<SAccessory>[] = [
+  { title: '分类', dataIndex: ['material', 'name'] },
   { title: '型号', dataIndex: ['model'] },
-  { title: '数量', dataIndex: ['amount'] },
+  { title: '编号', dataIndex: ['sn'] },
   { title: '标识', dataIndex: ['label'] },
 ]
 
 function GoodsTypeTable(record: OrderCommodity) {
+  const accessories: SAccessory[] = Array.isArray(record?.accessories) ? record?.accessories : []
   return (
-    <Table
+    <Table<SAccessory>
       className={styles.table2}
-      dataSource={record?.accessories ?? []}
+      dataSource={(accessories ?? []) as SAccessory[]}
       columns={GoodsTypeColumns}
       pagination={false}
-      rowKey='id'
+      rowKey={item => item.id ?? Math.random()}
     />
   )
 }
 
 const GoodsNumColumns: ColumnProps<OrderCommodity>[] = [
-  { title: '商品编号', dataIndex: ['id'] },
+  { title: '商品编号', dataIndex: ['code'] },
   {
     title: '商品类型',
     dataIndex: ['commodity_type', 'name'],
@@ -46,41 +64,14 @@ const GoodsNumColumns: ColumnProps<OrderCommodity>[] = [
   },
   {
     title: '操作',
-    render() {
+    render(_text: string, record: OrderCommodity) {
       return (
         <span className={styles.btns}>
-          <Svg name='btn-edit-h' />
-          <Svg name='btn-history-h' />
+          <EditButton record={record} />
         </span>
       )
     },
     width: 120,
-  },
-]
-
-const goods: OrderCommodity[] = [
-  {
-    id: 'goodsid',
-    commodity_type: {
-      id: 'id',
-      name: 'name',
-    },
-    warehouse: {
-      name: 'name',
-      id: 'id',
-    },
-    createdAt: 'createdAt',
-    user: {
-      username: 'username',
-    },
-    accessories: [
-      {
-        type: 'type',
-        modal: 'modal',
-        label: 'label',
-        id: 'id',
-      },
-    ],
   },
 ]
 
@@ -89,15 +80,15 @@ interface GoodsItemTableProps {
   data?: OrderCommodity[]
 }
 
-function GoodsItemTable({ data = goods, expanded }: GoodsItemTableProps) {
+function GoodsItemTable({ data, expanded }: GoodsItemTableProps) {
   return (
     <div className={`${styles.table} ${expanded ? styles['table-show'] : styles['table-hide']}`}>
       <Table<OrderCommodity>
         columns={GoodsNumColumns}
         pagination={false}
-        dataSource={data ?? []}
+        dataSource={(data ?? []) as OrderCommodity[]}
         expandable={{ expandedRowRender: GoodsTypeTable }}
-        rowKey='id'
+        rowKey={item => item.id}
       />
     </div>
   )

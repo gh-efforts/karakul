@@ -99,6 +99,15 @@ mutation CreateCommodity($data: CommodityInput) {
   }
 }
 
+# 编辑商品
+mutation UpdateCommodity($id: ID!, $data: editCommodityInput) {
+  res: updateCommodity(input: { where: { id: $id }, data: $data }) {
+    commodity {
+      id
+    }
+  }
+}
+
 # 提货记录
 query ExWarehouseHistory($sort: String, $limit: Int, $start: Int, $orderId: ID) {
   commodities: commoditiesConnection(

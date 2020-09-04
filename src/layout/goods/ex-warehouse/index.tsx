@@ -37,7 +37,7 @@ function ExWarehouseView({ id }: ExWarehouseViewProps) {
     }
 
     const { destination, delivery_time } = form.getFieldsValue()
-    const time = moment(delivery_time).format()
+    const time = moment(delivery_time).format('YYYY-MM-DD')
 
     const flag = await exWarehouse({
       id: tablreRef?.current?.selectedRowKeys ?? [],

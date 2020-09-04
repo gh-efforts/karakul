@@ -5,29 +5,30 @@ import { PlusSquareOutlined } from '@ant-design/icons'
 import { Form } from 'antd'
 
 import { ModalButtonGroup, getRealValue, message, useGlobalModal } from '../../../components'
-import CreateGoodsTable, { CellEmit } from './goods-table'
-import { SAccessory } from '../goods.d'
-import GoodsForm from './goods-form'
-import { useCreateCommodityApi } from '../service'
+import UpdateGoodsTable, { CellEmit } from './goods-table'
+import { SAccessory, OrderCommodity } from '../goods'
+import { useUpdateCommodityApi } from '../service'
 import { getLocalStore } from '../../../helpers/cookie'
 import { Enum_Commodity_State } from '../../../services'
 
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
+import GoodsForm from './goods-form'
 
-interface CreateGoodsViewProps {
-  id?: string
+interface UpdateGoodsViewProps {
+  record?: OrderCommodity
   children?: React.ReactNode
 }
 
-function CreateGoodsView({ id }: CreateGoodsViewProps) {
-  const { createCommodit, loading } = useCreateCommodityApi()
+function UpdateGoodsView({ record }: UpdateGoodsViewProps) {
+  const { updateCommodit, loading } = useUpdateCommodityApi()
   const { hideModal } = useGlobalModal()
   const router = useRouter()
   // 新增数据
-  const [data, setData] = useState<SAccessory[]>([])
+  const [data, setData] = useState<SAccessory[]>([...record?.accessories])
   // 商品表单
   const [form] = Form.useForm()
+
   // 表格表单
   const [tableForm] = Form.useForm()
   // 正在编辑的 item key 值
@@ -140,16 +141,15 @@ function CreateGoodsView({ id }: CreateGoodsViewProps) {
 
     const uid = getLocalStore('userId')
 
-    if (!uid || !id) {
+    if (!uid || !record?.id) {
       message.error('数据错误')
       return
     }
 
     try {
       await form.validateFields()
-      const flag = await createCommodit({
+      const flag = await updateCommodit(record?.id, {
         user: uid,
-        order: id,
         code,
         commodity_type: cid,
         warehouse: wid,
@@ -169,7 +169,7 @@ function CreateGoodsView({ id }: CreateGoodsViewProps) {
   return (
     <div>
       <div className={styles.title}>
-        <span>订单编号: {id || ''}</span>
+        <span>商品编号: {record?.id || ''}</span>
         <span className={`${styles['title-right']} ${editingKey && styles['btn-disable']}`} onClick={onAdd}>
           <PlusSquareOutlined />
           添加
@@ -180,13 +180,13 @@ function CreateGoodsView({ id }: CreateGoodsViewProps) {
         </span>
       </div>
       <div className={styles.content}>
-        <GoodsForm form={form} />
+        <GoodsForm form={form} record={record} />
         <div className={styles.horizontal} />
-        <CreateGoodsTable data={data} editingKey={editingKey} emit={emit} form={tableForm} />
+        <UpdateGoodsTable data={data} editingKey={editingKey} emit={emit} form={tableForm} />
         <ModalButtonGroup onOK={onOk} OKText='保存' className={styles.btns} position='left' loading={loading} />
       </div>
     </div>
   )
 }
 
-export default CreateGoodsView
+export default UpdateGoodsView

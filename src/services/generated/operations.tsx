@@ -161,6 +161,13 @@ export type CreateCommodityMutationVariables = Types.Exact<{
 
 export type CreateCommodityMutation = { res?: Types.Maybe<{ commodity?: Types.Maybe<Pick<Types.Commodity, 'id'>> }> }
 
+export type UpdateCommodityMutationVariables = Types.Exact<{
+  id: Types.Scalars['ID']
+  data?: Types.Maybe<Types.EditCommodityInput>
+}>
+
+export type UpdateCommodityMutation = { res?: Types.Maybe<{ commodity?: Types.Maybe<Pick<Types.Commodity, 'id'>> }> }
+
 export type ExWarehouseHistoryQueryVariables = Types.Exact<{
   sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
