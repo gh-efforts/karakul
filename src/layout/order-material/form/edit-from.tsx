@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import getConfig from 'next/config'
 import { Form, Input, Button, Upload, Select } from 'antd'
 import { PlusCircleFilled } from '@ant-design/icons'
 import { UploadChangeParam } from 'antd/lib/upload'
 import { UploadFile } from 'antd/lib/upload/interface'
+import { getValueFromLocal } from '../../../helpers/cookie'
 
 import styles from './index.module.scss'
 import { message, OrderMaterialsSelect } from '../../../components'
@@ -14,10 +16,6 @@ const { Option } = Select
 export interface EditFormProps {
   orderId?: string
   onSubmit: ({ id, amount, material, model }: Material) => void
-}
-
-export interface RenameFormProps {
-  form: FormInstance
 }
 
 export default function EditForm({ orderId, onSubmit }: EditFormProps) {
@@ -69,23 +67,52 @@ export default function EditForm({ orderId, onSubmit }: EditFormProps) {
   )
 }
 
+export interface RenameFormProps {
+  form: FormInstance
+}
+
+export type File = UploadFile<{ id: string }[]> & { id?: string }
+
+type FileList = File[]
+
+type FileChangeEvent = UploadChangeParam<FileList>
+
+const normalizeFile = ({ fileList }: { fileList: FileList }) => fileList ?? []
+
 function beforeUpload(file: { type: string; size: number }) {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
+
   if (!isJpgOrPng) {
     message.error('You can only upload JPG/PNG file!')
   }
+
   const isLt2M = file.size / 1024 / 1024 < 2
+
   if (!isLt2M) {
     message.error('Image must smaller than 2MB!')
   }
+
   return isJpgOrPng && isLt2M
 }
 
-function RemarkFrom({ form }: RenameFormProps) {
-  const [fileList, setFileList] = useState<UploadFile[]>([])
+export function RemarkFrom({ form }: RenameFormProps) {
+  const [fileList, setFileList] = useState<FileList>([])
 
-  const handleChange = ({ fileList }: UploadChangeParam<UploadFile>) => {
-    setFileList(fileList)
+  const Authorization = getValueFromLocal('Authorization') as string
+
+  const backendURL = getConfig().publicRuntimeConfig.ENDPOINT
+
+  const requestURL = `${backendURL}/upload`
+
+  const handleChange = ({ fileList }: { fileList: FileList }) => {
+    const fileListWithURL = fileList.map((file: File) => {
+      if (file.response && Array.isArray(file.response)) {
+        file.id = file.response[0].id
+      }
+      return file
+    })
+
+    setFileList(fileListWithURL)
   }
 
   const uploadButton = (
@@ -101,14 +128,16 @@ function RemarkFrom({ form }: RenameFormProps) {
         <Form.Item label='附件' name='attachment_desc'>
           <Input.TextArea placeholder='请输入附件信息' autoSize={{ minRows: 5, maxRows: 7 }} />
         </Form.Item>
-        <Form.Item name='attachment' valuePropName='fileList'>
+        <Form.Item name='attachment' valuePropName='fileList' getValueFromEvent={normalizeFile}>
           <Upload
-            name='avatar'
+            name='files'
             listType='picture-card'
             className='avatar-uploader'
-            showUploadList={false}
             fileList={fileList}
-            action='https://www.mocky.io/v2/5cc8019d300000980a055e76'
+            headers={{
+              Authorization,
+            }}
+            action={requestURL}
             beforeUpload={beforeUpload}
             onChange={handleChange}
           >
@@ -122,5 +151,3 @@ function RemarkFrom({ form }: RenameFormProps) {
     </div>
   )
 }
-
-export { RemarkFrom }

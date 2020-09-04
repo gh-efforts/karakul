@@ -6,7 +6,7 @@ import modalColumns from '../table/edit-modal-column'
 import EditForm, { RemarkFrom } from '../form/edit-from'
 import { Material } from '../material'
 import { useRouter } from 'next/router'
-import { MaterialsInput } from 'src/services'
+import { MaterialsInput, UploadFile } from 'src/services'
 import { useUpdateOrderMaterialsApi } from '../service'
 import { Form } from 'antd'
 export interface EditModalViewProps {
@@ -24,6 +24,8 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
   const onOK = () => {
     const { attachment, attachment_desc, remark } = form.getFieldsValue()
 
+    const normalizeAttachment = attachment?.map((file: UploadFile) => file.id)
+
     if (data && id) {
       const subData: MaterialsInput[] = data.map(item => {
         return {
@@ -36,7 +38,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
       })
 
       if (subData) {
-        submit(subData, id, attachment, attachment_desc, remark)
+        submit(subData, id, normalizeAttachment, attachment_desc, remark)
           .then(() => {
             message.success('修改成功')
             router.push(`/order/material/${id}`)
