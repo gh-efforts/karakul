@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import Link from 'next/link'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
+import ActionButton from '../../components/action-button'
 import styles from './index.module.scss'
 
 import { setLocalCookie, setLocalStorage } from '../../helpers/cookie'
@@ -44,7 +45,7 @@ export default function Login(): React.ReactElement {
       <div className={styles.content}>
         <div className={styles['action-wrapper']}>
           <Link href={`${backendUrl}/connect/feishu`}>
-            <button className={styles.action}>飞书登录</button>
+            <ActionButton>飞书登录</ActionButton>
           </Link>
         </div>
         <div className={styles.welcome}>

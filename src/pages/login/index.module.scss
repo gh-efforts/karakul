@@ -23,26 +23,18 @@
   display: flex;
   min-width: 832px;
   min-height: 624px;
+  max-width: 100%;
+  max-height: 100%;
   border-left: 16px solid #5e707e;
   background-color: white;
   box-shadow: 0px 15px 60px rgba(0, 87, 89, 0.1);
 }
 
 .action-wrapper {
+  min-width: 348px;
   display: flex;
+  justify-content: center;
   align-items: center;
-}
-
-.action {
-  margin: 0 60px;
-  padding: 12px 70px;
-  border: none;
-  border-radius: 6px;
-  background: #00b2b6;
-  font-size: 18px;
-  line-height: 24px;
-  box-shadow: 0px 8px 12px rgba(0, 87, 89, 0.1);
-  outline: none;
 }
 
 .welcome {
