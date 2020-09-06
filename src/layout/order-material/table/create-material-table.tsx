@@ -54,7 +54,7 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
   return [
     {
       title: '分类',
-      dataIndex: 'material',
+      dataIndex: ['material', 'name'],
       width: 120,
       onCell(record: Material) {
         return {

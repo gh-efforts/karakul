@@ -33,7 +33,7 @@ function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
       tableForm.setFieldsValue({
         id: record?.id,
         amount: record?.amount,
-        material: record?.material,
+        material: `${record?.material?.id?.trim() ?? ''}__${record?.material?.name?.trim() ?? ''}`,
         model: record?.model,
       } as Material)
 
@@ -51,9 +51,7 @@ function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
   const save = useCallback(
     key => {
       const { amount, material, model } = tableForm.getFieldsValue()
-
       const [mid, mname] = getRealValue(material)
-
       setData(d =>
         d.map(i => {
           if (i?.id !== key) {
@@ -70,7 +68,6 @@ function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
           } as Material
         })
       )
-
       tableForm.resetFields()
       setEditingKey('')
     },
@@ -109,7 +106,7 @@ function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
     if (data && id) {
       const subData: MaterialsInput[] = data.map(item => {
         return {
-          material: item.material,
+          material: item.material.name,
           amount: parseInt(item.amount),
           model: item.model,
           action: item.action,
@@ -119,7 +116,7 @@ function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
         submit(subData, id)
           .then(() => {
             message.success('创建成功')
-            router.push(`/order/material/${id}`)
+            router.push(`/order/material/${id}?name=` + name)
             hideModal()
           })
           .catch(() => {
