@@ -9,6 +9,7 @@ import { Svg, OrderMaterialsSelect } from '../../../components'
 
 import { Material } from '../material'
 import { ActionTypeOptions } from '../form/edit-from'
+import { ActionTypeMap, ActionType } from '../service'
 
 interface EditableCellProps extends React.EmbedHTMLAttributes<HTMLElement> {
   editing?: boolean
@@ -36,7 +37,7 @@ function EditableCell({
       break
     case 'action':
       cell = (
-        <Form.Item name='action' style={{ margin: 0 }} initialValue={initialValue}>
+        <Form.Item name='action' style={{ margin: 0 }} initialValue={initialValue as ActionType}>
           <Select placeholder='请选择行为'>{ActionTypeOptions}</Select>
         </Form.Item>
       )
@@ -106,6 +107,7 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
       title: '行为',
       dataIndex: 'action',
       width: 120,
+      render: text => ActionTypeMap[text as ActionType],
       onCell(record: Material) {
         return {
           record,
@@ -113,7 +115,7 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
           dataIndex: 'action',
           editing: isEditing(record, key),
           inputType: 'action',
-          initialValue: record?.action,
+          initialValue: record.action as ActionType,
         } as EditableCellProps
       },
     },

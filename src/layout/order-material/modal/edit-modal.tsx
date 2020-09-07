@@ -6,7 +6,7 @@ import EditForm, { RemarkFrom } from '../form/edit-from'
 import { Material } from '../material'
 import { useRouter } from 'next/router'
 import { MaterialsInput, UploadFile } from 'src/services'
-import { useUpdateOrderMaterialsApi } from '../service'
+import { useUpdateOrderMaterialsApi, ActionType } from '../service'
 import { Form } from 'antd'
 
 import EditMaterialsTable, { CellEmit } from '../table/edit-material-table'
@@ -36,6 +36,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
         amount: record?.amount,
         material: `${record?.material?.id?.trim() ?? ''}__${record?.material?.name?.trim() ?? ''}`,
         model: record?.model,
+        action: record?.action as ActionType,
       } as Material)
 
       setEditingKey(record?.id)
@@ -119,7 +120,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
           material: item.material.name,
           amount: parseInt(item.amount),
           model: item.model,
-          action: item.action,
+          action: parseInt(item.action),
         }
       })
 
@@ -127,7 +128,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
         submit(subData, id, normalizeAttachment, attachment_desc, remark)
           .then(() => {
             message.success('修改成功')
-            router.push(`/order/material/${id}`)
+            router.push(`/order/material/${id}?name=` + name)
             hideModal()
           })
           .catch(() => {

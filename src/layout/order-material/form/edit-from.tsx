@@ -19,10 +19,10 @@ export interface EditFormProps {
   onSubmit: ({ id, amount, material, model }: Material) => void
 }
 
-export const ActionTypeOptions = Object.keys(ActionTypeMap).map(status => {
+export const ActionTypeOptions = Object.keys(ActionTypeMap).map(type => {
   return (
-    <Option key={status} value={status}>
-      {ActionTypeMap[(status as unknown) as ActionType]}
+    <Option key={type} value={(type as unknown) as ActionType}>
+      {ActionTypeMap[(type as unknown) as ActionType]}
     </Option>
   )
 })
@@ -32,6 +32,7 @@ export default function EditForm({ orderId, onSubmit }: EditFormProps) {
 
   const onFinish = (values: Store) => {
     const { amount, material, model, action } = values
+
     if (amount && material && model && action) {
       const [mid, mname] = getRealValue(material)
       const KMaterial = {
