@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import styles from './modal.module.scss'
 import { KTable } from '../../components'
@@ -59,6 +59,10 @@ function GoodsInhouseView({ id }: GoodsInhouseViewProps) {
     setPage(p)
     setSize(_s)
   }
+
+  useEffect(() => {
+    refetch()
+  }, [refetch])
 
   return (
     <div>
