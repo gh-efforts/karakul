@@ -15,7 +15,7 @@ interface EditableCellProps extends React.EmbedHTMLAttributes<HTMLElement> {
   editing?: boolean
   dataIndex?: string
   title?: string
-  inputType?: 'text' | 'type' | 'action'
+  inputType?: 'text' | 'type' | 'action' | 'number'
   record: Material
   index?: number
   children?: React.ReactNode
@@ -42,7 +42,13 @@ function EditableCell({
         </Form.Item>
       )
       break
-
+    case 'number':
+      cell = (
+        <Form.Item name={dataIndex} style={{ margin: 0 }} initialValue={initialValue}>
+          <Input type='number' placeholder={`请输入${title}`} />
+        </Form.Item>
+      )
+      break
     default:
       cell = (
         <Form.Item name={dataIndex} style={{ margin: 0 }} initialValue={initialValue}>
@@ -54,22 +60,27 @@ function EditableCell({
   return <td {...restProps}>{editing ? cell : children}</td>
 }
 
-const isEditing = (record: Material, key: string | undefined) => record?.id === key
+const isEditing = (index: number | undefined, key: number | undefined) => index === key
 
-export type CellEmit = (type: 'edit' | 'cancel' | 'save' | 'del', id?: string, record?: Material) => void
+export type CellEmit = (
+  type: 'edit' | 'cancel' | 'save' | 'del',
+  id?: string,
+  record?: Material,
+  index?: number
+) => void
 
-const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps<Material>[] => {
+const generateColumns = (emit?: CellEmit, key?: number | undefined): ColumnProps<Material>[] => {
   return [
     {
       title: '分类',
       dataIndex: ['material', 'name'],
       width: 120,
-      onCell(record: Material) {
+      onCell(record: Material, index: number | undefined) {
         return {
           record,
           title: '分类',
           dataIndex: 'material',
-          editing: isEditing(record, key),
+          editing: isEditing(index, key),
           inputType: 'type',
           initialValue: `${record?.material ?? ''}`,
         } as EditableCellProps
@@ -79,12 +90,12 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
       title: '型号',
       dataIndex: 'model',
       width: 120,
-      onCell(record: Material) {
+      onCell(record: Material, index: number | undefined) {
         return {
           record,
           title: '型号',
           dataIndex: 'model',
-          editing: isEditing(record, key),
+          editing: isEditing(index, key),
           initialValue: record?.model,
         } as EditableCellProps
       },
@@ -93,12 +104,13 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
       title: '数量',
       dataIndex: 'amount',
       width: 120,
-      onCell(record: Material) {
+      onCell(record: Material, index: number | undefined) {
         return {
           record,
           title: '数量',
           dataIndex: 'amount',
-          editing: isEditing(record, key),
+          inputType: 'number',
+          editing: isEditing(index, key),
           initialValue: record?.amount,
         } as EditableCellProps
       },
@@ -108,12 +120,12 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
       dataIndex: 'action',
       width: 120,
       render: text => ActionTypeMap[text as ActionType],
-      onCell(record: Material) {
+      onCell(record: Material, index: number | undefined) {
         return {
           record,
           title: '行为',
           dataIndex: 'action',
-          editing: isEditing(record, key),
+          editing: isEditing(index, key),
           inputType: 'action',
           initialValue: record.action as ActionType,
         } as EditableCellProps
@@ -122,15 +134,15 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
     {
       title: '操作',
       width: 90,
-      render(_, record) {
-        const editing = isEditing(record, key)
+      render(_, record, index) {
+        const editing = isEditing(index, key)
 
         return editing ? (
           <span className={styles['opt-btns']}>
             <Button
               type='text'
               onClick={() => {
-                emit?.('save', record?.id)
+                emit?.('save', record?.id, record, index)
               }}
               style={{
                 color: '#00B2B6',
@@ -141,7 +153,7 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
             <Button
               type='text'
               onClick={() => {
-                emit?.('cancel', record?.id)
+                emit?.('cancel', record?.id, record, index)
               }}
             >
               取消
@@ -152,13 +164,13 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
             <Svg
               name='btn-edit-h'
               onClick={() => {
-                emit?.('edit', '', record)
+                emit?.('edit', record.id, record, index)
               }}
             />
             <Svg
               name='btn-del-h'
               onClick={() => {
-                emit?.('del', record?.id)
+                emit?.('del', record?.id, record, index)
               }}
             />
           </span>
@@ -171,7 +183,7 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
 interface EditMaterialsTableProps {
   data?: Material[]
   emit?: CellEmit
-  editingKey?: string
+  editingKey?: number
   form?: FormInstance
 }
 
@@ -192,7 +204,7 @@ function EditMaterialsTable({ data, editingKey, emit, form }: EditMaterialsTable
         columns={columns}
         pagination={false}
         className={styles.table}
-        rowKey={item => item.id}
+        rowKey={item => item.id + Math.random()}
       />
     </Form>
   )
