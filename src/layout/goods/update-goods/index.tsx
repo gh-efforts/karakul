@@ -13,7 +13,7 @@ import { Enum_Commodity_State } from '../../../services'
 
 import styles from './index.module.scss'
 import GoodsForm from './goods-form'
-import { parseCsvDataToSAccessory } from '../create-goods'
+import { parseCsvDataToSAccessory } from '../csv-parser'
 
 interface UpdateGoodsViewProps {
   record?: OrderCommodity
@@ -173,9 +173,9 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length && e.target.value) {
-      parseCsvDataToSAccessory(e.target.files[0], res => {
-        if (res?.length) {
-          setData(res)
+      parseCsvDataToSAccessory(e.target.files[0], data).then(data => {
+        if (Array.isArray(data)) {
+          setData(data)
 
           // 导入时取消编辑状态
           setEditingKey('')

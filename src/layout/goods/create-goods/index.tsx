@@ -3,7 +3,6 @@
 import React, { useState, useCallback, useRef } from 'react'
 import { PlusSquareOutlined } from '@ant-design/icons'
 import { Form, Popconfirm } from 'antd'
-import PapaParse from 'papaparse'
 
 import { ModalButtonGroup, getRealValue, message, useGlobalModal } from '../../../components'
 import CreateGoodsTable, { CellEmit } from './goods-table'
@@ -12,6 +11,7 @@ import GoodsForm from './goods-form'
 import { useCreateCommodityApi } from '../service'
 import { getLocalStore } from '../../../helpers/cookie'
 import { Enum_Commodity_State } from '../../../services'
+import { parseCsvDataToSAccessory } from '../csv-parser'
 
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
@@ -19,76 +19,6 @@ import { useRouter } from 'next/router'
 interface CreateGoodsViewProps {
   id?: string
   children?: React.ReactNode
-}
-
-// transfer ParseResult to SAccessory[]
-const transfer = (res: PapaParse.ParseResult<unknown>) => {
-  if (res.errors.length || res.data.length < 2) {
-    // eslint-disable-next-line standard/no-callback-literal
-    return [] as SAccessory[]
-  } else {
-    // 标记 id
-    const now = new Date().getTime().toString()
-    const headers = res.data[0] as string[]
-    const keys = ['分类', '型号', '标示', '配件编号']
-    const pos: { [p: string]: number } = {
-      分类: 999,
-      型号: 999,
-      标示: 999,
-      配件编号: 999,
-    }
-
-    // 获取 key 值对应的 index
-    for (const k of keys) {
-      const idx = headers.findIndex(h => h.includes(k))
-      if (idx >= 0) {
-        pos[k] = idx
-      }
-    }
-
-    // 转换数据格式
-    const transfered = res.data
-      .map((o, i) => {
-        // 排除错误数据 和 header 行
-        if (!Array.isArray(o) || i === 0) {
-          return null
-        }
-
-        // 排除空数据
-        if (o[pos['分类']] || o[pos['型号']] || o[pos['标示']] || o[pos['配件编号']]) {
-          return {
-            id: `${now}-i-${i}`,
-            material: { name: o[pos['分类']] },
-            model: o[pos['型号']],
-            label: o[pos['标示']],
-            sn: o[pos['配件编号']],
-          } as SAccessory
-        }
-        return null
-      })
-      .filter(Boolean) as SAccessory[]
-
-    return transfered
-  }
-}
-
-// 获取 csv 数据
-//
-// https://github.com/Bunlong/react-papaparse/blob/master/src/CSVReader.tsx
-export function parseCsvDataToSAccessory(file: File, cb: (data: SAccessory[]) => void) {
-  const reader = new window.FileReader()
-
-  reader.onload = (e: ProgressEvent<FileReader>) => {
-    if (e.target?.result) {
-      PapaParse.parse(e.target.result as string, {
-        complete(res) {
-          cb(transfer(res))
-        },
-      })
-    }
-  }
-
-  reader.readAsText(file, 'utf-8')
 }
 
 function CreateGoodsView({ id }: CreateGoodsViewProps) {
@@ -241,9 +171,9 @@ function CreateGoodsView({ id }: CreateGoodsViewProps) {
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length && e.target.value) {
-      parseCsvDataToSAccessory(e.target.files[0], res => {
-        if (res?.length) {
-          setData(res)
+      parseCsvDataToSAccessory(e.target.files[0], data).then(data => {
+        if (Array.isArray(data)) {
+          setData(data)
 
           // 导入时取消编辑状态
           setEditingKey('')
