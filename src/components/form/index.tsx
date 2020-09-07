@@ -21,12 +21,23 @@ interface SelectBaseProps {
   style?: React.CSSProperties
   initialValue?: unknown
   id?: string
+  size?: 'small' | 'middle' | 'large' | undefined
 }
 
 // ! 某些地方需要获取对象数据，因此将 id name 手动拼接成 id__name
 
 // 材料分类选择
-function MaterialsSelect({ name, required, className, label, noLabel, style, initialValue, noSplit }: SelectBaseProps) {
+function MaterialsSelect({
+  name,
+  required,
+  className,
+  label,
+  noLabel,
+  style,
+  initialValue,
+  noSplit,
+  size,
+}: SelectBaseProps) {
   const { data, loading } = useMaterialsQuery({ fetchPolicy: 'network-only' })
 
   return (
@@ -39,7 +50,7 @@ function MaterialsSelect({ name, required, className, label, noLabel, style, ini
       style={style}
       initialValue={initialValue}
     >
-      <Select size='large' loading={loading} placeholder='请选择分类' disabled={loading} allowClear>
+      <Select size={size ?? 'large'} loading={loading} placeholder='请选择分类' disabled={loading} allowClear>
         {data?.materials
           ?.filter(m => m && m?.id)
           .map(material => {

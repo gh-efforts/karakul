@@ -24,7 +24,12 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
   const { updateCommodit, loading } = useUpdateCommodityApi()
   const { hideModal } = useGlobalModal()
   // 新增数据
-  const [data, setData] = useState<SAccessory[]>([...record?.accessories])
+  const [data, setData] = useState<SAccessory[]>(() => {
+    if (Array.isArray(record?.accessories)) {
+      return [...(record?.accessories as SAccessory[])]
+    }
+    return []
+  })
   // 商品表单
   const [form] = Form.useForm()
 

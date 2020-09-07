@@ -31,7 +31,7 @@ function EditableCell({
   let cell: React.ReactNode
   switch (inputType) {
     case 'type':
-      cell = <MaterialsSelect name='material' noLabel style={{ margin: 0 }} initialValue={initialValue} />
+      cell = <MaterialsSelect name='material' noLabel style={{ margin: 0 }} initialValue={initialValue} size='middle' />
       break
 
     default:
