@@ -7,7 +7,7 @@ import { UploadFile } from 'antd/lib/upload/interface'
 import { getValueFromLocal } from '../../../helpers/cookie'
 
 import styles from './index.module.scss'
-import { message, OrderMaterialsSelect } from '../../../components'
+import { message, OrderMaterialsSelect, getRealValue } from '../../../components'
 import { Material } from '../material'
 import { Store } from 'antd/lib/form/interface'
 import { FormInstance } from 'antd/lib/form'
@@ -23,12 +23,14 @@ export default function EditForm({ orderId, onSubmit }: EditFormProps) {
 
   const onFinish = (values: Store) => {
     const { amount, material, model, action } = values
-
     if (amount && material && model && action) {
-      const id = material.split('__')[0]
-      const Tmaterial = material.split('__')[1]
+      const [mid, mname] = getRealValue(material)
+      const KMaterial = {
+        id: mid,
+        name: mname,
+      }
 
-      onSubmit({ id, amount, material: Tmaterial, model, action: parseInt(action) })
+      onSubmit({ id: mid, amount, material: KMaterial, model, action: parseInt(action) })
       form.resetFields()
     }
   }

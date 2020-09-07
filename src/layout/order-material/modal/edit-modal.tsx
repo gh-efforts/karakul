@@ -8,7 +8,8 @@ import { useRouter } from 'next/router'
 import { MaterialsInput, UploadFile } from 'src/services'
 import { useUpdateOrderMaterialsApi } from '../service'
 import { Form } from 'antd'
-import CreateMaterialsTable, { CellEmit } from '../table/create-material-table'
+
+import EditMaterialsTable, { CellEmit } from '../table/edit-material-table'
 
 export interface EditModalViewProps {
   id?: string
@@ -25,36 +26,33 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
   const [tableForm] = Form.useForm()
   // 正在编辑的 item key 值
   const [editingKey, setEditingKey] = useState<string | undefined>('')
-  // 判断是否是新增
-  const [isAdding, setIsAdding] = useState(false)
 
   // 编辑单元格
   const edit = useCallback(
-    (id?: string) => {
+    (record?: Material) => {
       // 编辑时赋值
-      tableForm.setFieldsValue({ amount: '', material: '', model: '' } as Material)
-      setIsAdding(false)
-      setEditingKey(id)
+      tableForm.setFieldsValue({
+        id: record?.id,
+        amount: record?.amount,
+        material: `${record?.material?.id?.trim() ?? ''}__${record?.material?.name?.trim() ?? ''}`,
+        model: record?.model,
+      } as Material)
+
+      setEditingKey(record?.id)
     },
     [tableForm]
   )
 
   // 取消编辑单元格
-  const cancel = useCallback(
-    key => {
-      // 取消时，如果新增则删除，如果编辑则取消更改
-      setEditingKey('')
-      if (isAdding) {
-        setData(d => d.filter(i => i?.id !== key))
-      }
-    },
-    [isAdding]
-  )
+  const cancel = useCallback(() => {
+    // 取消时，如果新增则删除，如果编辑则取消更改
+    setEditingKey('')
+  }, [])
 
   // 保存编辑单元格
   const save = useCallback(
     key => {
-      const { amount, material, model } = tableForm.getFieldsValue()
+      const { amount, material, model, action } = tableForm.getFieldsValue()
 
       const [mid, mname] = getRealValue(material)
 
@@ -71,6 +69,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
               id: mid,
               name: mname,
             },
+            action,
           } as Material
         })
       )
@@ -88,13 +87,13 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
 
   // 单元格逻辑
   const emit = useCallback<CellEmit>(
-    (type, id) => {
+    (type, id, record) => {
       switch (type) {
         case 'edit':
-          edit(id)
+          edit(record)
           break
         case 'cancel':
-          cancel(id)
+          cancel()
           break
         case 'del':
           del(id)
@@ -117,7 +116,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
       const subData: MaterialsInput[] = data.map(item => {
         return {
           id: item.id,
-          material: item.material,
+          material: item.material.name,
           amount: parseInt(item.amount),
           model: item.model,
           action: item.action,
@@ -146,15 +145,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
   return (
     <ModalView orderId={id ?? ''} OKText='编辑' onOK={onOK} loading={loading}>
       <EditForm orderId={id ?? ''} onSubmit={onSubmit} />
-      {/* <KTable<Material>
-        data={(data ?? []) as Material[]}
-        columns={modalColumns}
-        total={10}
-        currentPage={1}
-        rowKey={item => item.id}
-        pagination={false}
-      /> */}
-      <CreateMaterialsTable data={data} editingKey={editingKey} emit={emit} form={tableForm} />
+      <EditMaterialsTable data={data} editingKey={editingKey} emit={emit} form={tableForm} />
       <RemarkFrom form={form} />
     </ModalView>
   )
