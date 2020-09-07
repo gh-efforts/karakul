@@ -31,7 +31,7 @@ interface TAppInitialProps extends AppInitialProps {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 class MyApp extends App<{ cookie: any }> {
-  static getServerSideProps = async (appContext: AppContext): Promise<TAppInitialProps> => {
+  static getInitialProps = async (appContext: AppContext): Promise<TAppInitialProps> => {
     const request = appContext.ctx.req
 
     // Call the page's `getInitialProps` and fill `appProps.pageProps`
