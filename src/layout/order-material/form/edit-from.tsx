@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import getConfig from 'next/config'
 import { Form, Input, Button, Upload, Select } from 'antd'
 import { PlusCircleFilled } from '@ant-design/icons'
-import { UploadChangeParam } from 'antd/lib/upload'
 import { UploadFile } from 'antd/lib/upload/interface'
 import { getValueFromLocal } from '../../../helpers/cookie'
 
@@ -19,13 +18,17 @@ export interface EditFormProps {
   onSubmit: ({ id, amount, material, model }: Material) => void
 }
 
-export const ActionTypeOptions = Object.keys(ActionTypeMap).map(type => {
-  return (
-    <Option key={type} value={(type as unknown) as ActionType}>
-      {ActionTypeMap[(type as unknown) as ActionType]}
-    </Option>
-  )
-})
+export const ActionTypeOptions = Object.keys(ActionTypeMap)
+  .filter(item => {
+    if (item !== '4') return item
+  })
+  .map(type => {
+    return (
+      <Option key={type} value={(type as unknown) as ActionType}>
+        {ActionTypeMap[(type as unknown) as ActionType]}
+      </Option>
+    )
+  })
 
 export default function EditForm({ orderId, onSubmit }: EditFormProps) {
   const [form] = Form.useForm()
@@ -40,7 +43,7 @@ export default function EditForm({ orderId, onSubmit }: EditFormProps) {
         name: mname,
       }
 
-      onSubmit({ id: mid, amount, material: KMaterial, model, action: parseInt(action) })
+      onSubmit({ id: mid, amount, material: KMaterial, model, action: action as ActionType })
       form.resetFields()
     }
   }
@@ -84,8 +87,6 @@ export interface RenameFormProps {
 export type File = UploadFile<{ id: string }[]> & { id?: string }
 
 type FileList = File[]
-
-type FileChangeEvent = UploadChangeParam<FileList>
 
 const normalizeFile = ({ fileList }: { fileList: FileList }) => fileList ?? []
 

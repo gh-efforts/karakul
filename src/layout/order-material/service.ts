@@ -15,14 +15,14 @@ export enum ActionType {
   Increase = 1,
   Return = 2,
   Exchange = 3,
-  // Create = 4,
+  Create = 4,
 }
 
 export const ActionTypeMap = {
   [ActionType.Increase]: '增货',
   [ActionType.Return]: '退货',
   [ActionType.Exchange]: '换货',
-  // [ActionType.Create]: '新增',
+  [ActionType.Create]: '新增',
 }
 async function fetchOrderMaterials(
   val: OrderMaterialsConnectionQueryVariables & { Authorization?: string | undefined }

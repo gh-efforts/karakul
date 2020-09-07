@@ -4,6 +4,7 @@ import { HistoryInfo, MaterialHistories, MaterialHistory } from '../history'
 import { KTable, Svg, useGlobalModal } from '../../../components'
 import HistroyModalView from '../modal/history-modal'
 import moment from 'moment'
+import { ActionTypeMap, ActionType } from 'src/layout/order-material/service'
 interface ViewButtonProps {
   record: HistoryInfo
 }
@@ -68,7 +69,7 @@ export const MaterialHistoryExpandedRowRender = (data: MaterialHistories) => {
 
   const columns: ColumnProps<MaterialHistory>[] = [
     { title: '型号', dataIndex: 'model', key: 'model' },
-    { title: '行为', dataIndex: 'action', key: 'action' },
+    { title: '行为', dataIndex: 'action', key: 'action', render: text => ActionTypeMap[text as ActionType] },
     { title: '数量', dataIndex: 'amount', key: 'amount' },
   ]
 
