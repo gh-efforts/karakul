@@ -84,7 +84,7 @@ function transfer(res: PapaParse.ParseResult<unknown>) {
  *
  * append: 在原始数据末尾追加 csv 数据
  *
- * preferCSV: 根据 sn 码为标准合并数据，sn 码相同时使用 CSV 中的数据 (其它信息可能不同)
+ * preferCSV: 根基 sn 码合并数据，sn 码相同时使用 CSV 中的数据 (其它信息可能不同)
  */
 type MergeOption = 'onlyCSV' | 'append' | 'preferCSV'
 
