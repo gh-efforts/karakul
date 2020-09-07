@@ -100,10 +100,6 @@ export async function parseCsvDataToSAccessory(
 
   const newAccessories = transfer(csvData)
 
-  if (mergeOption === 'onlyCSV') {
-    return newAccessories
-  }
-
   if (mergeOption === 'preferCSV') {
     const csvSnList = newAccessories.map(v => v.sn)
     const noDuplicatePreviouseData = previousData.filter(accessory => !csvSnList.includes(accessory.sn))
