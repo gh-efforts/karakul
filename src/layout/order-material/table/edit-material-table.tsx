@@ -8,6 +8,7 @@ import styles from './index.module.scss'
 import { Svg, OrderMaterialsSelect } from '../../../components'
 
 import { Material } from '../material'
+import { ActionTypeOptions } from '../form/edit-from'
 
 interface EditableCellProps extends React.EmbedHTMLAttributes<HTMLElement> {
   editing?: boolean
@@ -19,7 +20,6 @@ interface EditableCellProps extends React.EmbedHTMLAttributes<HTMLElement> {
   children?: React.ReactNode
   initialValue?: any
 }
-const { Option } = Select
 function EditableCell({
   editing,
   children,
@@ -37,11 +37,7 @@ function EditableCell({
     case 'action':
       cell = (
         <Form.Item name='action' style={{ margin: 0 }} initialValue={initialValue}>
-          <Select placeholder='请选择行为'>
-            <Option value={1}>增货</Option>
-            <Option value={2}>退货</Option>
-            <Option value={3}>换货</Option>
-          </Select>
+          <Select placeholder='请选择行为'>{ActionTypeOptions}</Select>
         </Form.Item>
       )
       break

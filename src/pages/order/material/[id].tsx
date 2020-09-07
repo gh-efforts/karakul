@@ -8,10 +8,11 @@ import columns from '../../../layout/order-material/table/column'
 import { getValueFromCookie } from '../../../helpers/cookie'
 import { filterPaginationValue } from '../../../helpers/params'
 import MaterialHeader from '../../../layout/order-material/header'
-import { fetchOrderMaterials, OrderMaterialType } from '../../../layout/order-material/service'
+import { fetchOrderMaterials } from '../../../layout/order-material/service'
 
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
+import { OrderMaterialType } from '../../../layout/order-material/material'
 
 export const getServerSideProps = async ({
   req: { headers },

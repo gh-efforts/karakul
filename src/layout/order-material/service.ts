@@ -1,7 +1,6 @@
 import {
   client,
   OrderMaterialsQueryVariables,
-  OrderMaterial,
   OrderMaterialsConnectionQuery,
   OrderMaterialsConnectionQueryVariables,
   OrderMaterialsConnectionDocument,
@@ -10,14 +9,21 @@ import {
   useUpdateOrderMaterialsMutation,
 } from '../../services'
 import { getLocalStore } from 'src/helpers/cookie'
+import { OMConnectionType } from './material'
 
-export type OrderMaterialType = Pick<
-  OrderMaterial,
-  'id' | 'createdAt' | 'updatedAt' | 'order_id' | 'material' | 'amount' | 'model'
->
+export enum ActionType {
+  Increase = 1,
+  Return = 2,
+  Exchange = 3,
+  // Create = 4,
+}
 
-export type OMConnectionType = NonNullable<OrderMaterialsConnectionQuery['orderMaterialsConnection']>
-
+export const ActionTypeMap = {
+  [ActionType.Increase]: '增货',
+  [ActionType.Return]: '退货',
+  [ActionType.Exchange]: '换货',
+  // [ActionType.Create]: '新增',
+}
 async function fetchOrderMaterials(
   val: OrderMaterialsConnectionQueryVariables & { Authorization?: string | undefined }
 ): Promise<OMConnectionType> {

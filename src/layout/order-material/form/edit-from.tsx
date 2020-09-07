@@ -11,12 +11,21 @@ import { message, OrderMaterialsSelect, getRealValue } from '../../../components
 import { Material } from '../material'
 import { Store } from 'antd/lib/form/interface'
 import { FormInstance } from 'antd/lib/form'
+import { ActionTypeMap, ActionType } from '../service'
 
 const { Option } = Select
 export interface EditFormProps {
   orderId?: string
   onSubmit: ({ id, amount, material, model }: Material) => void
 }
+
+export const ActionTypeOptions = Object.keys(ActionTypeMap).map(status => {
+  return (
+    <Option key={status} value={status}>
+      {ActionTypeMap[(status as unknown) as ActionType]}
+    </Option>
+  )
+})
 
 export default function EditForm({ orderId, onSubmit }: EditFormProps) {
   const [form] = Form.useForm()
@@ -51,9 +60,7 @@ export default function EditForm({ orderId, onSubmit }: EditFormProps) {
         </Form.Item>
         <Form.Item name='action'>
           <Select size='large' style={{ width: 170 }} placeholder='请选择行为'>
-            <Option value={1}>增货</Option>
-            <Option value={2}>退货</Option>
-            <Option value={3}>换货</Option>
+            {ActionTypeOptions}
           </Select>
         </Form.Item>
         <Form.Item>
