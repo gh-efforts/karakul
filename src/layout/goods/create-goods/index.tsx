@@ -41,7 +41,7 @@ const transfer = (res: PapaParse.ParseResult<unknown>) => {
     // 获取 key 值对应的 index
     for (const k of keys) {
       const idx = headers.findIndex(h => h.includes(k))
-      if (idx > 0) {
+      if (idx >= 0) {
         pos[k] = idx
       }
     }
@@ -64,7 +64,6 @@ const transfer = (res: PapaParse.ParseResult<unknown>) => {
             sn: o[pos['配件编号']],
           } as SAccessory
         }
-
         return null
       })
       .filter(Boolean) as SAccessory[]
