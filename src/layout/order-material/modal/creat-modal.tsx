@@ -5,13 +5,14 @@ import { useGlobalModal, message, getRealValue } from '../../../components'
 
 import ModalView from './modal'
 import { Material } from '../material'
-import { useCreateOrderMaterialsApi } from '../service'
+import { useCreateOrderMaterialsApi, ActionType } from '../service'
 import { MaterialsInput } from 'src/services'
 import { useRouter } from 'next/router'
 import CreateMaterialsTable, { CellEmit } from '../table/create-material-table'
 import { Form } from 'antd'
 export interface CreateModalViewProps {
   id?: string
+
   children?: ReactNode
 }
 function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
@@ -109,14 +110,17 @@ function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
           material: item.material.name,
           amount: parseInt(item.amount),
           model: item.model,
-          action: item.action,
+          action: ActionType.Create,
         }
       })
       if (subData) {
         submit(subData, id)
           .then(() => {
             message.success('创建成功')
-            router.push(`/order/material/${id}?name=` + name)
+            router.replace({
+              pathname: `/order/material/${id}`,
+              query: { name: router.query.name },
+            })
             hideModal()
           })
           .catch(() => {

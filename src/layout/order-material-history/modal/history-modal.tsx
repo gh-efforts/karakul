@@ -19,7 +19,7 @@ function HistroyModalView({ data }: HistroyModalViewProps): React.ReactElement {
               ? data?.attachment?.map(item => {
                   return (
                     <div className={styles.picture} key={item?._id}>
-                      <img src={item?.url} alt='desc' />
+                      <img src={item?.url} alt='desc' width={230} height={180} />
                     </div>
                   )
                 })

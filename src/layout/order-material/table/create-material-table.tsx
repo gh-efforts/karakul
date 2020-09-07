@@ -13,7 +13,7 @@ interface EditableCellProps extends React.EmbedHTMLAttributes<HTMLElement> {
   editing?: boolean
   dataIndex?: string
   title?: string
-  inputType?: 'text' | 'type'
+  inputType?: 'text' | 'type' | 'number'
   record: Material
   index?: number
   children?: React.ReactNode
@@ -34,7 +34,13 @@ function EditableCell({
     case 'type':
       cell = <MaterialsSelect name='material' noLabel style={{ margin: 0 }} initialValue={initialValue} />
       break
-
+    case 'number':
+      cell = (
+        <Form.Item name={dataIndex} style={{ margin: 0 }} initialValue={initialValue}>
+          <Input type='number' placeholder={`请输入${title}`} />
+        </Form.Item>
+      )
+      break
     default:
       cell = (
         <Form.Item name={dataIndex} style={{ margin: 0 }} initialValue={initialValue}>
@@ -90,6 +96,7 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
           record,
           title: '数量',
           dataIndex: 'amount',
+          inputType: 'number',
           editing: isEditing(record, key),
           initialValue: record?.amount,
         } as EditableCellProps

@@ -5,6 +5,8 @@ import styles from './index.module.scss'
 import { MaterialsSelect, getRealValue } from 'src/components'
 import { Store } from 'antd/lib/form/interface'
 import { Material } from '../material'
+import ActionButton from 'antd/lib/modal/ActionButton'
+import { ActionType } from '../service'
 
 interface CreateFormProps {
   onSubmit: ({ id, amount, material, model }: Material) => void
@@ -20,7 +22,7 @@ export default function CreateForm({ onSubmit }: CreateFormProps) {
         id: mid,
         name: mname,
       }
-      onSubmit({ id: Math.random(), amount, material: KMaterial, model, action: 4 })
+      onSubmit({ id: Math.random(), amount, material: KMaterial, model, action: ActionType.Create })
       form.resetFields()
     }
   }
