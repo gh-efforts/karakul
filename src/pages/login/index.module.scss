@@ -17,6 +17,11 @@
   padding-left: 32px;
   background: #ffffff;
   box-shadow: 0px 6px 10px rgba(0, 87, 89, 0.02);
+
+  a {
+    display: grid;
+    place-items: center;
+  }
 }
 
 .content {

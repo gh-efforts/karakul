@@ -20,13 +20,17 @@ export default function Login({ backendUrl }: { backendUrl: string }): React.Rea
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <img className={styles.logo} src='/images/logo.svg' alt='logo' />
+        <a href='/'>
+          <img src='/images/logo.svg' alt='logo' />
+        </a>
       </div>
       <div className={styles.content}>
         <div className={styles['action-wrapper']}>
-          <Link href={`${backendUrl}/connect/feishu`}>
-            <ActionButton>飞书登录</ActionButton>
-          </Link>
+          <ActionButton>
+            <Link href={`${backendUrl}/connect/feishu`}>
+              <span>飞书登录</span>
+            </Link>
+          </ActionButton>
         </div>
         <div className={styles.welcome}>
           <img className={styles.logo} src='/images/logo-inverse.svg' alt='logo' />
