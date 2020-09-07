@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useCallback, useRef } from 'react'
 import { PlusSquareOutlined } from '@ant-design/icons'
-import { Form, Modal, Popconfirm } from 'antd'
+import { Form, Popconfirm } from 'antd'
 import PapaParse from 'papaparse'
 
 import { ModalButtonGroup, getRealValue, message, useGlobalModal } from '../../../components'
@@ -76,7 +76,7 @@ const transfer = (res: PapaParse.ParseResult<unknown>) => {
 // 获取 csv 数据
 //
 // https://github.com/Bunlong/react-papaparse/blob/master/src/CSVReader.tsx
-function parseCsvDataToSAccessory(file: File, cb: (data: SAccessory[]) => void) {
+export function parseCsvDataToSAccessory(file: File, cb: (data: SAccessory[]) => void) {
   const reader = new window.FileReader()
 
   reader.onload = (e: ProgressEvent<FileReader>) => {
@@ -279,6 +279,11 @@ function CreateGoodsView({ id }: CreateGoodsViewProps) {
             导入
           </span>
         </Popconfirm>
+        <span className={styles['title-right']}>
+          <a href='/file/template.csv' target='_blank' download>
+            模板文件
+          </a>
+        </span>
         <input ref={fileInputRef} type='file' accept='text/csv' id='file-input' onChange={onFileChange} hidden />
       </div>
       <div className={styles.content}>

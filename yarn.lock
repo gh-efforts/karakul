@@ -1784,7 +1784,7 @@
   resolved "https://registry.npm.taobao.org/@types/object-hash/download/@types/object-hash-1.3.3.tgz#624ed28222bd5af0f936b162589c06a2b0550161"
   integrity sha1-Yk7SgiK9WvD5NrFiWJwGorBVAWE=
 
-"@types/papaparse@^5.0.4", "@types/papaparse@^5.2.2":
+"@types/papaparse@^5.2.2":
   version "5.2.2"
   resolved "https://registry.npmjs.org/@types/papaparse/-/papaparse-5.2.2.tgz#225c34ec6b2d55932375c86e56baad8d9d259ec3"
   integrity sha512-e+3C4Mw/15uNC70ctfeehGooRlGv/h7fW8cf8HfBNDUngC/Ajtc6dqizx+ncDz7nj3/R1cshmYZnu86xZHvwRw==
@@ -7366,7 +7366,7 @@ pako@~1.0.5:
   resolved "https://registry.npm.taobao.org/pako/download/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha1-bJWZ00DVTf05RjgCUqNXBaa5kr8=
 
-papaparse@^5.2.0, papaparse@^5.3.0:
+papaparse@^5.3.0:
   version "5.3.0"
   resolved "https://registry.npmjs.org/papaparse/-/papaparse-5.3.0.tgz#ab1702feb96e79ab4309652f36db9536563ad05a"
   integrity sha512-Lb7jN/4bTpiuGPrYy4tkKoUS8sTki8zacB5ke1p5zolhcSE4TlWgrlsxjrDTbG/dFVh07ck7X36hUf/b5V68pg==
@@ -8318,14 +8318,6 @@ react-is@16.13.1, react-is@^16.12.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.npm.taobao.org/react-is/download/react-is-16.13.1.tgz?cache=0&sync_timestamp=1597089837299&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-is%2Fdownload%2Freact-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha1-eJcppNw23imZ3BVt1sHZwYzqVqQ=
-
-react-papaparse@^3.8.0:
-  version "3.8.0"
-  resolved "https://registry.npmjs.org/react-papaparse/-/react-papaparse-3.8.0.tgz#493752590c88096a1f59c191808298123fd223f1"
-  integrity sha512-JAzUIiUUOTrkyl1xbKp2jqEC1azs7pqCcVp4jC2DymvYF/bNQ1L09o9B3DJn18tAPfrBw+YLOrhWead5xLWdgA==
-  dependencies:
-    "@types/papaparse" "^5.0.4"
-    papaparse "^5.2.0"
 
 react-refresh@0.8.3:
   version "0.8.3"

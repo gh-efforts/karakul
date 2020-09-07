@@ -38,7 +38,6 @@
     "papaparse": "^5.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-papaparse": "^3.8.0",
     "sass": "^1.26.10",
     "use-onclickoutside": "^0.3.1",
     "webpack-filter-warnings-plugin": "^1.2.1"
