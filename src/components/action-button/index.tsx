@@ -1,9 +1,11 @@
 import React from 'react'
 import styles from './index.module.scss'
 
-export default function ActionButton({
-  className,
-  ...restProps
-}: React.HTMLAttributes<HTMLButtonElement>): JSX.Element {
-  return <button className={`${styles.button} ${className}`} {...restProps} />
+const ActionButton: React.ForwardRefRenderFunction<HTMLButtonElement, React.HTMLAttributes<HTMLButtonElement>> = (
+  { className, ...restProps }: React.HTMLAttributes<HTMLButtonElement>,
+  ref
+) => {
+  return <button className={`${styles.button} ${className}`} {...restProps} ref={ref} />
 }
+
+export default React.forwardRef(ActionButton)

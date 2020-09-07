@@ -12,8 +12,9 @@ import '../styles/antd.reset.scss'
 import { GlobalModalProvider } from '../components'
 import { ApolloProvider } from '@apollo/client'
 import { client } from '../services'
-import { parseCookie, CookieType } from '../helpers/cookie'
+import { parseCookie, CookieType, getValueFromLocal } from '../helpers/cookie'
 import { CookieDataCtx } from '../components/GlobalCookieData'
+import LoginPage from './login'
 
 NProgress.configure({ showSpinner: true })
 Router.events.on('routeChangeStart', () => NProgress.start())
@@ -43,7 +44,23 @@ class MyApp extends App<{ cookie: any }> {
   }
 
   render(): React.ReactElement {
-    const { Component, pageProps, cookie } = this.props
+    const { Component: TargetPage, pageProps, cookie } = this.props
+
+    const {
+      publicRuntimeConfig: { ENDPOINT: backendUrl },
+    } = getConfig()
+
+    const Authorization = getValueFromLocal('Authorization')
+
+    const pathname = Router.router?.pathname
+
+    const authPath = ['/login', '/connect/feishu/redirect']
+
+    let Page: typeof TargetPage | typeof LoginPage = TargetPage
+
+    if (!authPath.includes(pathname ?? '') && !Authorization) {
+      Page = LoginPage
+    }
 
     return (
       <>
@@ -62,7 +79,7 @@ class MyApp extends App<{ cookie: any }> {
           <ConfigProvider locale={ZhCN}>
             <GlobalModalProvider>
               <CookieDataCtx.Provider value={cookie}>
-                <Component {...pageProps} />
+                <Page {...pageProps} backendUrl={backendUrl} />
               </CookieDataCtx.Provider>
             </GlobalModalProvider>
           </ConfigProvider>
