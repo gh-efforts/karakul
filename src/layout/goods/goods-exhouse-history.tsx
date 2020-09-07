@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import styles from './modal.module.scss'
 import { KTable } from '../../components'
@@ -57,6 +57,10 @@ function GoodsExhouseHistoryView({ id }: GoodsHistoryViewProps) {
     setPage(p)
     setSize(_s)
   }
+
+  useEffect(() => {
+    refetch()
+  }, [refetch])
 
   return (
     <div>
