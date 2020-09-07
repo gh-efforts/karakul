@@ -9,6 +9,7 @@ import GoodsTable from './goods-table'
 import ExWarehouseForm from './goods-form'
 
 import styles from './index.module.scss'
+import { useRouter } from 'next/router'
 
 interface ExWarehouseViewProps {
   id?: string
@@ -19,7 +20,7 @@ function ExWarehouseView({ id }: ExWarehouseViewProps) {
   const [form] = Form.useForm()
   const tablreRef = useRef<{ selectedRowKeys: string[] } | null>(null)
   const { hideModal } = useGlobalModal()
-
+  const router = useRouter()
   const { exWarehouse, loading } = useCommodityExWarehouseApi()
 
   const onOK = async () => {
@@ -49,6 +50,7 @@ function ExWarehouseView({ id }: ExWarehouseViewProps) {
     if (flag) {
       // 出库正常
       form.resetFields()
+      router.replace('/goods')
       hideModal()
       return flag
     }

@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useMemo } from 'react'
 import { ColumnProps } from 'antd/lib/table'
-import { Table, Input, Form, Button } from 'antd'
+import { Table, Input, Form, Button, Select } from 'antd'
 import type { FormInstance } from 'antd/lib/form'
 
 import styles from './index.module.scss'
-import { Svg, MaterialsSelect } from '../../../components'
+import { Svg, OrderMaterialsSelect } from '../../../components'
 
 import { Material } from '../material'
 
@@ -13,13 +13,13 @@ interface EditableCellProps extends React.EmbedHTMLAttributes<HTMLElement> {
   editing?: boolean
   dataIndex?: string
   title?: string
-  inputType?: 'text' | 'type'
+  inputType?: 'text' | 'type' | 'action'
   record: Material
   index?: number
   children?: React.ReactNode
   initialValue?: any
 }
-
+const { Option } = Select
 function EditableCell({
   editing,
   children,
@@ -32,7 +32,18 @@ function EditableCell({
   let cell: React.ReactNode
   switch (inputType) {
     case 'type':
-      cell = <MaterialsSelect name='material' noLabel style={{ margin: 0 }} initialValue={initialValue} />
+      cell = <OrderMaterialsSelect name='material' noLabel style={{ margin: 0 }} initialValue={initialValue} />
+      break
+    case 'action':
+      cell = (
+        <Form.Item name='action' style={{ margin: 0 }} initialValue={initialValue}>
+          <Select placeholder='请选择行为'>
+            <Option value={1}>增货</Option>
+            <Option value={2}>退货</Option>
+            <Option value={3}>换货</Option>
+          </Select>
+        </Form.Item>
+      )
       break
 
     default:
@@ -95,7 +106,21 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
         } as EditableCellProps
       },
     },
-
+    {
+      title: '行为',
+      dataIndex: 'action',
+      width: 120,
+      onCell(record: Material) {
+        return {
+          record,
+          title: '行为',
+          dataIndex: 'action',
+          editing: isEditing(record, key),
+          inputType: 'action',
+          initialValue: record?.action,
+        } as EditableCellProps
+      },
+    },
     {
       title: '操作',
       width: 90,
@@ -145,14 +170,14 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
   ]
 }
 
-interface CreateMaterialsTableProps {
+interface EditMaterialsTableProps {
   data?: Material[]
   emit?: CellEmit
   editingKey?: string
   form?: FormInstance
 }
 
-function CreateMaterialsTable({ data, editingKey, emit, form }: CreateMaterialsTableProps) {
+function EditMaterialsTable({ data, editingKey, emit, form }: EditMaterialsTableProps) {
   const columns = useMemo(() => {
     return generateColumns(emit, editingKey)
   }, [emit, editingKey])
@@ -175,4 +200,4 @@ function CreateMaterialsTable({ data, editingKey, emit, form }: CreateMaterialsT
   )
 }
 
-export default CreateMaterialsTable
+export default EditMaterialsTable
