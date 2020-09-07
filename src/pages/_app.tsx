@@ -12,7 +12,7 @@ import '../styles/antd.reset.scss'
 import { GlobalModalProvider } from '../components'
 import { ApolloProvider } from '@apollo/client'
 import { client } from '../services'
-import { parseCookie, CookieType, getValueFromLocal } from '../helpers/cookie'
+import { parseCookie, CookieType } from '../helpers/cookie'
 import { CookieDataCtx } from '../components/GlobalCookieData'
 import LoginPage from './login'
 
@@ -50,7 +50,7 @@ class MyApp extends App<{ cookie: any }> {
       publicRuntimeConfig: { ENDPOINT: backendUrl },
     } = getConfig()
 
-    const Authorization = getValueFromLocal('Authorization')
+    const Authorization = cookie?.Authorization
 
     const pathname = Router.router?.pathname
 
