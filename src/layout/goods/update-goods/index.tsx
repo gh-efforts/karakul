@@ -171,9 +171,9 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length && e.target.value) {
-      parseCsvDataToSAccessory(e.target.files[0], data, 'preferPrevious').then(data => {
-        if (Array.isArray(data)) {
-          setData(data)
+      parseCsvDataToSAccessory(e.target.files[0], data, 'preferPrevious').then(res => {
+        if (Array.isArray(res)) {
+          setData(res)
 
           // 导入时取消编辑状态
           setEditingKey('')
