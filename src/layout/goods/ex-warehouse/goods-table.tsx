@@ -2,7 +2,7 @@ import React, { useState, useImperativeHandle, forwardRef } from 'react'
 import { ColumnProps } from 'antd/lib/table'
 
 import { KTable, KPagination } from '../../../components'
-import { useOrderCommoditiesSimpleQuery, OrderCommoditiesSimpleQuery } from '../../../services'
+import { useOrderCommoditiesSimpleQuery, OrderCommoditiesSimpleQuery, Enum_Commodity_State } from '../../../services'
 
 import styles from './index.module.scss'
 
@@ -36,6 +36,7 @@ function GoodsTable({ id }: GoodsTableProps, ref: React.Ref<{ selectedRowKeys: s
       limit: 10,
       start: 0,
       id,
+      state: Enum_Commodity_State.In,
     },
     skip: !id,
   })

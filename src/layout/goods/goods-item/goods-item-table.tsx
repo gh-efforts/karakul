@@ -62,6 +62,10 @@ const GoodsNumColumns: ColumnProps<OrderCommodity>[] = [
     dataIndex: ['warehouse', 'name'],
   },
   {
+    title: '流向',
+    dataIndex: ['destination'],
+  },
+  {
     title: '创建时间',
     dataIndex: ['createdAt'],
   },
