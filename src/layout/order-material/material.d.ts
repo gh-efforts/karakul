@@ -1,4 +1,4 @@
-import { MaterialsInput, OrderMaterial } from '../../../services'
+import { MaterialsInput, OrderMaterial, OrderMaterialsConnectionQuery } from '../../services'
 export type Material = Pick<MaterialsInput, 'id' | 'amount' | 'material' | 'model' | 'action'>
 
 export type EditMaterial = Pick<MaterialsInput, 'id' | 'amount' | 'material' | 'action'>
@@ -6,7 +6,13 @@ export type Remark = Pick<UpdateOrderMaterialsInput, 'attachment' | 'attachment_
 
 export type OrderMaterialType = Pick<
   OrderMaterial,
-  'id' | 'createdAt' | 'updatedAt' | 'order_id' | 'material' | 'amount' | 'model'
->
+  'id' | 'createdAt' | 'updatedAt' | 'material' | 'amount' | 'model'
+> & {
+  order_id?: string
+  user?: {
+    id: string
+    username: string
+  }
+}
 
 export type OMConnectionType = NonNullable<OrderMaterialsConnectionQuery['orderMaterialsConnection']>

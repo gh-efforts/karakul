@@ -54,7 +54,11 @@ function EditableCell({
 
 const isEditing = (record: Material, key: string | undefined) => record?.id === key
 
-export type CellEmit = (type: 'edit' | 'cancel' | 'save' | 'del', id?: string, record?: Material) => void
+export type CellEmit = (
+  type: 'edit' | 'cancel' | 'save' | 'del',
+  id?: string | undefined | null,
+  record?: Material
+) => void
 
 const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps<Material>[] => {
   return [
@@ -176,7 +180,7 @@ function CreateMaterialsTable({ data, editingKey, emit, form }: CreateMaterialsT
         columns={columns}
         pagination={false}
         className={styles.table}
-        rowKey={item => item.id}
+        rowKey='id'
       />
     </Form>
   )

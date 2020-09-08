@@ -1,5 +1,5 @@
 import { ColumnProps } from 'antd/lib/table'
-import { OrderMaterialType } from '../service'
+import { OrderMaterialType } from '../material.d'
 import moment from 'moment'
 
 const columns: ColumnProps<OrderMaterialType>[] = [

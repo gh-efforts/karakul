@@ -16,12 +16,11 @@ export default function CreateForm({ onSubmit }: CreateFormProps) {
   const onFinish = (values: Store) => {
     const { amount, material, model } = values
     if (amount && material && model) {
-      const [mid, mname] = getRealValue(material)
-      const KMaterial = {
-        id: mid,
-        name: mname,
-      }
-      onSubmit({ id: Math.random(), amount, material: KMaterial, model, action: ActionType.Create })
+      const [, mname] = getRealValue(material)
+
+      const id = new Date().getTime().toString()
+
+      onSubmit({ id, amount, material: mname, model, action: ActionType.Create })
       form.resetFields()
     }
   }

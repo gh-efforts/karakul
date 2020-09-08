@@ -34,7 +34,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
       tableForm.setFieldsValue({
         id: record?.id,
         amount: record?.amount,
-        material: `${record?.material?.name?.trim() ?? ''}__${record?.model?.trim() ?? ''}`,
+        material: `${record?.id?.trim() ?? ''}__${record?.material?.trim() ?? ''}`,
         model: record?.model,
         action: record?.action as ActionType,
       } as Material)
@@ -66,10 +66,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
             amount,
             model,
             id,
-            material: {
-              id: id,
-              name: mname,
-            },
+            material: mname,
             action,
           } as Material
         })
@@ -117,10 +114,10 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
       const subData: MaterialsInput[] = data.map(item => {
         return {
           id: item.id,
-          material: item.material.name,
-          amount: parseInt(item.amount),
+          material: item.material,
+          amount: item.amount,
           model: item.model,
-          action: parseInt(item.action),
+          action: item.action,
         }
       })
 

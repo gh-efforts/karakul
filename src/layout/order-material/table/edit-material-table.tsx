@@ -60,11 +60,11 @@ function EditableCell({
   return <td {...restProps}>{editing ? cell : children}</td>
 }
 
-const isEditing = (index: number | undefined, key: number | undefined) => index === key
+const isEditing = (index: number | undefined | null, key: number | undefined) => index === key
 
 export type CellEmit = (
   type: 'edit' | 'cancel' | 'save' | 'del',
-  id?: string,
+  id?: string | undefined | null,
   record?: Material,
   index?: number
 ) => void
@@ -204,7 +204,7 @@ function EditMaterialsTable({ data, editingKey, emit, form }: EditMaterialsTable
         columns={columns}
         pagination={false}
         className={styles.table}
-        rowKey={item => item.id + Math.random()}
+        rowKey={(item, idx) => `${item?.id ?? ''}-${idx}`}
       />
     </Form>
   )

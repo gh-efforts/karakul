@@ -38,11 +38,8 @@ export default function EditForm({ orderId, onSubmit }: EditFormProps) {
 
     if (amount && material && action) {
       const [mid, mname, model] = getRealValue(material)
-      const KMaterial = {
-        id: mid,
-        name: mname,
-      }
-      onSubmit({ id: mid, amount, material: KMaterial, model, action: action as ActionType })
+
+      onSubmit({ id: mid, amount, material: mname, model, action: action as ActionType })
       form.resetFields()
     }
   }
