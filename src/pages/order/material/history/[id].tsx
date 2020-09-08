@@ -6,7 +6,7 @@ import { withLayout } from '../../../../layout/layout'
 import { KTable } from '../../../../components'
 import columns, { MaterialHistoriesExpandedRowRender } from '../../../../layout/order-material-history/table/column'
 import { getValueFromCookie } from '../../../../helpers/cookie'
-import { filterPaginationValue } from '../../../../helpers/params'
+import { filterPaginationValue, pageToStart } from '../../../../helpers/params'
 import HistoryHeader from '../../../../layout/order-material-history/header'
 
 import styles from './index.module.scss'
@@ -16,11 +16,9 @@ import { fetchOrderMaterialHistory } from 'src/layout/order-material-history/ser
 
 export const getServerSideProps = async ({
   req: { headers },
-  query: { limit, start, id },
-}: GetServerSidePropsContext<ParsedUrlQuery>): Promise<{
-  props: { data: HistoryInfo[]; limit: number; start: number; total: number }
-}> => {
-  const [$limit, $start] = filterPaginationValue(limit, start)
+  query: { page, size, id },
+}: GetServerSidePropsContext<ParsedUrlQuery>) => {
+  const [$start, $limit, $page, $size] = pageToStart(page, size)
   const $order_id = id?.toString()
   const data = await fetchOrderMaterialHistory({
     Authorization: getValueFromCookie('Authorization', headers.cookie),
@@ -33,26 +31,29 @@ export const getServerSideProps = async ({
     props: {
       data: (data.values ?? []) as HistoryInfo[],
       total: data.aggregate?.count ?? 0,
-      limit: $limit,
-      start: $start,
+      page: $page,
+      size: $size,
     },
   }
 }
 
-function History({ data, limit, total }: InferGetServerSidePropsType<typeof getServerSideProps>): React.ReactElement {
+function History({
+  data,
+  page,
+  size,
+  total,
+}: InferGetServerSidePropsType<typeof getServerSideProps>): React.ReactElement {
   const router = useRouter()
-  const [current, setCurrent] = useState(1)
   const id = router.query.id
   const name = router.query.name
 
-  const onChange = (page: number, size?: number) => {
-    setCurrent(page)
+  const onChange = (p: number, s?: number) => {
     router.replace({
       pathname: '/order/material/history/' + id,
       query: {
         name,
-        limit: size || 10,
-        start: (page - 1) * (size || 10),
+        page: p,
+        size: s,
       },
     })
   }
@@ -64,8 +65,8 @@ function History({ data, limit, total }: InferGetServerSidePropsType<typeof getS
         columns={columns}
         data={(data ?? []) as HistoryInfo[]}
         isEmpty={true}
-        pageSize={limit}
-        currentPage={current}
+        pageSize={size}
+        currentPage={page}
         total={total}
         rowKey={(item: HistoryInfo) => item?.id}
         onPageChange={onChange}
