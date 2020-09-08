@@ -12,18 +12,17 @@ import { getLocalStore } from '../../../helpers/cookie'
 import { Enum_Commodity_State } from '../../../services'
 
 import styles from './index.module.scss'
-import { useRouter } from 'next/router'
 import GoodsForm from './goods-form'
 
 interface UpdateGoodsViewProps {
   record?: OrderCommodity
   children?: React.ReactNode
+  refresh?: () => void
 }
 
-function UpdateGoodsView({ record }: UpdateGoodsViewProps) {
+function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
   const { updateCommodit, loading } = useUpdateCommodityApi()
   const { hideModal } = useGlobalModal()
-  const router = useRouter()
   // 新增数据
   const [data, setData] = useState<SAccessory[]>([...record?.accessories])
   // 商品表单
@@ -158,12 +157,10 @@ function UpdateGoodsView({ record }: UpdateGoodsViewProps) {
       })
 
       if (flag) {
-        router.replace('/goods')
+        refresh?.()
         hideModal()
       }
-    } catch (errorInfo) {
-      message.error('请先填写商品信息')
-    }
+    } catch {}
   }
 
   return (

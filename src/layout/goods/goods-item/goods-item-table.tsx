@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createContext, useContext } from 'react'
 import { Table, Tooltip } from 'antd'
 import { ColumnProps } from 'antd/lib/table'
 
@@ -12,11 +12,18 @@ interface EditButtonProps {
   record: OrderCommodity
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-explicit-any
+const RefreshCtx = createContext<{ refresh?: (() => void) | (() => Promise<any>) }>({ refresh() {} })
+
+export { RefreshCtx }
+
 function EditButton({ record }: EditButtonProps) {
+  const { refresh } = useContext(RefreshCtx)
   const { showModal } = useGlobalModal()
   const onshow = () => {
-    showModal('修改商品', UpdateGoodsView, { record })
+    showModal('修改商品', UpdateGoodsView, { record, refresh })
   }
+
   return (
     <Tooltip title='修改商品'>
       <Svg name='btn-edit-h' onClick={onshow} />
