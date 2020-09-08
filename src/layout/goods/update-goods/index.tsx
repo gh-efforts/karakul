@@ -47,6 +47,8 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
       return
     }
 
+    tableForm.resetFields()
+
     // 默认赋值当前时间
     const id = new Date().getTime().toString()
 
@@ -60,12 +62,17 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
   // 编辑单元格
   const edit = useCallback(
     (id?: string) => {
+      if (isAdding) {
+        return
+      }
+
       // 编辑时赋值
-      tableForm.setFieldsValue({ name: '', age: '', address: '' } as SAccessory)
+      tableForm.resetFields()
+      // tableForm.setFieldsValue({ name: '', age: '', address: '' } as SAccessory)
       setIsAdding(false)
       setEditingKey(id)
     },
-    [tableForm]
+    [isAdding, tableForm]
   )
 
   // 取消编辑单元格
@@ -75,6 +82,7 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
       setEditingKey('')
       if (isAdding) {
         setData(d => d.filter(i => i?.id !== key))
+        setIsAdding(false)
       }
     },
     [isAdding]
