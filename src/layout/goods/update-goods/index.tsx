@@ -157,13 +157,10 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
       })
 
       if (flag) {
-        // router.replace('/goods')
         refresh?.()
         hideModal()
       }
-    } catch (errorInfo) {
-      message.error('请先填写商品信息')
-    }
+    } catch {}
   }
 
   return (

@@ -45,13 +45,13 @@ function useUpdateCommodityApi() {
       await update({
         variables: {
           id,
-          data,
+          data: JSON.parse(JSON.stringify(data)), // fix `Cannot assign to read only property` error
         },
       })
 
       message.success('修改商品成功')
       return true
-    } catch {
+    } catch (e) {
       message.error('修改商品失败')
       return false
     }
