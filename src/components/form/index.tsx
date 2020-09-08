@@ -81,7 +81,9 @@ function OrderMaterialsSelect({ name, required, className, label, noLabel, style
           .map(material => (
             <Option
               key={material?.id ?? ''}
-              value={`${material?.id?.trim() ?? ''}__${material?.material?.trim() ?? ''}`}
+              value={`${material?.id?.trim() ?? ''}__${material?.material?.trim() ?? ''}__${
+                material?.model?.trim() ?? ''
+              }`}
             >
               {`${material?.material}-${material?.model}-${material?.amount}`}
             </Option>
