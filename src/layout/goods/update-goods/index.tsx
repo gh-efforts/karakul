@@ -6,7 +6,7 @@ import { Form } from 'antd'
 
 import { ModalButtonGroup, getRealValue, message, useGlobalModal } from '../../../components'
 import UpdateGoodsTable, { CellEmit } from './goods-table'
-import { SAccessory, OrderCommodity } from '../goods'
+import { SAccessory, OrderCommodity } from '../goods.d'
 import { useUpdateCommodityApi } from '../service'
 import { getLocalStore } from '../../../helpers/cookie'
 import { Enum_Commodity_State } from '../../../services'

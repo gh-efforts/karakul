@@ -11,8 +11,8 @@ import HistoryHeader from '../../../../layout/order-material-history/header'
 
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
-import { HistoryInfo } from 'src/layout/order-material-history/history'
-import { fetchOrderMaterialHistory } from 'src/layout/order-material-history/services'
+import { HistoryInfo } from '../../../../layout/order-material-history/history.d'
+import { fetchOrderMaterialHistory } from '../../../../layout/order-material-history/services'
 
 export const getServerSideProps = async ({
   req: { headers },

@@ -7,7 +7,7 @@ import { getValueFromLocal } from '../../../helpers/cookie'
 
 import styles from './index.module.scss'
 import { message, OrderMaterialsSelect, getRealValue } from '../../../components'
-import { Material } from '../material'
+import { Material } from '../material.d'
 import { Store } from 'antd/lib/form/interface'
 import { FormInstance } from 'antd/lib/form'
 import { ActionTypeMap, ActionType } from '../service'

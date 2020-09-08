@@ -7,7 +7,7 @@ import type { FormInstance } from 'antd/lib/form'
 import styles from './index.module.scss'
 import { Svg, OrderMaterialsSelect } from '../../../components'
 
-import { Material } from '../material'
+import { Material } from '../material.d'
 import { ActionTypeOptions } from '../form/edit-from'
 import { ActionTypeMap, ActionType } from '../service'
 

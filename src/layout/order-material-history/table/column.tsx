@@ -1,10 +1,10 @@
 import React from 'react'
 import { ColumnProps } from 'antd/lib/table'
-import { HistoryInfo, MaterialHistories, MaterialHistory } from '../history'
+import { HistoryInfo, MaterialHistories, MaterialHistory } from '../history.d'
 import { KTable, Svg, useGlobalModal } from '../../../components'
 import HistroyModalView from '../modal/history-modal'
 import moment from 'moment'
-import { ActionTypeMap, ActionType } from 'src/layout/order-material/service'
+import { ActionTypeMap, ActionType } from '../../order-material/service'
 interface ViewButtonProps {
   record: HistoryInfo
 }

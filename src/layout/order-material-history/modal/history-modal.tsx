@@ -2,7 +2,7 @@ import React from 'react'
 
 import ModalView from '../../order-material/modal/modal'
 import styles from './index.module.scss'
-import { HistoryInfo } from '../history'
+import { HistoryInfo } from '../history.d'
 export interface HistroyModalViewProps {
   data?: HistoryInfo
   children?: React.ReactNode

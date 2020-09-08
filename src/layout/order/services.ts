@@ -7,8 +7,8 @@ import {
   useCreateOrderMutation,
   useUpdateOrderMutation,
 } from '../../services'
-import { TOrderConnection } from './order'
-import { getLocalStore } from 'src/helpers/cookie'
+import { TOrderConnection } from './order.d'
+import { getLocalStore } from '../../helpers/cookie'
 
 async function fetchOrders(
   val: OrdersQueryVariables & { Authorization?: string | undefined }

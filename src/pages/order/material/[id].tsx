@@ -12,7 +12,7 @@ import { fetchOrderMaterials } from '../../../layout/order-material/service'
 
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
-import { OrderMaterialType } from '../../../layout/order-material/material'
+import { OrderMaterialType } from '../../../layout/order-material/material.d'
 
 export const getServerSideProps = async ({
   req: { headers },

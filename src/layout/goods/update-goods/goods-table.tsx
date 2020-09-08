@@ -6,7 +6,7 @@ import type { FormInstance } from 'antd/lib/form'
 
 import styles from './index.module.scss'
 import { Svg, MaterialsSelect } from '../../../components'
-import { SAccessory } from '../goods'
+import { SAccessory } from '../goods.d'
 
 interface EditableCellProps extends React.EmbedHTMLAttributes<HTMLElement> {
   editing?: boolean

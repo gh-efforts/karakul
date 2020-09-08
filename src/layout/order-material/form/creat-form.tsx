@@ -2,9 +2,9 @@ import React from 'react'
 import { Form, Input, Button } from 'antd'
 
 import styles from './index.module.scss'
-import { MaterialsSelect, getRealValue } from 'src/components'
+import { MaterialsSelect, getRealValue } from '../../../components'
 import { Store } from 'antd/lib/form/interface'
-import { Material } from '../material'
+import { Material } from '../material.d'
 import { ActionType } from '../service'
 
 interface CreateFormProps {
