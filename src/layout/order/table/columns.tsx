@@ -26,7 +26,7 @@ function EditButton({ order }: EditModalViewProps) {
 
 function AddButton({ id, name }: { id: string; name: string }) {
   return id ? (
-    <Link href={`/order/material/${id}?name=${name}`}>
+    <Link href={`/order/material?id=${id}&name=${name}`}>
       <Tooltip title='原材料预定'>
         <FileAddOutlined style={{ color: '#00B2B6' }} />
       </Tooltip>

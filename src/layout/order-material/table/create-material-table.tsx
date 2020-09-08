@@ -64,7 +64,7 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
   return [
     {
       title: '分类',
-      dataIndex: ['material', 'name'],
+      dataIndex: 'material',
       width: 120,
       onCell(record: Material) {
         return {
@@ -140,7 +140,7 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
             <Svg
               name='btn-edit-h'
               onClick={() => {
-                emit?.('edit', '', record)
+                emit?.('edit', record?.id)
               }}
             />
             <Svg

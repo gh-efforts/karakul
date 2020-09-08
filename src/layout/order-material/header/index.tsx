@@ -36,15 +36,7 @@ function OrderMHeader({ id, name }: OrderMHeaderProps) {
   }
 
   const showHistroyModal = () => {
-    // showModal(
-    //   '原材料订单历史',
-    //   HistroyModalView,
-    //   {
-    //     id,
-    //   },
-    //   1072
-    // )
-    router.push('/order/material/history/' + id + '?name=' + name)
+    router.push('/order/material/history?id=' + id + '&name=' + name)
   }
 
   return (

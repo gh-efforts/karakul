@@ -29,16 +29,9 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
 
   // 编辑单元格
   const edit = useCallback(
-    (record?: Material, index?: number) => {
+    (index?: number) => {
       // 编辑时赋值
-      tableForm.setFieldsValue({
-        id: record?.id,
-        amount: record?.amount,
-        material: `${record?.id?.trim() ?? ''}__${record?.material?.trim() ?? ''}`,
-        model: record?.model,
-        action: record?.action as ActionType,
-      } as Material)
-
+      tableForm.resetFields()
       setEditingKey(index)
     },
     [tableForm]
@@ -52,10 +45,8 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
 
   // 保存编辑单元格
   const save = useCallback(
-    (id, index) => {
-      const { amount, material, action } = tableForm.getFieldsValue()
-
-      const [mname, model] = getRealValue(material)
+    (record, index) => {
+      const { amount, action } = tableForm.getFieldsValue()
 
       setData(d =>
         d.map((i, _index) => {
@@ -63,11 +54,11 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
             return i
           }
           return {
-            amount,
-            model,
-            id,
-            material: mname,
-            action,
+            amount: parseInt(amount),
+            model: record?.model,
+            id: record?.id,
+            material: record?.material,
+            action: action as ActionType,
           } as Material
         })
       )
@@ -85,10 +76,10 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
 
   // 单元格逻辑
   const emit = useCallback<CellEmit>(
-    (type, id, record, index) => {
+    (type, record, index) => {
       switch (type) {
         case 'edit':
-          edit(record, index)
+          edit(index)
           break
         case 'cancel':
           cancel()
@@ -97,7 +88,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
           del(index)
           break
         case 'save':
-          save(id, index)
+          save(record, index)
           break
         default:
           break
@@ -117,7 +108,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
           material: item.material,
           amount: item.amount,
           model: item.model,
-          action: item.action,
+          action: item.action as ActionType,
         }
       })
 
@@ -126,8 +117,8 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
           .then(() => {
             message.success('修改成功')
             router.replace({
-              pathname: `/order/material/${id}`,
-              query: { name: router.query.name },
+              pathname: router.pathname,
+              query: router.query,
             })
             hideModal()
           })
@@ -140,6 +131,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
     }
   }
   const onSubmit = (values: Material) => {
+    console.log(values)
     setData([...data, values])
   }
 

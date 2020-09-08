@@ -20,7 +20,7 @@ export default function CreateForm({ onSubmit }: CreateFormProps) {
 
       const id = new Date().getTime().toString()
 
-      onSubmit({ id, amount, material: mname, model, action: ActionType.Create })
+      onSubmit({ id, amount: parseInt(amount), material: mname, model, action: ActionType.Create })
       form.resetFields()
     }
   }

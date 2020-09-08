@@ -2,34 +2,36 @@ import React from 'react'
 import { ParsedUrlQuery } from 'querystring'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 
-import { withLayout } from '../../../../layout/layout'
-import { KTable } from '../../../../components'
-import columns, { MaterialHistoriesExpandedRowRender } from '../../../../layout/order-material-history/table/column'
-import { getValueFromCookie } from '../../../../helpers/cookie'
-import { pageToStart } from '../../../../helpers/params'
-import HistoryHeader from '../../../../layout/order-material-history/header'
+import { withLayout } from '../../../layout/layout'
+import { KTable } from '../../../components'
+import columns from '../../../layout/order-material/table/column'
+import { getValueFromCookie } from '../../../helpers/cookie'
+import { pageToStart } from '../../../helpers/params'
+import MaterialHeader from '../../../layout/order-material/header'
+import { fetchOrderMaterials } from '../../../layout/order-material/service'
 
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
-import { HistoryInfo } from '../../../../layout/order-material-history/history.d'
-import { fetchOrderMaterialHistory } from '../../../../layout/order-material-history/services'
+import { OrderMaterialType } from '../../../layout/order-material/material.d'
 
 export const getServerSideProps = async ({
   req: { headers },
   query: { page, size, id },
 }: GetServerSidePropsContext<ParsedUrlQuery>) => {
   const [$start, $limit, $page, $size] = pageToStart(page, size)
-  const $order_id = id?.toString()
-  const data = await fetchOrderMaterialHistory({
+  const $order_id = id
+  const data = await fetchOrderMaterials({
     Authorization: getValueFromCookie('Authorization', headers.cookie),
     limit: $limit,
     start: $start,
-    id: $order_id,
+    where: {
+      order_id: $order_id,
+    },
   })
 
   return {
     props: {
-      data: (data.values ?? []) as HistoryInfo[],
+      data: (data.values ?? []) as OrderMaterialType[],
       total: data.aggregate?.count ?? 0,
       page: $page,
       size: $size,
@@ -37,7 +39,7 @@ export const getServerSideProps = async ({
   }
 }
 
-function History({
+function Material({
   data,
   page,
   size,
@@ -49,8 +51,9 @@ function History({
 
   const onChange = (p: number, s?: number) => {
     router.replace({
-      pathname: '/order/material/history/' + id,
+      pathname: '/order/material',
       query: {
+        id,
         name,
         page: p,
         size: s,
@@ -59,21 +62,20 @@ function History({
   }
 
   return (
-    <div className={styles.history}>
-      <HistoryHeader id={id ?? ''} name={name ?? ''} />
-      <KTable<HistoryInfo>
+    <div className={styles.material}>
+      <MaterialHeader id={id ?? ''} name={name ?? ''} />
+      <KTable<OrderMaterialType>
         columns={columns}
-        data={(data ?? []) as HistoryInfo[]}
-        isEmpty={true}
+        data={(data ?? []) as OrderMaterialType[]}
+        isEmpty={total === 0}
         pageSize={size}
         currentPage={page}
         total={total}
-        rowKey={(item: HistoryInfo) => item?.id}
+        rowKey={(item: OrderMaterialType) => item?.id}
         onPageChange={onChange}
-        expandedRowRender={(record: HistoryInfo) => MaterialHistoriesExpandedRowRender(record)}
       />
     </div>
   )
 }
 
-export default withLayout(History)
+export default withLayout(Material)

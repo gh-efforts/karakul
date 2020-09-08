@@ -29,16 +29,11 @@ function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
 
   // 编辑单元格
   const edit = useCallback(
-    (record?: Material) => {
+    id => {
       // 编辑时赋值
-      tableForm.setFieldsValue({
-        id: record?.id,
-        amount: record?.amount,
-        material: `${record?.id?.trim() ?? ''}__${record?.material?.trim() ?? ''}`,
-        model: record?.model,
-      } as Material)
+      tableForm.resetFields()
 
-      setEditingKey(record?.id ?? '')
+      setEditingKey(id ?? '')
     },
     [tableForm]
   )
@@ -52,17 +47,17 @@ function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
   const save = useCallback(
     key => {
       const { amount, material, model } = tableForm.getFieldsValue()
-      const [, mname] = getRealValue(material)
+
       setData(d =>
         d.map(i => {
           if (i?.id !== key) {
             return i
           }
           return {
-            amount,
+            amount: parseInt(amount),
             model,
             id: key,
-            material: mname,
+            material,
           } as Material
         })
       )
@@ -79,11 +74,10 @@ function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
 
   // 单元格逻辑
   const emit = useCallback<CellEmit>(
-    (type, id, record) => {
+    (type, id) => {
       switch (type) {
         case 'edit':
-          edit(record)
-
+          edit(id)
           break
         case 'cancel':
           cancel()
@@ -114,11 +108,12 @@ function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
         submit(subData, id)
           .then(() => {
             message.success('创建成功')
-            router.replace({
-              pathname: `/order/material/${id}`,
-              query: { name: router.query.name },
-            })
+
             hideModal()
+            router.replace({
+              pathname: router.pathname,
+              query: router.query,
+            })
           })
           .catch(() => {
             message.error('创建失败')
