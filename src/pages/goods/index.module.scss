@@ -12,3 +12,9 @@
   background-color: #fff;
   overflow: auto;
 }
+
+.empty {
+  height: 100%;
+  display: grid;
+  place-items: center;
+}

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useMemo } from 'react'
 import { ColumnProps } from 'antd/lib/table'
-import { Table, Input, Form, Button } from 'antd'
+import { Table, Input, Form, Button, Tooltip } from 'antd'
 import type { FormInstance } from 'antd/lib/form'
 
 import styles from './index.module.scss'
@@ -31,7 +31,7 @@ function EditableCell({
   let cell: React.ReactNode
   switch (inputType) {
     case 'type':
-      cell = <MaterialsSelect name='material' noLabel style={{ margin: 0 }} initialValue={initialValue} />
+      cell = <MaterialsSelect name='material' noLabel style={{ margin: 0 }} initialValue={initialValue} size='middle' />
       break
 
     default:
@@ -42,7 +42,17 @@ function EditableCell({
       )
       break
   }
-  return <td {...restProps}>{editing ? cell : children}</td>
+
+  const child =
+    title === '操作' ? (
+      children
+    ) : (
+      <Tooltip title={children}>
+        <span>{children}</span>
+      </Tooltip>
+    )
+
+  return <td {...restProps}>{editing ? cell : child}</td>
 }
 
 const isEditing = (record: SAccessory, key: string | undefined) => record?.id === key
@@ -55,6 +65,7 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
       title: '分类',
       dataIndex: ['material', 'name'],
       width: 120,
+      ellipsis: true,
       onCell(record: SAccessory) {
         return {
           record,
@@ -70,6 +81,7 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
       title: '型号',
       dataIndex: 'model',
       width: 120,
+      ellipsis: true,
       onCell(record: SAccessory) {
         return {
           record,
@@ -84,6 +96,7 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
       title: '标示',
       dataIndex: 'label',
       width: 120,
+      ellipsis: true,
       onCell(record: SAccessory) {
         return {
           record,
@@ -98,6 +111,7 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
       title: '配件编号',
       dataIndex: 'sn',
       width: 120,
+      ellipsis: true,
       onCell(record: SAccessory) {
         return {
           record,
@@ -111,6 +125,11 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
     {
       title: '操作',
       width: 90,
+      onCell() {
+        return {
+          title: '操作',
+        }
+      },
       render(_, record) {
         const editing = isEditing(record, key)
 
@@ -181,7 +200,7 @@ function CreateGoodsTable({ data, editingKey, emit, form }: CreateGoodsTableProp
         columns={columns}
         pagination={false}
         className={styles.table}
-        rowKey='id'
+        rowKey={k => `${k?.id}-${k?.sn}`}
       />
     </Form>
   )

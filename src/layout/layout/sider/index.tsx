@@ -106,7 +106,9 @@ function KSider(): React.ReactElement {
   return (
     <div className={styles.box}>
       <div className={styles.logo}>
-        <img src={`/images/logo.svg`} alt='logo' />
+        <a href='/'>
+          <img src={`/images/logo.svg`} alt='logo' />
+        </a>
       </div>
       <Menu
         className={styles.menu}

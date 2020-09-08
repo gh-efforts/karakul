@@ -12,6 +12,7 @@ import GoodsItem from '../../layout/goods/goods-item'
 import { fetchGoodsOrders } from '../../layout/goods/service'
 
 import styles from './index.module.scss'
+import { Empty } from 'antd'
 
 export const getServerSideProps = async ({
   req: { headers },
@@ -53,9 +54,13 @@ function Goods({ data, page, size, total }: InferGetServerSidePropsType<typeof g
       <GoodsHeader />
       <div className={styles.table}>
         <div className={styles['table-items']}>
-          {data?.map(order => {
-            return <GoodsItem key={order?.id} id={order?.id} name={order?.name} />
-          })}
+          {data.length > 0 ? (
+            data?.map(order => {
+              return <GoodsItem key={order?.id} id={order?.id} name={order?.name} />
+            })
+          ) : (
+            <div className={styles.empty}>{<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />}</div>
+          )}
         </div>
         <KPagination total={total} pageSize={size} currentPage={page} onPageChange={onPageChange} />
       </div>

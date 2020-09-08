@@ -11,6 +11,7 @@ import GoodsForm from './goods-form'
 import { useCreateCommodityApi } from '../service'
 import { getLocalStore } from '../../../helpers/cookie'
 import { Enum_Commodity_State } from '../../../services'
+import { parseCsvDataToSAccessory } from '../csv-parser'
 
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
@@ -166,6 +167,20 @@ function CreateGoodsView({ id }: CreateGoodsViewProps) {
     }
   }
 
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length && e.target.value) {
+      parseCsvDataToSAccessory(e.target.files[0], data, 'preferPrevious').then(res => {
+        if (Array.isArray(res)) {
+          setData(res)
+
+          // 导入时取消编辑状态
+          setEditingKey('')
+          setIsAdding(false)
+        }
+      })
+    }
+  }
+
   return (
     <div>
       <div className={styles.title}>
@@ -174,9 +189,17 @@ function CreateGoodsView({ id }: CreateGoodsViewProps) {
           <PlusSquareOutlined />
           添加
         </span>
-        <span className={styles['title-right']}>
+
+        <label htmlFor='file-input' className={styles['title-right']}>
           <PlusSquareOutlined />
           导入
+          <input type='file' accept='text/csv' id='file-input' onChange={onFileChange} hidden />
+        </label>
+
+        <span className={styles['title-right']}>
+          <a href='/file/template.csv' target='_blank' download>
+            模板文件
+          </a>
         </span>
       </div>
       <div className={styles.content}>

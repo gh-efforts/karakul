@@ -13,6 +13,7 @@ import { Enum_Commodity_State } from '../../../services'
 
 import styles from './index.module.scss'
 import GoodsForm from './goods-form'
+import { parseCsvDataToSAccessory } from '../csv-parser'
 
 interface UpdateGoodsViewProps {
   record?: OrderCommodity
@@ -24,7 +25,12 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
   const { updateCommodit, loading } = useUpdateCommodityApi()
   const { hideModal } = useGlobalModal()
   // 新增数据
-  const [data, setData] = useState<SAccessory[]>([...record?.accessories])
+  const [data, setData] = useState<SAccessory[]>(() => {
+    if (Array.isArray(record?.accessories)) {
+      return [...(record?.accessories as SAccessory[])]
+    }
+    return []
+  })
   // 商品表单
   const [form] = Form.useForm()
 
@@ -163,6 +169,20 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
     } catch {}
   }
 
+  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length && e.target.value) {
+      parseCsvDataToSAccessory(e.target.files[0], data, 'preferPrevious').then(res => {
+        if (Array.isArray(res)) {
+          setData(res)
+
+          // 导入时取消编辑状态
+          setEditingKey('')
+          setIsAdding(false)
+        }
+      })
+    }
+  }
+
   return (
     <div>
       <div className={styles.title}>
@@ -171,9 +191,17 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
           <PlusSquareOutlined />
           添加
         </span>
-        <span className={styles['title-right']}>
+
+        <label htmlFor='file-input' className={styles['title-right']}>
           <PlusSquareOutlined />
           导入
+          <input type='file' accept='text/csv' id='file-input' onChange={onFileChange} hidden />
+        </label>
+
+        <span className={styles['title-right']}>
+          <a href='/file/template.csv' target='_blank' download>
+            模板文件
+          </a>
         </span>
       </div>
       <div className={styles.content}>
