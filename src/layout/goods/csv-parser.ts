@@ -86,7 +86,7 @@ function transfer(res: PapaParse.ParseResult<unknown>) {
  *
  * preferCSV: 根基 sn 码合并数据，sn 码相同时使用 CSV 中的数据 (其它信息可能不同)
  */
-type MergeOption = 'onlyCSV' | 'append' | 'preferCSV'
+type MergeOption = 'onlyCSV' | 'append' | 'preferCSV' | 'preferPrevious'
 
 // 获取 csv 数据
 //
@@ -96,19 +96,29 @@ export async function parseCsvDataToSAccessory(
   previousData: SAccessory[],
   mergeOption: MergeOption = 'onlyCSV'
 ) {
-  const csvData = await readFile(file).then(papaParse)
+  try {
+    const csvData = await readFile(file).then(papaParse)
 
-  const newAccessories = transfer(csvData)
+    const newAccessories = transfer(csvData)
 
-  if (mergeOption === 'preferCSV') {
-    const csvSnList = newAccessories.map(v => v.sn)
-    const noDuplicatePreviouseData = previousData.filter(accessory => !csvSnList.includes(accessory.sn))
-    return [...noDuplicatePreviouseData, ...newAccessories]
+    if (mergeOption === 'preferCSV') {
+      const csvSnList = newAccessories.map(v => v?.sn).filter(Boolean)
+      const noDuplicatePreviouseData = previousData.filter(accessory => !csvSnList.includes(accessory.sn))
+      return [...noDuplicatePreviouseData, ...newAccessories]
+    }
+
+    if (mergeOption === 'append') {
+      return [...previousData, ...newAccessories]
+    }
+
+    if (mergeOption === 'preferPrevious') {
+      const previousSnList = previousData.map(v => v?.sn).filter(Boolean)
+      const noDuplicateCsvData = newAccessories.filter(accessory => !previousSnList.includes(accessory?.sn))
+      return [...previousData, ...noDuplicateCsvData]
+    }
+
+    return newAccessories
+  } catch {
+    return previousData
   }
-
-  if (mergeOption === 'append') {
-    return [...previousData, ...newAccessories]
-  }
-
-  return newAccessories
 }

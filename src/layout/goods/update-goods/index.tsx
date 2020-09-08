@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState, useCallback, useRef } from 'react'
+import React, { useState, useCallback } from 'react'
 import { PlusSquareOutlined } from '@ant-design/icons'
-import { Form, Popconfirm } from 'antd'
+import { Form } from 'antd'
 
 import { ModalButtonGroup, getRealValue, message, useGlobalModal } from '../../../components'
 import UpdateGoodsTable, { CellEmit } from './goods-table'
@@ -40,8 +40,6 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
   const [editingKey, setEditingKey] = useState<string | undefined>('')
   // 判断是否是新增
   const [isAdding, setIsAdding] = useState(false)
-
-  const fileInputRef = useRef(null)
 
   const onAdd = () => {
     // 正在编辑则取消
@@ -173,7 +171,7 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length && e.target.value) {
-      parseCsvDataToSAccessory(e.target.files[0], data).then(data => {
+      parseCsvDataToSAccessory(e.target.files[0], data, 'preferPrevious').then(data => {
         if (Array.isArray(data)) {
           setData(data)
 
@@ -185,10 +183,6 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
     }
   }
 
-  const onImportClick = () => {
-    ;(fileInputRef?.current as HTMLInputElement | null)?.click()
-  }
-
   return (
     <div>
       <div className={styles.title}>
@@ -197,24 +191,18 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
           <PlusSquareOutlined />
           添加
         </span>
-        <Popconfirm
-          placement='top'
-          title='导入数据会替换当前编辑数据,是否继续?'
-          onConfirm={onImportClick}
-          okText='导入'
-          cancelText='取消'
-        >
-          <span className={styles['title-right']}>
-            <PlusSquareOutlined />
-            导入
-          </span>
-        </Popconfirm>
+
+        <label htmlFor='file-input' className={styles['title-right']}>
+          <PlusSquareOutlined />
+          导入
+          <input type='file' accept='text/csv' id='file-input' onChange={onFileChange} hidden />
+        </label>
+
         <span className={styles['title-right']}>
           <a href='/file/template.csv' target='_blank' download>
             模板文件
           </a>
         </span>
-        <input ref={fileInputRef} type='file' accept='text/csv' id='file-input' onChange={onFileChange} hidden />
       </div>
       <div className={styles.content}>
         <GoodsForm form={form} record={record} />
