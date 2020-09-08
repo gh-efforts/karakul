@@ -26,12 +26,12 @@ function EditModalView({ order }: EditModalViewProps): React.ReactElement {
     if (id && name && amount && detail && time) {
       update(id, name, amount, detail, time)
         .then(() => {
-          message.success('创建成功')
+          message.success('修改成功')
           hideModal()
-          router.replace('/order')
+          router.replace({ pathname: router.pathname, query: router.query })
         })
         .catch(() => {
-          message.error('创建失败')
+          message.error('修改失败')
         })
     }
   }

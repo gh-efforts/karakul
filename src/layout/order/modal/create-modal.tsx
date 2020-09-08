@@ -15,7 +15,7 @@ function CreateModalView() {
         .then(() => {
           message.success('创建成功')
           hideModal()
-          router.replace('/order')
+          router.replace({ pathname: router.pathname, query: router.query })
         })
         .catch(() => {
           message.error('创建失败')
