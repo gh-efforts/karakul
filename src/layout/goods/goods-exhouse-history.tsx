@@ -43,8 +43,6 @@ function GoodsExhouseHistoryView({ id }: GoodsHistoryViewProps) {
     skip: !id,
   })
 
-  console.log(data)
-
   const onPageChange = (p: number, s?: number | undefined) => {
     const _s = s || size
 
