@@ -94,7 +94,7 @@ export type OrderCommoditiesQuery = {
       commodities?: Types.Maybe<
         Array<
           Types.Maybe<
-            Pick<Types.Commodity, 'id' | 'code' | 'createdAt' | 'accessories'> & {
+            Pick<Types.Commodity, 'id' | 'code' | 'destination' | 'createdAt' | 'accessories'> & {
               commodity_type?: Types.Maybe<Pick<Types.CommodityType, 'id' | 'name'>>
               warehouse?: Types.Maybe<Pick<Types.Warehouse, 'name' | 'id'>>
               user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'username'>>
@@ -110,6 +110,7 @@ export type OrderCommoditiesSimpleQueryVariables = Types.Exact<{
   id: Types.Scalars['ID']
   start?: Types.Maybe<Types.Scalars['Int']>
   limit?: Types.Maybe<Types.Scalars['Int']>
+  state?: Types.Maybe<Types.Enum_Commodity_State>
 }>
 
 export type OrderCommoditiesSimpleQuery = {
@@ -117,7 +118,7 @@ export type OrderCommoditiesSimpleQuery = {
     values?: Types.Maybe<
       Array<
         Types.Maybe<
-          Pick<Types.Commodity, 'id' | 'code'> & {
+          Pick<Types.Commodity, 'id' | 'code' | 'destination'> & {
             commodity_type?: Types.Maybe<Pick<Types.CommodityType, 'id' | 'name'>>
             warehouse?: Types.Maybe<Pick<Types.Warehouse, 'name' | 'id'>>
           }

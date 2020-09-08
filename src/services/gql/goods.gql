@@ -28,6 +28,7 @@ query OrderCommodities($id: ID!) {
         name
         id
       }
+      destination
       createdAt
       user {
         username
@@ -38,8 +39,8 @@ query OrderCommodities($id: ID!) {
 }
 
 # 商品页 order 出库弹窗对应的商品列表
-query OrderCommoditiesSimple($id: ID!, $start: Int, $limit: Int) {
-  commodities: commoditiesConnection(start: $start, limit: $limit, where: { order: $id }) {
+query OrderCommoditiesSimple($id: ID!, $start: Int, $limit: Int, $state: ENUM_COMMODITY_STATE) {
+  commodities: commoditiesConnection(start: $start, limit: $limit, where: { order: $id, state: $state }) {
     values {
       id
       code
@@ -47,6 +48,7 @@ query OrderCommoditiesSimple($id: ID!, $start: Int, $limit: Int) {
         id
         name
       }
+      destination
       warehouse {
         name
         id

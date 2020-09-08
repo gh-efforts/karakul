@@ -151,6 +151,7 @@ export const OrderCommoditiesDocument = gql`
           name
           id
         }
+        destination
         createdAt
         user {
           username
@@ -183,8 +184,8 @@ export type OrderCommoditiesQueryResult = Apollo.QueryResult<
   Types.OrderCommoditiesQueryVariables
 >
 export const OrderCommoditiesSimpleDocument = gql`
-  query OrderCommoditiesSimple($id: ID!, $start: Int, $limit: Int) {
-    commodities: commoditiesConnection(start: $start, limit: $limit, where: { order: $id }) {
+  query OrderCommoditiesSimple($id: ID!, $start: Int, $limit: Int, $state: ENUM_COMMODITY_STATE) {
+    commodities: commoditiesConnection(start: $start, limit: $limit, where: { order: $id, state: $state }) {
       values {
         id
         code
@@ -192,6 +193,7 @@ export const OrderCommoditiesSimpleDocument = gql`
           id
           name
         }
+        destination
         warehouse {
           name
           id

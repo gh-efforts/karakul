@@ -42,7 +42,6 @@ export default function EditForm({ orderId, onSubmit }: EditFormProps) {
         id: mid,
         name: mname,
       }
-      console.log(KMaterial)
       onSubmit({ id: mid, amount, material: KMaterial, model, action: action as ActionType })
       form.resetFields()
     }
