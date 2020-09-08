@@ -408,6 +408,9 @@ export const ExWarehouseHistoryDocument = gql`
         user {
           username
         }
+        outbound_user {
+          username
+        }
       }
       aggregate {
         count

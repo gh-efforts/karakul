@@ -35,6 +35,7 @@ function ExWarehouseView({ id }: ExWarehouseViewProps) {
       await form.validateFields()
     } catch {
       message.info('请确认数据')
+      return
     }
 
     const { destination, delivery_time } = form.getFieldsValue()
