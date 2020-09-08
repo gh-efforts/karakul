@@ -1,7 +1,7 @@
 import React, { useState, ReactNode, useCallback } from 'react'
 
 import CreateForm from '../form/creat-form'
-import { useGlobalModal, message, getRealValue } from '../../../components'
+import { useGlobalModal, message } from '../../../components'
 
 import ModalView from './modal'
 import { Material } from '../material.d'

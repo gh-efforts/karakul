@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 
 import ModalView from './modal'
-import { useGlobalModal, message, getRealValue } from '../../../components'
+import { useGlobalModal, message } from '../../../components'
 import EditForm, { RemarkFrom } from '../form/edit-from'
 import { Material } from '../material.d'
 import { useRouter } from 'next/router'
@@ -58,7 +58,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
             model: record?.model,
             id: record?.id,
             material: record?.material,
-            action: action as ActionType,
+            action: parseInt(action),
           } as Material
         })
       )
@@ -131,7 +131,6 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
     }
   }
   const onSubmit = (values: Material) => {
-    console.log(values)
     setData([...data, values])
   }
 
