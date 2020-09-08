@@ -182,6 +182,7 @@ export type ExWarehouseHistoryQuery = {
         Types.Maybe<
           Pick<Types.Commodity, 'id' | 'code' | 'destination' | 'delivery_time'> & {
             user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'username'>>
+            outbound_user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'username'>>
           }
         >
       >

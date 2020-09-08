@@ -124,6 +124,9 @@ query ExWarehouseHistory($sort: String, $limit: Int, $start: Int, $orderId: ID) 
       user {
         username
       }
+      outbound_user {
+        username
+      }      
     }
     aggregate {
       count

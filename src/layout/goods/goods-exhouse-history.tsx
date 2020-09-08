@@ -28,7 +28,7 @@ const columns = [
   },
   {
     title: '操作人',
-    dataIndex: ['user', 'username'],
+    dataIndex: ['outbound_user', 'username'],
   },
 ]
 
