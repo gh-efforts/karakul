@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { withLayout } from '../../layout/layout'
 import { KTable } from '../../components'

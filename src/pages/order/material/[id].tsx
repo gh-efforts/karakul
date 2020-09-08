@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ParsedUrlQuery } from 'querystring'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 
@@ -6,7 +6,7 @@ import { withLayout } from '../../../layout/layout'
 import { KTable } from '../../../components'
 import columns from '../../../layout/order-material/table/column'
 import { getValueFromCookie } from '../../../helpers/cookie'
-import { filterPaginationValue, pageToStart } from '../../../helpers/params'
+import { pageToStart } from '../../../helpers/params'
 import MaterialHeader from '../../../layout/order-material/header'
 import { fetchOrderMaterials } from '../../../layout/order-material/service'
 

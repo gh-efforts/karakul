@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import GoodsTypesHeader from '../../layout/goods-types/header'
 import { withLayout } from '../../layout/layout'
@@ -9,16 +9,16 @@ import styles from './index.module.scss'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 import { CommodityTypeType, fetchCommodityTypes } from '../../layout/goods-types/service'
-import { filterPaginationValue } from '../../helpers/params'
+import { pageToStart } from '../../helpers/params'
 import { getValueFromCookie } from '../../helpers/cookie'
 import { useRouter } from 'next/router'
 export const getServerSideProps = async ({
   req: { headers },
-  query: { limit, start },
+  query: { page, size },
 }: GetServerSidePropsContext<ParsedUrlQuery>): Promise<{
-  props: { data: CommodityTypeType[]; limit: number; total: number }
+  props: { data: CommodityTypeType[]; page: number; size: number; total: number }
 }> => {
-  const [$limit, $start] = filterPaginationValue(limit, start)
+  const [$start, $limit, $page, $size] = pageToStart(page, size)
 
   const data = await fetchCommodityTypes({
     Authorization: getValueFromCookie('Authorization', headers.cookie),
@@ -29,24 +29,24 @@ export const getServerSideProps = async ({
     props: {
       data: (data?.values ?? []) as CommodityTypeType[],
       total: data.aggregate?.count ?? 0,
-      limit: $limit,
+      page: $page,
+      size: $size,
     },
   }
 }
 function GoodsTypes({
   data,
-  limit,
+  page,
+  size,
   total,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): React.ReactElement {
   const route = useRouter()
-  const [current, setCurrent] = useState(1)
-  const onPageChange = (page: number, size?: number) => {
-    setCurrent(page)
+  const onPageChange = (p: number, s?: number) => {
     route.replace({
       pathname: '/goods-types',
       query: {
-        limit: size || 10,
-        start: (page - 1) * (size || 10),
+        page: p,
+        size: s,
       },
     })
   }
@@ -57,8 +57,8 @@ function GoodsTypes({
         data={(data ?? []) as CommodityTypeType[]}
         columns={columns}
         total={total}
-        currentPage={current}
-        pageSize={limit}
+        currentPage={page}
+        pageSize={size}
         rowKey={item => item.id}
         onPageChange={onPageChange}
       />
