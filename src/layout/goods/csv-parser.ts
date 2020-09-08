@@ -1,5 +1,5 @@
 import PapaParse from 'papaparse'
-import { SAccessory } from './goods'
+import { SAccessory } from './goods.d'
 
 export function readFile(file: File, encoding = 'utf-8'): Promise<string> {
   const reader = new window.FileReader()

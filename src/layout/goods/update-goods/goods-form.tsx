@@ -5,7 +5,7 @@ import type { FormInstance } from 'antd/lib/form'
 import { CommodityTypeSelect, WarehousesSelect } from '../../../components'
 
 import styles from './index.module.scss'
-import { OrderCommodity } from '../goods'
+import { OrderCommodity } from '../goods.d'
 
 interface GoodsFormProps {
   record?: OrderCommodity

@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['like', 'like/react'],
+  extends: ['like', 'like/react', 'plugin:import/errors', 'plugin:import/warnings'],
 
   overrides: [
     {
@@ -15,4 +15,12 @@ module.exports = {
       },
     },
   ],
+  settings: {
+    'import/extensions': ['.ts', '.tsx'],
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
+      },
+    },
+  },
 }

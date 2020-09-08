@@ -7,7 +7,7 @@ import { getValueFromLocal } from '../../../helpers/cookie'
 
 import styles from './index.module.scss'
 import { message, OrderMaterialsSelect, getRealValue } from '../../../components'
-import { Material } from '../material'
+import { Material } from '../material.d'
 import { Store } from 'antd/lib/form/interface'
 import { FormInstance } from 'antd/lib/form'
 import { ActionTypeMap, ActionType } from '../service'
@@ -38,11 +38,8 @@ export default function EditForm({ orderId, onSubmit }: EditFormProps) {
 
     if (amount && material && action) {
       const [mid, mname, model] = getRealValue(material)
-      const KMaterial = {
-        id: mid,
-        name: mname,
-      }
-      onSubmit({ id: mid, amount, material: KMaterial, model, action: action as ActionType })
+
+      onSubmit({ id: mid, amount: parseInt(amount), material: mname, model, action: parseInt(action) })
       form.resetFields()
     }
   }

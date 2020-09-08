@@ -8,8 +8,8 @@ import {
   MaterialsInput,
   useUpdateOrderMaterialsMutation,
 } from '../../services'
-import { getLocalStore } from 'src/helpers/cookie'
-import { OMConnectionType } from './material'
+import { getLocalStore } from '../../helpers/cookie'
+import { OMConnectionType } from './material.d'
 
 export enum ActionType {
   Increase = 1,

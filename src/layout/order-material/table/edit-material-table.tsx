@@ -7,7 +7,7 @@ import type { FormInstance } from 'antd/lib/form'
 import styles from './index.module.scss'
 import { Svg, OrderMaterialsSelect } from '../../../components'
 
-import { Material } from '../material'
+import { Material } from '../material.d'
 import { ActionTypeOptions } from '../form/edit-from'
 import { ActionTypeMap, ActionType } from '../service'
 
@@ -60,27 +60,22 @@ function EditableCell({
   return <td {...restProps}>{editing ? cell : children}</td>
 }
 
-const isEditing = (index: number | undefined, key: number | undefined) => index === key
+const isEditing = (index: number | undefined | null, key: number | undefined) => index === key
 
-export type CellEmit = (
-  type: 'edit' | 'cancel' | 'save' | 'del',
-  id?: string,
-  record?: Material,
-  index?: number
-) => void
+export type CellEmit = (type: 'edit' | 'cancel' | 'save' | 'del', record?: Material, index?: number) => void
 
 const generateColumns = (emit?: CellEmit, key?: number | undefined): ColumnProps<Material>[] => {
   return [
     {
       title: '分类',
-      dataIndex: ['material', 'name'],
+      dataIndex: 'material',
       width: 120,
-      onCell(record: Material, index: number | undefined) {
+      onCell(record: Material) {
         return {
           record,
           title: '分类',
           dataIndex: 'material',
-          editing: isEditing(index, key),
+          editing: false,
           inputType: 'type',
           initialValue: `${record?.material ?? ''}`,
         } as EditableCellProps
@@ -142,7 +137,7 @@ const generateColumns = (emit?: CellEmit, key?: number | undefined): ColumnProps
             <Button
               type='text'
               onClick={() => {
-                emit?.('save', record?.id, record, index)
+                emit?.('save', record, index)
               }}
               style={{
                 color: '#00B2B6',
@@ -153,7 +148,7 @@ const generateColumns = (emit?: CellEmit, key?: number | undefined): ColumnProps
             <Button
               type='text'
               onClick={() => {
-                emit?.('cancel', record?.id, record, index)
+                emit?.('cancel', record, index)
               }}
             >
               取消
@@ -164,13 +159,13 @@ const generateColumns = (emit?: CellEmit, key?: number | undefined): ColumnProps
             <Svg
               name='btn-edit-h'
               onClick={() => {
-                emit?.('edit', record.id, record, index)
+                emit?.('edit', record, index)
               }}
             />
             <Svg
               name='btn-del-h'
               onClick={() => {
-                emit?.('del', record?.id, record, index)
+                emit?.('del', record, index)
               }}
             />
           </span>
@@ -204,7 +199,7 @@ function EditMaterialsTable({ data, editingKey, emit, form }: EditMaterialsTable
         columns={columns}
         pagination={false}
         className={styles.table}
-        rowKey={item => item.id + Math.random()}
+        rowKey={(item, idx) => `${item?.id ?? ''}-${idx}`}
       />
     </Form>
   )

@@ -14,7 +14,7 @@ function OrderMHHeader({ id, name }: OrderMHeaderProps) {
           <SubNav
             links={[
               { name: '订单', url: '/order' },
-              { name: '原材料', url: '/order/material/' + id + '?name=' + name },
+              { name: '原材料', url: '/order/material?id=' + id + '&name=' + name },
               { name: '历史', url: '#' },
             ]}
           />

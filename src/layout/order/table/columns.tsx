@@ -6,7 +6,7 @@ import Link from 'next/link'
 import EditModalView, { EditModalViewProps } from '../modal/edit-modal'
 import HistoryModalView, { HistoryModalViewProps } from '../modal/history-modal'
 
-import type { TOrder } from '../order'
+import type { TOrder } from '../order.d'
 import { useGlobalModal, ColumnProps } from '../../../components'
 import moment from 'moment'
 
@@ -26,7 +26,7 @@ function EditButton({ order }: EditModalViewProps) {
 
 function AddButton({ id, name }: { id: string; name: string }) {
   return id ? (
-    <Link href={`/order/material/${id}?name=${name}`}>
+    <Link href={`/order/material?id=${id}&name=${name}`}>
       <Tooltip title='原材料预定'>
         <FileAddOutlined style={{ color: '#00B2B6' }} />
       </Tooltip>

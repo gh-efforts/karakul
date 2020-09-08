@@ -2,7 +2,7 @@ import React from 'react'
 import { MinusCircleOutlined } from '@ant-design/icons'
 import { WarehouseType, useDeleteWarehouseApi } from '../service'
 import { ColumnProps } from 'antd/lib/table'
-import { message, useGlobalModal } from 'src/components'
+import { message, useGlobalModal } from '../../../components'
 import { useRouter } from 'next/router'
 import moment from 'moment'
 

@@ -7,7 +7,7 @@ import type { FormInstance } from 'antd/lib/form'
 import styles from './index.module.scss'
 import { Svg, MaterialsSelect } from '../../../components'
 
-import { Material } from '../material'
+import { Material } from '../material.d'
 
 interface EditableCellProps extends React.EmbedHTMLAttributes<HTMLElement> {
   editing?: boolean
@@ -54,13 +54,17 @@ function EditableCell({
 
 const isEditing = (record: Material, key: string | undefined) => record?.id === key
 
-export type CellEmit = (type: 'edit' | 'cancel' | 'save' | 'del', id?: string, record?: Material) => void
+export type CellEmit = (
+  type: 'edit' | 'cancel' | 'save' | 'del',
+  id?: string | undefined | null,
+  record?: Material
+) => void
 
 const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps<Material>[] => {
   return [
     {
       title: '分类',
-      dataIndex: ['material', 'name'],
+      dataIndex: 'material',
       width: 120,
       onCell(record: Material) {
         return {
@@ -136,7 +140,7 @@ const generateColumns = (emit?: CellEmit, key?: string | undefined): ColumnProps
             <Svg
               name='btn-edit-h'
               onClick={() => {
-                emit?.('edit', '', record)
+                emit?.('edit', record?.id)
               }}
             />
             <Svg
@@ -176,7 +180,7 @@ function CreateMaterialsTable({ data, editingKey, emit, form }: CreateMaterialsT
         columns={columns}
         pagination={false}
         className={styles.table}
-        rowKey={item => item.id}
+        rowKey='id'
       />
     </Form>
   )

@@ -680,11 +680,6 @@ type Commodity {
   """
 
   """
-  warehouse: Warehouse
-
-  """
-
-  """
   commodity_type: CommodityType
 
   """
@@ -706,6 +701,11 @@ type Commodity {
 
   """
   outbound_user: UsersPermissionsUser
+
+  """
+
+  """
+  warehouse: Warehouse
 
   """
 
@@ -926,6 +926,21 @@ type OrderHistory {
 """
 
 """
+enum ENUM_COMMODITY_STATE {
+  """
+
+  """
+  in
+
+  """
+
+  """
+  out
+}
+
+"""
+
+"""
 type Warehouse {
   """
 
@@ -966,21 +981,11 @@ type Warehouse {
 
   """
   updated_by: AdminUser
-}
-
-"""
-
-"""
-enum ENUM_COMMODITY_STATE {
-  """
-
-  """
-  in
 
   """
 
   """
-  out
+  commodities(sort: String, limit: Int, start: Int, where: JSON): [Commodity]
 }
 
 """
@@ -1050,11 +1055,6 @@ type CommodityGroupBy {
   """
 
   """
-  warehouse: [CommodityConnectionWarehouse]
-
-  """
-
-  """
   commodity_type: [CommodityConnectionCommodity_type]
 
   """
@@ -1076,6 +1076,11 @@ type CommodityGroupBy {
 
   """
   outbound_user: [CommodityConnectionOutbound_user]
+
+  """
+
+  """
+  warehouse: [CommodityConnectionWarehouse]
 
   """
 
@@ -1211,21 +1216,6 @@ type CommodityConnectionAccessories {
 """
 
 """
-type CommodityConnectionWarehouse {
-  """
-
-  """
-  key: ID
-
-  """
-
-  """
-  connection: CommodityConnection
-}
-
-"""
-
-"""
 type CommodityConnectionCommodity_type {
   """
 
@@ -1287,6 +1277,21 @@ type CommodityConnectionState {
 
 """
 type CommodityConnectionOutbound_user {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionWarehouse {
   """
 
   """
@@ -1605,12 +1610,12 @@ union Morph =
   | CommodityConnectionOrder
   | CommodityConnectionCode
   | CommodityConnectionAccessories
-  | CommodityConnectionWarehouse
   | CommodityConnectionCommodity_type
   | CommodityConnectionDestination
   | CommodityConnectionDelivery_time
   | CommodityConnectionState
   | CommodityConnectionOutbound_user
+  | CommodityConnectionWarehouse
   | CommodityConnectionCreated_by
   | CommodityConnectionUpdated_by
   | createCommodityPayload
@@ -5249,11 +5254,6 @@ input CommodityInput {
   """
 
   """
-  warehouse: ID
-
-  """
-
-  """
   commodity_type: ID
 
   """
@@ -5275,6 +5275,11 @@ input CommodityInput {
 
   """
   outbound_user: ID
+
+  """
+
+  """
+  warehouse: ID
 
   """
 
@@ -5329,11 +5334,6 @@ input editCommodityInput {
   """
 
   """
-  warehouse: ID
-
-  """
-
-  """
   commodity_type: ID
 
   """
@@ -5355,6 +5355,11 @@ input editCommodityInput {
 
   """
   outbound_user: ID
+
+  """
+
+  """
+  warehouse: ID
 
   """
 
@@ -5999,6 +6004,11 @@ input WarehouseInput {
   """
 
   """
+  commodities: [ID]
+
+  """
+
+  """
   created_by: ID
 
   """
@@ -6035,6 +6045,11 @@ input editWarehouseInput {
 
   """
   user: ID
+
+  """
+
+  """
+  commodities: [ID]
 
   """
 
