@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { withLayout } from '../../layout/layout'
 import GoodsWarehouseHeader from '../../layout/goods-warehouse/header'
 import { KTable } from '../../components'
 import columns from '../../layout/goods-warehouse/table/column'
 import styles from './index.module.scss'
-import { filterPaginationValue } from '../../helpers/params'
+import { pageToStart } from '../../helpers/params'
 import { fetchWarehouses, WarehouseType } from '../../layout/goods-warehouse/service'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
 import { ParsedUrlQuery } from 'querystring'
@@ -14,11 +14,11 @@ import { useRouter } from 'next/router'
 
 export const getServerSideProps = async ({
   req: { headers },
-  query: { limit, start },
+  query: { page, size },
 }: GetServerSidePropsContext<ParsedUrlQuery>): Promise<{
-  props: { data: WarehouseType[]; limit: number; total: number }
+  props: { data: WarehouseType[]; page: number; size: number; total: number }
 }> => {
-  const [$limit, $start] = filterPaginationValue(limit, start)
+  const [$start, $limit, $page, $size] = pageToStart(page, size)
 
   const data = await fetchWarehouses({
     Authorization: getValueFromCookie('Authorization', headers.cookie),
@@ -29,25 +29,25 @@ export const getServerSideProps = async ({
     props: {
       data: (data?.values ?? []) as WarehouseType[],
       total: data.aggregate?.count ?? 0,
-      limit: $limit,
+      page: $page,
+      size: $size,
     },
   }
 }
 
 function GoodsWarehouse({
   data,
-  limit,
   total,
+  page,
+  size,
 }: InferGetServerSidePropsType<typeof getServerSideProps>): React.ReactElement {
   const route = useRouter()
-  const [current, setCurrent] = useState(1)
-  const onPageChange = (page: number, size?: number) => {
-    setCurrent(page)
+  const onPageChange = (p: number, s?: number) => {
     route.replace({
       pathname: '/goods-warehouse',
       query: {
-        limit: size || 10,
-        start: (page - 1) * (size || 10),
+        page: p,
+        size: s,
       },
     })
   }
@@ -58,8 +58,8 @@ function GoodsWarehouse({
         data={(data ?? []) as WarehouseType[]}
         columns={columns}
         total={total}
-        currentPage={current}
-        pageSize={limit}
+        currentPage={page}
+        pageSize={size}
         rowKey={item => item.id}
         onPageChange={onPageChange}
       />
