@@ -26,11 +26,11 @@ export default function Login({ backendUrl }: { backendUrl: string }): React.Rea
       </div>
       <div className={styles.content}>
         <div className={styles['action-wrapper']}>
-          <ActionButton>
-            <Link href={`${backendUrl}/connect/feishu`}>
+          <Link href={`${backendUrl}/connect/feishu`}>
+            <ActionButton>
               <span>飞书登录</span>
-            </Link>
-          </ActionButton>
+            </ActionButton>
+          </Link>
         </div>
         <div className={styles.welcome}>
           <img className={styles.logo} src='/images/logo-inverse.svg' alt='logo' />
