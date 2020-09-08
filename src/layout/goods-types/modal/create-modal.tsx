@@ -1,21 +1,20 @@
-import React, { useState } from 'react'
-import { Input, Divider } from 'antd'
+import React from 'react'
+import { Input, Divider, Form } from 'antd'
 
 import { ModalButtonGroup, useGlobalModal, message } from '../../../components'
 import styles from './index.module.scss'
 import { useCreateCommodityTypeApi } from '../service'
 import { useRouter } from 'next/router'
+import { Store } from 'antd/lib/form/interface'
 
 export default function CreateModalView() {
-  const [name, setname] = useState('')
   const { hideModal } = useGlobalModal()
   const { submit: create, loading } = useCreateCommodityTypeApi()
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target
-    setname(value)
-  }
+  const [form] = Form.useForm()
+
   const router = useRouter()
-  const onOK = () => {
+  const onOK = (values: Store) => {
+    const { name } = values
     if (name) {
       create(name)
         .then(() => {
@@ -31,9 +30,15 @@ export default function CreateModalView() {
 
   return (
     <div className={styles['create-modal']}>
-      <Input placeholder='请输入商品类型' onChange={onChange} />
-      <Divider />
-      <ModalButtonGroup OKText={'创建'} onOK={onOK} loading={loading} className={styles.btns} position='left' />
+      <Form form={form} onFinish={onOK}>
+        <Form.Item name='name' rules={[{ required: true, message: '请输入商品类型' }]}>
+          <Input placeholder='请输入商品类型' />
+        </Form.Item>
+        <Form.Item>
+          <Divider />
+          <ModalButtonGroup OKText={'创建'} loading={loading} className={styles.btns} position='left' />
+        </Form.Item>
+      </Form>
     </div>
   )
 }
