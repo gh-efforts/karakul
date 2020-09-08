@@ -1,5 +1,7 @@
 import { MaterialsInput, OrderMaterial } from '../../../services'
 export type Material = Pick<MaterialsInput, 'id' | 'amount' | 'material' | 'model' | 'action'>
+
+export type EditMaterial = Pick<MaterialsInput, 'id' | 'amount' | 'material' | 'action'>
 export type Remark = Pick<UpdateOrderMaterialsInput, 'attachment' | 'attachment_desc' | 'remark'>
 
 export type OrderMaterialType = Pick<

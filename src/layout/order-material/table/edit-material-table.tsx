@@ -90,12 +90,12 @@ const generateColumns = (emit?: CellEmit, key?: number | undefined): ColumnProps
       title: '型号',
       dataIndex: 'model',
       width: 120,
-      onCell(record: Material, index: number | undefined) {
+      onCell(record: Material) {
         return {
           record,
           title: '型号',
           dataIndex: 'model',
-          editing: isEditing(index, key),
+          editing: false,
           initialValue: record?.model,
         } as EditableCellProps
       },

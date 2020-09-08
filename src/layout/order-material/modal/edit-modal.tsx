@@ -34,7 +34,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
       tableForm.setFieldsValue({
         id: record?.id,
         amount: record?.amount,
-        material: `${record?.material?.id?.trim() ?? ''}__${record?.material?.name?.trim() ?? ''}`,
+        material: `${record?.material?.name?.trim() ?? ''}__${record?.model?.trim() ?? ''}`,
         model: record?.model,
         action: record?.action as ActionType,
       } as Material)
@@ -53,9 +53,9 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
   // 保存编辑单元格
   const save = useCallback(
     (id, index) => {
-      const { amount, material, model, action } = tableForm.getFieldsValue()
+      const { amount, material, action } = tableForm.getFieldsValue()
 
-      const [mid, mname] = getRealValue(material)
+      const [mname, model] = getRealValue(material)
 
       setData(d =>
         d.map((i, _index) => {
@@ -67,7 +67,7 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
             model,
             id,
             material: {
-              id: mid,
+              id: id,
               name: mname,
             },
             action,

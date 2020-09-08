@@ -15,7 +15,7 @@ import { ActionTypeMap, ActionType } from '../service'
 const { Option } = Select
 export interface EditFormProps {
   orderId?: string
-  onSubmit: ({ id, amount, material, model }: Material) => void
+  onSubmit: ({ id, amount, material }: Material) => void
 }
 
 export const ActionTypeOptions = Object.keys(ActionTypeMap)
@@ -34,15 +34,15 @@ export default function EditForm({ orderId, onSubmit }: EditFormProps) {
   const [form] = Form.useForm()
 
   const onFinish = (values: Store) => {
-    const { amount, material, model, action } = values
+    const { amount, material, action } = values
 
-    if (amount && material && model && action) {
-      const [mid, mname] = getRealValue(material)
+    if (amount && material && action) {
+      const [mid, mname, model] = getRealValue(material)
       const KMaterial = {
         id: mid,
         name: mname,
       }
-
+      console.log(KMaterial)
       onSubmit({ id: mid, amount, material: KMaterial, model, action: action as ActionType })
       form.resetFields()
     }
@@ -56,9 +56,6 @@ export default function EditForm({ orderId, onSubmit }: EditFormProps) {
     <div className={styles['edit-form']}>
       <Form layout={'inline'} form={form} onFinish={onFinish} onReset={onReset}>
         <OrderMaterialsSelect name='material' noLabel style={{ width: 180 }} required id={orderId} />
-        <Form.Item name='model'>
-          <Input size='large' placeholder='请输入型号' />
-        </Form.Item>
         <Form.Item name='amount'>
           <Input size='large' type={'number'} placeholder='请输入数量' />
         </Form.Item>
