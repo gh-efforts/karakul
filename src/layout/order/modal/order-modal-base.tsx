@@ -57,18 +57,15 @@ function ModalBase({ onOK, OKText, loading, initialValues }: ModalBase) {
     <div className={styles.box}>
       <div className={styles.title}>
         <span>订单名称</span>
-        <span>详情</span>
         <span>数量</span>
         <span>交付时间</span>
       </div>
 
-      <Form className={styles.form} onFinish={onFinish} initialValues={initialVals}>
+      <Form className={styles.form} onFinish={onFinish} initialValues={initialVals} layout={'vertical'}>
         <Form.Item name='name'>
           <Input placeholder='请输入订单名称' allowClear />
         </Form.Item>
-        <Form.Item name='detail'>
-          <Input placeholder='请输入详情' allowClear />
-        </Form.Item>
+
         <Form.Item name='amount'>
           <InputNumber placeholder='请输入数量' formatter={formatter} parser={parser} />
         </Form.Item>
@@ -76,6 +73,9 @@ function ModalBase({ onOK, OKText, loading, initialValues }: ModalBase) {
           <DatePicker placeholder='请选择交付时间' format='YYYY.MM.DD' />
         </Form.Item>
         <div className={styles.horizontal} />
+        <Form.Item name='detail' label='详情' className={styles.detail}>
+          <Input.TextArea rows={10} placeholder='请输入详情' allowClear />
+        </Form.Item>
         <ModalButtonGroup OKText={OKText} loading={loading} className={styles.btns} position='left' />
       </Form>
     </div>

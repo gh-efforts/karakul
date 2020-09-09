@@ -9,7 +9,7 @@ function OrderHeader() {
   const { showModal } = useGlobalModal()
 
   const showCreateModal = () => {
-    showModal('创建订单', CreateModalView, {}, 1072)
+    showModal('创建订单', CreateModalView, {})
   }
 
   return (
