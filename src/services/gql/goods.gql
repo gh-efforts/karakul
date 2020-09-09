@@ -1,6 +1,6 @@
 # 商品页订单详情
-query GoodsOrders($sort: String, $limit: Int, $start: Int, $where: JSON) {
-  orders: ordersConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+query GoodsOrders($limit: Int, $start: Int, $where: JSON) {
+  orders: ordersConnection(sort: "createdAt:desc", limit: $limit, start: $start, where: $where) {
     values {
       id
       name
@@ -17,7 +17,7 @@ query GoodsOrders($sort: String, $limit: Int, $start: Int, $where: JSON) {
 query OrderCommodities($id: ID!) {
   order(id: $id) {
     id
-    commodities(start: 0, limit: 1000) {
+    commodities(start: 0, limit: 1000, sort: "createdAt:desc") {
       id
       code
       commodity_type {
@@ -111,9 +111,9 @@ mutation UpdateCommodity($id: ID!, $data: editCommodityInput) {
 }
 
 # 提货记录
-query ExWarehouseHistory($sort: String, $limit: Int, $start: Int, $orderId: ID) {
+query ExWarehouseHistory($limit: Int, $start: Int, $orderId: ID) {
   commodities: commoditiesConnection(
-    sort: $sort
+    sort: "createdAt:desc"
     limit: $limit
     start: $start
     where: { order: $orderId, state: "out" }
@@ -128,7 +128,7 @@ query ExWarehouseHistory($sort: String, $limit: Int, $start: Int, $orderId: ID) 
       }
       outbound_user {
         username
-      }      
+      }
     }
     aggregate {
       count
@@ -137,9 +137,9 @@ query ExWarehouseHistory($sort: String, $limit: Int, $start: Int, $orderId: ID) 
 }
 
 # 商品库存
-query CommoditiesInWarehouse($sort: String, $limit: Int, $start: Int, $orderId: ID) {
+query CommoditiesInWarehouse($limit: Int, $start: Int, $orderId: ID) {
   commodities: commoditiesConnection(
-    sort: $sort
+    sort: "createdAt:desc"
     limit: $limit
     start: $start
     where: { order: $orderId, state: "in" }

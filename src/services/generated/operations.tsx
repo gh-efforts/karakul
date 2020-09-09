@@ -71,7 +71,6 @@ export type MultipleUploadMutation = {
 }
 
 export type GoodsOrdersQueryVariables = Types.Exact<{
-  sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
   start?: Types.Maybe<Types.Scalars['Int']>
   where?: Types.Maybe<Types.Scalars['JSON']>
@@ -170,7 +169,6 @@ export type UpdateCommodityMutationVariables = Types.Exact<{
 export type UpdateCommodityMutation = { res?: Types.Maybe<{ commodity?: Types.Maybe<Pick<Types.Commodity, 'id'>> }> }
 
 export type ExWarehouseHistoryQueryVariables = Types.Exact<{
-  sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
   start?: Types.Maybe<Types.Scalars['Int']>
   orderId?: Types.Maybe<Types.Scalars['ID']>
@@ -193,7 +191,6 @@ export type ExWarehouseHistoryQuery = {
 }
 
 export type CommoditiesInWarehouseQueryVariables = Types.Exact<{
-  sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
   start?: Types.Maybe<Types.Scalars['Int']>
   orderId?: Types.Maybe<Types.Scalars['ID']>
@@ -225,7 +222,6 @@ export type OrderHistoryFragment = Pick<
 }
 
 export type OmHrysQueryVariables = Types.Exact<{
-  sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
   start?: Types.Maybe<Types.Scalars['Int']>
   where?: Types.Maybe<Types.Scalars['JSON']>
@@ -243,7 +239,6 @@ export type OrderMaterialsQueryVariables = Types.Exact<{
   limit?: Types.Maybe<Types.Scalars['Int']>
   start?: Types.Maybe<Types.Scalars['Int']>
   where?: Types.Maybe<Types.Scalars['JSON']>
-  sort?: Types.Maybe<Types.Scalars['String']>
 }>
 
 export type OrderMaterialsQuery = {
@@ -263,7 +258,6 @@ export type OrderMaterialsConnectionQueryVariables = Types.Exact<{
   limit?: Types.Maybe<Types.Scalars['Int']>
   start?: Types.Maybe<Types.Scalars['Int']>
   where?: Types.Maybe<Types.Scalars['JSON']>
-  sort?: Types.Maybe<Types.Scalars['String']>
 }>
 
 export type OrderMaterialsConnectionQuery = {
@@ -333,7 +327,6 @@ export type OrderFragment = Pick<
 > & { user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'username'>> }
 
 export type OrdersQueryVariables = Types.Exact<{
-  sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
   start?: Types.Maybe<Types.Scalars['Int']>
   where?: Types.Maybe<Types.Scalars['JSON']>
@@ -348,7 +341,6 @@ export type OrderQueryVariables = Types.Exact<{
 export type OrderQuery = { order?: Types.Maybe<OrderFragment> }
 
 export type OrdersConnectionQueryVariables = Types.Exact<{
-  sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
   start?: Types.Maybe<Types.Scalars['Int']>
   where?: Types.Maybe<Types.Scalars['JSON']>
@@ -375,7 +367,6 @@ export type UpdateOrderMutationVariables = Types.Exact<{
 export type UpdateOrderMutation = { updateOldOrder?: Types.Maybe<{ order?: Types.Maybe<OrderFragment> }> }
 
 export type OrderHistoriesConnectionQueryVariables = Types.Exact<{
-  sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
   start?: Types.Maybe<Types.Scalars['Int']>
   id: Types.Scalars['ID']
@@ -398,7 +389,6 @@ export type OrderHistoriesConnectionQuery = {
 }
 
 export type CommodityTypesQueryVariables = Types.Exact<{
-  sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
   start?: Types.Maybe<Types.Scalars['Int']>
   where?: Types.Maybe<Types.Scalars['JSON']>
@@ -463,7 +453,6 @@ export type DeleteCommodityTypeMutation = {
 }
 
 export type WarehousesQueryVariables = Types.Exact<{
-  sort?: Types.Maybe<Types.Scalars['String']>
   limit?: Types.Maybe<Types.Scalars['Int']>
   start?: Types.Maybe<Types.Scalars['Int']>
   where?: Types.Maybe<Types.Scalars['JSON']>

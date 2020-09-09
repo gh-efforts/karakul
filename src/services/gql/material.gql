@@ -13,8 +13,8 @@ fragment orderHistory on OrderMaterialHistory {
   }
 }
 
-query OMHrys($sort: String, $limit: Int, $start: Int, $where: JSON) {
-  hrys: orderMaterialHistories(sort: $sort, limit: $limit, start: $start, where: $where) {
+query OMHrys($limit: Int, $start: Int, $where: JSON) {
+  hrys: orderMaterialHistories(sort: "createdAt:desc", limit: $limit, start: $start, where: $where) {
     ...orderHistory
   }
 }
@@ -25,8 +25,8 @@ query OMHry($id: ID!) {
   }
 }
 
-query OrderMaterials($limit: Int, $start: Int, $where: JSON, $sort: String) {
-  orderMaterials(limit: $limit, start: $start, where: $where, sort: $sort) {
+query OrderMaterials($limit: Int, $start: Int, $where: JSON) {
+  orderMaterials(limit: $limit, start: $start, where: $where, sort: "createdAt:desc") {
     id
     createdAt
     updatedAt
@@ -43,8 +43,8 @@ query OrderMaterials($limit: Int, $start: Int, $where: JSON, $sort: String) {
   }
 }
 
-query OrderMaterialsConnection($limit: Int, $start: Int, $where: JSON, $sort: String) {
-  orderMaterialsConnection(limit: $limit, start: $start, where: $where, sort: $sort) {
+query OrderMaterialsConnection($limit: Int, $start: Int, $where: JSON) {
+  orderMaterialsConnection(limit: $limit, start: $start, where: $where, sort: "createdAt:desc") {
     values {
       id
       createdAt
@@ -80,7 +80,7 @@ mutation UpdateOrderMaterials($input: UpdateOrderMaterialsInput) {
 }
 
 query OrderMaterialHistoriesConnection($limit: Int, $start: Int, $id: ID) {
-  orderMaterialHistoriesConnection(limit: $limit, start: $start, where: { order_id: $id }) {
+  orderMaterialHistoriesConnection(limit: $limit, start: $start, where: { order_id: $id }, sort: "createdAt:desc") {
     values {
       id
       createdAt

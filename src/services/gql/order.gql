@@ -11,8 +11,8 @@ fragment order on Order {
   }
 }
 
-query Orders($sort: String, $limit: Int, $start: Int, $where: JSON) {
-  orders(sort: $sort, limit: $limit, start: $start, where: $where) {
+query Orders($limit: Int, $start: Int, $where: JSON) {
+  orders(sort: "createdAt:desc", limit: $limit, start: $start, where: $where) {
     ...order
   }
 }
@@ -23,8 +23,8 @@ query Order($id: ID!) {
   }
 }
 
-query OrdersConnection($sort: String, $limit: Int, $start: Int, $where: JSON) {
-  ordersConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+query OrdersConnection($limit: Int, $start: Int, $where: JSON) {
+  ordersConnection(sort: "createdAt:desc", limit: $limit, start: $start, where: $where) {
     values {
       ...order
     }
@@ -50,8 +50,8 @@ mutation UpdateOrder($id: ID!, $data: editOrderInput) {
   }
 }
 
-query OrderHistoriesConnection($sort: String, $limit: Int, $start: Int, $id: ID!) {
-  orderHistoriesConnection(sort: $sort, limit: $limit, start: $start, where: { order: $id }) {
+query OrderHistoriesConnection($limit: Int, $start: Int, $id: ID!) {
+  orderHistoriesConnection(sort: "createdAt:desc", limit: $limit, start: $start, where: { order: $id }) {
     values {
       id
       createdAt
