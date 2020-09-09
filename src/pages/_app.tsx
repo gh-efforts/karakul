@@ -21,10 +21,6 @@ Router.events.on('routeChangeStart', () => NProgress.start())
 Router.events.on('routeChangeComplete', () => NProgress.done())
 Router.events.on('routeChangeError', () => NProgress.done())
 
-const {
-  publicRuntimeConfig: { BUILD_HASH },
-} = getConfig()
-
 interface TAppInitialProps extends AppInitialProps {
   cookie: CookieType
 }
@@ -65,15 +61,8 @@ class MyApp extends App<{ cookie: any }> {
     return (
       <>
         <Head>
-          <link rel='icon' href='/favicon.ico' />
-          <meta name='viewport' content='width=device-width, initial-scale=1' />
-          <meta name='theme-color' content='#000000' />
-          <link rel='manifest' href='/manifest.json' />
-          <meta name='description' content='字节方舟生产流程管理后台' />
-          <link rel='apple-touch-icon' href='/logo192.png' />
           <title>字节方舟生产流程管理后台</title>
-          <link rel='stylesheet' href='/css/nprogress.css' />
-          <meta name='version-control' content={BUILD_HASH} />
+          <meta name='viewport' content='width=device-width, initial-scale=1' />
         </Head>
         <ApolloProvider client={client}>
           <ConfigProvider locale={ZhCN}>
