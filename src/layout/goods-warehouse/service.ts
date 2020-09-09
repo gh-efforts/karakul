@@ -7,6 +7,7 @@ import {
   WarehouseConnection,
   useCreateWarehouseMutation,
   useDeleteWarehouseMutation,
+  useUpdateWarehouseMutation,
 } from '../../services'
 import { getLocalStore } from '../../helpers/cookie'
 export type WarehouseType = Pick<Warehouse, 'id' | 'createdAt' | 'updatedAt' | 'name' | 'user'>
@@ -46,6 +47,26 @@ function useCreateWarehouseApi() {
   }
 }
 
+function useUpdateWarehouseApi() {
+  const [updateWarehouse, { loading }] = useUpdateWarehouseMutation()
+
+  const user = getLocalStore('userId') || ''
+  const submit = async (id: string, name: string) => {
+    await updateWarehouse({
+      variables: {
+        id,
+        data: { name, user },
+      },
+      fetchPolicy: 'no-cache',
+    })
+  }
+
+  return {
+    submit,
+    loading,
+  }
+}
+
 function useDeleteWarehouseApi() {
   const [deleteWarehouse, { loading }] = useDeleteWarehouseMutation()
 
@@ -63,4 +84,4 @@ function useDeleteWarehouseApi() {
     loading,
   }
 }
-export { fetchWarehouses, useCreateWarehouseApi, useDeleteWarehouseApi }
+export { fetchWarehouses, useCreateWarehouseApi, useDeleteWarehouseApi, useUpdateWarehouseApi }

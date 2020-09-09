@@ -1,13 +1,29 @@
 import React from 'react'
-import { MinusCircleOutlined } from '@ant-design/icons'
+import { MinusCircleOutlined, EditOutlined } from '@ant-design/icons'
 import { CommodityTypeType, useDeleteCommodityTypeApi } from '../service'
 import { ColumnProps } from 'antd/lib/table'
 import { message, useGlobalModal } from '../../../components'
 import { useRouter } from 'next/router'
 import moment from 'moment'
+import UpdateModalView, { UpdateModalViewProps } from '../modal/edit-modal'
+import { Tooltip } from 'antd'
 
 interface DeleteButtonProps {
   id: string
+}
+
+function EditButton({ id, name }: UpdateModalViewProps): React.ReactElement {
+  const { showModal } = useGlobalModal()
+
+  const show = () => {
+    showModal('修改分类', UpdateModalView, { id, name }, 400)
+  }
+
+  return (
+    <Tooltip title='修改分类'>
+      <EditOutlined style={{ color: '#FF9C7C' }} onClick={show} />
+    </Tooltip>
+  )
 }
 
 function DeleteButton({ id }: DeleteButtonProps) {
@@ -52,6 +68,7 @@ const columns: ColumnProps<CommodityTypeType>[] = [
     render(_text: string, record: CommodityTypeType) {
       return (
         <span className='table-operation-group'>
+          <EditButton id={record.id} name={record.name ?? ''} />
           <DeleteButton id={record.id} />
         </span>
       )

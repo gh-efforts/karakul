@@ -1018,6 +1018,43 @@ export type CreateCommodityTypeMutationOptions = Apollo.BaseMutationOptions<
   Types.CreateCommodityTypeMutation,
   Types.CreateCommodityTypeMutationVariables
 >
+export const UpdateCommodityTypeDocument = gql`
+  mutation UpdateCommodityType($id: ID!, $data: editCommodityTypeInput) {
+    updateCommodityType(input: { where: { id: $id }, data: $data }) {
+      commodityType {
+        id
+        createdAt
+        updatedAt
+        name
+        user {
+          id
+          username
+        }
+      }
+    }
+  }
+`
+export type UpdateCommodityTypeMutationFn = Apollo.MutationFunction<
+  Types.UpdateCommodityTypeMutation,
+  Types.UpdateCommodityTypeMutationVariables
+>
+export function useUpdateCommodityTypeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.UpdateCommodityTypeMutation,
+    Types.UpdateCommodityTypeMutationVariables
+  >
+) {
+  return Apollo.useMutation<Types.UpdateCommodityTypeMutation, Types.UpdateCommodityTypeMutationVariables>(
+    UpdateCommodityTypeDocument,
+    baseOptions
+  )
+}
+export type UpdateCommodityTypeMutationHookResult = ReturnType<typeof useUpdateCommodityTypeMutation>
+export type UpdateCommodityTypeMutationResult = Apollo.MutationResult<Types.UpdateCommodityTypeMutation>
+export type UpdateCommodityTypeMutationOptions = Apollo.BaseMutationOptions<
+  Types.UpdateCommodityTypeMutation,
+  Types.UpdateCommodityTypeMutationVariables
+>
 export const DeleteCommodityTypeDocument = gql`
   mutation DeleteCommodityType($id: ID!) {
     deleteCommodityType(input: { where: { id: $id } }) {
