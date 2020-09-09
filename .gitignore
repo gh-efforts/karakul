@@ -24,3 +24,4 @@ report.**.json
 .next
 dist
 /version.js
+.vercel
