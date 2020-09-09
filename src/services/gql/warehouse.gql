@@ -1,5 +1,5 @@
-query Warehouses($sort: String, $limit: Int, $start: Int, $where: JSON) {
-  warehousesConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+query Warehouses($limit: Int, $start: Int, $where: JSON) {
+  warehousesConnection(sort: "createdAt:desc", limit: $limit, start: $start, where: $where) {
     values {
       id
       createdAt

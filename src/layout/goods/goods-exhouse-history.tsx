@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './modal.module.scss'
 import { KTable } from '../../components'
 import { ExWarehouseHistoryQuery, useExWarehouseHistoryQuery } from '../../services'
+import moment from 'moment'
 
 interface GoodsHistoryViewProps {
   id?: string
@@ -25,6 +26,7 @@ const columns = [
   {
     title: '出库时间',
     dataIndex: 'delivery_time',
+    render: (text: string) => moment(text).format('YYYY-MM-DD hh:mm:ss'),
   },
   {
     title: '操作人',

@@ -110,8 +110,8 @@ export type MultipleUploadMutationOptions = Apollo.BaseMutationOptions<
   Types.MultipleUploadMutationVariables
 >
 export const GoodsOrdersDocument = gql`
-  query GoodsOrders($sort: String, $limit: Int, $start: Int, $where: JSON) {
-    orders: ordersConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+  query GoodsOrders($limit: Int, $start: Int, $where: JSON) {
+    orders: ordersConnection(sort: "createdAt:desc", limit: $limit, start: $start, where: $where) {
       values {
         id
         name
@@ -140,7 +140,7 @@ export const OrderCommoditiesDocument = gql`
   query OrderCommodities($id: ID!) {
     order(id: $id) {
       id
-      commodities(start: 0, limit: 1000) {
+      commodities(start: 0, limit: 1000, sort: "createdAt:desc") {
         id
         code
         commodity_type {
@@ -395,9 +395,9 @@ export type UpdateCommodityMutationOptions = Apollo.BaseMutationOptions<
   Types.UpdateCommodityMutationVariables
 >
 export const ExWarehouseHistoryDocument = gql`
-  query ExWarehouseHistory($sort: String, $limit: Int, $start: Int, $orderId: ID) {
+  query ExWarehouseHistory($limit: Int, $start: Int, $orderId: ID) {
     commodities: commoditiesConnection(
-      sort: $sort
+      sort: "createdAt:desc"
       limit: $limit
       start: $start
       where: { order: $orderId, state: "out" }
@@ -443,9 +443,9 @@ export type ExWarehouseHistoryQueryResult = Apollo.QueryResult<
   Types.ExWarehouseHistoryQueryVariables
 >
 export const CommoditiesInWarehouseDocument = gql`
-  query CommoditiesInWarehouse($sort: String, $limit: Int, $start: Int, $orderId: ID) {
+  query CommoditiesInWarehouse($limit: Int, $start: Int, $orderId: ID) {
     commodities: commoditiesConnection(
-      sort: $sort
+      sort: "createdAt:desc"
       limit: $limit
       start: $start
       where: { order: $orderId, state: "in" }
@@ -496,8 +496,8 @@ export type CommoditiesInWarehouseQueryResult = Apollo.QueryResult<
   Types.CommoditiesInWarehouseQueryVariables
 >
 export const OmHrysDocument = gql`
-  query OMHrys($sort: String, $limit: Int, $start: Int, $where: JSON) {
-    hrys: orderMaterialHistories(sort: $sort, limit: $limit, start: $start, where: $where) {
+  query OMHrys($limit: Int, $start: Int, $where: JSON) {
+    hrys: orderMaterialHistories(sort: "createdAt:desc", limit: $limit, start: $start, where: $where) {
       ...orderHistory
     }
   }
@@ -534,8 +534,8 @@ export type OmHryQueryHookResult = ReturnType<typeof useOmHryQuery>
 export type OmHryLazyQueryHookResult = ReturnType<typeof useOmHryLazyQuery>
 export type OmHryQueryResult = Apollo.QueryResult<Types.OmHryQuery, Types.OmHryQueryVariables>
 export const OrderMaterialsDocument = gql`
-  query OrderMaterials($limit: Int, $start: Int, $where: JSON, $sort: String) {
-    orderMaterials(limit: $limit, start: $start, where: $where, sort: $sort) {
+  query OrderMaterials($limit: Int, $start: Int, $where: JSON) {
+    orderMaterials(limit: $limit, start: $start, where: $where, sort: "createdAt:desc") {
       id
       createdAt
       updatedAt
@@ -575,8 +575,8 @@ export type OrderMaterialsQueryResult = Apollo.QueryResult<
   Types.OrderMaterialsQueryVariables
 >
 export const OrderMaterialsConnectionDocument = gql`
-  query OrderMaterialsConnection($limit: Int, $start: Int, $where: JSON, $sort: String) {
-    orderMaterialsConnection(limit: $limit, start: $start, where: $where, sort: $sort) {
+  query OrderMaterialsConnection($limit: Int, $start: Int, $where: JSON) {
+    orderMaterialsConnection(limit: $limit, start: $start, where: $where, sort: "createdAt:desc") {
       values {
         id
         createdAt
@@ -684,7 +684,7 @@ export type UpdateOrderMaterialsMutationOptions = Apollo.BaseMutationOptions<
 >
 export const OrderMaterialHistoriesConnectionDocument = gql`
   query OrderMaterialHistoriesConnection($limit: Int, $start: Int, $id: ID) {
-    orderMaterialHistoriesConnection(limit: $limit, start: $start, where: { order_id: $id }) {
+    orderMaterialHistoriesConnection(limit: $limit, start: $start, where: { order_id: $id }, sort: "createdAt:desc") {
       values {
         id
         createdAt
@@ -760,8 +760,8 @@ export type MaterialsQueryHookResult = ReturnType<typeof useMaterialsQuery>
 export type MaterialsLazyQueryHookResult = ReturnType<typeof useMaterialsLazyQuery>
 export type MaterialsQueryResult = Apollo.QueryResult<Types.MaterialsQuery, Types.MaterialsQueryVariables>
 export const OrdersDocument = gql`
-  query Orders($sort: String, $limit: Int, $start: Int, $where: JSON) {
-    orders(sort: $sort, limit: $limit, start: $start, where: $where) {
+  query Orders($limit: Int, $start: Int, $where: JSON) {
+    orders(sort: "createdAt:desc", limit: $limit, start: $start, where: $where) {
       ...order
     }
   }
@@ -798,8 +798,8 @@ export type OrderQueryHookResult = ReturnType<typeof useOrderQuery>
 export type OrderLazyQueryHookResult = ReturnType<typeof useOrderLazyQuery>
 export type OrderQueryResult = Apollo.QueryResult<Types.OrderQuery, Types.OrderQueryVariables>
 export const OrdersConnectionDocument = gql`
-  query OrdersConnection($sort: String, $limit: Int, $start: Int, $where: JSON) {
-    ordersConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+  query OrdersConnection($limit: Int, $start: Int, $where: JSON) {
+    ordersConnection(sort: "createdAt:desc", limit: $limit, start: $start, where: $where) {
       values {
         ...order
       }
@@ -889,8 +889,8 @@ export type UpdateOrderMutationOptions = Apollo.BaseMutationOptions<
   Types.UpdateOrderMutationVariables
 >
 export const OrderHistoriesConnectionDocument = gql`
-  query OrderHistoriesConnection($sort: String, $limit: Int, $start: Int, $id: ID!) {
-    orderHistoriesConnection(sort: $sort, limit: $limit, start: $start, where: { order: $id }) {
+  query OrderHistoriesConnection($limit: Int, $start: Int, $id: ID!) {
+    orderHistoriesConnection(sort: "createdAt:desc", limit: $limit, start: $start, where: { order: $id }) {
       values {
         id
         createdAt
@@ -941,8 +941,8 @@ export type OrderHistoriesConnectionQueryResult = Apollo.QueryResult<
   Types.OrderHistoriesConnectionQueryVariables
 >
 export const CommodityTypesDocument = gql`
-  query CommodityTypes($sort: String, $limit: Int, $start: Int, $where: JSON) {
-    commodityTypesConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+  query CommodityTypes($limit: Int, $start: Int, $where: JSON) {
+    commodityTypesConnection(sort: "createdAt:desc", limit: $limit, start: $start, where: $where) {
       values {
         id
         createdAt
@@ -1093,8 +1093,8 @@ export type DeleteCommodityTypeMutationOptions = Apollo.BaseMutationOptions<
   Types.DeleteCommodityTypeMutationVariables
 >
 export const WarehousesDocument = gql`
-  query Warehouses($sort: String, $limit: Int, $start: Int, $where: JSON) {
-    warehousesConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+  query Warehouses($limit: Int, $start: Int, $where: JSON) {
+    warehousesConnection(sort: "createdAt:desc", limit: $limit, start: $start, where: $where) {
       values {
         id
         createdAt
