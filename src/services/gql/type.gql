@@ -1,5 +1,5 @@
-query CommodityTypes($sort: String, $limit: Int, $start: Int, $where: JSON) {
-  commodityTypesConnection(sort: $sort, limit: $limit, start: $start, where: $where) {
+query CommodityTypes($limit: Int, $start: Int, $where: JSON) {
+  commodityTypesConnection(sort: "createdAt:desc", limit: $limit, start: $start, where: $where) {
     values {
       id
       createdAt

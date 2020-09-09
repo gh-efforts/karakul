@@ -52,12 +52,6 @@ const columns: ColumnProps<WarehouseType>[] = [
     ellipsis: true,
   },
   {
-    title: '创建时间',
-    dataIndex: 'createdAt',
-    ellipsis: true,
-    render: text => moment(text).format('YYYY-MM-DD hh:mm:ss'),
-  },
-  {
     title: '创建人',
     dataIndex: ['user', 'username'],
   },

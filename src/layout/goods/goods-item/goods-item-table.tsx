@@ -7,6 +7,7 @@ import { OrderCommodity, SAccessory } from '../goods.d'
 
 import styles from './index.module.scss'
 import UpdateGoodsView from '../update-goods'
+import moment from 'moment'
 
 interface EditButtonProps {
   record: OrderCommodity
@@ -68,6 +69,7 @@ const GoodsNumColumns: ColumnProps<OrderCommodity>[] = [
   {
     title: '创建时间',
     dataIndex: ['createdAt'],
+    render: (text: string) => moment(text).format('YYYY-MM-DD hh:mm:ss'),
   },
   {
     title: '操作人',
