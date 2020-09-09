@@ -433,6 +433,21 @@ export type CreateCommodityTypeMutation = {
   }>
 }
 
+export type UpdateCommodityTypeMutationVariables = Types.Exact<{
+  id: Types.Scalars['ID']
+  data?: Types.Maybe<Types.EditCommodityTypeInput>
+}>
+
+export type UpdateCommodityTypeMutation = {
+  updateCommodityType?: Types.Maybe<{
+    commodityType?: Types.Maybe<
+      Pick<Types.CommodityType, 'id' | 'createdAt' | 'updatedAt' | 'name'> & {
+        user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'id' | 'username'>>
+      }
+    >
+  }>
+}
+
 export type DeleteCommodityTypeMutationVariables = Types.Exact<{
   id: Types.Scalars['ID']
 }>

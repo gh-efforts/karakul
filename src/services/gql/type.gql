@@ -31,6 +31,21 @@ mutation CreateCommodityType($data: CommodityTypeInput) {
   }
 }
 
+mutation UpdateCommodityType($id: ID!, $data: editCommodityTypeInput) {
+  updateCommodityType(input: { where: { id: $id }, data: $data }) {
+    commodityType {
+      id
+      createdAt
+      updatedAt
+      name
+      user {
+        id
+        username
+      }
+    }
+  }
+}
+
 mutation DeleteCommodityType($id: ID!) {
   deleteCommodityType(input: { where: { id: $id } }) {
     commodityType {
