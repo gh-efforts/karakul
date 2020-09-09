@@ -6,14 +6,14 @@
 
 .title {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   padding: 24px 32px;
   border-bottom: 1px solid #efefef;
 }
 
 .form {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 32px;
   padding-top: 24px;
   margin: 0 32px;
@@ -28,6 +28,10 @@
 
 .horizontal {
   border-bottom: 1px solid #efefef;
+  grid-column: 1 / 4;
+  margin-bottom: 32px;
+}
+.detail {
   grid-column: 1 / 4;
 }
 
