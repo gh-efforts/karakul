@@ -84,10 +84,16 @@ type FileList = File[]
 const normalizeFile = ({ fileList }: { fileList: FileList }) => fileList ?? []
 
 function beforeUpload(file: { type: string; size: number }) {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
+  const isFile =
+    file.type === 'image/*' ||
+    file.type === 'application/pdf' ||
+    file.type === '.application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+    file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+    file.type === 'application/vnd.ms-excel' ||
+    file.type === 'application/*'
 
-  if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!')
+  if (!isFile) {
+    message.error('请确认附件格式!')
   }
 
   const isLt2M = file.size / 1024 / 1024 < 2
@@ -96,7 +102,7 @@ function beforeUpload(file: { type: string; size: number }) {
     message.error('Image must smaller than 2MB!')
   }
 
-  return isJpgOrPng && isLt2M
+  return isFile && isLt2M
 }
 
 export function RemarkFrom({ form }: RenameFormProps) {

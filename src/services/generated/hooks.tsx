@@ -698,6 +698,8 @@ export const OrderMaterialHistoriesConnectionDocument = gql`
         attachment {
           id
           url
+          ext
+          name
         }
       }
       aggregate {

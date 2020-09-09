@@ -308,7 +308,7 @@ export type OrderMaterialHistoriesConnectionQuery = {
             'id' | 'createdAt' | 'updatedAt' | 'remark' | 'attachment_desc' | 'content'
           > & {
             user?: Types.Maybe<Pick<Types.UsersPermissionsUser, 'username'>>
-            attachment?: Types.Maybe<Array<Types.Maybe<Pick<Types.UploadFile, 'id' | 'url'>>>>
+            attachment?: Types.Maybe<Array<Types.Maybe<Pick<Types.UploadFile, 'id' | 'url' | 'ext' | 'name'>>>>
           }
         >
       >

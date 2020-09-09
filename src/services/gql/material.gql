@@ -94,6 +94,8 @@ query OrderMaterialHistoriesConnection($limit: Int, $start: Int, $id: ID) {
       attachment {
         id
         url
+        ext
+        name
       }
     }
     aggregate {
