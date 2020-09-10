@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { withLayout } from '../../layout/layout'
 import { KTable } from '../../components'
@@ -8,47 +9,23 @@ import OrderHeader from '../../layout/order/header'
 import type { TOrder } from '../../layout/order/order.d'
 
 import styles from './index.module.scss'
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
-import { ParsedUrlQuery } from 'querystring'
-import { pageToStart } from '../../helpers/params'
-import { getValueFromCookie } from '../../helpers/cookie'
-import { fetchOrders } from '../../layout/order/services'
-import { useRouter } from 'next/router'
-export const getServerSideProps = async ({
-  req: { headers },
-  query: { page, size },
-}: GetServerSidePropsContext<ParsedUrlQuery>) => {
-  const [$start, $limit, $page, $size] = pageToStart(page, size)
-  const data = await fetchOrders({
-    Authorization: getValueFromCookie('Authorization', headers.cookie),
-    limit: $limit,
-    start: $start,
-  })
-  return {
-    props: {
-      data: (data?.values ?? []) as TOrder[],
-      total: data.aggregate?.count ?? 0,
-      page: $page,
-      size: $size,
-    },
-  }
-}
-function Order({
-  data,
-  page,
-  size,
-  total,
-}: InferGetServerSidePropsType<typeof getServerSideProps>): React.ReactElement {
-  const route = useRouter()
+
+import { Dispatch, RootState } from '../../store/type.d'
+
+function Order(): React.ReactElement {
+  const dispatch = useDispatch<Dispatch>()
+
+  const { data, total, page, size } = useSelector<RootState, RootState['orders']>(s => s.orders)
+
   const onPageChange = (p: number, s?: number) => {
-    route.replace({
-      pathname: '/order',
-      query: {
-        page: p,
-        size: s,
-      },
-    })
+    dispatch.orders.pageChange({ page: p, size: s })
   }
+
+  useEffect(() => {
+    dispatch.orders.init()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div className={styles.order}>
       <OrderHeader />

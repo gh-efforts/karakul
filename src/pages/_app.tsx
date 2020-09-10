@@ -6,6 +6,7 @@ import Router from 'next/router'
 import ZhCN from 'antd/lib/locale/zh_CN'
 import { ConfigProvider } from 'antd'
 import getConfig from 'next/config'
+import { Provider } from 'react-redux'
 
 import '../styles/global.scss'
 import '../styles/antd.reset.scss'
@@ -15,6 +16,7 @@ import { client } from '../services'
 import { parseCookie, CookieType } from '../helpers/cookie'
 import { CookieDataCtx } from '../components/GlobalCookieData'
 import LoginPage from './login'
+import { initializeStore } from '../store/store'
 
 NProgress.configure({ showSpinner: true })
 Router.events.on('routeChangeStart', () => NProgress.start())
@@ -52,6 +54,8 @@ class MyApp extends App<{ cookie: any }> {
 
     const authPath = ['/login', '/connect/feishu/redirect']
 
+    const store = initializeStore(pageProps.initialState)
+
     let Page: typeof TargetPage | typeof LoginPage = TargetPage
 
     if (!authPath.includes(pathname ?? '') && !Authorization) {
@@ -64,15 +68,17 @@ class MyApp extends App<{ cookie: any }> {
           <title>字节方舟生产流程管理后台</title>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
         </Head>
-        <ApolloProvider client={client}>
-          <ConfigProvider locale={ZhCN}>
-            <GlobalModalProvider>
-              <CookieDataCtx.Provider value={cookie}>
-                <Page {...pageProps} backendUrl={backendUrl} />
-              </CookieDataCtx.Provider>
-            </GlobalModalProvider>
-          </ConfigProvider>
-        </ApolloProvider>
+        <Provider store={store}>
+          <ApolloProvider client={client}>
+            <ConfigProvider locale={ZhCN}>
+              <GlobalModalProvider>
+                <CookieDataCtx.Provider value={cookie}>
+                  <Page {...pageProps} backendUrl={backendUrl} />
+                </CookieDataCtx.Provider>
+              </GlobalModalProvider>
+            </ConfigProvider>
+          </ApolloProvider>
+        </Provider>
       </>
     )
   }

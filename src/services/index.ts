@@ -1,4 +1,4 @@
-export { default as client } from './client'
+export { default as client, NClient } from './client'
 
 export * from './generated/hooks'
 export * from './generated/operations'

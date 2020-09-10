@@ -1,4 +1,6 @@
 import { ApolloClient, InMemoryCache, ApolloLink, createHttpLink } from '@apollo/client'
+import { GraphQLClient } from 'graphql-request'
+
 import { onError } from '@apollo/client/link/error'
 import Cookies from 'js-cookie'
 import getConfig from 'next/config'
@@ -92,3 +94,11 @@ const client = new ApolloClient({
   link: ApolloLink.from([errorLink, tokenLink, processLink, trimLink, initialLink]),
 })
 export default client
+
+const NClient = new GraphQLClient(`${ENDPOINT}/graphql`, {
+  headers: {
+    Authorization: typeof window === 'undefined' ? '' : window.localStorage.getItem('Authorization') || '',
+  },
+})
+
+export { NClient }
