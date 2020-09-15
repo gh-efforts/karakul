@@ -12,9 +12,12 @@ import {
   CreateOrderMutation,
   CreateOrderMutationVariables,
   CreateOrderDocument,
+  OrderHistoriesConnectionDocument,
+  OrderHistoriesConnectionQueryVariables,
+  OrderHistoriesConnectionQuery,
 } from '../../services'
 
-import type { TOrder, Connection } from '../type.d'
+import type { TOrder, Connection, TOrderHistories } from '../type.d'
 import { getLocalStore } from '../../helpers/cookie'
 
 async function fetchOrders(val: OrdersQueryVariables & { Authorization?: string | undefined }) {
@@ -100,6 +103,22 @@ async function createOrder({
   }
 }
 
-export { fetchOrders, fetchOrderById, updateOrder, createOrder }
+async function fetchHistoryByOrderId({ id, limit, start }: OrderHistoriesConnectionQueryVariables) {
+  try {
+    const { orderHistoriesConnection } = await NClient.request<
+      OrderHistoriesConnectionQuery,
+      OrderHistoriesConnectionQueryVariables
+    >(OrderHistoriesConnectionDocument, { id, limit, start })
+
+    return {
+      data: (orderHistoriesConnection?.values ?? []) as TOrderHistories[],
+      total: orderHistoriesConnection?.aggregate?.count ?? 0,
+    }
+  } catch {
+    return { data: [], total: 0 } as Connection<TOrderHistories>
+  }
+}
+
+export { fetchOrders, fetchOrderById, updateOrder, createOrder, fetchHistoryByOrderId }
 
 export type { PUpdateOrder, PCreateOrder }

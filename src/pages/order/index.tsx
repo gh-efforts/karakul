@@ -6,7 +6,7 @@ import { KTable } from '../../components'
 
 import columns from '../../layout/order/table/columns'
 import OrderHeader from '../../layout/order/header'
-import type { TOrder } from '../../layout/order/order.d'
+import type { TOrder } from '../../store/type.d'
 
 import styles from './index.module.scss'
 
@@ -35,7 +35,7 @@ function Order(): React.ReactElement {
         total={total}
         currentPage={page}
         pageSize={size}
-        rowKey={item => item.id}
+        rowKey='id'
         onPageChange={onPageChange}
       />
     </div>

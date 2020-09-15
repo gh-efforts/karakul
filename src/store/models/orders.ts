@@ -2,9 +2,17 @@ import { createModel } from '@rematch/core'
 
 import { pageToStart } from '../../helpers/params'
 
-import { fetchOrders, fetchOrderById, updateOrder, PUpdateOrder, createOrder, PCreateOrder } from '../actions/order'
+import {
+  fetchOrders,
+  fetchOrderById,
+  updateOrder,
+  PUpdateOrder,
+  createOrder,
+  PCreateOrder,
+  fetchHistoryByOrderId,
+} from '../actions/order'
 
-import type { RootModel, TOrder, Pagination, PaginationConnection } from '../type.d'
+import type { RootModel, TOrder, Pagination, PaginationConnection, TOrderHistories } from '../type.d'
 
 // order page list
 const orders = createModel<RootModel>()({
@@ -138,4 +146,61 @@ const order = createModel<RootModel>()({
   }),
 })
 
-export { orders, order }
+// history modal
+const orderHistory = createModel<RootModel>()({
+  state: { id: null as string | null | undefined, page: 1, size: 10, data: [] as TOrderHistories[], total: 0 },
+  reducers: {
+    changeData({ id }, payload: PaginationConnection<TOrderHistories>) {
+      return {
+        ...payload,
+        size: payload.size || 10,
+        id,
+      }
+    },
+    changeId(_, id: string | null | undefined) {
+      return {
+        id,
+        size: 10,
+        page: 1,
+        total: 0,
+        data: [],
+      }
+    },
+  },
+  effects: dispatch => ({
+    async pageChange({ page = 1, size = 10 }: Pagination, state) {
+      const { id } = state.orderHistory
+      if (!id) {
+        return
+      }
+
+      const [start, limit] = pageToStart(page, size)
+      const { data, total } = await fetchHistoryByOrderId({
+        id,
+        start,
+        limit,
+      })
+
+      dispatch.orderHistory.changeData({
+        page,
+        size,
+        data,
+        total,
+      })
+    },
+    pageReload(_, state) {
+      const { page, size } = state.orders
+      dispatch.orders.pageChange({ page, size })
+    },
+    pageReset(_, state) {
+      const { size } = state.orders
+      dispatch.orderHistory.pageChange({ page: 1, size })
+    },
+    init(id: string | null | undefined) {
+      dispatch.orderHistory.changeId(id)
+      dispatch.orderHistory.pageChange({ page: 1, size: 10 })
+    },
+  }),
+})
+
+export { orders, order, orderHistory }
