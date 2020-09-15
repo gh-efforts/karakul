@@ -21,8 +21,14 @@ import {
   OrderCommoditiesSimpleQuery,
   OrderCommoditiesSimpleQueryVariables,
   OrderCommoditiesSimpleDocument,
+  ExWarehouseHistoryQuery,
+  ExWarehouseHistoryQueryVariables,
+  ExWarehouseHistoryDocument,
+  CommoditiesInWarehouseQuery,
+  CommoditiesInWarehouseQueryVariables,
+  CommoditiesInWarehouseDocument,
 } from '../../services'
-import { ExWGoodsItem, GoodsOrder, OrderCommodity } from '../type.d'
+import { ExWGoodsItem, GoodsExHistoryItem, GoodsInhouseItem, GoodsOrder, OrderCommodity } from '../type.d'
 
 async function fetchGoodsOrders(variables: GoodsOrdersQueryVariables) {
   try {
@@ -152,5 +158,53 @@ async function fetchExGooods(val: OrderCommoditiesSimpleQueryVariables) {
   }
 }
 
-export { fetchGoodsOrders, fetchOrderCommoditiesById, updateCommodity, createCommodity, exWarehouse, fetchExGooods }
+async function fetchExWarehouseHistory(val: ExWarehouseHistoryQueryVariables) {
+  try {
+    const { commodities } = await NClient.request<ExWarehouseHistoryQuery, ExWarehouseHistoryQueryVariables>(
+      ExWarehouseHistoryDocument,
+      val
+    )
+
+    return {
+      total: commodities?.aggregate?.count ?? 0,
+      data: (commodities?.values ?? []) as GoodsExHistoryItem[],
+    }
+  } catch {
+    return {
+      total: 0,
+      data: [] as GoodsExHistoryItem[],
+    }
+  }
+}
+
+async function fetchInWarehouse(val: CommoditiesInWarehouseQueryVariables) {
+  try {
+    const { commodities } = await NClient.request<CommoditiesInWarehouseQuery, CommoditiesInWarehouseQueryVariables>(
+      CommoditiesInWarehouseDocument,
+      val
+    )
+
+    return {
+      total: commodities?.aggregate?.count ?? 0,
+      data: (commodities?.values ?? []) as GoodsInhouseItem[],
+    }
+  } catch {
+    return {
+      total: 0,
+      data: [] as GoodsInhouseItem[],
+    }
+  }
+}
+
+export {
+  fetchGoodsOrders,
+  fetchOrderCommoditiesById,
+  updateCommodity,
+  createCommodity,
+  exWarehouse,
+  fetchExGooods,
+  fetchExWarehouseHistory,
+  fetchInWarehouse,
+}
+
 export type { PUpdateCommodity, PCreateCommodity, PExWarehouse }

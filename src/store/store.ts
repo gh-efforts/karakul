@@ -52,6 +52,14 @@ const InitialState: RootState = {
     id: null,
     ...InitialPagination,
   },
+  exwarehouseHistory: {
+    id: null,
+    ...InitialPagination,
+  },
+  inwarehouse: {
+    id: null,
+    ...InitialPagination,
+  },
 }
 
 export const initStore = (initialState: RootState = InitialState) =>

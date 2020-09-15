@@ -35,12 +35,14 @@ function CreateGoodsBtn({ id }: BtnProps) {
 
 function GoodsExWarehouseBtn({ id }: BtnProps) {
   const { showModal } = useGlobalModal()
+  const dispatch = useDispatch<Dispatch>()
 
   const show = () => {
     if (!id) {
       return
     }
-    showModal('提货记录', GoodsHistoryView, { id })
+    dispatch.exwarehouseHistory.init(id)
+    showModal('提货记录', GoodsHistoryView, {})
   }
   return (
     <Tooltip title='提货记录'>
@@ -51,12 +53,14 @@ function GoodsExWarehouseBtn({ id }: BtnProps) {
 
 function GoodsInWarehouseBtn({ id }: BtnProps) {
   const { showModal } = useGlobalModal()
+  const dispatch = useDispatch<Dispatch>()
 
   const show = () => {
     if (!id) {
       return
     }
-    showModal('商品库存', GoodsInhouseView, { id })
+    dispatch.inwarehouse.init(id)
+    showModal('商品库存', GoodsInhouseView, {})
   }
   return (
     <Tooltip title='商品库存'>
