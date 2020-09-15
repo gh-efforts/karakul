@@ -9,6 +9,9 @@ import {
   UpdateOrderMutation,
   UpdateOrderDocument,
   UpdateOrderMutationVariables,
+  CreateOrderMutation,
+  CreateOrderMutationVariables,
+  CreateOrderDocument,
 } from '../../services'
 
 import type { TOrder, Connection } from '../type.d'
@@ -77,6 +80,26 @@ async function updateOrder({
   }
 }
 
-export { fetchOrders, fetchOrderById, updateOrder }
+type PCreateOrder = Pick<TOrder, 'name' | 'amount' | 'detail' | 'delivery_time'>
 
-export type { PUpdateOrder }
+async function createOrder({
+  name,
+  amount,
+  detail,
+  delivery_time,
+}: PCreateOrder): Promise<[boolean, PCreateOrder | null]> {
+  try {
+    const user = getLocalStore('userId') || ''
+    await NClient.request<CreateOrderMutation, CreateOrderMutationVariables>(CreateOrderDocument, {
+      data: { name, amount, detail, user, delivery_time },
+    })
+
+    return [true, { name, amount, detail, delivery_time }]
+  } catch {
+    return [false, null]
+  }
+}
+
+export { fetchOrders, fetchOrderById, updateOrder, createOrder }
+
+export type { PUpdateOrder, PCreateOrder }

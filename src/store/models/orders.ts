@@ -2,7 +2,7 @@ import { createModel } from '@rematch/core'
 
 import { pageToStart } from '../../helpers/params'
 
-import { fetchOrders, fetchOrderById, updateOrder, PUpdateOrder } from '../actions/order'
+import { fetchOrders, fetchOrderById, updateOrder, PUpdateOrder, createOrder, PCreateOrder } from '../actions/order'
 
 import type { RootModel, TOrder, Pagination, PaginationConnection } from '../type.d'
 
@@ -68,7 +68,7 @@ const order = createModel<RootModel>()({
         loading,
       }
     },
-    unsetData({ tag }) {
+    unsetData(_, tag: OrderTag) {
       return {
         data: null,
         tag,
@@ -85,7 +85,7 @@ const order = createModel<RootModel>()({
   effects: dispatch => ({
     async init(id: string | null | undefined) {
       if (!id) {
-        dispatch.order.unsetData()
+        dispatch.order.unsetData('edit')
         return
       }
 
@@ -118,6 +118,20 @@ const order = createModel<RootModel>()({
       }
 
       dispatch.orders.pageReload()
+
+      return true
+    },
+
+    async create(payload: PCreateOrder) {
+      dispatch.order.toggleLoading(true)
+      const [flag] = await createOrder(payload)
+
+      if (!flag) {
+        dispatch.order.toggleLoading(false)
+        return false
+      }
+
+      dispatch.orders.pageReset()
 
       return true
     },

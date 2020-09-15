@@ -1,25 +1,30 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import ModalBase, { OrderFormVal } from './order-modal-base'
 import { useGlobalModal, message } from '../../../components'
-import { useCreateOrderApi } from '../services'
-import { useRouter } from 'next/router'
+import { Dispatch, RootState } from '../../../store/type.d'
 
 function CreateModalView() {
-  const { submit: create, loading } = useCreateOrderApi()
   const { hideModal } = useGlobalModal()
-  const router = useRouter()
-  const onSuccess = ({ name, detail, amount, time }: OrderFormVal) => {
+  const dispatch = useDispatch<Dispatch>()
+  const { loading } = useSelector<RootState, RootState['order']>(s => s.order)
+
+  const onSuccess = async ({ name, detail, amount, time }: OrderFormVal) => {
     if (name && amount && detail && time) {
-      create(name, amount, detail, time)
-        .then(() => {
-          message.success('创建成功')
-          hideModal()
-          router.replace({ pathname: router.pathname, query: router.query })
-        })
-        .catch(() => {
-          message.error('创建失败')
-        })
+      const flag = await dispatch.order.create({
+        name,
+        amount,
+        detail,
+        delivery_time: time,
+      })
+
+      if (flag) {
+        message.success('创建成功')
+        hideModal()
+      } else {
+        message.error('创建失败')
+      }
     }
   }
 
