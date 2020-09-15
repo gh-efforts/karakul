@@ -6,12 +6,25 @@ import type { Store, RootState } from './type.d'
 
 let store: Store | undefined
 
+const InitialPagination = {
+  page: 1,
+  size: 10,
+  data: [],
+  total: 0,
+}
+
 const InitialState: RootState = {
   orders: {
-    page: 1,
-    size: 10,
-    data: [],
-    total: 0,
+    ...InitialPagination,
+  },
+  order: {
+    data: null,
+    tag: 'create',
+    loading: false,
+  },
+  orderHistory: {
+    id: null,
+    ...InitialPagination,
   },
 }
 

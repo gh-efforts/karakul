@@ -2,24 +2,32 @@ import React from 'react'
 import { ClockCircleOutlined, FileAddOutlined, EditOutlined } from '@ant-design/icons'
 import { Tooltip } from 'antd'
 import Link from 'next/link'
-
-import EditModalView, { EditModalViewProps } from '../modal/edit-modal'
-import HistoryModalView, { HistoryModalViewProps } from '../modal/history-modal'
-
-import type { TOrder } from '../order.d'
-import { useGlobalModal, ColumnProps } from '../../../components'
+import { useDispatch } from 'react-redux'
 import moment from 'moment'
 
-function EditButton({ order }: EditModalViewProps) {
+import EditModalView from '../modal/edit-modal'
+import HistoryModalView from '../modal/history-modal'
+
+import type { TOrder } from '../../../store/type.d'
+import { useGlobalModal, ColumnProps } from '../../../components'
+import { Dispatch } from '../../../store/type.d'
+
+interface BtnProps {
+  id?: string | null | undefined
+}
+
+function EditButton({ id }: BtnProps) {
   const { showModal } = useGlobalModal()
+  const dispatch = useDispatch<Dispatch>()
 
   const show = () => {
-    showModal('编辑订单', EditModalView, { order })
+    dispatch.order.init(id)
+    showModal('编辑订单', EditModalView, {})
   }
 
   return (
     <Tooltip title='编辑订单'>
-      <EditOutlined style={{ color: '#FF9C7C' }} onClick={show} />
+      <EditOutlined style={{ color: '#FF9C7C' }} onClick={show} disabled={!!id} />
     </Tooltip>
   )
 }
@@ -38,16 +46,18 @@ function AddButton({ id, name }: { id: string; name: string }) {
   )
 }
 
-function HistoryButton({ order }: HistoryModalViewProps) {
+function HistoryButton({ id }: BtnProps) {
   const { showModal } = useGlobalModal()
+  const dispatch = useDispatch<Dispatch>()
 
   const show = () => {
-    showModal('订单历史', HistoryModalView, { order }, 1072)
+    dispatch.orderHistory.init(id)
+    showModal('订单历史', HistoryModalView, {}, 1072)
   }
 
   return (
     <Tooltip title='订单历史'>
-      <ClockCircleOutlined style={{ color: '#FFC01F' }} onClick={show} />
+      <ClockCircleOutlined style={{ color: '#FFC01F' }} onClick={show} disabled={!!id} />
     </Tooltip>
   )
 }
@@ -102,8 +112,8 @@ const columns: ColumnProps<TOrder>[] = [
     render(_, order) {
       return (
         <span className='table-operation-group'>
-          <EditButton order={order} />
-          <HistoryButton order={order} />
+          <EditButton id={order?.id} />
+          <HistoryButton id={order?.id} />
           <AddButton id={order?.id ?? ''} name={order.name ?? ''} />
         </span>
       )

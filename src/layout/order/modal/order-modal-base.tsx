@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { Form, Input, DatePicker, InputNumber } from 'antd'
 import type { Store } from 'antd/lib/form/interface'
 import moment from 'moment'
@@ -20,6 +20,10 @@ interface ModalBase {
   initialValues?: OrderFormVal
 }
 
+const parser = (value: string | undefined) => parseInt(`${value}`.replace(/[^0-9.]/g, '')) || 0
+
+const formatter = (value: string | number | undefined) => `${value}`.replace(/[^0-9.]/g, '')
+
 function ModalBase({ onOK, OKText, loading, initialValues }: ModalBase) {
   const onFinish = ({ name, detail, amount, time }: Store) => {
     const t = moment(time).format('YYYY-MM-DD')
@@ -31,14 +35,6 @@ function ModalBase({ onOK, OKText, loading, initialValues }: ModalBase) {
       time: t,
     })
   }
-
-  const formatter = useCallback((value: string | number | undefined) => {
-    return `${value}`.replace(/[^0-9.]/g, '')
-  }, [])
-
-  const parser = useCallback((value: string | undefined) => {
-    return parseInt(`${value}`.replace(/[^0-9.]/g, '')) || 0
-  }, [])
 
   const initialVals = useMemo(() => {
     const { name, detail, amount, time } = initialValues || {}

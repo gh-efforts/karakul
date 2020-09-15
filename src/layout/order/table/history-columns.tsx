@@ -1,5 +1,5 @@
 import React from 'react'
-import type { TOrderHistories } from '../order.d'
+import type { TOrderHistories } from '../../../store/type.d'
 import { ColumnProps } from '../../../components'
 import moment from 'moment'
 import { Tooltip } from 'antd'
