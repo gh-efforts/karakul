@@ -1,9 +1,15 @@
 import { Models, RematchDispatch, RematchRootState } from '@rematch/core'
 
-import { OrderFragment, OrdersConnectionQuery, OrderMaterial, OrderMaterialsConnectionQuery } from '../services'
+import {
+  OrderFragment,
+  OrdersConnectionQuery,
+  OrderMaterial,
+  OrderMaterialsConnectionQuery,
+  OrderMaterialHistory,
+} from '../services'
 
 import { orders, order, orderHistory } from './models/orders'
-import { orderMaterials, orderMaterial } from './models/order-material'
+import { orderMaterials, orderMaterial, orderMaterialHistory } from './models/order-material'
 
 export interface Pagination {
   page: number
@@ -24,6 +30,7 @@ export interface RootModel extends Models<RootModel> {
   orderHistory: typeof orderHistory
   orderMaterials: typeof orderMaterials
   orderMaterial: typeof orderMaterial
+  orderMaterialHistory: typeof orderMaterialHistory
 }
 
 export type Store = ReturnType<typeof initStore>
@@ -66,3 +73,10 @@ export const ActionTypeMap = {
   [ActionType.Exchange]: '换货',
   [ActionType.Create]: '新增',
 }
+
+// order material history page
+
+export type HistoryInfo = Pick<
+  OrderMaterialHistory,
+  'id' | 'createdAt' | 'content' | 'updatedAt' | 'remark' | 'user' | 'attachment_desc' | 'attachment' | 'order_id'
+>

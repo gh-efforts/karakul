@@ -10,14 +10,15 @@ interface ModalProps {
   onOK?: () => void
   loading?: boolean
   children: React.ReactNode
+  id?: string | null | undefined
 }
 
-function ModalView({ OKText, onOK, loading, children }: ModalProps): React.ReactElement {
+function ModalView({ id, OKText, onOK, loading, children }: ModalProps): React.ReactElement {
   const { meta } = useSelector<RootState, RootState['orderMaterial']>(s => s.orderMaterial)
 
   return (
     <div>
-      <span>订单编号：{meta?.id ?? ''}</span>
+      <span>订单编号：{id ?? meta?.id ?? ''}</span>
       <div className={styles.content}>
         <div>
           {children}

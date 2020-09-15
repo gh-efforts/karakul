@@ -52,13 +52,13 @@ function OrderMHeader() {
           type='text'
           icon={<Svg name='btn-revise-h' color='#FF9C7C' offsetY='3' />}
           onClick={showEditModal}
-          disabled={!!meta?.id}
+          disabled={!meta?.id}
         />
         <Button
           type='text'
           icon={<Svg name='btn-history-h' color='#FFBB0B' offsetY='3' />}
           onClick={showHistroyModal}
-          disabled={!!meta?.id}
+          disabled={!meta?.id}
         />
       </TableHeader>
     </>

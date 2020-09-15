@@ -3,8 +3,14 @@ import { createModel } from '@rematch/core'
 import { pageToStart } from '../../helpers/params'
 
 import type { RootModel, Pagination, PaginationConnection, OrderMaterialType } from '../type.d'
-import { fetchOrderMaterials, createMaterials, updateMaterials, PUpdateMaterials } from '../actions/order-material'
-import { MaterialsInput } from '../../services'
+import {
+  fetchOrderMaterials,
+  createMaterials,
+  updateMaterials,
+  PUpdateMaterials,
+  fetchOrderMaterialHistory,
+} from '../actions/order-material'
+import { MaterialsInput, OrderMaterialHistory } from '../../services'
 
 // order material page list
 type OrderMaterialsMeta =
@@ -65,11 +71,11 @@ const orderMaterials = createModel<RootModel>()({
       })
     },
     pageReload(_, state) {
-      const { page, size } = state.orders
+      const { page, size } = state.orderMaterials
       dispatch.orderMaterials.pageChange({ page, size })
     },
     pageReset(_, state) {
-      const { size } = state.orders
+      const { size } = state.orderMaterials
       dispatch.orderMaterials.pageChange({ page: 1, size })
     },
     init(meta: OrderMaterialsMeta) {
@@ -152,4 +158,76 @@ const orderMaterial = createModel<RootModel>()({
   }),
 })
 
-export { orderMaterials, orderMaterial }
+// order material history page
+
+type OrderMaterialHistoryMeta =
+  | {
+      id: string | null | undefined
+      name: string | null | undefined
+    }
+  | null
+  | undefined
+
+const orderMaterialHistory = createModel<RootModel>()({
+  state: {
+    page: 1,
+    size: 10,
+    data: [] as OrderMaterialHistory[],
+    total: 0,
+    meta: null as OrderMaterialHistoryMeta,
+  },
+  reducers: {
+    changeData({ meta }, payload: PaginationConnection<OrderMaterialHistory>) {
+      return {
+        ...payload,
+        size: payload.size || 10,
+        meta,
+      }
+    },
+    changeMeta(_, meta: OrderMaterialHistoryMeta) {
+      return {
+        meta,
+        size: 10,
+        page: 1,
+        total: 0,
+        data: [],
+      }
+    },
+  },
+  effects: dispatch => ({
+    async pageChange({ page = 1, size = 10 }: Pagination, state) {
+      const { id } = state.orderMaterialHistory.meta || {}
+      if (!id) {
+        return
+      }
+
+      const [start, limit] = pageToStart(page, size)
+      const { data, total } = await fetchOrderMaterialHistory({
+        start,
+        limit,
+        id,
+      })
+
+      dispatch.orderMaterialHistory.changeData({
+        page,
+        size,
+        data,
+        total,
+      })
+    },
+    pageReload(_, state) {
+      const { page, size } = state.orderMaterialHistory
+      dispatch.orderMaterialHistory.pageChange({ page, size })
+    },
+    pageReset(_, state) {
+      const { size } = state.orderMaterialHistory
+      dispatch.orderMaterialHistory.pageChange({ page: 1, size })
+    },
+    init(meta: OrderMaterialHistoryMeta) {
+      dispatch.orderMaterialHistory.changeMeta(meta)
+      dispatch.orderMaterialHistory.pageChange({ page: 1, size: 10 })
+    },
+  }),
+})
+
+export { orderMaterials, orderMaterial, orderMaterialHistory }

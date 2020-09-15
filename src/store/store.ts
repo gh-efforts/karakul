@@ -37,6 +37,10 @@ const InitialState: RootState = {
     },
     loading: false,
   },
+  orderMaterialHistory: {
+    meta: null,
+    ...InitialPagination,
+  },
 }
 
 export const initStore = (initialState: RootState = InitialState) =>

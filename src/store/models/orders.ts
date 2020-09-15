@@ -187,11 +187,11 @@ const orderHistory = createModel<RootModel>()({
       })
     },
     pageReload(_, state) {
-      const { page, size } = state.orders
-      dispatch.orders.pageChange({ page, size })
+      const { page, size } = state.orderHistory
+      dispatch.orderHistory.pageChange({ page, size })
     },
     pageReset(_, state) {
-      const { size } = state.orders
+      const { size } = state.orderHistory
       dispatch.orderHistory.pageChange({ page: 1, size })
     },
     init(id: string | null | undefined) {

@@ -1,4 +1,3 @@
-import { OrderMaterialHistory } from '../../services'
 interface MaterialHistory {
   material: string
   amount: number
@@ -11,9 +10,4 @@ interface MaterialHistories {
   value: MaterialHistory[]
 }
 
-type HistoryInfo = Pick<
-  OrderMaterialHistory,
-  'id' | 'createdAt' | 'content' | 'updatedAt' | 'remark' | 'user' | 'attachment_desc' | 'attachment' | 'order_id'
->
-
-export { MaterialHistory, MaterialHistories, HistoryInfo }
+export { MaterialHistory, MaterialHistories }

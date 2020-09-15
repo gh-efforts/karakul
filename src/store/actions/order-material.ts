@@ -12,6 +12,10 @@ import {
   UpdateOrderMaterialsDocument,
   UpdateOrderMaterialsInput,
   UpdateOrderMaterialsMutationVariables,
+  OrderMaterialHistoriesConnectionQuery,
+  OrderMaterialHistoriesConnectionQueryVariables,
+  OrderMaterialHistoriesConnectionDocument,
+  OrderMaterialHistory,
 } from '../../services'
 import { getLocalStore } from '../../helpers/cookie'
 
@@ -79,5 +83,21 @@ async function updateMaterials(val: PUpdateMaterials, order_id: string | null | 
   }
 }
 
-export { fetchOrderMaterials, createMaterials, updateMaterials }
+async function fetchOrderMaterialHistory(val: OrderMaterialHistoriesConnectionQueryVariables) {
+  try {
+    const { orderMaterialHistoriesConnection } = await NClient.request<
+      OrderMaterialHistoriesConnectionQuery,
+      OrderMaterialHistoriesConnectionQueryVariables
+    >(OrderMaterialHistoriesConnectionDocument, val)
+
+    return {
+      data: (orderMaterialHistoriesConnection?.values ?? []) as OrderMaterialHistory[],
+      total: orderMaterialHistoriesConnection?.aggregate?.count ?? 0,
+    }
+  } catch (e) {
+    return { data: [], total: 0 } as Connection<OrderMaterialHistory>
+  }
+}
+
+export { fetchOrderMaterials, createMaterials, updateMaterials, fetchOrderMaterialHistory }
 export type { PUpdateMaterials }
