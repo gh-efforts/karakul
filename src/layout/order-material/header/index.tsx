@@ -27,7 +27,11 @@ function OrderMHeader() {
   }
 
   const showHistroyModal = () => {
-    router.push('/order/material/history?id=' + meta?.id + '&name=' + meta?.name)
+    dispatch.orderMaterialHistory.init({
+      id: meta?.id,
+      name,
+    })
+    router.push('/order/material/history')
   }
 
   return (
@@ -42,7 +46,7 @@ function OrderMHeader() {
           />
         }
       >
-        <Button type='primary' icon={<PlusOutlined />} size='large' onClick={showCreateModal} disabled={!!meta?.id}>
+        <Button type='primary' icon={<PlusOutlined />} size='large' onClick={showCreateModal} disabled={!meta?.id}>
           预定原材料
         </Button>
         <FlexibleInput />
