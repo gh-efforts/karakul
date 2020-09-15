@@ -5,7 +5,6 @@ import {
   OrdersConnectionQueryVariables,
   OrdersConnectionDocument,
   useCreateOrderMutation,
-  useUpdateOrderMutation,
 } from '../../services'
 import { TOrderConnection } from './order.d'
 import { getLocalStore } from '../../helpers/cookie'
@@ -45,24 +44,4 @@ function useCreateOrderApi() {
   }
 }
 
-function useUpdateOrderApi() {
-  const [updateOrder, { loading }] = useUpdateOrderMutation()
-
-  const user = getLocalStore('userId') || ''
-  const submit = async (id: string, name: string, amount: number, detail: string, time: string) => {
-    await updateOrder({
-      variables: {
-        id,
-        data: { name, amount, detail, user, delivery_time: time },
-      },
-      fetchPolicy: 'no-cache',
-    })
-  }
-
-  return {
-    submit,
-    loading,
-  }
-}
-
-export { fetchOrders, useCreateOrderApi, useUpdateOrderApi }
+export { fetchOrders, useCreateOrderApi }

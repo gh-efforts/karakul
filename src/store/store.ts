@@ -13,6 +13,11 @@ const InitialState: RootState = {
     data: [],
     total: 0,
   },
+  order: {
+    data: null,
+    tag: 'create',
+    loading: false,
+  },
 }
 
 export const initStore = (initialState: RootState = InitialState) =>

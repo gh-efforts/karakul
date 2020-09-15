@@ -1,40 +1,41 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import ModalBase, { OrderFormVal } from './order-modal-base'
 import { useGlobalModal, message } from '../../../components'
-import type { TOrder } from '../order.d'
 
 import styles from './index.module.scss'
-import { useUpdateOrderApi } from '../services'
-import { useRouter } from 'next/router'
+
+import { Dispatch, RootState, TOrder } from '../../../store/type.d'
 
 export interface EditModalViewProps {
   order?: TOrder
   children?: React.ReactNode
 }
 
-function EditModalView({ order }: EditModalViewProps): React.ReactElement {
-  const { hideModal } = useGlobalModal()
-  const { submit: update, loading } = useUpdateOrderApi()
+function EditModalView() {
+  const { data, loading } = useSelector<RootState, RootState['order']>(s => s.order)
 
-  const router = useRouter()
+  const dispatch = useDispatch<Dispatch>()
+
+  const { hideModal } = useGlobalModal()
 
   // eslint-disable-next-line camelcase
-  const { id, detail, name, amount, delivery_time } = order || {}
+  const { id, detail, name, amount, delivery_time } = data || ({} as TOrder)
 
-  const onSuccess = ({ name, detail, amount, time }: OrderFormVal) => {
+  const onSuccess = async ({ name, detail, amount, time }: OrderFormVal) => {
     if (id && name && amount && detail && time) {
-      update(id, name, amount, detail, time)
-        .then(() => {
-          message.success('修改成功')
-          hideModal()
-          router.replace({ pathname: router.pathname, query: router.query })
-        })
-        .catch(() => {
-          message.error('修改失败')
-        })
+      const flag = await dispatch.order.update({ id, name, amount, detail, delivery_time: time })
+
+      if (flag) {
+        message.success('修改成功')
+        hideModal()
+      } else {
+        message.error('修改失败')
+      }
     }
   }
+
   return (
     <div>
       <div className={styles['order-no']}>订单编号：{id} </div>

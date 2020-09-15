@@ -2,19 +2,27 @@ import React from 'react'
 import { ClockCircleOutlined, FileAddOutlined, EditOutlined } from '@ant-design/icons'
 import { Tooltip } from 'antd'
 import Link from 'next/link'
+import { useDispatch } from 'react-redux'
+import moment from 'moment'
 
-import EditModalView, { EditModalViewProps } from '../modal/edit-modal'
+import EditModalView from '../modal/edit-modal'
 import HistoryModalView, { HistoryModalViewProps } from '../modal/history-modal'
 
 import type { TOrder } from '../order.d'
 import { useGlobalModal, ColumnProps } from '../../../components'
-import moment from 'moment'
+import { Dispatch } from '../../../store/type.d'
 
-function EditButton({ order }: EditModalViewProps) {
+interface BtnProps {
+  id?: string | null | undefined
+}
+
+function EditButton({ id }: BtnProps) {
   const { showModal } = useGlobalModal()
+  const dispatch = useDispatch<Dispatch>()
 
   const show = () => {
-    showModal('编辑订单', EditModalView, { order })
+    dispatch.order.init(id)
+    showModal('编辑订单', EditModalView, {})
   }
 
   return (
@@ -102,7 +110,7 @@ const columns: ColumnProps<TOrder>[] = [
     render(_, order) {
       return (
         <span className='table-operation-group'>
-          <EditButton order={order} />
+          <EditButton id={order?.id} />
           <HistoryButton order={order} />
           <AddButton id={order?.id ?? ''} name={order.name ?? ''} />
         </span>

@@ -2,11 +2,12 @@ import { Models, RematchDispatch, RematchRootState } from '@rematch/core'
 
 import { OrderFragment, OrdersConnectionQuery } from '../services'
 
-import { orders } from './models/orders'
+import { orders, order } from './models/orders'
 
 // global
 export interface RootModel extends Models<RootModel> {
   orders: typeof orders
+  order: typeof order
 }
 
 export type Store = ReturnType<typeof initStore>

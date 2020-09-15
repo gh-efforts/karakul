@@ -1,5 +1,5 @@
-import { orders } from './orders'
+import { orders, order } from './orders'
 
 import { RootModel } from '../type.d'
 
-export const models: RootModel = { orders }
+export const models: RootModel = { orders, order }
