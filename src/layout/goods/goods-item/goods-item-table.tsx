@@ -1,28 +1,18 @@
-import React, { createContext, useContext } from 'react'
+import React, { useMemo } from 'react'
 import { Table, Tooltip } from 'antd'
 import { ColumnProps } from 'antd/lib/table'
+import moment from 'moment'
 
 import { Svg, useGlobalModal } from '../../../components'
 import { OrderCommodity, SAccessory } from '../goods.d'
+import UpdateGoodsView, { UpdateGoodsViewProps } from '../update-goods'
 
 import styles from './index.module.scss'
-import UpdateGoodsView from '../update-goods'
-import moment from 'moment'
 
-interface EditButtonProps {
-  record: OrderCommodity
-}
-
-// eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-explicit-any
-const RefreshCtx = createContext<{ refresh?: (() => void) | (() => Promise<any>) }>({ refresh() {} })
-
-export { RefreshCtx }
-
-function EditButton({ record }: EditButtonProps) {
-  const { refresh } = useContext(RefreshCtx)
+function EditButton({ record, pid }: UpdateGoodsViewProps) {
   const { showModal } = useGlobalModal()
   const onshow = () => {
-    showModal('修改商品', UpdateGoodsView, { record, refresh })
+    showModal('修改商品', UpdateGoodsView, { record, pid })
   }
 
   return (
@@ -52,52 +42,58 @@ function GoodsTypeTable(record: OrderCommodity) {
   )
 }
 
-const GoodsNumColumns: ColumnProps<OrderCommodity>[] = [
-  { title: '商品编号', dataIndex: ['code'] },
-  {
-    title: '商品类型',
-    dataIndex: ['commodity_type', 'name'],
-  },
-  {
-    title: '仓库',
-    dataIndex: ['warehouse', 'name'],
-  },
-  {
-    title: '流向',
-    dataIndex: ['destination'],
-  },
-  {
-    title: '创建时间',
-    dataIndex: ['createdAt'],
-    render: (text: string) => moment(text).format('YYYY-MM-DD hh:mm:ss'),
-  },
-  {
-    title: '操作人',
-    dataIndex: ['user', 'username'],
-  },
-  {
-    title: '操作',
-    render(_text: string, record: OrderCommodity) {
-      return (
-        <span className={styles.btns}>
-          <EditButton record={record} />
-        </span>
-      )
+function generateGoodsNumColumns(pid: string | null | undefined): ColumnProps<OrderCommodity>[] {
+  return [
+    { title: '商品编号', dataIndex: ['code'] },
+    {
+      title: '商品类型',
+      dataIndex: ['commodity_type', 'name'],
     },
-    width: 120,
-  },
-]
-
+    {
+      title: '仓库',
+      dataIndex: ['warehouse', 'name'],
+    },
+    {
+      title: '流向',
+      dataIndex: ['destination'],
+    },
+    {
+      title: '创建时间',
+      dataIndex: ['createdAt'],
+      render: (text: string) => moment(text).format('YYYY-MM-DD hh:mm:ss'),
+    },
+    {
+      title: '操作人',
+      dataIndex: ['user', 'username'],
+    },
+    {
+      title: '操作',
+      render(_text: string, record: OrderCommodity) {
+        return (
+          <span className={styles.btns}>
+            <EditButton record={record} pid={pid} />
+          </span>
+        )
+      },
+      width: 120,
+    },
+  ]
+}
 interface GoodsItemTableProps {
   expanded?: boolean
   data?: OrderCommodity[]
+  pid?: string | null | undefined
 }
 
-function GoodsItemTable({ data, expanded }: GoodsItemTableProps) {
+function GoodsItemTable({ data, expanded, pid }: GoodsItemTableProps) {
+  const goodsNumColumns = useMemo(() => {
+    return generateGoodsNumColumns(pid)
+  }, [pid])
+
   return (
     <div className={`${styles.table} ${expanded ? styles['table-show'] : styles['table-hide']}`}>
       <Table<OrderCommodity>
-        columns={GoodsNumColumns}
+        columns={goodsNumColumns}
         pagination={false}
         dataSource={(data ?? []) as OrderCommodity[]}
         expandable={{ expandedRowRender: GoodsTypeTable }}

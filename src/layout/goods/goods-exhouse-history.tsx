@@ -1,18 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import moment from 'moment'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { KTable } from '../../components'
+import { Dispatch, RootState, GoodsExHistoryItem } from '../../store/type.d'
 
 import styles from './modal.module.scss'
-import { KTable } from '../../components'
-import { ExWarehouseHistoryQuery, useExWarehouseHistoryQuery } from '../../services'
-import moment from 'moment'
-
-interface GoodsHistoryViewProps {
-  id?: string
-  children?: React.ReactNode
-}
-
-type GoodsExHistoryItem = NonNullable<
-  NonNullable<NonNullable<ExWarehouseHistoryQuery['commodities']>['values']>[number]
->
 
 const columns = [
   {
@@ -34,35 +27,15 @@ const columns = [
   },
 ]
 
-function GoodsExhouseHistoryView({ id }: GoodsHistoryViewProps) {
-  const [page, setPage] = useState(1)
-  const [size, setSize] = useState(10)
+function GoodsExhouseHistoryView() {
+  const dispatch = useDispatch<Dispatch>()
+  const { data, total, page, size, id } = useSelector<RootState, RootState['exwarehouseHistory']>(
+    s => s.exwarehouseHistory
+  )
 
-  const { data, loading, refetch } = useExWarehouseHistoryQuery({
-    variables: {
-      orderId: id,
-    },
-    skip: !id,
-  })
-
-  const onPageChange = (p: number, s?: number | undefined) => {
-    const _s = s || size
-
-    if (id) {
-      refetch?.({
-        orderId: id,
-        limit: s || size,
-        start: (p - 1) * _s,
-      })
-    }
-
-    setPage(p)
-    setSize(_s)
+  const onPageChange = (p: number, s?: number) => {
+    dispatch.exwarehouseHistory.pageChange({ page: p, size: s })
   }
-
-  useEffect(() => {
-    refetch()
-  }, [refetch])
 
   return (
     <div>
@@ -72,13 +45,12 @@ function GoodsExhouseHistoryView({ id }: GoodsHistoryViewProps) {
       <KTable<GoodsExHistoryItem>
         className={styles.border}
         columns={columns}
-        data={(data?.commodities?.values ?? []) as GoodsExHistoryItem[]}
-        total={data?.commodities?.aggregate?.count ?? 0}
+        data={data}
+        total={total}
         rowKey='id'
         currentPage={page}
         pageSize={size}
         onPageChange={onPageChange}
-        loading={loading}
       />
     </div>
   )

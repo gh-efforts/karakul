@@ -1,53 +1,28 @@
-import React from 'react'
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
-import { ParsedUrlQuery } from 'querystring'
-import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Empty } from 'antd'
 
 import { withLayout } from '../../layout/layout'
 import { KPagination } from '../../components'
-import { getValueFromCookie } from '../../helpers/cookie'
-import { pageToStart } from '../../helpers/params'
 import GoodsHeader from '../../layout/goods/header'
 import GoodsItem from '../../layout/goods/goods-item'
-import { fetchGoodsOrders } from '../../layout/goods/service'
+import { Dispatch, RootState } from '../../store/type.d'
 
 import styles from './index.module.scss'
-import { Empty } from 'antd'
 
-export const getServerSideProps = async ({
-  req: { headers },
-  query: { page, size },
-}: GetServerSidePropsContext<ParsedUrlQuery>) => {
-  const [$start, $limit, $page, $size] = pageToStart(page, size)
+function Goods() {
+  const dispatch = useDispatch<Dispatch>()
 
-  const { data, total } = await fetchGoodsOrders({
-    Authorization: getValueFromCookie('Authorization', headers.cookie),
-    limit: $limit,
-    start: $start,
-  })
+  const { data, total, page, size } = useSelector<RootState, RootState['goods']>(s => s.goods)
 
-  return {
-    props: {
-      data,
-      total,
-      page: $page,
-      size: $size,
-    },
+  const onPageChange = (p: number, s?: number) => {
+    dispatch.goods.pageChange({ page: p, size: s })
   }
-}
 
-function Goods({ data, page, size, total }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const router = useRouter()
-
-  const onPageChange = (p: number, s?: number | undefined) => {
-    router.push({
-      pathname: '/goods',
-      query: {
-        page: p,
-        size: s,
-      },
-    })
-  }
+  useEffect(() => {
+    dispatch.goods.init()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className={styles.goods}>

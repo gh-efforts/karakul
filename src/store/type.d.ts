@@ -6,10 +6,15 @@ import {
   OrderMaterial,
   OrderMaterialsConnectionQuery,
   OrderMaterialHistory,
+  OrderCommoditiesQuery,
+  Order,
+  OrderCommoditiesSimpleQuery,
+  ExWarehouseHistoryQuery,
 } from '../services'
 
 import { orders, order, orderHistory } from './models/orders'
 import { orderMaterials, orderMaterial, orderMaterialHistory } from './models/order-material'
+import { goods, commodity, exwarehouse, exwarehouseHistory, inwarehouse } from './models/goods'
 
 export interface Pagination {
   page: number
@@ -31,6 +36,11 @@ export interface RootModel extends Models<RootModel> {
   orderMaterials: typeof orderMaterials
   orderMaterial: typeof orderMaterial
   orderMaterialHistory: typeof orderMaterialHistory
+  goods: typeof goods
+  commodity: typeof commodity
+  exwarehouse: typeof exwarehouse
+  exwarehouseHistory: typeof exwarehouseHistory
+  inwarehouse: typeof inwarehouse
 }
 
 export type Store = ReturnType<typeof initStore>
@@ -79,4 +89,28 @@ export const ActionTypeMap = {
 export type HistoryInfo = Pick<
   OrderMaterialHistory,
   'id' | 'createdAt' | 'content' | 'updatedAt' | 'remark' | 'user' | 'attachment_desc' | 'attachment' | 'order_id'
+>
+
+// goods page
+
+// 商品属性
+export type OrderCommodity = NonNullable<
+  NonNullable<NonNullable<OrderCommoditiesQuery['order']>['commodities']>[number]
+>
+
+export type GoodsOrder = Pick<Order, 'id' | 'name'>
+
+// exwarehouse modal
+
+export type ExWGoodsItem = NonNullable<
+  NonNullable<NonNullable<OrderCommoditiesSimpleQuery['commodities']>['values']>[number]
+>
+
+export type GoodsInhouseItem = NonNullable<
+  NonNullable<NonNullable<CommoditiesInWarehouseQuery['commodities']>['values']>[number]
+>
+
+// exwarehouse history modal
+export type GoodsExHistoryItem = NonNullable<
+  NonNullable<NonNullable<ExWarehouseHistoryQuery['commodities']>['values']>[number]
 >

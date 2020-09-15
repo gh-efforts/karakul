@@ -1,29 +1,30 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useCallback } from 'react'
 import { PlusSquareOutlined } from '@ant-design/icons'
 import { Form } from 'antd'
+import { useSelector, useDispatch } from 'react-redux'
 
+import { Dispatch, RootState } from '../../../store/type.d'
 import { ModalButtonGroup, getRealValue, message, useGlobalModal } from '../../../components'
 import UpdateGoodsTable, { CellEmit } from './goods-table'
 import { SAccessory, OrderCommodity } from '../goods.d'
-import { useUpdateCommodityApi } from '../service'
-import { getLocalStore } from '../../../helpers/cookie'
 import { Enum_Commodity_State } from '../../../services'
 
-import styles from './index.module.scss'
 import GoodsForm from './goods-form'
 import { parseCsvDataToSAccessory } from '../csv-parser'
 
-interface UpdateGoodsViewProps {
+import styles from './index.module.scss'
+
+export interface UpdateGoodsViewProps {
   record?: OrderCommodity
+  pid?: string | null | undefined
   children?: React.ReactNode
-  refresh?: () => void
 }
 
-function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
-  const { updateCommodit, loading } = useUpdateCommodityApi()
+function UpdateGoodsView({ record, pid }: UpdateGoodsViewProps) {
+  const dispatch = useDispatch<Dispatch>()
+  const { loading } = useSelector<RootState, RootState['commodity']>(s => s.commodity)
   const { hideModal } = useGlobalModal()
+
   // 新增数据
   const [data, setData] = useState<SAccessory[]>(() => {
     if (Array.isArray(record?.accessories)) {
@@ -152,27 +153,30 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
     const [cid] = getRealValue(commodity_type)
     const [wid] = getRealValue(warehouse)
 
-    const uid = getLocalStore('userId')
-
-    if (!uid || !record?.id) {
+    if (!record?.id) {
       message.error('数据错误')
       return
     }
 
     try {
       await form.validateFields()
-      const flag = await updateCommodit(record?.id, {
-        user: uid,
-        code,
-        commodity_type: cid,
-        warehouse: wid,
-        state: Enum_Commodity_State.In,
-        accessories: data,
+      const flag = await dispatch.commodity.update({
+        id: record?.id,
+        pid,
+        data: {
+          code,
+          commodity_type: cid,
+          warehouse: wid,
+          state: Enum_Commodity_State.In,
+          accessories: data,
+        },
       })
 
       if (flag) {
-        refresh?.()
+        message.success('修改商品成功')
         hideModal()
+      } else {
+        message.error('修改商品失败')
       }
     } catch {}
   }
@@ -195,7 +199,7 @@ function UpdateGoodsView({ record, refresh }: UpdateGoodsViewProps) {
     <div>
       <div className={styles.title}>
         <span>商品编号: {record?.id || ''}</span>
-        <span className={`${styles['title-right']} ${editingKey && styles['btn-disable']}`} onClick={onAdd}>
+        <span className={`${styles['title-right']} ${editingKey && styles['btn-disable']}`} onClick={onAdd} aria-hidden>
           <PlusSquareOutlined />
           添加
         </span>

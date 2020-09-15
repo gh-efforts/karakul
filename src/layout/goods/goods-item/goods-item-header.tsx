@@ -1,11 +1,13 @@
 import React from 'react'
 import { Button, Tooltip } from 'antd'
+import { useDispatch } from 'react-redux'
 
 import CreateGoodsView from './../create-goods'
 import GoodsHistoryView from '../goods-exhouse-history'
 import ExWarehouseView from './../ex-warehouse'
 import GoodsInhouseView from '../goods-inhouse-view'
 import { Svg, useGlobalModal } from '../../../components'
+import { Dispatch } from '../../../store/type.d'
 
 import styles from './index.module.scss'
 
@@ -21,7 +23,7 @@ function CreateGoodsBtn({ id }: BtnProps) {
       return
     }
 
-    showModal('创建商品', CreateGoodsView, { id })
+    showModal('创建商品', CreateGoodsView, { pid: id })
   }
 
   return (
@@ -33,12 +35,14 @@ function CreateGoodsBtn({ id }: BtnProps) {
 
 function GoodsExWarehouseBtn({ id }: BtnProps) {
   const { showModal } = useGlobalModal()
+  const dispatch = useDispatch<Dispatch>()
 
   const show = () => {
     if (!id) {
       return
     }
-    showModal('提货记录', GoodsHistoryView, { id })
+    dispatch.exwarehouseHistory.init(id)
+    showModal('提货记录', GoodsHistoryView, {})
   }
   return (
     <Tooltip title='提货记录'>
@@ -49,12 +53,14 @@ function GoodsExWarehouseBtn({ id }: BtnProps) {
 
 function GoodsInWarehouseBtn({ id }: BtnProps) {
   const { showModal } = useGlobalModal()
+  const dispatch = useDispatch<Dispatch>()
 
   const show = () => {
     if (!id) {
       return
     }
-    showModal('商品库存', GoodsInhouseView, { id })
+    dispatch.inwarehouse.init(id)
+    showModal('商品库存', GoodsInhouseView, {})
   }
   return (
     <Tooltip title='商品库存'>
@@ -65,12 +71,14 @@ function GoodsInWarehouseBtn({ id }: BtnProps) {
 
 function ExWarehouseBtn({ id }: BtnProps) {
   const { showModal } = useGlobalModal()
+  const dispatch = useDispatch<Dispatch>()
 
   const show = () => {
     if (!id) {
       return
     }
-    showModal('商品出库', ExWarehouseView, { id })
+    dispatch.exwarehouse.init(id)
+    showModal('商品出库', ExWarehouseView, { pid: id })
   }
 
   return (

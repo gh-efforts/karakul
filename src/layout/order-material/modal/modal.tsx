@@ -30,9 +30,7 @@ function ModalView({ id, OKText, onOK, loading, children }: ModalProps): React.R
               className={styles.btns}
               position='left'
             />
-          ) : (
-            ''
-          )}
+          ) : null}
         </div>
       </div>
     </div>

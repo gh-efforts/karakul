@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import GoodsItemHeader from './goods-item-header'
-import GoodsItemTable, { RefreshCtx } from './goods-item-table'
+import GoodsItemTable from './goods-item-table'
 import ExpandIcon from './expand-icon'
-import { useOrderCommoditiesLazyQuery } from '../../../services'
-import { OrderCommodity } from '../goods.d'
+import { Dispatch, RootState } from '../../../store/type.d'
 
 import styles from './index.module.scss'
 
@@ -14,30 +14,30 @@ interface GoodsItemProps {
 }
 
 function GoodsItem({ id, name }: GoodsItemProps) {
+  const dispatch = useDispatch<Dispatch>()
+  const detail = useSelector<RootState, RootState['goods']['details']>(s => s.goods.details)
+
   const [expanded, setExpanded] = useState(false)
 
-  const [fetch, { data, loading, refetch }] = useOrderCommoditiesLazyQuery({ fetchPolicy: 'network-only' })
+  const data = useMemo(() => {
+    return id ? (detail[id] ? detail[id] : []) : []
+  }, [id, detail])
 
   const toggle = () => {
     setExpanded(e => !e)
 
     if (!expanded && id) {
-      fetch({
-        variables: {
-          id,
-        },
-      })
+      dispatch.goods.fetchCommodity(id)
     }
   }
 
   return (
     <div className={styles.item}>
       <GoodsItemHeader name={name} id={id}>
-        <ExpandIcon expanded={expanded} onClick={toggle} disabled={loading} />
+        <ExpandIcon expanded={expanded} onClick={toggle} />
       </GoodsItemHeader>
-      <RefreshCtx.Provider value={{ refresh: refetch }}>
-        <GoodsItemTable expanded={expanded} data={(data?.order?.commodities ?? []) as OrderCommodity[]} />
-      </RefreshCtx.Provider>
+
+      <GoodsItemTable expanded={expanded} data={data} pid={id} />
     </div>
   )
 }
