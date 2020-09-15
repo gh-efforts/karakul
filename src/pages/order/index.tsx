@@ -6,11 +6,9 @@ import { KTable } from '../../components'
 
 import columns from '../../layout/order/table/columns'
 import OrderHeader from '../../layout/order/header'
-import type { TOrder } from '../../store/type.d'
+import { Dispatch, RootState, TOrder } from '../../store/type.d'
 
 import styles from './index.module.scss'
-
-import { Dispatch, RootState } from '../../store/type.d'
 
 function Order(): React.ReactElement {
   const dispatch = useDispatch<Dispatch>()

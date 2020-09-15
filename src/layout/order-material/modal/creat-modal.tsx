@@ -1,26 +1,21 @@
-import React, { useState, ReactNode, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
+import { Form, message } from 'antd'
+import { useSelector, useDispatch } from 'react-redux'
 
 import CreateForm from '../form/creat-form'
-import { useGlobalModal, message } from '../../../components'
-
+import { useGlobalModal } from '../../../components'
 import ModalView from './modal'
-import { Material } from '../material.d'
-import { useCreateOrderMaterialsApi, ActionType } from '../service'
 import { MaterialsInput } from '../../../services'
-import { useRouter } from 'next/router'
 import CreateMaterialsTable, { CellEmit } from '../table/create-material-table'
-import { Form } from 'antd'
-export interface CreateModalViewProps {
-  id?: string
+import { Dispatch, RootState, ActionType, Material } from '../../../store/type.d'
 
-  children?: ReactNode
-}
-function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
+function CreateModalView() {
+  const dispatch = useDispatch<Dispatch>()
+
   const { hideModal } = useGlobalModal()
-  const router = useRouter()
-  const [data, setData] = useState<Material[]>([])
+  const { loading } = useSelector<RootState, RootState['orderMaterial']>(s => s.orderMaterial)
 
-  const { submit, loading } = useCreateOrderMaterialsApi()
+  const [data, setData] = useState<Material[]>([])
 
   // 表格表单
   const [tableForm] = Form.useForm()
@@ -94,33 +89,26 @@ function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
     },
     [cancel, edit, save, del]
   )
-  const onOK = () => {
-    if (data && id) {
-      const subData: MaterialsInput[] = data.map(item => {
-        return {
-          material: item.material,
-          amount: item.amount,
-          model: item.model,
-          action: ActionType.Create,
-        }
-      })
-      if (subData) {
-        submit(subData, id)
-          .then(() => {
-            message.success('创建成功')
-
-            hideModal()
-            router.replace({
-              pathname: router.pathname,
-              query: router.query,
-            })
-          })
-          .catch(() => {
-            message.error('创建失败')
-          })
-      } else {
-        message.info('请添加原材料信息')
+  const onOK = async () => {
+    const subData: MaterialsInput[] = data?.map(item => {
+      return {
+        material: item.material,
+        amount: item.amount,
+        model: item.model,
+        action: ActionType.Create,
       }
+    })
+
+    if (subData.length > 0) {
+      const flag = await dispatch.orderMaterial.create(subData)
+      if (flag) {
+        message.success('创建成功')
+        hideModal()
+      } else {
+        message.error('创建失败')
+      }
+    } else {
+      message.info('请添加原材料信息')
     }
   }
   const onSubmit = (values: Material) => {
@@ -128,7 +116,7 @@ function CreateModalView({ id }: CreateModalViewProps): React.ReactElement {
   }
 
   return (
-    <ModalView orderId={id ?? ''} OKText='创建' onOK={onOK} loading={loading}>
+    <ModalView OKText='创建' onOK={onOK} loading={loading}>
       <CreateForm onSubmit={onSubmit} />
       <CreateMaterialsTable data={data} editingKey={editingKey} emit={emit} form={tableForm} />
     </ModalView>

@@ -20,7 +20,7 @@ import {
 import type { TOrder, Connection, TOrderHistories } from '../type.d'
 import { getLocalStore } from '../../helpers/cookie'
 
-async function fetchOrders(val: OrdersQueryVariables & { Authorization?: string | undefined }) {
+async function fetchOrders(val: OrdersQueryVariables) {
   try {
     const { ordersConnection } = await NClient.request<OrdersConnectionQuery, OrdersQueryVariables>(
       OrdersConnectionDocument,

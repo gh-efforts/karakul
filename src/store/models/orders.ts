@@ -20,10 +20,8 @@ const orders = createModel<RootModel>()({
   reducers: {
     changeData(_, payload: PaginationConnection<TOrder>) {
       return {
-        page: payload.page,
+        ...payload,
         size: payload.size || 10,
-        data: payload.data,
-        total: payload.total,
       }
     },
   },

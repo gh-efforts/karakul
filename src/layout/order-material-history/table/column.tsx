@@ -4,7 +4,8 @@ import { HistoryInfo, MaterialHistories, MaterialHistory } from '../history.d'
 import { KTable, Svg, useGlobalModal } from '../../../components'
 import HistroyModalView from '../modal/history-modal'
 import moment from 'moment'
-import { ActionTypeMap, ActionType } from '../../order-material/service'
+import { ActionTypeMap, ActionType } from '../../../store/type.d'
+
 interface ViewButtonProps {
   record: HistoryInfo
 }

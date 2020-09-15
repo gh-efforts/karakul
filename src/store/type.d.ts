@@ -1,8 +1,9 @@
 import { Models, RematchDispatch, RematchRootState } from '@rematch/core'
 
-import { OrderFragment, OrdersConnectionQuery } from '../services'
+import { OrderFragment, OrdersConnectionQuery, OrderMaterial, OrderMaterialsConnectionQuery } from '../services'
 
 import { orders, order, orderHistory } from './models/orders'
+import { orderMaterials, orderMaterial } from './models/order-material'
 
 export interface Pagination {
   page: number
@@ -21,6 +22,8 @@ export interface RootModel extends Models<RootModel> {
   orders: typeof orders
   order: typeof order
   orderHistory: typeof orderHistory
+  orderMaterials: typeof orderMaterials
+  orderMaterial: typeof orderMaterial
 }
 
 export type Store = ReturnType<typeof initStore>
@@ -33,3 +36,33 @@ export type TOrder = OrderFragment
 export type TOrderConnection = NonNullable<OrdersConnectionQuery['order']>
 
 export type TOrderHistories = NonNullable<OrderHistoriesQuery['order']>
+
+// order material
+export type OrderMaterialType = Pick<
+  OrderMaterial,
+  'id' | 'createdAt' | 'updatedAt' | 'material' | 'amount' | 'model'
+> & {
+  order_id?: string
+  user?: {
+    id: string
+    username: string
+  }
+}
+
+export type Material = Pick<MaterialsInput, 'id' | 'amount' | 'material' | 'model' | 'action'>
+
+export type OMConnectionType = NonNullable<OrderMaterialsConnectionQuery['orderMaterialsConnection']>
+
+export enum ActionType {
+  Increase = 1,
+  Return = 2,
+  Exchange = 3,
+  Create = 4,
+}
+
+export const ActionTypeMap = {
+  [ActionType.Increase]: '增货',
+  [ActionType.Return]: '退货',
+  [ActionType.Exchange]: '换货',
+  [ActionType.Create]: '新增',
+}

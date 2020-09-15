@@ -3,18 +3,18 @@ import getConfig from 'next/config'
 import { Form, Input, Button, Upload, Select } from 'antd'
 import { PlusCircleFilled } from '@ant-design/icons'
 import { UploadFile } from 'antd/lib/upload/interface'
-import { getValueFromLocal } from '../../../helpers/cookie'
-
-import styles from './index.module.scss'
-import { message, OrderMaterialsSelect, getRealValue } from '../../../components'
-import { Material } from '../material.d'
 import { Store } from 'antd/lib/form/interface'
 import { FormInstance } from 'antd/lib/form'
-import { ActionTypeMap, ActionType } from '../service'
+
+import { getValueFromLocal } from '../../../helpers/cookie'
+import { message, OrderMaterialsSelect, getRealValue } from '../../../components'
+import { Material, ActionTypeMap, ActionType } from '../../../store/type.d'
+
+import styles from './index.module.scss'
 
 const { Option } = Select
 export interface EditFormProps {
-  orderId?: string
+  orderId?: string | null | undefined
   onSubmit: ({ id, amount, material }: Material) => void
 }
 
@@ -82,27 +82,34 @@ export type File = UploadFile<{ id: string }[]> & { id?: string }
 type FileList = File[]
 
 const normalizeFile = ({ fileList }: { fileList: FileList }) => fileList ?? []
+// eslint-disable-next-line no-sparse-arrays
+const acceptFileTypes = [
+  'image/*',
+  'application/pdf',
+  '.application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/vnd.ms-excel',
+  ,
+  'application/*',
+]
+const acceptFileSize = 1024 * 1024 * 2
+
+const isAcceptFileTypes = (type: string) => acceptFileTypes.includes(type)
+const isAcceptFileSize = (size: number) => acceptFileSize > size
 
 function beforeUpload(file: { type: string; size: number }) {
-  const isFile =
-    file.type === 'image/*' ||
-    file.type === 'application/pdf' ||
-    file.type === '.application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
-    file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-    file.type === 'application/vnd.ms-excel' ||
-    file.type === 'application/*'
-
-  if (!isFile) {
+  if (!isAcceptFileTypes(file.type)) {
     message.error('请确认附件格式!')
+
+    return false
   }
 
-  const isLt2M = file.size / 1024 / 1024 < 2
-
-  if (!isLt2M) {
+  if (!isAcceptFileSize(file.size)) {
     message.error('Image must smaller than 2MB!')
+    return false
   }
 
-  return isFile && isLt2M
+  return true
 }
 
 export function RemarkFrom({ form }: RenameFormProps) {
