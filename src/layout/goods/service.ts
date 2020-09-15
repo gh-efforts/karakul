@@ -3,17 +3,12 @@ import { message } from 'antd'
 import {
   useCreateCommodityMutation,
   useCommoditiesLazyQuery,
-  client,
-  GoodsOrdersDocument,
-  GoodsOrdersQuery,
-  GoodsOrdersQueryVariables,
   OutboundCommodityInput,
   useCommodityExWarehouseMutation,
   CommodityInput,
   useUpdateCommodityMutation,
 } from '../../services'
 import { pageToStart } from '../../helpers/params'
-import { GoodsOrder } from './goods.d'
 
 function useCreateCommodityApi() {
   const [create, { loading }] = useCreateCommodityMutation({ fetchPolicy: 'no-cache' })
@@ -79,20 +74,6 @@ function useCommoditiesApi() {
   }
 }
 
-async function fetchGoodsOrders(variables: GoodsOrdersQueryVariables & { Authorization?: string | undefined }) {
-  try {
-    const { data } = await client.query<GoodsOrdersQuery, GoodsOrdersQueryVariables>({
-      query: GoodsOrdersDocument,
-      variables,
-      fetchPolicy: 'network-only',
-    })
-
-    return { data: (data?.orders?.values ?? []) as GoodsOrder[], total: data?.orders?.aggregate?.count ?? 0 }
-  } catch {
-    return { data: [], total: 0 }
-  }
-}
-
 function useCommodityExWarehouseApi() {
   const [exWarehouseapi, { loading }] = useCommodityExWarehouseMutation()
 
@@ -118,4 +99,4 @@ function useCommodityExWarehouseApi() {
   }
 }
 
-export { useCreateCommodityApi, useCommoditiesApi, fetchGoodsOrders, useCommodityExWarehouseApi, useUpdateCommodityApi }
+export { useCreateCommodityApi, useCommoditiesApi, useCommodityExWarehouseApi, useUpdateCommodityApi }

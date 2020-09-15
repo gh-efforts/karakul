@@ -6,10 +6,13 @@ import {
   OrderMaterial,
   OrderMaterialsConnectionQuery,
   OrderMaterialHistory,
+  OrderCommoditiesQuery,
+  Order,
 } from '../services'
 
 import { orders, order, orderHistory } from './models/orders'
 import { orderMaterials, orderMaterial, orderMaterialHistory } from './models/order-material'
+import { goods } from './models/goods'
 
 export interface Pagination {
   page: number
@@ -31,6 +34,7 @@ export interface RootModel extends Models<RootModel> {
   orderMaterials: typeof orderMaterials
   orderMaterial: typeof orderMaterial
   orderMaterialHistory: typeof orderMaterialHistory
+  goods: typeof goods
 }
 
 export type Store = ReturnType<typeof initStore>
@@ -80,3 +84,12 @@ export type HistoryInfo = Pick<
   OrderMaterialHistory,
   'id' | 'createdAt' | 'content' | 'updatedAt' | 'remark' | 'user' | 'attachment_desc' | 'attachment' | 'order_id'
 >
+
+// goods page
+
+// 商品属性
+export type OrderCommodity = NonNullable<
+  NonNullable<NonNullable<OrderCommoditiesQuery['order']>['commodities']>[number]
+>
+
+export type GoodsOrder = Pick<Order, 'id' | 'name'>

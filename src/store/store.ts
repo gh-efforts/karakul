@@ -41,6 +41,10 @@ const InitialState: RootState = {
     meta: null,
     ...InitialPagination,
   },
+  goods: {
+    details: {},
+    ...InitialPagination,
+  },
 }
 
 export const initStore = (initialState: RootState = InitialState) =>
