@@ -2,15 +2,17 @@ import React from 'react'
 
 import ModalView from '../../order-material/modal/modal'
 import styles from './index.module.scss'
-import { HistoryInfo } from '../history.d'
 import { Svg } from '../../../components'
+import { HistoryInfo } from '../../../store/type.d'
+
 export interface HistroyModalViewProps {
   data?: HistoryInfo
   children?: React.ReactNode
 }
+
 function HistroyModalView({ data }: HistroyModalViewProps): React.ReactElement {
   return (
-    <ModalView orderId={data?.order_id?.id ?? ''} OKText={false}>
+    <ModalView id={data?.order_id?.id ?? ''} OKText={false}>
       <div className={styles.remake}>
         <div>
           <span>附件：</span>

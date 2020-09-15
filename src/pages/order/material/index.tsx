@@ -1,69 +1,26 @@
 import React from 'react'
-import { ParsedUrlQuery } from 'querystring'
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
+import { useSelector, useDispatch } from 'react-redux'
+import { Dispatch, RootState, OrderMaterialType } from '../../../store/type.d'
 
 import { withLayout } from '../../../layout/layout'
 import { KTable } from '../../../components'
 import columns from '../../../layout/order-material/table/column'
-import { getValueFromCookie } from '../../../helpers/cookie'
-import { pageToStart } from '../../../helpers/params'
 import MaterialHeader from '../../../layout/order-material/header'
-import { fetchOrderMaterials } from '../../../layout/order-material/service'
 
 import styles from './index.module.scss'
-import { useRouter } from 'next/router'
-import { OrderMaterialType } from '../../../layout/order-material/material.d'
 
-export const getServerSideProps = async ({
-  req: { headers },
-  query: { page, size, id },
-}: GetServerSidePropsContext<ParsedUrlQuery>) => {
-  const [$start, $limit, $page, $size] = pageToStart(page, size)
-  const $order_id = id
-  const data = await fetchOrderMaterials({
-    Authorization: getValueFromCookie('Authorization', headers.cookie),
-    limit: $limit,
-    start: $start,
-    where: {
-      order_id: $order_id,
-    },
-  })
+function Material() {
+  const dispatch = useDispatch<Dispatch>()
 
-  return {
-    props: {
-      data: (data.values ?? []) as OrderMaterialType[],
-      total: data.aggregate?.count ?? 0,
-      page: $page,
-      size: $size,
-    },
-  }
-}
-
-function Material({
-  data,
-  page,
-  size,
-  total,
-}: InferGetServerSidePropsType<typeof getServerSideProps>): React.ReactElement {
-  const router = useRouter()
-  const id = router.query.id
-  const name = router.query.name
+  const { data, total, page, size } = useSelector<RootState, RootState['orderMaterials']>(s => s.orderMaterials)
 
   const onChange = (p: number, s?: number) => {
-    router.replace({
-      pathname: '/order/material',
-      query: {
-        id,
-        name,
-        page: p,
-        size: s,
-      },
-    })
+    dispatch.orderMaterials.pageChange({ page: p, size: s })
   }
 
   return (
     <div className={styles.material}>
-      <MaterialHeader id={id ?? ''} name={name ?? ''} />
+      <MaterialHeader />
       <KTable<OrderMaterialType>
         columns={columns}
         data={(data ?? []) as OrderMaterialType[]}

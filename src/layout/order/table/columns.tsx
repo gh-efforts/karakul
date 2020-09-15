@@ -1,16 +1,14 @@
 import React from 'react'
 import { ClockCircleOutlined, FileAddOutlined, EditOutlined } from '@ant-design/icons'
 import { Tooltip } from 'antd'
-import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import moment from 'moment'
+import { useRouter } from 'next/router'
 
 import EditModalView from '../modal/edit-modal'
 import HistoryModalView from '../modal/history-modal'
-
-import type { TOrder } from '../../../store/type.d'
 import { useGlobalModal, ColumnProps } from '../../../components'
-import { Dispatch } from '../../../store/type.d'
+import { Dispatch, TOrder } from '../../../store/type.d'
 
 interface BtnProps {
   id?: string | null | undefined
@@ -27,18 +25,27 @@ function EditButton({ id }: BtnProps) {
 
   return (
     <Tooltip title='编辑订单'>
-      <EditOutlined style={{ color: '#FF9C7C' }} onClick={show} disabled={!!id} />
+      <EditOutlined style={{ color: '#FF9C7C' }} onClick={show} disabled={!id} />
     </Tooltip>
   )
 }
 
 function AddButton({ id, name }: { id: string; name: string }) {
+  const dispatch = useDispatch<Dispatch>()
+  const router = useRouter()
+
+  const onClick = () => {
+    dispatch.orderMaterials.init({
+      id,
+      name,
+    })
+    router.push('/order/material')
+  }
+
   return id ? (
-    <Link href={`/order/material?id=${id}&name=${name}`}>
-      <Tooltip title='原材料预定'>
-        <FileAddOutlined style={{ color: '#00B2B6' }} />
-      </Tooltip>
-    </Link>
+    <Tooltip title='原材料预定'>
+      <FileAddOutlined style={{ color: '#00B2B6' }} disabled={!id} onClick={onClick} />
+    </Tooltip>
   ) : (
     <Tooltip title='原材料预定'>
       <FileAddOutlined style={{ color: '#00B2B6' }} />
@@ -57,7 +64,7 @@ function HistoryButton({ id }: BtnProps) {
 
   return (
     <Tooltip title='订单历史'>
-      <ClockCircleOutlined style={{ color: '#FFC01F' }} onClick={show} disabled={!!id} />
+      <ClockCircleOutlined style={{ color: '#FFC01F' }} onClick={show} disabled={!id} />
     </Tooltip>
   )
 }

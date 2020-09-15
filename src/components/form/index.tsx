@@ -20,7 +20,7 @@ interface SelectBaseProps {
   noSplit?: boolean
   style?: React.CSSProperties
   initialValue?: unknown
-  id?: string
+  id?: string | null | undefined
   size?: 'small' | 'middle' | 'large' | undefined
 }
 
@@ -74,6 +74,7 @@ function OrderMaterialsSelect({ name, required, className, label, noLabel, style
   const { data, loading } = useOrderMaterialsQuery({
     fetchPolicy: 'network-only',
     variables: { where: { order_id: id } },
+    skip: !id,
   })
 
   return (

@@ -1,15 +1,16 @@
 import React from 'react'
 import { Form, Input, Button } from 'antd'
+import { Store } from 'antd/lib/form/interface'
+
+import { MaterialsSelect, getRealValue } from '../../../components'
+import { Material, ActionType } from '../../../store/type.d'
 
 import styles from './index.module.scss'
-import { MaterialsSelect, getRealValue } from '../../../components'
-import { Store } from 'antd/lib/form/interface'
-import { Material } from '../material.d'
-import { ActionType } from '../service'
 
 interface CreateFormProps {
   onSubmit: ({ id, amount, material, model }: Material) => void
 }
+
 export default function CreateForm({ onSubmit }: CreateFormProps) {
   const [form] = Form.useForm()
 

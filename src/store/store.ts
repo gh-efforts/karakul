@@ -26,6 +26,21 @@ const InitialState: RootState = {
     id: null,
     ...InitialPagination,
   },
+  orderMaterials: {
+    meta: null,
+    ...InitialPagination,
+  },
+  orderMaterial: {
+    meta: {
+      id: null,
+      tag: 'create',
+    },
+    loading: false,
+  },
+  orderMaterialHistory: {
+    meta: null,
+    ...InitialPagination,
+  },
 }
 
 export const initStore = (initialState: RootState = InitialState) =>

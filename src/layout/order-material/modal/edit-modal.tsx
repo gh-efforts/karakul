@@ -1,27 +1,23 @@
 import React, { useState, useCallback } from 'react'
+import { Form, message } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
 
 import ModalView from './modal'
-import { useGlobalModal, message } from '../../../components'
+import { useGlobalModal } from '../../../components'
 import EditForm, { RemarkFrom } from '../form/edit-from'
-import { Material } from '../material.d'
-import { useRouter } from 'next/router'
 import { MaterialsInput, UploadFile } from '../../../services'
-import { useUpdateOrderMaterialsApi, ActionType } from '../service'
-import { Form } from 'antd'
+import { Dispatch, ActionType, Material, RootState } from '../../../store/type.d'
 
 import EditMaterialsTable, { CellEmit } from '../table/edit-material-table'
 
-export interface EditModalViewProps {
-  id?: string
-  children?: React.ReactNode
-}
-function EditModalView({ id }: EditModalViewProps): React.ReactElement {
-  const [form] = Form.useForm()
+function EditModalView() {
+  const dispatch = useDispatch<Dispatch>()
   const { hideModal } = useGlobalModal()
-  const router = useRouter()
+  const { loading, meta } = useSelector<RootState, RootState['orderMaterial']>(s => s.orderMaterial)
+
+  const [form] = Form.useForm()
 
   const [data, setData] = useState<Material[]>([])
-  const { submit, loading } = useUpdateOrderMaterialsApi()
   // 表格表单
   const [tableForm] = Form.useForm()
   // 正在编辑的 item key 值
@@ -96,38 +92,36 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
     },
     [cancel, edit, save, del]
   )
-  const onOK = () => {
+  const onOK = async () => {
     const { attachment, attachment_desc, remark } = form.getFieldsValue()
 
     const normalizeAttachment = attachment?.map((file: UploadFile) => file.id)
 
-    if (data && id) {
-      const subData: MaterialsInput[] = data.map(item => {
-        return {
-          id: item.id,
-          material: item.material,
-          amount: item.amount,
-          model: item.model,
-          action: item.action as ActionType,
-        }
-      })
-
-      if (subData) {
-        submit(subData, id, normalizeAttachment, attachment_desc, remark)
-          .then(() => {
-            message.success('修改成功')
-            router.replace({
-              pathname: router.pathname,
-              query: router.query,
-            })
-            hideModal()
-          })
-          .catch(() => {
-            message.error('修改失败')
-          })
-      } else {
-        message.info('请添加原材料信息')
+    const subData: MaterialsInput[] = data?.map(item => {
+      return {
+        id: item.id,
+        material: item.material,
+        amount: item.amount,
+        model: item.model,
+        action: item.action as ActionType,
       }
+    })
+
+    if (subData.length > 0) {
+      const flag = await dispatch.orderMaterial.update({
+        materials: subData,
+        attachment: normalizeAttachment,
+        attachment_desc,
+        remark,
+      })
+      if (flag) {
+        message.success('修改成功')
+        hideModal()
+      } else {
+        message.error('修改失败')
+      }
+    } else {
+      message.info('请添加原材料信息')
     }
   }
   const onSubmit = (values: Material) => {
@@ -135,8 +129,8 @@ function EditModalView({ id }: EditModalViewProps): React.ReactElement {
   }
 
   return (
-    <ModalView orderId={id ?? ''} OKText='编辑' onOK={onOK} loading={loading}>
-      <EditForm orderId={id ?? ''} onSubmit={onSubmit} />
+    <ModalView OKText='编辑' onOK={onOK} loading={loading}>
+      <EditForm onSubmit={onSubmit} orderId={meta?.id} />
       <EditMaterialsTable data={data} editingKey={editingKey} emit={emit} form={tableForm} />
       <RemarkFrom form={form} />
     </ModalView>
