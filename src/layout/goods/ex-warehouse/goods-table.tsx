@@ -1,14 +1,13 @@
 import React, { useState, useImperativeHandle, forwardRef } from 'react'
 import { ColumnProps } from 'antd/lib/table'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { KTable, KPagination } from '../../../components'
-import { useOrderCommoditiesSimpleQuery, OrderCommoditiesSimpleQuery, Enum_Commodity_State } from '../../../services'
+import { Dispatch, RootState, ExWGoodsItem } from '../../../store/type.d'
 
 import styles from './index.module.scss'
 
-type GoodsItem = NonNullable<NonNullable<NonNullable<OrderCommoditiesSimpleQuery['commodities']>['values']>[number]>
-
-const columns: ColumnProps<GoodsItem>[] = [
+const columns: ColumnProps<ExWGoodsItem>[] = [
   {
     title: '商品编号',
     dataIndex: 'code',
@@ -24,46 +23,24 @@ const columns: ColumnProps<GoodsItem>[] = [
 ]
 
 interface GoodsTableProps {
-  id: string
   children?: React.ReactNode
 }
 
-function GoodsTable({ id }: GoodsTableProps, ref: React.Ref<{ selectedRowKeys: string[] }>) {
-  const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([])
-  const { data, loading, refetch } = useOrderCommoditiesSimpleQuery({
-    fetchPolicy: 'network-only',
-    variables: {
-      limit: 10,
-      start: 0,
-      id,
-      state: Enum_Commodity_State.In,
-    },
-    skip: !id,
-  })
+function GoodsTable(props: GoodsTableProps, ref: React.Ref<{ selectedRowKeys: string[] }>) {
+  const dispatch = useDispatch<Dispatch>()
+  const { data, total, page, size } = useSelector<RootState, RootState['exwarehouse']>(s => s.exwarehouse)
 
-  const [page, setPage] = useState(1)
-  const [size, setSize] = useState(10)
+  const onPageChange = (p: number, s?: number) => {
+    dispatch.exwarehouse.pageChange({ page: p, size: s })
+  }
+
+  const [selectedRowKeys, setSelectedRowKeys] = useState<string[]>([])
 
   useImperativeHandle(ref, () => ({
     selectedRowKeys,
   }))
 
-  const onPageChange = (p: number, s?: number | undefined) => {
-    const _s = s || size
-
-    if (id) {
-      refetch?.({
-        id,
-        limit: s || size,
-        start: (p - 1) * _s,
-      })
-    }
-
-    setPage(p)
-    setSize(_s)
-  }
-
-  const onSelect = (record: GoodsItem, selected: boolean) => {
+  const onSelect = (record: ExWGoodsItem, selected: boolean) => {
     setSelectedRowKeys(keys => {
       if (selected) {
         return [...new Set([...keys, record?.id ?? ''])]
@@ -73,7 +50,7 @@ function GoodsTable({ id }: GoodsTableProps, ref: React.Ref<{ selectedRowKeys: s
     })
   }
 
-  const onSelectAll = (selected: boolean, selectedRows: GoodsItem[]) => {
+  const onSelectAll = (selected: boolean, selectedRows: ExWGoodsItem[]) => {
     setSelectedRowKeys(keys => {
       const selectedIds = selectedRows.map(rows => rows?.id).filter(Boolean) as string[]
 
@@ -87,25 +64,23 @@ function GoodsTable({ id }: GoodsTableProps, ref: React.Ref<{ selectedRowKeys: s
 
   return (
     <div className={styles.tablebox}>
-      <KTable<GoodsItem>
+      <KTable<ExWGoodsItem>
         columns={columns}
-        data={(data?.commodities?.values ?? []) as GoodsItem[]}
+        data={data}
         rowKey='id'
         pagination={false}
         className={styles.table}
         rowSelection={{
           type: 'checkbox',
-          // onChange,
           onSelect,
           onSelectAll,
           selectedRowKeys,
         }}
         scroll={{ y: 400 }}
-        loading={loading}
       />
       <KPagination
         currentPage={page}
-        total={data?.commodities?.aggregate?.count ?? 0}
+        total={total}
         pageSize={size}
         onPageChange={onPageChange}
         className={styles.pagination}

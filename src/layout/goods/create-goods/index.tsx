@@ -2,29 +2,29 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useState, useCallback } from 'react'
 import { PlusSquareOutlined } from '@ant-design/icons'
-import { Form } from 'antd'
+import { Form, message } from 'antd'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { ModalButtonGroup, getRealValue, message, useGlobalModal } from '../../../components'
+import { ModalButtonGroup, getRealValue, useGlobalModal } from '../../../components'
 import CreateGoodsTable, { CellEmit } from './goods-table'
 import { SAccessory } from '../goods.d'
 import GoodsForm from './goods-form'
-import { useCreateCommodityApi } from '../service'
-import { getLocalStore } from '../../../helpers/cookie'
 import { Enum_Commodity_State } from '../../../services'
 import { parseCsvDataToSAccessory } from '../csv-parser'
+import { Dispatch, RootState } from '../../../store/type.d'
 
 import styles from './index.module.scss'
-import { useRouter } from 'next/router'
 
 interface CreateGoodsViewProps {
-  id?: string
+  pid?: string
   children?: React.ReactNode
 }
 
-function CreateGoodsView({ id }: CreateGoodsViewProps) {
-  const { createCommodit, loading } = useCreateCommodityApi()
+function CreateGoodsView({ pid }: CreateGoodsViewProps) {
   const { hideModal } = useGlobalModal()
-  const router = useRouter()
+  const dispatch = useDispatch<Dispatch>()
+  const { loading } = useSelector<RootState, RootState['commodity']>(s => s.commodity)
+
   // 新增数据
   const [data, setData] = useState<SAccessory[]>([])
   // 商品表单
@@ -139,18 +139,11 @@ function CreateGoodsView({ id }: CreateGoodsViewProps) {
     const [cid] = getRealValue(commodity_type)
     const [wid] = getRealValue(warehouse)
 
-    const uid = getLocalStore('userId')
-
-    if (!uid || !id) {
-      message.error('数据错误')
-      return
-    }
-
     try {
       await form.validateFields()
-      const flag = await createCommodit({
-        user: uid,
-        order: id,
+      const flag = await dispatch.commodity.create({
+        pid,
+        order: pid,
         code,
         commodity_type: cid,
         warehouse: wid,
@@ -159,10 +152,12 @@ function CreateGoodsView({ id }: CreateGoodsViewProps) {
       })
 
       if (flag) {
-        router.replace('/goods')
+        message.success('创建商品成功')
         hideModal()
+      } else {
+        message.error('创建商品失败')
       }
-    } catch (errorInfo) {
+    } catch {
       message.error('请先填写商品信息')
     }
   }
@@ -184,7 +179,7 @@ function CreateGoodsView({ id }: CreateGoodsViewProps) {
   return (
     <div>
       <div className={styles.title}>
-        <span>订单编号: {id || ''}</span>
+        <span>订单编号: {pid || ''}</span>
         <span className={`${styles['title-right']} ${editingKey && styles['btn-disable']}`} onClick={onAdd}>
           <PlusSquareOutlined />
           添加

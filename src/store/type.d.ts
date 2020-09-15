@@ -8,11 +8,12 @@ import {
   OrderMaterialHistory,
   OrderCommoditiesQuery,
   Order,
+  OrderCommoditiesSimpleQuery,
 } from '../services'
 
 import { orders, order, orderHistory } from './models/orders'
 import { orderMaterials, orderMaterial, orderMaterialHistory } from './models/order-material'
-import { goods } from './models/goods'
+import { goods, commodity, exwarehouse } from './models/goods'
 
 export interface Pagination {
   page: number
@@ -35,6 +36,8 @@ export interface RootModel extends Models<RootModel> {
   orderMaterial: typeof orderMaterial
   orderMaterialHistory: typeof orderMaterialHistory
   goods: typeof goods
+  commodity: typeof commodity
+  exwarehouse: typeof exwarehouse
 }
 
 export type Store = ReturnType<typeof initStore>
@@ -93,3 +96,9 @@ export type OrderCommodity = NonNullable<
 >
 
 export type GoodsOrder = Pick<Order, 'id' | 'name'>
+
+// exwarehouse modal
+
+export type ExWGoodsItem = NonNullable<
+  NonNullable<NonNullable<OrderCommoditiesSimpleQuery['commodities']>['values']>[number]
+>

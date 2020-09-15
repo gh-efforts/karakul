@@ -1,19 +1,28 @@
+import { getLocalStore } from '../../helpers/cookie'
 import {
-  useCreateCommodityMutation,
-  useCommoditiesLazyQuery,
   NClient,
   GoodsOrdersDocument,
   GoodsOrdersQuery,
   GoodsOrdersQueryVariables,
-  OutboundCommodityInput,
-  useCommodityExWarehouseMutation,
   CommodityInput,
-  useUpdateCommodityMutation,
   OrderCommoditiesQuery,
   OrderCommoditiesQueryVariables,
   OrderCommoditiesDocument,
+  UpdateCommodityMutation,
+  UpdateCommodityMutationVariables,
+  UpdateCommodityDocument,
+  CreateCommodityMutation,
+  CreateCommodityMutationVariables,
+  CreateCommodityDocument,
+  CommodityExWarehouseMutation,
+  CommodityExWarehouseMutationVariables,
+  CommodityExWarehouseDocument,
+  OutboundCommodityInput,
+  OrderCommoditiesSimpleQuery,
+  OrderCommoditiesSimpleQueryVariables,
+  OrderCommoditiesSimpleDocument,
 } from '../../services'
-import { GoodsOrder, OrderCommodity } from '../type.d'
+import { ExWGoodsItem, GoodsOrder, OrderCommodity } from '../type.d'
 
 async function fetchGoodsOrders(variables: GoodsOrdersQueryVariables) {
   try {
@@ -48,4 +57,100 @@ async function fetchOrderCommoditiesById(id: string | null | undefined): Promise
   }
 }
 
-export { fetchGoodsOrders, fetchOrderCommoditiesById }
+interface PUpdateCommodity {
+  id: string | null | undefined
+  data: Omit<CommodityInput, 'user'>
+}
+
+async function updateCommodity({ id, data }: PUpdateCommodity): Promise<[boolean]> {
+  if (!id) {
+    return [false]
+  }
+
+  try {
+    const user = getLocalStore('userId')
+
+    await NClient.request<UpdateCommodityMutation, UpdateCommodityMutationVariables>(UpdateCommodityDocument, {
+      id,
+      data: {
+        ...data,
+        user,
+      },
+    })
+    return [true]
+  } catch (error) {
+    return [false]
+  }
+}
+
+type PCreateCommodity = Omit<CommodityInput, 'user'>
+
+async function createCommodity(data: PCreateCommodity) {
+  try {
+    if (!data?.order) {
+      return [false]
+    }
+
+    const user = getLocalStore('userId')
+
+    await NClient.request<CreateCommodityMutation, CreateCommodityMutationVariables>(CreateCommodityDocument, {
+      data: {
+        ...data,
+        user,
+      },
+    })
+    return [true]
+  } catch {
+    return [false]
+  }
+}
+
+type PExWarehouse = Omit<OutboundCommodityInput, 'outbound_user'>
+async function exWarehouse(input: PExWarehouse) {
+  try {
+    const outbound_user = getLocalStore('userId')
+
+    if (!outbound_user) {
+      return [false]
+    }
+
+    await NClient.request<CommodityExWarehouseMutation, CommodityExWarehouseMutationVariables>(
+      CommodityExWarehouseDocument,
+      {
+        input: {
+          ...input,
+          outbound_user,
+        },
+      }
+    )
+    return [true]
+  } catch {
+    return [false]
+  }
+}
+
+async function fetchExGooods(val: OrderCommoditiesSimpleQueryVariables) {
+  try {
+    if (!val.id) {
+      throw new Error('miss pagination id')
+    }
+
+    const { commodities } = await NClient.request<OrderCommoditiesSimpleQuery, OrderCommoditiesSimpleQueryVariables>(
+      OrderCommoditiesSimpleDocument,
+      val
+    )
+
+    return {
+      data: (commodities?.values ?? []) as ExWGoodsItem[],
+      total: commodities?.aggregate?.count ?? 0,
+    }
+  } catch {
+    return {
+      data: [],
+      total: 0,
+    }
+  }
+}
+
+export { fetchGoodsOrders, fetchOrderCommoditiesById, updateCommodity, createCommodity, exWarehouse, fetchExGooods }
+export type { PUpdateCommodity, PCreateCommodity, PExWarehouse }

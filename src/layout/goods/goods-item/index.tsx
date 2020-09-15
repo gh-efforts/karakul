@@ -27,7 +27,7 @@ function GoodsItem({ id, name }: GoodsItemProps) {
     setExpanded(e => !e)
 
     if (!expanded && id) {
-      dispatch.goods.fetchCommody(id)
+      dispatch.goods.fetchCommodity(id)
     }
   }
 
@@ -37,7 +37,7 @@ function GoodsItem({ id, name }: GoodsItemProps) {
         <ExpandIcon expanded={expanded} onClick={toggle} />
       </GoodsItemHeader>
 
-      <GoodsItemTable expanded={expanded} data={data} />
+      <GoodsItemTable expanded={expanded} data={data} pid={id} />
     </div>
   )
 }
