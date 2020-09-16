@@ -58,18 +58,23 @@ function ModalBase({ onOK, OKText, loading, initialValues }: ModalBase) {
       </div>
 
       <Form className={styles.form} onFinish={onFinish} initialValues={initialVals} layout={'vertical'}>
-        <Form.Item name='name'>
+        <Form.Item name='name' rules={[{ required: true, message: '请输入订单名称' }]}>
           <Input placeholder='请输入订单名称' allowClear />
         </Form.Item>
 
-        <Form.Item name='amount'>
+        <Form.Item name='amount' rules={[{ required: true, message: '请输入数量' }]}>
           <InputNumber placeholder='请输入数量' formatter={formatter} parser={parser} />
         </Form.Item>
-        <Form.Item name='time'>
+        <Form.Item name='time' rules={[{ required: true, message: '请选择交付时间' }]}>
           <DatePicker placeholder='请选择交付时间' format='YYYY.MM.DD' />
         </Form.Item>
         <div className={styles.horizontal} />
-        <Form.Item name='detail' label='详情' className={styles.detail}>
+        <Form.Item
+          name='detail'
+          label='详情'
+          className={styles.detail}
+          rules={[{ required: true, message: '请输入详情' }]}
+        >
           <Input.TextArea rows={10} placeholder='请输入详情' allowClear />
         </Form.Item>
         <ModalButtonGroup OKText={OKText} loading={loading} className={styles.btns} position='left' />

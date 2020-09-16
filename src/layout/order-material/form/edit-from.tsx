@@ -52,10 +52,10 @@ export default function EditForm({ orderId, onSubmit }: EditFormProps) {
     <div className={styles['edit-form']}>
       <Form layout={'inline'} form={form} onFinish={onFinish} onReset={onReset}>
         <OrderMaterialsSelect name='material' noLabel style={{ width: 180 }} required id={orderId} />
-        <Form.Item name='amount'>
+        <Form.Item name='amount' rules={[{ required: true, message: '请输入数量' }]}>
           <Input size='large' type={'number'} placeholder='请输入数量' />
         </Form.Item>
-        <Form.Item name='action'>
+        <Form.Item name='action' rules={[{ required: true, message: '请选择行为' }]}>
           <Select size='large' style={{ width: 170 }} placeholder='请选择行为'>
             {ActionTypeOptions}
           </Select>
