@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react'
 import { PlusSquareOutlined } from '@ant-design/icons'
-import { Form } from 'antd'
+import { Form, message } from 'antd'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { Dispatch, RootState } from '../../../store/type.d'
-import { ModalButtonGroup, getRealValue, message, useGlobalModal } from '../../../components'
+import { ModalButtonGroup, getRealValue, useGlobalModal } from '../../../components'
 import UpdateGoodsTable, { CellEmit } from './goods-table'
 import { SAccessory, OrderCommodity } from '../goods.d'
 import { Enum_Commodity_State } from '../../../services'

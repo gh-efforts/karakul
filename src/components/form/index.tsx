@@ -6,7 +6,7 @@ import {
   useCommodityTypesSelectQuery,
   useWarehousesSelectQuery,
   useOrderMaterialsQuery,
-} from '../../services'
+} from '../../store/hooks'
 import styles from './index.module.scss'
 
 const { Option } = Select
@@ -38,7 +38,7 @@ function MaterialsSelect({
   noSplit,
   size,
 }: SelectBaseProps) {
-  const { data, loading } = useMaterialsQuery({ fetchPolicy: 'network-only' })
+  const { data, loading } = useMaterialsQuery()
 
   return (
     <Form.Item
@@ -71,11 +71,7 @@ function MaterialsSelect({
 
 // 订单材料选择
 function OrderMaterialsSelect({ name, required, className, label, noLabel, style, initialValue, id }: SelectBaseProps) {
-  const { data, loading } = useOrderMaterialsQuery({
-    fetchPolicy: 'network-only',
-    variables: { where: { order_id: id } },
-    skip: !id,
-  })
+  const { data, loading } = useOrderMaterialsQuery({ where: { order_id: id } }, !id)
 
   return (
     <Form.Item
@@ -106,7 +102,7 @@ function OrderMaterialsSelect({ name, required, className, label, noLabel, style
 }
 
 function CommodityTypeSelect({ name, required, className, label, noLabel, style, initialValue }: SelectBaseProps) {
-  const { data, loading } = useCommodityTypesSelectQuery({ fetchPolicy: 'network-only' })
+  const { data, loading } = useCommodityTypesSelectQuery()
 
   return (
     <Form.Item
@@ -132,7 +128,7 @@ function CommodityTypeSelect({ name, required, className, label, noLabel, style,
 }
 
 function WarehousesSelect({ name, required, className, label, noLabel, style, initialValue }: SelectBaseProps) {
-  const { data, loading } = useWarehousesSelectQuery({ fetchPolicy: 'network-only' })
+  const { data, loading } = useWarehousesSelectQuery()
 
   return (
     <Form.Item

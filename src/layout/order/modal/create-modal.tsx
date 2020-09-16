@@ -1,8 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { message } from 'antd'
 
 import ModalBase, { OrderFormVal } from './order-modal-base'
-import { useGlobalModal, message } from '../../../components'
+import { useGlobalModal } from '../../../components'
 import { Dispatch, RootState } from '../../../store/type.d'
 
 function CreateModalView() {

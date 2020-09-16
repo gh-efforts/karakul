@@ -1,9 +1,9 @@
 import React, { useRef } from 'react'
-import { Form } from 'antd'
+import { Form, message } from 'antd'
 import moment from 'moment'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { ModalButtonGroup, message, useGlobalModal } from '../../../components'
+import { ModalButtonGroup, useGlobalModal } from '../../../components'
 import { getLocalStore } from '../../../helpers/cookie'
 import GoodsTable from './goods-table'
 import ExWarehouseForm from './goods-form'

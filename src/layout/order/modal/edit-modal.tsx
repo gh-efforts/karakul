@@ -1,8 +1,9 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { message } from 'antd'
 
 import ModalBase, { OrderFormVal } from './order-modal-base'
-import { useGlobalModal, message } from '../../../components'
+import { useGlobalModal } from '../../../components'
 
 import styles from './index.module.scss'
 

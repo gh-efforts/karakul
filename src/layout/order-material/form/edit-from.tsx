@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import getConfig from 'next/config'
-import { Form, Input, Button, Upload, Select } from 'antd'
+import { Form, Input, Button, Upload, Select, message } from 'antd'
 import { PlusCircleFilled } from '@ant-design/icons'
 import { UploadFile } from 'antd/lib/upload/interface'
 import { Store } from 'antd/lib/form/interface'
 import { FormInstance } from 'antd/lib/form'
 
-import { getValueFromLocal } from '../../../helpers/cookie'
-import { message, OrderMaterialsSelect, getRealValue } from '../../../components'
+import { OrderMaterialsSelect, getRealValue } from '../../../components'
 import { Material, ActionTypeMap, ActionType } from '../../../store/type.d'
+import { getLocalStore } from '../../../helpers/cookie'
 
 import styles from './index.module.scss'
 
@@ -115,7 +115,7 @@ function beforeUpload(file: { type: string; size: number }) {
 export function RemarkFrom({ form }: RenameFormProps) {
   const [fileList, setFileList] = useState<FileList>([])
 
-  const Authorization = getValueFromLocal('Authorization') as string
+  const Authorization = getLocalStore('Authorization') as string
 
   const backendURL = getConfig().publicRuntimeConfig.ENDPOINT
 
