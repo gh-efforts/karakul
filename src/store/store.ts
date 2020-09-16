@@ -64,6 +64,12 @@ const InitialState: RootState = {
     loading: false,
     ...InitialPagination,
   },
+  goodsWarehouse: {
+    ...InitialPagination,
+  },
+  warehouse: {
+    loading: false,
+  },
 }
 
 export const initStore = (initialState: RootState = InitialState) =>

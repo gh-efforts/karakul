@@ -1,11 +1,12 @@
 import React from 'react'
-import { Input, Divider, Form } from 'antd'
-
-import { ModalButtonGroup, message, useGlobalModal } from '../../../components'
-import styles from './index.module.scss'
-import { useUpdateWarehouseApi } from '../service'
-import { useRouter } from 'next/router'
+import { Input, Divider, Form, message } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
 import { Store } from 'antd/lib/form/interface'
+
+import { ModalButtonGroup, useGlobalModal } from '../../../components'
+import { Dispatch, RootState } from '../../../store/type.d'
+
+import styles from './index.module.scss'
 
 export interface UpdateModalViewProps {
   id?: string
@@ -14,23 +15,21 @@ export interface UpdateModalViewProps {
 }
 
 export function UpdateModalView({ id, name }: UpdateModalViewProps): React.ReactElement {
+  const dispatch = useDispatch<Dispatch>()
+  const { loading } = useSelector<RootState, RootState['warehouse']>(s => s.warehouse)
   const { hideModal } = useGlobalModal()
-  const { submit: update, loading } = useUpdateWarehouseApi()
   const [form] = Form.useForm()
 
-  const router = useRouter()
-  const onOK = (values: Store) => {
-    const { name: Kname } = values
-    if (id && Kname) {
-      update(id, Kname)
-        .then(() => {
-          message.success('修改成功')
-          hideModal()
-          router.replace('/goods-warehouse')
-        })
-        .catch(() => {
-          message.success('修改失败')
-        })
+  const onOK = async ({ name: Kname }: Store) => {
+    const flag = dispatch.warehouse.update({
+      name: Kname,
+      id,
+    })
+    if (flag) {
+      message.success('修改成功')
+      hideModal()
+    } else {
+      message.error('修改失败')
     }
   }
 

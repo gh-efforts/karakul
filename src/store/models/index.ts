@@ -3,6 +3,7 @@ import { orderMaterials, orderMaterial, orderMaterialHistory } from './order-mat
 import { goods, commodity, exwarehouse, exwarehouseHistory, inwarehouse } from './goods'
 
 import { goodsType } from './goods-type'
+import { goodsWarehouse, warehouse } from './goods-warehouse'
 
 import { RootModel } from '../type.d'
 
@@ -19,4 +20,6 @@ export const models: RootModel = {
   exwarehouseHistory,
   inwarehouse,
   goodsType,
+  goodsWarehouse,
+  warehouse,
 }
