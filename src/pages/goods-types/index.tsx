@@ -1,65 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import GoodsTypesHeader from '../../layout/goods-types/header'
 import { withLayout } from '../../layout/layout'
 import { KTable } from '../../components'
 import columns from '../../layout/goods-types/table/columns'
+import { Dispatch, RootState, CommodityTypeType } from '../../store/type.d'
 
 import styles from './index.module.scss'
-import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next'
-import { ParsedUrlQuery } from 'querystring'
-import { CommodityTypeType, fetchCommodityTypes } from '../../layout/goods-types/service'
-import { pageToStart } from '../../helpers/params'
-import { getValueFromCookie } from '../../helpers/cookie'
-import { useRouter } from 'next/router'
-export const getServerSideProps = async ({
-  req: { headers },
-  query: { page, size },
-}: GetServerSidePropsContext<ParsedUrlQuery>): Promise<{
-  props: { data: CommodityTypeType[]; page: number; size: number; total: number }
-}> => {
-  const [$start, $limit, $page, $size] = pageToStart(page, size)
 
-  const data = await fetchCommodityTypes({
-    Authorization: getValueFromCookie('Authorization', headers.cookie),
-    limit: $limit,
-    start: $start,
-  })
-  return {
-    props: {
-      data: (data?.values ?? []) as CommodityTypeType[],
-      total: data.aggregate?.count ?? 0,
-      page: $page,
-      size: $size,
-    },
-  }
-}
-function GoodsTypes({
-  data,
-  page,
-  size,
-  total,
-}: InferGetServerSidePropsType<typeof getServerSideProps>): React.ReactElement {
-  const route = useRouter()
+function GoodsTypes() {
+  const dispatch = useDispatch<Dispatch>()
+
+  const { data, total, page, size } = useSelector<RootState, RootState['goodsType']>(s => s.goodsType)
+
   const onPageChange = (p: number, s?: number) => {
-    route.replace({
-      pathname: '/goods-types',
-      query: {
-        page: p,
-        size: s,
-      },
-    })
+    dispatch.orders.pageChange({ page: p, size: s })
   }
+
+  useEffect(() => {
+    dispatch.goodsType.init()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <div className={styles.page}>
       <GoodsTypesHeader />
       <KTable<CommodityTypeType>
-        data={(data ?? []) as CommodityTypeType[]}
+        data={data}
         columns={columns}
         total={total}
         currentPage={page}
         pageSize={size}
-        rowKey={item => item.id}
+        rowKey='id'
         onPageChange={onPageChange}
       />
     </div>

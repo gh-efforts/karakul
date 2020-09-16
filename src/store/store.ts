@@ -60,6 +60,10 @@ const InitialState: RootState = {
     id: null,
     ...InitialPagination,
   },
+  goodsType: {
+    loading: false,
+    ...InitialPagination,
+  },
 }
 
 export const initStore = (initialState: RootState = InitialState) =>
