@@ -1,6 +1,9 @@
 # https://graphql-code-generator.com/docs/plugins/typescript-react-apollo
 # https://significa.co/blog/generating-typescript-types-and-react-hooks-based-on-graphql-endpoint
 
+# TODO: https://graphql-code-generator.com/docs/plugins/typescript-graphql-request
+# https://github.com/dotansimha/graphql-code-generator/issues/4748
+
 overwrite: true
 schema: src/services/generated/schema.dev.graphql
 documents: 'src/services/gql/*.gql'
@@ -8,12 +11,12 @@ hooks:
   afterAllFileWrite:
     - prettier --write "src/**/*.+(js|jsx|ts|tsx|json|yml|yaml|scss|css|md)"
 generates:
-  src/services/generated/schemas.tsx:
+  src/services/generated/schemas.ts:
     plugins:
       - typescript
     config:
       skipTypename: true
-  src/services/generated/operations.tsx:
+  src/services/generated/operations.ts:
     preset: import-types
     presetConfig:
       typesPath: ./schemas
@@ -21,11 +24,16 @@ generates:
       - typescript-operations
     config:
       skipTypename: true
-  src/services/generated/hooks.tsx:
-    preset: import-types
-    presetConfig:
-      typesPath: ./operations
+  src/services/generated/document.ts:
     plugins:
-      - typescript-react-apollo
+      - typescript-document-nodes
     config:
-      addDocBlocks: false
+      fragmentSuffix: FragmentDoc
+      nameSuffix: 'Document'
+      skipTypename: true
+  # src/services/generated/request.ts:
+  #   plugins:
+  #     - typescript-graphql-request
+  #   config:
+  #     documentMode: external
+  #     importDocumentNodeExternallyFrom: './operations'

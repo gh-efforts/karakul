@@ -3,7 +3,7 @@ import { Avatar, Button } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
 import { useRouter } from 'next/router'
 
-import { getLocalStore, clearLocalStorage, clearLocalCookie } from '../../../helpers/cookie'
+import { getLocalStore, clearLocalStorage } from '../../../helpers/cookie'
 import { Svg } from '../../../components'
 import styles from './index.module.scss'
 
@@ -16,7 +16,6 @@ function KHeader(): React.ReactElement {
   const router = useRouter()
   const onLogout = () => {
     clearLocalStorage()
-    clearLocalCookie()
     router.replace('/login')
   }
   const [user, setUser] = useState<User>({

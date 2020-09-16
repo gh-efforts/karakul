@@ -11,12 +11,15 @@ import {
   OrderCommoditiesSimpleQuery,
   ExWarehouseHistoryQuery,
   CommodityType,
+  WarehousesQuery,
 } from '../services'
 
 import { orders, order, orderHistory } from './models/orders'
 import { orderMaterials, orderMaterial, orderMaterialHistory } from './models/order-material'
 import { goods, commodity, exwarehouse, exwarehouseHistory, inwarehouse } from './models/goods'
 import { goodsType } from './models/goods-type'
+
+import { goodsWarehouse, warehouse } from './models/goods-warehouse'
 
 export interface Pagination {
   page: number
@@ -44,6 +47,8 @@ export interface RootModel extends Models<RootModel> {
   exwarehouseHistory: typeof exwarehouseHistory
   inwarehouse: typeof inwarehouse
   goodsType: typeof goodsType
+  goodsWarehouse: typeof goodsWarehouse
+  warehouse: typeof warehouse
 }
 
 export type Store = ReturnType<typeof initStore>
@@ -117,6 +122,14 @@ export type GoodsInhouseItem = NonNullable<
 export type GoodsExHistoryItem = NonNullable<
   NonNullable<NonNullable<ExWarehouseHistoryQuery['commodities']>['values']>[number]
 >
-// goods type page
 
+// goods type page
 export type CommodityTypeType = Pick<CommodityType, 'id' | 'createdAt' | 'updatedAt' | 'name' | 'user'>
+
+// goods warehouse page
+
+export type GoodsWarehouseType = NonNullable<
+  NonNullable<NonNullable<WarehousesQuery['warehousesConnection']>['values']>[number]
+>
+
+// export type WarehouseType = Pick<Warehouse, 'id' | 'createdAt' | 'updatedAt' | 'name' | 'user'>

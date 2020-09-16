@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import getConfig from 'next/config'
 import { useRouter } from 'next/router'
 
-import { setLocalCookie, setLocalStorage } from '../../../helpers/cookie'
+import { setLocalStorage } from '../../../helpers/cookie'
 
 export const getServerSideProps = async () => {
   const {
@@ -30,7 +30,7 @@ export default function Loading({ backendUrl }: { backendUrl: string }): JSX.Ele
       })
       .then(res => res.json())
       .then(res => {
-        setLocalCookie('Authorization', `Bearer ${res.jwt}` || '')
+        setLocalStorage('Authorization', `Bearer ${res.jwt}` || '')
         setLocalStorage('user', JSON.stringify(res.user) || '')
         setLocalStorage('userId', res.user.id || '')
         router.replace('/order')

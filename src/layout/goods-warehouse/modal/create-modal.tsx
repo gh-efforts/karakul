@@ -1,30 +1,28 @@
 import React from 'react'
-import { Input, Divider, Form } from 'antd'
-
-import { ModalButtonGroup, message, useGlobalModal } from '../../../components'
-import styles from './index.module.scss'
-import { useCreateWarehouseApi } from '../service'
-import { useRouter } from 'next/router'
+import { Input, Divider, Form, message } from 'antd'
 import { Store } from 'antd/lib/form/interface'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { ModalButtonGroup, useGlobalModal } from '../../../components'
+import { Dispatch, RootState } from '../../../store/type.d'
+
+import styles from './index.module.scss'
 
 export function CreateModalView() {
+  const dispatch = useDispatch<Dispatch>()
+  const { loading } = useSelector<RootState, RootState['warehouse']>(s => s.warehouse)
   const { hideModal } = useGlobalModal()
-  const { submit: create, loading } = useCreateWarehouseApi()
+
   const [form] = Form.useForm()
 
-  const router = useRouter()
-  const onOK = (values: Store) => {
-    const { name } = values
-    if (name) {
-      create(name)
-        .then(() => {
-          message.success('创建成功')
-          hideModal()
-          router.replace('/goods-warehouse')
-        })
-        .catch(() => {
-          message.success('创建失败')
-        })
+  const onOK = async ({ name }: Store) => {
+    const flag = dispatch.warehouse.create(name)
+
+    if (flag) {
+      message.success('创建成功')
+      hideModal()
+    } else {
+      message.error('创建失败')
     }
   }
 

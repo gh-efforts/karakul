@@ -1,11 +1,11 @@
 import React from 'react'
 import { MinusCircleOutlined, EditOutlined } from '@ant-design/icons'
 import { ColumnProps } from 'antd/lib/table'
-import { Tooltip } from 'antd'
+import { Tooltip, message } from 'antd'
 import moment from 'moment'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { message, useGlobalModal } from '../../../components'
+import { useGlobalModal } from '../../../components'
 import UpdateModalView, { UpdateModalViewProps } from '../modal/edit-modal'
 import { Dispatch, RootState, CommodityTypeType } from '../../../store/type.d'
 

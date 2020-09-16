@@ -1,9 +1,9 @@
 import React from 'react'
-import { Input, Divider, Form } from 'antd'
+import { Input, Divider, Form, message } from 'antd'
 import { Store } from 'antd/lib/form/interface'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { ModalButtonGroup, useGlobalModal, message } from '../../../components'
+import { ModalButtonGroup, useGlobalModal } from '../../../components'
 import { Dispatch, RootState } from '../../../store/type.d'
 
 import styles from './index.module.scss'
