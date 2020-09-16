@@ -4,24 +4,16 @@ import { useRouter } from 'next/router'
 
 import { setLocalStorage } from '../../../helpers/cookie'
 
-export const getServerSideProps = async () => {
+export default function Loading() {
+  const router = useRouter()
+
   const {
     publicRuntimeConfig: { ENDPOINT },
   } = getConfig()
 
-  return {
-    props: {
-      backendUrl: ENDPOINT,
-    },
-  }
-}
-
-export default function Loading({ backendUrl }: { backendUrl: string }): JSX.Element {
-  const router = useRouter()
-
   useEffect(() => {
     const callback = router.asPath.split('?')
-    fetch(`${backendUrl}/auth/feishu/callback?${callback[1]}`)
+    fetch(`${ENDPOINT}/auth/feishu/callback?${callback[1]}`)
       .then(res => {
         if (res.status !== 200) {
           throw new Error(`Couldn't login to Strapi. Status: ${res.status}`)
@@ -38,7 +30,7 @@ export default function Loading({ backendUrl }: { backendUrl: string }): JSX.Ele
       .catch(e => {
         return e
       })
-  }, [router, backendUrl])
+  }, [router, ENDPOINT])
 
   return (
     <div

@@ -13,6 +13,7 @@ interface SubHeaderProps {
 interface NavLink {
   name: string
   url?: string
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement | HTMLSpanElement, MouseEvent>) => void
 }
 
 interface SubNavProps {
@@ -27,7 +28,11 @@ export function SubNav({ links }: SubNavProps) {
       {links?.map((link, idx) => {
         return (
           link?.url && (
-            <Breadcrumb.Item href={len === 1 || idx === len - 1 ? undefined : link.url} key={link.url ?? idx}>
+            <Breadcrumb.Item
+              href={len === 1 || idx === len - 1 ? undefined : link.url}
+              onClick={link?.onClick}
+              key={link.url ?? idx}
+            >
               {link.name}
             </Breadcrumb.Item>
           )

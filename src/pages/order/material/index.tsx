@@ -1,11 +1,12 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Dispatch, RootState, OrderMaterialType } from '../../../store/type.d'
 
 import { withLayout } from '../../../layout/layout'
 import { KTable } from '../../../components'
 import columns from '../../../layout/order-material/table/column'
 import MaterialHeader from '../../../layout/order-material/header'
+
+import { Dispatch, RootState, OrderMaterialType } from '../../../store/type.d'
 
 import styles from './index.module.scss'
 
