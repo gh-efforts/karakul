@@ -1,34 +1,37 @@
 import React from 'react'
-import { Input, Divider, Form } from 'antd'
-
-import { ModalButtonGroup, useGlobalModal, message } from '../../../components'
-import styles from './index.module.scss'
-import { useUpdateCommodityTypeApi } from '../service'
-import { useRouter } from 'next/router'
+import { Input, Divider, Form, message } from 'antd'
 import { Store } from 'antd/lib/form/interface'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { ModalButtonGroup, useGlobalModal } from '../../../components'
+import { Dispatch, RootState } from '../../../store/type.d'
+
+import styles from './index.module.scss'
+
 export interface UpdateModalViewProps {
   id?: string
   name?: string
   children?: React.ReactNode
 }
+
 export default function UpdateModalView({ id, name }: UpdateModalViewProps) {
+  const dispatch = useDispatch<Dispatch>()
+  const { loading } = useSelector<RootState, RootState['goodsType']>(s => s.goodsType)
+
   const { hideModal } = useGlobalModal()
-  const { submit: update, loading } = useUpdateCommodityTypeApi()
+
   const [form] = Form.useForm()
 
-  const router = useRouter()
-  const onOK = (values: Store) => {
-    const { name: Kname } = values
-    if (id && Kname) {
-      update(id, Kname)
-        .then(() => {
-          message.success('修改成功')
-          hideModal()
-          router.replace('/goods-types')
-        })
-        .catch(() => {
-          message.success('修改失败')
-        })
+  const onOK = async ({ name: Kname }: Store) => {
+    const flag = await dispatch.goodsType.update({
+      name: Kname,
+      id,
+    })
+    if (flag) {
+      message.success('修改成功')
+      hideModal()
+    } else {
+      message.error('修改失败')
     }
   }
 

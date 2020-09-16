@@ -1,22 +1,15 @@
 import React from 'react'
 import Link from 'next/link'
 import getConfig from 'next/config'
+
 import ActionButton from '../../components/action-button'
 import styles from './index.module.scss'
 
-export const getServerSideProps = async () => {
+export default function Login() {
   const {
     publicRuntimeConfig: { ENDPOINT },
   } = getConfig()
 
-  return {
-    props: {
-      backendUrl: ENDPOINT,
-    },
-  }
-}
-
-export default function Login({ backendUrl }: { backendUrl: string }): React.ReactElement {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -26,7 +19,7 @@ export default function Login({ backendUrl }: { backendUrl: string }): React.Rea
       </div>
       <div className={styles.content}>
         <div className={styles['action-wrapper']}>
-          <Link href={`${backendUrl}/connect/feishu`}>
+          <Link href={`${ENDPOINT}/connect/feishu`}>
             <ActionButton>
               <span>飞书登录</span>
             </ActionButton>

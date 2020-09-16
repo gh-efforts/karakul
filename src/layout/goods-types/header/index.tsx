@@ -6,19 +6,10 @@ import { SubHeader, useGlobalModal, FlexibleInput } from '../../../components'
 import CreateModalView from '../modal/create-modal'
 
 function GoodsTypesHeader() {
-  const { showModal, hideModal } = useGlobalModal()
+  const { showModal } = useGlobalModal()
 
   const showCreateModal = () => {
-    showModal(
-      '创建商品类型',
-      CreateModalView,
-      {
-        onSuccess: () => {
-          hideModal()
-        },
-      },
-      400
-    )
+    showModal('创建商品类型', CreateModalView, {}, 400)
   }
 
   return (
