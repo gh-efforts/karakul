@@ -1,9 +1,9 @@
 import React from 'react'
 import App from 'next/app'
-import Head from 'next/head'
 import ZhCN from 'antd/lib/locale/zh_CN'
 import { ConfigProvider } from 'antd'
 import { Provider } from 'react-redux'
+import Head from 'next/head'
 
 import { GlobalModalProvider } from '../components'
 import { initializeStore } from '../store/store'

@@ -1,18 +1,21 @@
 import type { DocumentNode } from 'graphql'
+import { useEffect, useReducer, useRef, useState } from 'react'
 
 import {
+  CommodityTypesSelectDocument,
   CommodityTypesSelectQuery,
   CommodityTypesSelectQueryVariables,
   MaterialsDocument,
   MaterialsQuery,
   MaterialsQueryVariables,
   NClient,
+  OrderMaterialsDocument,
   OrderMaterialsQuery,
   OrderMaterialsQueryVariables,
+  WarehousesSelectDocument,
   WarehousesSelectQuery,
   WarehousesSelectQueryVariables,
 } from '../../services'
-import { useEffect, useReducer, useRef, useState } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useQuery<TD = any, TV = any>(
@@ -59,15 +62,15 @@ function useMaterialsQuery() {
 }
 
 function useOrderMaterialsQuery(options: OrderMaterialsQueryVariables, skip = false) {
-  return useQuery<OrderMaterialsQuery, OrderMaterialsQueryVariables>(MaterialsDocument, options, skip)
+  return useQuery<OrderMaterialsQuery, OrderMaterialsQueryVariables>(OrderMaterialsDocument, options, skip)
 }
 
 function useCommodityTypesSelectQuery() {
-  return useQuery<CommodityTypesSelectQuery, CommodityTypesSelectQueryVariables>(MaterialsDocument)
+  return useQuery<CommodityTypesSelectQuery, CommodityTypesSelectQueryVariables>(CommodityTypesSelectDocument)
 }
 
 function useWarehousesSelectQuery() {
-  return useQuery<WarehousesSelectQuery, WarehousesSelectQueryVariables>(MaterialsDocument)
+  return useQuery<WarehousesSelectQuery, WarehousesSelectQueryVariables>(WarehousesSelectDocument)
 }
 
 export { useMaterialsQuery, useCommodityTypesSelectQuery, useWarehousesSelectQuery, useOrderMaterialsQuery }

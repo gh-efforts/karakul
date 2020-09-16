@@ -3,6 +3,7 @@ import { Layout } from 'antd'
 
 import KSider from './sider'
 import KHeader from './header'
+import useAuth from './useAuth'
 
 import styles from './index.module.scss'
 
@@ -28,8 +29,10 @@ function KLayout({ children }: LayoutProps): React.ReactElement {
   )
 }
 
-export function withLayout<T>(Component: React.ComponentType<T>) {
+export function withLayout<T>(Component: React.ComponentType<T>, checkAuth = true) {
   return function WithLayout(props: T): React.ReactElement {
+    useAuth(checkAuth)
+
     return (
       <KLayout>
         <Component {...(props || ({} as T))} />

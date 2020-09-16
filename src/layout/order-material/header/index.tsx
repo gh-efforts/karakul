@@ -29,8 +29,9 @@ function OrderMHeader() {
   const showHistroyModal = () => {
     dispatch.orderMaterialHistory.init({
       id: meta?.id,
-      name,
+      name: meta?.name,
     })
+
     router.push('/order/material/history')
   }
 
@@ -51,7 +52,7 @@ function OrderMHeader() {
         </Button>
         <FlexibleInput />
       </SubHeader>
-      <TableHeader title={<span>订单编号：{`${meta?.id ?? ''}-${name}`}</span>}>
+      <TableHeader title={<span>订单编号：{`${meta?.id ?? ''}-${meta?.name}`}</span>}>
         <Button
           type='text'
           icon={<Svg name='btn-revise-h' color='#FF9C7C' offsetY='3' />}
