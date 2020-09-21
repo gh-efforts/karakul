@@ -11,6 +11,8 @@ report.**.json
 
 # production
 /build
+/out
+/.next
 
 # misc
 .vscode/
@@ -24,3 +26,4 @@ report.**.json
 .next
 dist
 /version.js
+.vercel

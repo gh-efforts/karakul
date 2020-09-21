@@ -1,0 +1,12 @@
+.header {
+  display: grid;
+  justify-items: flex-end;
+  padding-right: 30px;
+  height: 72px;
+  .user {
+    display: grid;
+    grid-column-gap: 20px;
+    grid-template-columns: 40px 1fr 32px;
+    align-items: center;
+  }
+}

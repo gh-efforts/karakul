@@ -1,0 +1,35 @@
+.title {
+  padding-bottom: 24px;
+}
+
+.content {
+  background-color: #fff;
+  box-shadow: 0px 2px 10px rgba(0, 87, 89, 0.02);
+  border-radius: 6px;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 32px;
+  padding: 24px 32px 0 32px;
+  border-bottom: 1px solid #efefef;
+
+  :global {
+    .ant-input-number,
+    .ant-picker {
+      width: 100%;
+    }
+  }
+}
+
+.btns {
+  padding: 32px;
+  grid-column: 1 / 4;
+}
+
+.pagination {
+  padding: 16px 0;
+  margin: 0 20px;
+  border-bottom: 1px solid #efefef;
+}

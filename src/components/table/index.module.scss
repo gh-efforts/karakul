@@ -1,0 +1,19 @@
+.table-page {
+  background: #fff;
+  padding: 0 20px;
+}
+
+.table-with-pagination {
+  display: grid;
+  grid-template-rows: 1fr 110px;
+  height: calc(100% - 72px);
+  overflow: auto;
+}
+
+.pagination {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}

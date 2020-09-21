@@ -1,0 +1,6713 @@
+"""
+
+"""
+type Query {
+  """
+
+  """
+  commodityType(id: ID!): CommodityType
+
+  """
+
+  """
+  commodityTypes(sort: String, limit: Int, start: Int, where: JSON): [CommodityType]
+
+  """
+
+  """
+  commodityTypesConnection(sort: String, limit: Int, start: Int, where: JSON): CommodityTypeConnection
+
+  """
+
+  """
+  commodity(id: ID!): Commodity
+
+  """
+
+  """
+  commodities(sort: String, limit: Int, start: Int, where: JSON): [Commodity]
+
+  """
+
+  """
+  commoditiesConnection(sort: String, limit: Int, start: Int, where: JSON): CommodityConnection
+
+  """
+
+  """
+  material(id: ID!): Material
+
+  """
+
+  """
+  materials(sort: String, limit: Int, start: Int, where: JSON): [Material]
+
+  """
+
+  """
+  materialsConnection(sort: String, limit: Int, start: Int, where: JSON): MaterialConnection
+
+  """
+
+  """
+  orderHistory(id: ID!): OrderHistory
+
+  """
+
+  """
+  orderHistories(sort: String, limit: Int, start: Int, where: JSON): [OrderHistory]
+
+  """
+
+  """
+  orderHistoriesConnection(sort: String, limit: Int, start: Int, where: JSON): OrderHistoryConnection
+
+  """
+
+  """
+  orderMaterialHistory(id: ID!): OrderMaterialHistory
+
+  """
+
+  """
+  orderMaterialHistories(sort: String, limit: Int, start: Int, where: JSON): [OrderMaterialHistory]
+
+  """
+
+  """
+  orderMaterialHistoriesConnection(sort: String, limit: Int, start: Int, where: JSON): OrderMaterialHistoryConnection
+
+  """
+
+  """
+  orderMaterial(id: ID!): OrderMaterial
+
+  """
+
+  """
+  orderMaterials(sort: String, limit: Int, start: Int, where: JSON): [OrderMaterial]
+
+  """
+
+  """
+  orderMaterialsConnection(sort: String, limit: Int, start: Int, where: JSON): OrderMaterialConnection
+
+  """
+
+  """
+  order(id: ID!): Order
+
+  """
+
+  """
+  orders(sort: String, limit: Int, start: Int, where: JSON): [Order]
+
+  """
+
+  """
+  ordersConnection(sort: String, limit: Int, start: Int, where: JSON): OrderConnection
+
+  """
+
+  """
+  warehouse(id: ID!): Warehouse
+
+  """
+
+  """
+  warehouses(sort: String, limit: Int, start: Int, where: JSON): [Warehouse]
+
+  """
+
+  """
+  warehousesConnection(sort: String, limit: Int, start: Int, where: JSON): WarehouseConnection
+
+  """
+
+  """
+  files(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
+
+  """
+
+  """
+  filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
+
+  """
+
+  """
+  role(id: ID!): UsersPermissionsRole
+
+  """
+  Retrieve all the existing roles. You can't apply filters on this query.
+  """
+  roles(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsRole]
+
+  """
+
+  """
+  rolesConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsRoleConnection
+
+  """
+
+  """
+  user(id: ID!): UsersPermissionsUser
+
+  """
+
+  """
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+
+  """
+
+  """
+  usersConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsUserConnection
+
+  """
+
+  """
+  me: UsersPermissionsMe
+}
+
+"""
+
+"""
+type CommodityType {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  _id: ID!
+
+  """
+
+  """
+  createdAt: DateTime!
+
+  """
+
+  """
+  updatedAt: DateTime!
+
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  user: UsersPermissionsUser
+
+  """
+
+  """
+  created_by: AdminUser
+
+  """
+
+  """
+  updated_by: AdminUser
+}
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+"""
+
+"""
+type UsersPermissionsUser {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  _id: ID!
+
+  """
+
+  """
+  createdAt: DateTime!
+
+  """
+
+  """
+  updatedAt: DateTime!
+
+  """
+
+  """
+  username: String!
+
+  """
+
+  """
+  email: String!
+
+  """
+
+  """
+  provider: String
+
+  """
+
+  """
+  confirmed: Boolean
+
+  """
+
+  """
+  blocked: Boolean
+
+  """
+
+  """
+  role: UsersPermissionsRole
+
+  """
+
+  """
+  avatar: String
+
+  """
+
+  """
+  created_by: AdminUser
+
+  """
+
+  """
+  updated_by: AdminUser
+}
+
+"""
+
+"""
+type UsersPermissionsRole {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  _id: ID!
+
+  """
+
+  """
+  createdAt: DateTime!
+
+  """
+
+  """
+  updatedAt: DateTime!
+
+  """
+
+  """
+  name: String!
+
+  """
+
+  """
+  description: String
+
+  """
+
+  """
+  type: String
+
+  """
+
+  """
+  created_by: AdminUser
+
+  """
+
+  """
+  updated_by: AdminUser
+
+  """
+
+  """
+  permissions(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsPermission]
+
+  """
+
+  """
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+}
+
+"""
+
+"""
+type AdminUser {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  username: String
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+"""
+
+"""
+type UsersPermissionsPermission {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  _id: ID!
+
+  """
+
+  """
+  createdAt: DateTime!
+
+  """
+
+  """
+  updatedAt: DateTime!
+
+  """
+
+  """
+  type: String!
+
+  """
+
+  """
+  controller: String!
+
+  """
+
+  """
+  action: String!
+
+  """
+
+  """
+  enabled: Boolean!
+
+  """
+
+  """
+  policy: String
+
+  """
+
+  """
+  role: UsersPermissionsRole
+
+  """
+
+  """
+  created_by: AdminUser
+
+  """
+
+  """
+  updated_by: AdminUser
+}
+
+"""
+
+"""
+type CommodityTypeConnection {
+  """
+
+  """
+  values: [CommodityType]
+
+  """
+
+  """
+  groupBy: CommodityTypeGroupBy
+
+  """
+
+  """
+  aggregate: CommodityTypeAggregator
+}
+
+"""
+
+"""
+type CommodityTypeGroupBy {
+  """
+
+  """
+  id: [CommodityTypeConnectionId]
+
+  """
+
+  """
+  _id: [CommodityTypeConnection_id]
+
+  """
+
+  """
+  createdAt: [CommodityTypeConnectionCreatedAt]
+
+  """
+
+  """
+  updatedAt: [CommodityTypeConnectionUpdatedAt]
+
+  """
+
+  """
+  name: [CommodityTypeConnectionName]
+
+  """
+
+  """
+  user: [CommodityTypeConnectionUser]
+
+  """
+
+  """
+  created_by: [CommodityTypeConnectionCreated_by]
+
+  """
+
+  """
+  updated_by: [CommodityTypeConnectionUpdated_by]
+}
+
+"""
+
+"""
+type CommodityTypeConnectionId {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityTypeConnection
+}
+
+"""
+
+"""
+type CommodityTypeConnection_id {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityTypeConnection
+}
+
+"""
+
+"""
+type CommodityTypeConnectionCreatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: CommodityTypeConnection
+}
+
+"""
+
+"""
+type CommodityTypeConnectionUpdatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: CommodityTypeConnection
+}
+
+"""
+
+"""
+type CommodityTypeConnectionName {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: CommodityTypeConnection
+}
+
+"""
+
+"""
+type CommodityTypeConnectionUser {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityTypeConnection
+}
+
+"""
+
+"""
+type CommodityTypeConnectionCreated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityTypeConnection
+}
+
+"""
+
+"""
+type CommodityTypeConnectionUpdated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityTypeConnection
+}
+
+"""
+
+"""
+type CommodityTypeAggregator {
+  """
+
+  """
+  count: Int
+
+  """
+
+  """
+  totalCount: Int
+}
+
+"""
+
+"""
+type Commodity {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  _id: ID!
+
+  """
+
+  """
+  createdAt: DateTime!
+
+  """
+
+  """
+  updatedAt: DateTime!
+
+  """
+
+  """
+  user: UsersPermissionsUser
+
+  """
+
+  """
+  order: Order
+
+  """
+
+  """
+  code: String
+
+  """
+
+  """
+  accessories: JSON
+
+  """
+
+  """
+  commodity_type: CommodityType
+
+  """
+
+  """
+  destination: String
+
+  """
+
+  """
+  delivery_time: Date
+
+  """
+
+  """
+  state: ENUM_COMMODITY_STATE
+
+  """
+
+  """
+  outbound_user: UsersPermissionsUser
+
+  """
+
+  """
+  warehouse: Warehouse
+
+  """
+
+  """
+  created_by: AdminUser
+
+  """
+
+  """
+  updated_by: AdminUser
+}
+
+"""
+
+"""
+type Order {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  _id: ID!
+
+  """
+
+  """
+  createdAt: DateTime!
+
+  """
+
+  """
+  updatedAt: DateTime!
+
+  """
+
+  """
+  detail: String
+
+  """
+
+  """
+  amount: Int
+
+  """
+
+  """
+  delivery_time: Date
+
+  """
+
+  """
+  user: UsersPermissionsUser
+
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  created_by: AdminUser
+
+  """
+
+  """
+  updated_by: AdminUser
+
+  """
+
+  """
+  order_materials(sort: String, limit: Int, start: Int, where: JSON): [OrderMaterial]
+
+  """
+
+  """
+  order_histories(sort: String, limit: Int, start: Int, where: JSON): [OrderHistory]
+
+  """
+
+  """
+  commodities(sort: String, limit: Int, start: Int, where: JSON): [Commodity]
+}
+
+"""
+A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar Date
+
+"""
+
+"""
+type OrderMaterial {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  _id: ID!
+
+  """
+
+  """
+  createdAt: DateTime!
+
+  """
+
+  """
+  updatedAt: DateTime!
+
+  """
+
+  """
+  material: String
+
+  """
+
+  """
+  amount: Int
+
+  """
+
+  """
+  model: String
+
+  """
+
+  """
+  user: UsersPermissionsUser
+
+  """
+
+  """
+  order_id: Order
+
+  """
+
+  """
+  created_by: AdminUser
+
+  """
+
+  """
+  updated_by: AdminUser
+}
+
+"""
+
+"""
+type OrderHistory {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  _id: ID!
+
+  """
+
+  """
+  createdAt: DateTime!
+
+  """
+
+  """
+  updatedAt: DateTime!
+
+  """
+
+  """
+  detail: String
+
+  """
+
+  """
+  amount: Int
+
+  """
+
+  """
+  delivery_time: Date
+
+  """
+
+  """
+  user: UsersPermissionsUser
+
+  """
+
+  """
+  order: Order
+
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  created_by: AdminUser
+
+  """
+
+  """
+  updated_by: AdminUser
+}
+
+"""
+
+"""
+enum ENUM_COMMODITY_STATE {
+  """
+
+  """
+  in
+
+  """
+
+  """
+  out
+}
+
+"""
+
+"""
+type Warehouse {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  _id: ID!
+
+  """
+
+  """
+  createdAt: DateTime!
+
+  """
+
+  """
+  updatedAt: DateTime!
+
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  user: UsersPermissionsUser
+
+  """
+
+  """
+  created_by: AdminUser
+
+  """
+
+  """
+  updated_by: AdminUser
+
+  """
+
+  """
+  commodities(sort: String, limit: Int, start: Int, where: JSON): [Commodity]
+}
+
+"""
+
+"""
+type CommodityConnection {
+  """
+
+  """
+  values: [Commodity]
+
+  """
+
+  """
+  groupBy: CommodityGroupBy
+
+  """
+
+  """
+  aggregate: CommodityAggregator
+}
+
+"""
+
+"""
+type CommodityGroupBy {
+  """
+
+  """
+  id: [CommodityConnectionId]
+
+  """
+
+  """
+  _id: [CommodityConnection_id]
+
+  """
+
+  """
+  createdAt: [CommodityConnectionCreatedAt]
+
+  """
+
+  """
+  updatedAt: [CommodityConnectionUpdatedAt]
+
+  """
+
+  """
+  user: [CommodityConnectionUser]
+
+  """
+
+  """
+  order: [CommodityConnectionOrder]
+
+  """
+
+  """
+  code: [CommodityConnectionCode]
+
+  """
+
+  """
+  accessories: [CommodityConnectionAccessories]
+
+  """
+
+  """
+  commodity_type: [CommodityConnectionCommodity_type]
+
+  """
+
+  """
+  destination: [CommodityConnectionDestination]
+
+  """
+
+  """
+  delivery_time: [CommodityConnectionDelivery_time]
+
+  """
+
+  """
+  state: [CommodityConnectionState]
+
+  """
+
+  """
+  outbound_user: [CommodityConnectionOutbound_user]
+
+  """
+
+  """
+  warehouse: [CommodityConnectionWarehouse]
+
+  """
+
+  """
+  created_by: [CommodityConnectionCreated_by]
+
+  """
+
+  """
+  updated_by: [CommodityConnectionUpdated_by]
+}
+
+"""
+
+"""
+type CommodityConnectionId {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnection_id {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionCreatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionUpdatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionUser {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionOrder {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionCode {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionAccessories {
+  """
+
+  """
+  key: JSON
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionCommodity_type {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionDestination {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionDelivery_time {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionState {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionOutbound_user {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionWarehouse {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionCreated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityConnectionUpdated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: CommodityConnection
+}
+
+"""
+
+"""
+type CommodityAggregator {
+  """
+
+  """
+  count: Int
+
+  """
+
+  """
+  totalCount: Int
+}
+
+"""
+
+"""
+type Material {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  _id: ID!
+
+  """
+
+  """
+  createdAt: DateTime!
+
+  """
+
+  """
+  updatedAt: DateTime!
+
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  created_by: AdminUser
+
+  """
+
+  """
+  updated_by: AdminUser
+
+  """
+
+  """
+  order_material_histories(sort: String, limit: Int, start: Int, where: JSON): [OrderMaterialHistory]
+}
+
+"""
+
+"""
+type OrderMaterialHistory {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  _id: ID!
+
+  """
+
+  """
+  createdAt: DateTime!
+
+  """
+
+  """
+  updatedAt: DateTime!
+
+  """
+
+  """
+  remark: String
+
+  """
+
+  """
+  user: UsersPermissionsUser
+
+  """
+
+  """
+  attachment_desc: String
+
+  """
+
+  """
+  content: JSON
+
+  """
+
+  """
+  order_id: Material
+
+  """
+
+  """
+  created_by: AdminUser
+
+  """
+
+  """
+  updated_by: AdminUser
+
+  """
+
+  """
+  attachment(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
+}
+
+"""
+
+"""
+type UploadFile {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  _id: ID!
+
+  """
+
+  """
+  createdAt: DateTime!
+
+  """
+
+  """
+  updatedAt: DateTime!
+
+  """
+
+  """
+  name: String!
+
+  """
+
+  """
+  alternativeText: String
+
+  """
+
+  """
+  caption: String
+
+  """
+
+  """
+  width: Int
+
+  """
+
+  """
+  height: Int
+
+  """
+
+  """
+  formats: JSON
+
+  """
+
+  """
+  hash: String!
+
+  """
+
+  """
+  ext: String
+
+  """
+
+  """
+  mime: String!
+
+  """
+
+  """
+  size: Float!
+
+  """
+
+  """
+  url: String!
+
+  """
+
+  """
+  httpUrl: String!
+
+  """
+
+  """
+  previewUrl: String
+
+  """
+
+  """
+  provider: String!
+
+  """
+
+  """
+  provider_metadata: JSON
+
+  """
+
+  """
+  created_by: AdminUser
+
+  """
+
+  """
+  updated_by: AdminUser
+
+  """
+
+  """
+  related(sort: String, limit: Int, start: Int, where: JSON): [Morph]
+}
+
+"""
+
+"""
+union Morph =
+    Commodities
+  | OrderMaterials
+  | UsersPermissionsMe
+  | UsersPermissionsMeRole
+  | UsersPermissionsLoginPayload
+  | UserPermissionsPasswordPayload
+  | CommodityType
+  | CommodityTypeConnection
+  | CommodityTypeAggregator
+  | CommodityTypeGroupBy
+  | CommodityTypeConnectionId
+  | CommodityTypeConnection_id
+  | CommodityTypeConnectionCreatedAt
+  | CommodityTypeConnectionUpdatedAt
+  | CommodityTypeConnectionName
+  | CommodityTypeConnectionUser
+  | CommodityTypeConnectionCreated_by
+  | CommodityTypeConnectionUpdated_by
+  | createCommodityTypePayload
+  | updateCommodityTypePayload
+  | deleteCommodityTypePayload
+  | Commodity
+  | CommodityConnection
+  | CommodityAggregator
+  | CommodityGroupBy
+  | CommodityConnectionId
+  | CommodityConnection_id
+  | CommodityConnectionCreatedAt
+  | CommodityConnectionUpdatedAt
+  | CommodityConnectionUser
+  | CommodityConnectionOrder
+  | CommodityConnectionCode
+  | CommodityConnectionAccessories
+  | CommodityConnectionCommodity_type
+  | CommodityConnectionDestination
+  | CommodityConnectionDelivery_time
+  | CommodityConnectionState
+  | CommodityConnectionOutbound_user
+  | CommodityConnectionWarehouse
+  | CommodityConnectionCreated_by
+  | CommodityConnectionUpdated_by
+  | createCommodityPayload
+  | updateCommodityPayload
+  | deleteCommodityPayload
+  | Material
+  | MaterialConnection
+  | MaterialAggregator
+  | MaterialGroupBy
+  | MaterialConnectionId
+  | MaterialConnection_id
+  | MaterialConnectionCreatedAt
+  | MaterialConnectionUpdatedAt
+  | MaterialConnectionName
+  | MaterialConnectionCreated_by
+  | MaterialConnectionUpdated_by
+  | createMaterialPayload
+  | updateMaterialPayload
+  | deleteMaterialPayload
+  | OrderHistory
+  | OrderHistoryConnection
+  | OrderHistoryAggregator
+  | OrderHistoryAggregatorSum
+  | OrderHistoryAggregatorAvg
+  | OrderHistoryAggregatorMin
+  | OrderHistoryAggregatorMax
+  | OrderHistoryGroupBy
+  | OrderHistoryConnectionId
+  | OrderHistoryConnection_id
+  | OrderHistoryConnectionCreatedAt
+  | OrderHistoryConnectionUpdatedAt
+  | OrderHistoryConnectionDetail
+  | OrderHistoryConnectionAmount
+  | OrderHistoryConnectionDelivery_time
+  | OrderHistoryConnectionUser
+  | OrderHistoryConnectionOrder
+  | OrderHistoryConnectionName
+  | OrderHistoryConnectionCreated_by
+  | OrderHistoryConnectionUpdated_by
+  | createOrderHistoryPayload
+  | updateOrderHistoryPayload
+  | deleteOrderHistoryPayload
+  | OrderMaterialHistory
+  | OrderMaterialHistoryConnection
+  | OrderMaterialHistoryAggregator
+  | OrderMaterialHistoryGroupBy
+  | OrderMaterialHistoryConnectionId
+  | OrderMaterialHistoryConnection_id
+  | OrderMaterialHistoryConnectionCreatedAt
+  | OrderMaterialHistoryConnectionUpdatedAt
+  | OrderMaterialHistoryConnectionRemark
+  | OrderMaterialHistoryConnectionUser
+  | OrderMaterialHistoryConnectionAttachment_desc
+  | OrderMaterialHistoryConnectionContent
+  | OrderMaterialHistoryConnectionOrder_id
+  | OrderMaterialHistoryConnectionCreated_by
+  | OrderMaterialHistoryConnectionUpdated_by
+  | createOrderMaterialHistoryPayload
+  | updateOrderMaterialHistoryPayload
+  | deleteOrderMaterialHistoryPayload
+  | OrderMaterial
+  | OrderMaterialConnection
+  | OrderMaterialAggregator
+  | OrderMaterialAggregatorSum
+  | OrderMaterialAggregatorAvg
+  | OrderMaterialAggregatorMin
+  | OrderMaterialAggregatorMax
+  | OrderMaterialGroupBy
+  | OrderMaterialConnectionId
+  | OrderMaterialConnection_id
+  | OrderMaterialConnectionCreatedAt
+  | OrderMaterialConnectionUpdatedAt
+  | OrderMaterialConnectionMaterial
+  | OrderMaterialConnectionAmount
+  | OrderMaterialConnectionModel
+  | OrderMaterialConnectionUser
+  | OrderMaterialConnectionOrder_id
+  | OrderMaterialConnectionCreated_by
+  | OrderMaterialConnectionUpdated_by
+  | createOrderMaterialPayload
+  | updateOrderMaterialPayload
+  | deleteOrderMaterialPayload
+  | Order
+  | OrderConnection
+  | OrderAggregator
+  | OrderAggregatorSum
+  | OrderAggregatorAvg
+  | OrderAggregatorMin
+  | OrderAggregatorMax
+  | OrderGroupBy
+  | OrderConnectionId
+  | OrderConnection_id
+  | OrderConnectionCreatedAt
+  | OrderConnectionUpdatedAt
+  | OrderConnectionDetail
+  | OrderConnectionAmount
+  | OrderConnectionDelivery_time
+  | OrderConnectionUser
+  | OrderConnectionName
+  | OrderConnectionCreated_by
+  | OrderConnectionUpdated_by
+  | createOrderPayload
+  | updateOrderPayload
+  | deleteOrderPayload
+  | Warehouse
+  | WarehouseConnection
+  | WarehouseAggregator
+  | WarehouseGroupBy
+  | WarehouseConnectionId
+  | WarehouseConnection_id
+  | WarehouseConnectionCreatedAt
+  | WarehouseConnectionUpdatedAt
+  | WarehouseConnectionName
+  | WarehouseConnectionUser
+  | WarehouseConnectionCreated_by
+  | WarehouseConnectionUpdated_by
+  | createWarehousePayload
+  | updateWarehousePayload
+  | deleteWarehousePayload
+  | UploadFile
+  | UploadFileConnection
+  | UploadFileAggregator
+  | UploadFileAggregatorSum
+  | UploadFileAggregatorAvg
+  | UploadFileAggregatorMin
+  | UploadFileAggregatorMax
+  | UploadFileGroupBy
+  | UploadFileConnectionId
+  | UploadFileConnection_id
+  | UploadFileConnectionCreatedAt
+  | UploadFileConnectionUpdatedAt
+  | UploadFileConnectionName
+  | UploadFileConnectionAlternativeText
+  | UploadFileConnectionCaption
+  | UploadFileConnectionWidth
+  | UploadFileConnectionHeight
+  | UploadFileConnectionFormats
+  | UploadFileConnectionHash
+  | UploadFileConnectionExt
+  | UploadFileConnectionMime
+  | UploadFileConnectionSize
+  | UploadFileConnectionUrl
+  | UploadFileConnectionHttpUrl
+  | UploadFileConnectionPreviewUrl
+  | UploadFileConnectionProvider
+  | UploadFileConnectionProvider_metadata
+  | UploadFileConnectionCreated_by
+  | UploadFileConnectionUpdated_by
+  | UsersPermissionsPermission
+  | UsersPermissionsRole
+  | UsersPermissionsRoleConnection
+  | UsersPermissionsRoleAggregator
+  | UsersPermissionsRoleGroupBy
+  | UsersPermissionsRoleConnectionId
+  | UsersPermissionsRoleConnection_id
+  | UsersPermissionsRoleConnectionCreatedAt
+  | UsersPermissionsRoleConnectionUpdatedAt
+  | UsersPermissionsRoleConnectionName
+  | UsersPermissionsRoleConnectionDescription
+  | UsersPermissionsRoleConnectionType
+  | UsersPermissionsRoleConnectionCreated_by
+  | UsersPermissionsRoleConnectionUpdated_by
+  | createRolePayload
+  | updateRolePayload
+  | deleteRolePayload
+  | UsersPermissionsUser
+  | UsersPermissionsUserConnection
+  | UsersPermissionsUserAggregator
+  | UsersPermissionsUserGroupBy
+  | UsersPermissionsUserConnectionId
+  | UsersPermissionsUserConnection_id
+  | UsersPermissionsUserConnectionCreatedAt
+  | UsersPermissionsUserConnectionUpdatedAt
+  | UsersPermissionsUserConnectionUsername
+  | UsersPermissionsUserConnectionEmail
+  | UsersPermissionsUserConnectionProvider
+  | UsersPermissionsUserConnectionConfirmed
+  | UsersPermissionsUserConnectionBlocked
+  | UsersPermissionsUserConnectionRole
+  | UsersPermissionsUserConnectionAvatar
+  | UsersPermissionsUserConnectionCreated_by
+  | UsersPermissionsUserConnectionUpdated_by
+  | createUserPayload
+  | updateUserPayload
+  | deleteUserPayload
+
+"""
+
+"""
+type Commodities {
+  """
+
+  """
+  data: [String]
+}
+
+"""
+
+"""
+type OrderMaterials {
+  """
+
+  """
+  order_id: ID!
+}
+
+"""
+
+"""
+type UsersPermissionsMe {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  username: String!
+
+  """
+
+  """
+  email: String!
+
+  """
+
+  """
+  confirmed: Boolean
+
+  """
+
+  """
+  blocked: Boolean
+
+  """
+
+  """
+  role: UsersPermissionsMeRole
+}
+
+"""
+
+"""
+type UsersPermissionsMeRole {
+  """
+
+  """
+  id: ID!
+
+  """
+
+  """
+  name: String!
+
+  """
+
+  """
+  description: String
+
+  """
+
+  """
+  type: String
+}
+
+"""
+
+"""
+type UsersPermissionsLoginPayload {
+  """
+
+  """
+  jwt: String
+
+  """
+
+  """
+  user: UsersPermissionsMe!
+}
+
+"""
+
+"""
+type UserPermissionsPasswordPayload {
+  """
+
+  """
+  ok: Boolean!
+}
+
+"""
+
+"""
+type createCommodityTypePayload {
+  """
+
+  """
+  commodityType: CommodityType
+}
+
+"""
+
+"""
+type updateCommodityTypePayload {
+  """
+
+  """
+  commodityType: CommodityType
+}
+
+"""
+
+"""
+type deleteCommodityTypePayload {
+  """
+
+  """
+  commodityType: CommodityType
+}
+
+"""
+
+"""
+type createCommodityPayload {
+  """
+
+  """
+  commodity: Commodity
+}
+
+"""
+
+"""
+type updateCommodityPayload {
+  """
+
+  """
+  commodity: Commodity
+}
+
+"""
+
+"""
+type deleteCommodityPayload {
+  """
+
+  """
+  commodity: Commodity
+}
+
+"""
+
+"""
+type MaterialConnection {
+  """
+
+  """
+  values: [Material]
+
+  """
+
+  """
+  groupBy: MaterialGroupBy
+
+  """
+
+  """
+  aggregate: MaterialAggregator
+}
+
+"""
+
+"""
+type MaterialGroupBy {
+  """
+
+  """
+  id: [MaterialConnectionId]
+
+  """
+
+  """
+  _id: [MaterialConnection_id]
+
+  """
+
+  """
+  createdAt: [MaterialConnectionCreatedAt]
+
+  """
+
+  """
+  updatedAt: [MaterialConnectionUpdatedAt]
+
+  """
+
+  """
+  name: [MaterialConnectionName]
+
+  """
+
+  """
+  created_by: [MaterialConnectionCreated_by]
+
+  """
+
+  """
+  updated_by: [MaterialConnectionUpdated_by]
+}
+
+"""
+
+"""
+type MaterialConnectionId {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: MaterialConnection
+}
+
+"""
+
+"""
+type MaterialConnection_id {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: MaterialConnection
+}
+
+"""
+
+"""
+type MaterialConnectionCreatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: MaterialConnection
+}
+
+"""
+
+"""
+type MaterialConnectionUpdatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: MaterialConnection
+}
+
+"""
+
+"""
+type MaterialConnectionName {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: MaterialConnection
+}
+
+"""
+
+"""
+type MaterialConnectionCreated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: MaterialConnection
+}
+
+"""
+
+"""
+type MaterialConnectionUpdated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: MaterialConnection
+}
+
+"""
+
+"""
+type MaterialAggregator {
+  """
+
+  """
+  count: Int
+
+  """
+
+  """
+  totalCount: Int
+}
+
+"""
+
+"""
+type createMaterialPayload {
+  """
+
+  """
+  material: Material
+}
+
+"""
+
+"""
+type updateMaterialPayload {
+  """
+
+  """
+  material: Material
+}
+
+"""
+
+"""
+type deleteMaterialPayload {
+  """
+
+  """
+  material: Material
+}
+
+"""
+
+"""
+type OrderHistoryConnection {
+  """
+
+  """
+  values: [OrderHistory]
+
+  """
+
+  """
+  groupBy: OrderHistoryGroupBy
+
+  """
+
+  """
+  aggregate: OrderHistoryAggregator
+}
+
+"""
+
+"""
+type OrderHistoryGroupBy {
+  """
+
+  """
+  id: [OrderHistoryConnectionId]
+
+  """
+
+  """
+  _id: [OrderHistoryConnection_id]
+
+  """
+
+  """
+  createdAt: [OrderHistoryConnectionCreatedAt]
+
+  """
+
+  """
+  updatedAt: [OrderHistoryConnectionUpdatedAt]
+
+  """
+
+  """
+  detail: [OrderHistoryConnectionDetail]
+
+  """
+
+  """
+  amount: [OrderHistoryConnectionAmount]
+
+  """
+
+  """
+  delivery_time: [OrderHistoryConnectionDelivery_time]
+
+  """
+
+  """
+  user: [OrderHistoryConnectionUser]
+
+  """
+
+  """
+  order: [OrderHistoryConnectionOrder]
+
+  """
+
+  """
+  name: [OrderHistoryConnectionName]
+
+  """
+
+  """
+  created_by: [OrderHistoryConnectionCreated_by]
+
+  """
+
+  """
+  updated_by: [OrderHistoryConnectionUpdated_by]
+}
+
+"""
+
+"""
+type OrderHistoryConnectionId {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderHistoryConnection
+}
+
+"""
+
+"""
+type OrderHistoryConnection_id {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderHistoryConnection
+}
+
+"""
+
+"""
+type OrderHistoryConnectionCreatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: OrderHistoryConnection
+}
+
+"""
+
+"""
+type OrderHistoryConnectionUpdatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: OrderHistoryConnection
+}
+
+"""
+
+"""
+type OrderHistoryConnectionDetail {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: OrderHistoryConnection
+}
+
+"""
+
+"""
+type OrderHistoryConnectionAmount {
+  """
+
+  """
+  key: Int
+
+  """
+
+  """
+  connection: OrderHistoryConnection
+}
+
+"""
+
+"""
+type OrderHistoryConnectionDelivery_time {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderHistoryConnection
+}
+
+"""
+
+"""
+type OrderHistoryConnectionUser {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderHistoryConnection
+}
+
+"""
+
+"""
+type OrderHistoryConnectionOrder {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderHistoryConnection
+}
+
+"""
+
+"""
+type OrderHistoryConnectionName {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: OrderHistoryConnection
+}
+
+"""
+
+"""
+type OrderHistoryConnectionCreated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderHistoryConnection
+}
+
+"""
+
+"""
+type OrderHistoryConnectionUpdated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderHistoryConnection
+}
+
+"""
+
+"""
+type OrderHistoryAggregator {
+  """
+
+  """
+  count: Int
+
+  """
+
+  """
+  totalCount: Int
+
+  """
+
+  """
+  sum: OrderHistoryAggregatorSum
+
+  """
+
+  """
+  avg: OrderHistoryAggregatorAvg
+
+  """
+
+  """
+  min: OrderHistoryAggregatorMin
+
+  """
+
+  """
+  max: OrderHistoryAggregatorMax
+}
+
+"""
+
+"""
+type OrderHistoryAggregatorSum {
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type OrderHistoryAggregatorAvg {
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type OrderHistoryAggregatorMin {
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type OrderHistoryAggregatorMax {
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type createOrderHistoryPayload {
+  """
+
+  """
+  orderHistory: OrderHistory
+}
+
+"""
+
+"""
+type updateOrderHistoryPayload {
+  """
+
+  """
+  orderHistory: OrderHistory
+}
+
+"""
+
+"""
+type deleteOrderHistoryPayload {
+  """
+
+  """
+  orderHistory: OrderHistory
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnection {
+  """
+
+  """
+  values: [OrderMaterialHistory]
+
+  """
+
+  """
+  groupBy: OrderMaterialHistoryGroupBy
+
+  """
+
+  """
+  aggregate: OrderMaterialHistoryAggregator
+}
+
+"""
+
+"""
+type OrderMaterialHistoryGroupBy {
+  """
+
+  """
+  id: [OrderMaterialHistoryConnectionId]
+
+  """
+
+  """
+  _id: [OrderMaterialHistoryConnection_id]
+
+  """
+
+  """
+  createdAt: [OrderMaterialHistoryConnectionCreatedAt]
+
+  """
+
+  """
+  updatedAt: [OrderMaterialHistoryConnectionUpdatedAt]
+
+  """
+
+  """
+  remark: [OrderMaterialHistoryConnectionRemark]
+
+  """
+
+  """
+  user: [OrderMaterialHistoryConnectionUser]
+
+  """
+
+  """
+  attachment_desc: [OrderMaterialHistoryConnectionAttachment_desc]
+
+  """
+
+  """
+  content: [OrderMaterialHistoryConnectionContent]
+
+  """
+
+  """
+  order_id: [OrderMaterialHistoryConnectionOrder_id]
+
+  """
+
+  """
+  created_by: [OrderMaterialHistoryConnectionCreated_by]
+
+  """
+
+  """
+  updated_by: [OrderMaterialHistoryConnectionUpdated_by]
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionId {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnection_id {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionCreatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionUpdatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionRemark {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionUser {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionAttachment_desc {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionContent {
+  """
+
+  """
+  key: JSON
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionOrder_id {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionCreated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryConnectionUpdated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialHistoryConnection
+}
+
+"""
+
+"""
+type OrderMaterialHistoryAggregator {
+  """
+
+  """
+  count: Int
+
+  """
+
+  """
+  totalCount: Int
+}
+
+"""
+
+"""
+type createOrderMaterialHistoryPayload {
+  """
+
+  """
+  orderMaterialHistory: OrderMaterialHistory
+}
+
+"""
+
+"""
+type updateOrderMaterialHistoryPayload {
+  """
+
+  """
+  orderMaterialHistory: OrderMaterialHistory
+}
+
+"""
+
+"""
+type deleteOrderMaterialHistoryPayload {
+  """
+
+  """
+  orderMaterialHistory: OrderMaterialHistory
+}
+
+"""
+
+"""
+type OrderMaterialConnection {
+  """
+
+  """
+  values: [OrderMaterial]
+
+  """
+
+  """
+  groupBy: OrderMaterialGroupBy
+
+  """
+
+  """
+  aggregate: OrderMaterialAggregator
+}
+
+"""
+
+"""
+type OrderMaterialGroupBy {
+  """
+
+  """
+  id: [OrderMaterialConnectionId]
+
+  """
+
+  """
+  _id: [OrderMaterialConnection_id]
+
+  """
+
+  """
+  createdAt: [OrderMaterialConnectionCreatedAt]
+
+  """
+
+  """
+  updatedAt: [OrderMaterialConnectionUpdatedAt]
+
+  """
+
+  """
+  material: [OrderMaterialConnectionMaterial]
+
+  """
+
+  """
+  amount: [OrderMaterialConnectionAmount]
+
+  """
+
+  """
+  model: [OrderMaterialConnectionModel]
+
+  """
+
+  """
+  user: [OrderMaterialConnectionUser]
+
+  """
+
+  """
+  order_id: [OrderMaterialConnectionOrder_id]
+
+  """
+
+  """
+  created_by: [OrderMaterialConnectionCreated_by]
+
+  """
+
+  """
+  updated_by: [OrderMaterialConnectionUpdated_by]
+}
+
+"""
+
+"""
+type OrderMaterialConnectionId {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialConnection
+}
+
+"""
+
+"""
+type OrderMaterialConnection_id {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialConnection
+}
+
+"""
+
+"""
+type OrderMaterialConnectionCreatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: OrderMaterialConnection
+}
+
+"""
+
+"""
+type OrderMaterialConnectionUpdatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: OrderMaterialConnection
+}
+
+"""
+
+"""
+type OrderMaterialConnectionMaterial {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: OrderMaterialConnection
+}
+
+"""
+
+"""
+type OrderMaterialConnectionAmount {
+  """
+
+  """
+  key: Int
+
+  """
+
+  """
+  connection: OrderMaterialConnection
+}
+
+"""
+
+"""
+type OrderMaterialConnectionModel {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: OrderMaterialConnection
+}
+
+"""
+
+"""
+type OrderMaterialConnectionUser {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialConnection
+}
+
+"""
+
+"""
+type OrderMaterialConnectionOrder_id {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialConnection
+}
+
+"""
+
+"""
+type OrderMaterialConnectionCreated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialConnection
+}
+
+"""
+
+"""
+type OrderMaterialConnectionUpdated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderMaterialConnection
+}
+
+"""
+
+"""
+type OrderMaterialAggregator {
+  """
+
+  """
+  count: Int
+
+  """
+
+  """
+  totalCount: Int
+
+  """
+
+  """
+  sum: OrderMaterialAggregatorSum
+
+  """
+
+  """
+  avg: OrderMaterialAggregatorAvg
+
+  """
+
+  """
+  min: OrderMaterialAggregatorMin
+
+  """
+
+  """
+  max: OrderMaterialAggregatorMax
+}
+
+"""
+
+"""
+type OrderMaterialAggregatorSum {
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type OrderMaterialAggregatorAvg {
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type OrderMaterialAggregatorMin {
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type OrderMaterialAggregatorMax {
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type createOrderMaterialPayload {
+  """
+
+  """
+  orderMaterial: OrderMaterial
+}
+
+"""
+
+"""
+type updateOrderMaterialPayload {
+  """
+
+  """
+  orderMaterial: OrderMaterial
+}
+
+"""
+
+"""
+type deleteOrderMaterialPayload {
+  """
+
+  """
+  orderMaterial: OrderMaterial
+}
+
+"""
+
+"""
+type OrderConnection {
+  """
+
+  """
+  values: [Order]
+
+  """
+
+  """
+  groupBy: OrderGroupBy
+
+  """
+
+  """
+  aggregate: OrderAggregator
+}
+
+"""
+
+"""
+type OrderGroupBy {
+  """
+
+  """
+  id: [OrderConnectionId]
+
+  """
+
+  """
+  _id: [OrderConnection_id]
+
+  """
+
+  """
+  createdAt: [OrderConnectionCreatedAt]
+
+  """
+
+  """
+  updatedAt: [OrderConnectionUpdatedAt]
+
+  """
+
+  """
+  detail: [OrderConnectionDetail]
+
+  """
+
+  """
+  amount: [OrderConnectionAmount]
+
+  """
+
+  """
+  delivery_time: [OrderConnectionDelivery_time]
+
+  """
+
+  """
+  user: [OrderConnectionUser]
+
+  """
+
+  """
+  name: [OrderConnectionName]
+
+  """
+
+  """
+  created_by: [OrderConnectionCreated_by]
+
+  """
+
+  """
+  updated_by: [OrderConnectionUpdated_by]
+}
+
+"""
+
+"""
+type OrderConnectionId {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderConnection
+}
+
+"""
+
+"""
+type OrderConnection_id {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderConnection
+}
+
+"""
+
+"""
+type OrderConnectionCreatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: OrderConnection
+}
+
+"""
+
+"""
+type OrderConnectionUpdatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: OrderConnection
+}
+
+"""
+
+"""
+type OrderConnectionDetail {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: OrderConnection
+}
+
+"""
+
+"""
+type OrderConnectionAmount {
+  """
+
+  """
+  key: Int
+
+  """
+
+  """
+  connection: OrderConnection
+}
+
+"""
+
+"""
+type OrderConnectionDelivery_time {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderConnection
+}
+
+"""
+
+"""
+type OrderConnectionUser {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderConnection
+}
+
+"""
+
+"""
+type OrderConnectionName {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: OrderConnection
+}
+
+"""
+
+"""
+type OrderConnectionCreated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderConnection
+}
+
+"""
+
+"""
+type OrderConnectionUpdated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: OrderConnection
+}
+
+"""
+
+"""
+type OrderAggregator {
+  """
+
+  """
+  count: Int
+
+  """
+
+  """
+  totalCount: Int
+
+  """
+
+  """
+  sum: OrderAggregatorSum
+
+  """
+
+  """
+  avg: OrderAggregatorAvg
+
+  """
+
+  """
+  min: OrderAggregatorMin
+
+  """
+
+  """
+  max: OrderAggregatorMax
+}
+
+"""
+
+"""
+type OrderAggregatorSum {
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type OrderAggregatorAvg {
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type OrderAggregatorMin {
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type OrderAggregatorMax {
+  """
+
+  """
+  amount: Float
+}
+
+"""
+
+"""
+type createOrderPayload {
+  """
+
+  """
+  order: Order
+}
+
+"""
+
+"""
+type updateOrderPayload {
+  """
+
+  """
+  order: Order
+}
+
+"""
+
+"""
+type deleteOrderPayload {
+  """
+
+  """
+  order: Order
+}
+
+"""
+
+"""
+type WarehouseConnection {
+  """
+
+  """
+  values: [Warehouse]
+
+  """
+
+  """
+  groupBy: WarehouseGroupBy
+
+  """
+
+  """
+  aggregate: WarehouseAggregator
+}
+
+"""
+
+"""
+type WarehouseGroupBy {
+  """
+
+  """
+  id: [WarehouseConnectionId]
+
+  """
+
+  """
+  _id: [WarehouseConnection_id]
+
+  """
+
+  """
+  createdAt: [WarehouseConnectionCreatedAt]
+
+  """
+
+  """
+  updatedAt: [WarehouseConnectionUpdatedAt]
+
+  """
+
+  """
+  name: [WarehouseConnectionName]
+
+  """
+
+  """
+  user: [WarehouseConnectionUser]
+
+  """
+
+  """
+  created_by: [WarehouseConnectionCreated_by]
+
+  """
+
+  """
+  updated_by: [WarehouseConnectionUpdated_by]
+}
+
+"""
+
+"""
+type WarehouseConnectionId {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: WarehouseConnection
+}
+
+"""
+
+"""
+type WarehouseConnection_id {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: WarehouseConnection
+}
+
+"""
+
+"""
+type WarehouseConnectionCreatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: WarehouseConnection
+}
+
+"""
+
+"""
+type WarehouseConnectionUpdatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: WarehouseConnection
+}
+
+"""
+
+"""
+type WarehouseConnectionName {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: WarehouseConnection
+}
+
+"""
+
+"""
+type WarehouseConnectionUser {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: WarehouseConnection
+}
+
+"""
+
+"""
+type WarehouseConnectionCreated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: WarehouseConnection
+}
+
+"""
+
+"""
+type WarehouseConnectionUpdated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: WarehouseConnection
+}
+
+"""
+
+"""
+type WarehouseAggregator {
+  """
+
+  """
+  count: Int
+
+  """
+
+  """
+  totalCount: Int
+}
+
+"""
+
+"""
+type createWarehousePayload {
+  """
+
+  """
+  warehouse: Warehouse
+}
+
+"""
+
+"""
+type updateWarehousePayload {
+  """
+
+  """
+  warehouse: Warehouse
+}
+
+"""
+
+"""
+type deleteWarehousePayload {
+  """
+
+  """
+  warehouse: Warehouse
+}
+
+"""
+
+"""
+type UploadFileConnection {
+  """
+
+  """
+  values: [UploadFile]
+
+  """
+
+  """
+  groupBy: UploadFileGroupBy
+
+  """
+
+  """
+  aggregate: UploadFileAggregator
+}
+
+"""
+
+"""
+type UploadFileGroupBy {
+  """
+
+  """
+  id: [UploadFileConnectionId]
+
+  """
+
+  """
+  _id: [UploadFileConnection_id]
+
+  """
+
+  """
+  createdAt: [UploadFileConnectionCreatedAt]
+
+  """
+
+  """
+  updatedAt: [UploadFileConnectionUpdatedAt]
+
+  """
+
+  """
+  name: [UploadFileConnectionName]
+
+  """
+
+  """
+  alternativeText: [UploadFileConnectionAlternativeText]
+
+  """
+
+  """
+  caption: [UploadFileConnectionCaption]
+
+  """
+
+  """
+  width: [UploadFileConnectionWidth]
+
+  """
+
+  """
+  height: [UploadFileConnectionHeight]
+
+  """
+
+  """
+  formats: [UploadFileConnectionFormats]
+
+  """
+
+  """
+  hash: [UploadFileConnectionHash]
+
+  """
+
+  """
+  ext: [UploadFileConnectionExt]
+
+  """
+
+  """
+  mime: [UploadFileConnectionMime]
+
+  """
+
+  """
+  size: [UploadFileConnectionSize]
+
+  """
+
+  """
+  url: [UploadFileConnectionUrl]
+
+  """
+
+  """
+  httpUrl: [UploadFileConnectionHttpUrl]
+
+  """
+
+  """
+  previewUrl: [UploadFileConnectionPreviewUrl]
+
+  """
+
+  """
+  provider: [UploadFileConnectionProvider]
+
+  """
+
+  """
+  provider_metadata: [UploadFileConnectionProvider_metadata]
+
+  """
+
+  """
+  created_by: [UploadFileConnectionCreated_by]
+
+  """
+
+  """
+  updated_by: [UploadFileConnectionUpdated_by]
+}
+
+"""
+
+"""
+type UploadFileConnectionId {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnection_id {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionCreatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionUpdatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionName {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionAlternativeText {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionCaption {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionWidth {
+  """
+
+  """
+  key: Int
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionHeight {
+  """
+
+  """
+  key: Int
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionFormats {
+  """
+
+  """
+  key: JSON
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionHash {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionExt {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionMime {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionSize {
+  """
+
+  """
+  key: Float
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionUrl {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionHttpUrl {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionPreviewUrl {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionProvider {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionProvider_metadata {
+  """
+
+  """
+  key: JSON
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionCreated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileConnectionUpdated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: UploadFileConnection
+}
+
+"""
+
+"""
+type UploadFileAggregator {
+  """
+
+  """
+  count: Int
+
+  """
+
+  """
+  totalCount: Int
+
+  """
+
+  """
+  sum: UploadFileAggregatorSum
+
+  """
+
+  """
+  avg: UploadFileAggregatorAvg
+
+  """
+
+  """
+  min: UploadFileAggregatorMin
+
+  """
+
+  """
+  max: UploadFileAggregatorMax
+}
+
+"""
+
+"""
+type UploadFileAggregatorSum {
+  """
+
+  """
+  width: Float
+
+  """
+
+  """
+  height: Float
+
+  """
+
+  """
+  size: Float
+}
+
+"""
+
+"""
+type UploadFileAggregatorAvg {
+  """
+
+  """
+  width: Float
+
+  """
+
+  """
+  height: Float
+
+  """
+
+  """
+  size: Float
+}
+
+"""
+
+"""
+type UploadFileAggregatorMin {
+  """
+
+  """
+  width: Float
+
+  """
+
+  """
+  height: Float
+
+  """
+
+  """
+  size: Float
+}
+
+"""
+
+"""
+type UploadFileAggregatorMax {
+  """
+
+  """
+  width: Float
+
+  """
+
+  """
+  height: Float
+
+  """
+
+  """
+  size: Float
+}
+
+"""
+
+"""
+type UsersPermissionsRoleConnection {
+  """
+
+  """
+  values: [UsersPermissionsRole]
+
+  """
+
+  """
+  groupBy: UsersPermissionsRoleGroupBy
+
+  """
+
+  """
+  aggregate: UsersPermissionsRoleAggregator
+}
+
+"""
+
+"""
+type UsersPermissionsRoleGroupBy {
+  """
+
+  """
+  id: [UsersPermissionsRoleConnectionId]
+
+  """
+
+  """
+  _id: [UsersPermissionsRoleConnection_id]
+
+  """
+
+  """
+  createdAt: [UsersPermissionsRoleConnectionCreatedAt]
+
+  """
+
+  """
+  updatedAt: [UsersPermissionsRoleConnectionUpdatedAt]
+
+  """
+
+  """
+  name: [UsersPermissionsRoleConnectionName]
+
+  """
+
+  """
+  description: [UsersPermissionsRoleConnectionDescription]
+
+  """
+
+  """
+  type: [UsersPermissionsRoleConnectionType]
+
+  """
+
+  """
+  created_by: [UsersPermissionsRoleConnectionCreated_by]
+
+  """
+
+  """
+  updated_by: [UsersPermissionsRoleConnectionUpdated_by]
+}
+
+"""
+
+"""
+type UsersPermissionsRoleConnectionId {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: UsersPermissionsRoleConnection
+}
+
+"""
+
+"""
+type UsersPermissionsRoleConnection_id {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: UsersPermissionsRoleConnection
+}
+
+"""
+
+"""
+type UsersPermissionsRoleConnectionCreatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: UsersPermissionsRoleConnection
+}
+
+"""
+
+"""
+type UsersPermissionsRoleConnectionUpdatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: UsersPermissionsRoleConnection
+}
+
+"""
+
+"""
+type UsersPermissionsRoleConnectionName {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UsersPermissionsRoleConnection
+}
+
+"""
+
+"""
+type UsersPermissionsRoleConnectionDescription {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UsersPermissionsRoleConnection
+}
+
+"""
+
+"""
+type UsersPermissionsRoleConnectionType {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UsersPermissionsRoleConnection
+}
+
+"""
+
+"""
+type UsersPermissionsRoleConnectionCreated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: UsersPermissionsRoleConnection
+}
+
+"""
+
+"""
+type UsersPermissionsRoleConnectionUpdated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: UsersPermissionsRoleConnection
+}
+
+"""
+
+"""
+type UsersPermissionsRoleAggregator {
+  """
+
+  """
+  count: Int
+
+  """
+
+  """
+  totalCount: Int
+}
+
+"""
+
+"""
+type createRolePayload {
+  """
+
+  """
+  role: UsersPermissionsRole
+}
+
+"""
+
+"""
+type updateRolePayload {
+  """
+
+  """
+  role: UsersPermissionsRole
+}
+
+"""
+
+"""
+type deleteRolePayload {
+  """
+
+  """
+  role: UsersPermissionsRole
+}
+
+"""
+
+"""
+type UsersPermissionsUserConnection {
+  """
+
+  """
+  values: [UsersPermissionsUser]
+
+  """
+
+  """
+  groupBy: UsersPermissionsUserGroupBy
+
+  """
+
+  """
+  aggregate: UsersPermissionsUserAggregator
+}
+
+"""
+
+"""
+type UsersPermissionsUserGroupBy {
+  """
+
+  """
+  id: [UsersPermissionsUserConnectionId]
+
+  """
+
+  """
+  _id: [UsersPermissionsUserConnection_id]
+
+  """
+
+  """
+  createdAt: [UsersPermissionsUserConnectionCreatedAt]
+
+  """
+
+  """
+  updatedAt: [UsersPermissionsUserConnectionUpdatedAt]
+
+  """
+
+  """
+  username: [UsersPermissionsUserConnectionUsername]
+
+  """
+
+  """
+  email: [UsersPermissionsUserConnectionEmail]
+
+  """
+
+  """
+  provider: [UsersPermissionsUserConnectionProvider]
+
+  """
+
+  """
+  confirmed: [UsersPermissionsUserConnectionConfirmed]
+
+  """
+
+  """
+  blocked: [UsersPermissionsUserConnectionBlocked]
+
+  """
+
+  """
+  role: [UsersPermissionsUserConnectionRole]
+
+  """
+
+  """
+  avatar: [UsersPermissionsUserConnectionAvatar]
+
+  """
+
+  """
+  created_by: [UsersPermissionsUserConnectionCreated_by]
+
+  """
+
+  """
+  updated_by: [UsersPermissionsUserConnectionUpdated_by]
+}
+
+"""
+
+"""
+type UsersPermissionsUserConnectionId {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: UsersPermissionsUserConnection
+}
+
+"""
+
+"""
+type UsersPermissionsUserConnection_id {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: UsersPermissionsUserConnection
+}
+
+"""
+
+"""
+type UsersPermissionsUserConnectionCreatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: UsersPermissionsUserConnection
+}
+
+"""
+
+"""
+type UsersPermissionsUserConnectionUpdatedAt {
+  """
+
+  """
+  key: DateTime
+
+  """
+
+  """
+  connection: UsersPermissionsUserConnection
+}
+
+"""
+
+"""
+type UsersPermissionsUserConnectionUsername {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UsersPermissionsUserConnection
+}
+
+"""
+
+"""
+type UsersPermissionsUserConnectionEmail {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UsersPermissionsUserConnection
+}
+
+"""
+
+"""
+type UsersPermissionsUserConnectionProvider {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UsersPermissionsUserConnection
+}
+
+"""
+
+"""
+type UsersPermissionsUserConnectionConfirmed {
+  """
+
+  """
+  key: Boolean
+
+  """
+
+  """
+  connection: UsersPermissionsUserConnection
+}
+
+"""
+
+"""
+type UsersPermissionsUserConnectionBlocked {
+  """
+
+  """
+  key: Boolean
+
+  """
+
+  """
+  connection: UsersPermissionsUserConnection
+}
+
+"""
+
+"""
+type UsersPermissionsUserConnectionRole {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: UsersPermissionsUserConnection
+}
+
+"""
+
+"""
+type UsersPermissionsUserConnectionAvatar {
+  """
+
+  """
+  key: String
+
+  """
+
+  """
+  connection: UsersPermissionsUserConnection
+}
+
+"""
+
+"""
+type UsersPermissionsUserConnectionCreated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: UsersPermissionsUserConnection
+}
+
+"""
+
+"""
+type UsersPermissionsUserConnectionUpdated_by {
+  """
+
+  """
+  key: ID
+
+  """
+
+  """
+  connection: UsersPermissionsUserConnection
+}
+
+"""
+
+"""
+type UsersPermissionsUserAggregator {
+  """
+
+  """
+  count: Int
+
+  """
+
+  """
+  totalCount: Int
+}
+
+"""
+
+"""
+type createUserPayload {
+  """
+
+  """
+  user: UsersPermissionsUser
+}
+
+"""
+
+"""
+type updateUserPayload {
+  """
+
+  """
+  user: UsersPermissionsUser
+}
+
+"""
+
+"""
+type deleteUserPayload {
+  """
+
+  """
+  user: UsersPermissionsUser
+}
+
+"""
+
+"""
+type Mutation {
+  """
+
+  """
+  createCommodityType(input: createCommodityTypeInput): createCommodityTypePayload
+
+  """
+
+  """
+  updateCommodityType(input: updateCommodityTypeInput): updateCommodityTypePayload
+
+  """
+
+  """
+  deleteCommodityType(input: deleteCommodityTypeInput): deleteCommodityTypePayload
+
+  """
+
+  """
+  createCommodity(input: createCommodityInput): createCommodityPayload
+
+  """
+
+  """
+  updateCommodity(input: updateCommodityInput): updateCommodityPayload
+
+  """
+
+  """
+  deleteCommodity(input: deleteCommodityInput): deleteCommodityPayload
+
+  """
+
+  """
+  createMaterial(input: createMaterialInput): createMaterialPayload
+
+  """
+
+  """
+  updateMaterial(input: updateMaterialInput): updateMaterialPayload
+
+  """
+
+  """
+  deleteMaterial(input: deleteMaterialInput): deleteMaterialPayload
+
+  """
+
+  """
+  createOrderHistory(input: createOrderHistoryInput): createOrderHistoryPayload
+
+  """
+
+  """
+  updateOrderHistory(input: updateOrderHistoryInput): updateOrderHistoryPayload
+
+  """
+
+  """
+  deleteOrderHistory(input: deleteOrderHistoryInput): deleteOrderHistoryPayload
+
+  """
+
+  """
+  createOrderMaterialHistory(input: createOrderMaterialHistoryInput): createOrderMaterialHistoryPayload
+
+  """
+
+  """
+  updateOrderMaterialHistory(input: updateOrderMaterialHistoryInput): updateOrderMaterialHistoryPayload
+
+  """
+
+  """
+  deleteOrderMaterialHistory(input: deleteOrderMaterialHistoryInput): deleteOrderMaterialHistoryPayload
+
+  """
+
+  """
+  createOrderMaterial(input: createOrderMaterialInput): createOrderMaterialPayload
+
+  """
+
+  """
+  updateOrderMaterial(input: updateOrderMaterialInput): updateOrderMaterialPayload
+
+  """
+
+  """
+  deleteOrderMaterial(input: deleteOrderMaterialInput): deleteOrderMaterialPayload
+
+  """
+
+  """
+  createOrder(input: createOrderInput): createOrderPayload
+
+  """
+
+  """
+  updateOrder(input: updateOrderInput): updateOrderPayload
+
+  """
+
+  """
+  deleteOrder(input: deleteOrderInput): deleteOrderPayload
+
+  """
+
+  """
+  createWarehouse(input: createWarehouseInput): createWarehousePayload
+
+  """
+
+  """
+  updateWarehouse(input: updateWarehouseInput): updateWarehousePayload
+
+  """
+
+  """
+  deleteWarehouse(input: deleteWarehouseInput): deleteWarehousePayload
+
+  """
+  Create a new role
+  """
+  createRole(input: createRoleInput): createRolePayload
+
+  """
+  Update an existing role
+  """
+  updateRole(input: updateRoleInput): updateRolePayload
+
+  """
+  Delete an existing role
+  """
+  deleteRole(input: deleteRoleInput): deleteRolePayload
+
+  """
+  Create a new user
+  """
+  createUser(input: createUserInput): createUserPayload
+
+  """
+  Update an existing user
+  """
+  updateUser(input: updateUserInput): updateUserPayload
+
+  """
+  Delete an existing user
+  """
+  deleteUser(input: deleteUserInput): deleteUserPayload
+
+  """
+
+  """
+  outboundCommodity(input: outboundCommodityInput): Commodities
+
+  """
+
+  """
+  batchCreateMaterials(input: CreateOrderMaterialsInput): OrderMaterials
+
+  """
+
+  """
+  batchUpdateMaterials(input: UpdateOrderMaterialsInput): OrderMaterials
+
+  """
+
+  """
+  createNewOrder(input: createOrderInput): createOrderPayload
+
+  """
+
+  """
+  updateOldOrder(input: updateOrderInput): updateOrderPayload
+
+  """
+
+  """
+  upload(refId: ID, ref: String, field: String, source: String, file: Upload!): UploadFile!
+
+  """
+
+  """
+  multipleUpload(refId: ID, ref: String, field: String, source: String, files: [Upload]!): [UploadFile]!
+
+  """
+
+  """
+  login(input: UsersPermissionsLoginInput!): UsersPermissionsLoginPayload!
+
+  """
+
+  """
+  register(input: UsersPermissionsRegisterInput!): UsersPermissionsLoginPayload!
+
+  """
+
+  """
+  forgotPassword(email: String!): UserPermissionsPasswordPayload
+
+  """
+
+  """
+  resetPassword(password: String!, passwordConfirmation: String!, code: String!): UsersPermissionsLoginPayload
+
+  """
+
+  """
+  emailConfirmation(confirmation: String!): UsersPermissionsLoginPayload
+}
+
+"""
+
+"""
+input createCommodityTypeInput {
+  """
+
+  """
+  data: CommodityTypeInput
+}
+
+"""
+
+"""
+input CommodityTypeInput {
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input updateCommodityTypeInput {
+  """
+
+  """
+  where: InputID
+
+  """
+
+  """
+  data: editCommodityTypeInput
+}
+
+"""
+
+"""
+input InputID {
+  """
+
+  """
+  id: ID!
+}
+
+"""
+
+"""
+input editCommodityTypeInput {
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input deleteCommodityTypeInput {
+  """
+
+  """
+  where: InputID
+}
+
+"""
+
+"""
+input createCommodityInput {
+  """
+
+  """
+  data: CommodityInput
+}
+
+"""
+
+"""
+input CommodityInput {
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  order: ID
+
+  """
+
+  """
+  code: String
+
+  """
+
+  """
+  accessories: JSON
+
+  """
+
+  """
+  commodity_type: ID
+
+  """
+
+  """
+  destination: String
+
+  """
+
+  """
+  delivery_time: Date
+
+  """
+
+  """
+  state: ENUM_COMMODITY_STATE
+
+  """
+
+  """
+  outbound_user: ID
+
+  """
+
+  """
+  warehouse: ID
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input updateCommodityInput {
+  """
+
+  """
+  where: InputID
+
+  """
+
+  """
+  data: editCommodityInput
+}
+
+"""
+
+"""
+input editCommodityInput {
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  order: ID
+
+  """
+
+  """
+  code: String
+
+  """
+
+  """
+  accessories: JSON
+
+  """
+
+  """
+  commodity_type: ID
+
+  """
+
+  """
+  destination: String
+
+  """
+
+  """
+  delivery_time: Date
+
+  """
+
+  """
+  state: ENUM_COMMODITY_STATE
+
+  """
+
+  """
+  outbound_user: ID
+
+  """
+
+  """
+  warehouse: ID
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input deleteCommodityInput {
+  """
+
+  """
+  where: InputID
+}
+
+"""
+
+"""
+input createMaterialInput {
+  """
+
+  """
+  data: MaterialInput
+}
+
+"""
+
+"""
+input MaterialInput {
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  order_material_histories: [ID]
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input updateMaterialInput {
+  """
+
+  """
+  where: InputID
+
+  """
+
+  """
+  data: editMaterialInput
+}
+
+"""
+
+"""
+input editMaterialInput {
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  order_material_histories: [ID]
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input deleteMaterialInput {
+  """
+
+  """
+  where: InputID
+}
+
+"""
+
+"""
+input createOrderHistoryInput {
+  """
+
+  """
+  data: OrderHistoryInput
+}
+
+"""
+
+"""
+input OrderHistoryInput {
+  """
+
+  """
+  detail: String
+
+  """
+
+  """
+  amount: Int
+
+  """
+
+  """
+  delivery_time: Date
+
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  order: ID
+
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input updateOrderHistoryInput {
+  """
+
+  """
+  where: InputID
+
+  """
+
+  """
+  data: editOrderHistoryInput
+}
+
+"""
+
+"""
+input editOrderHistoryInput {
+  """
+
+  """
+  detail: String
+
+  """
+
+  """
+  amount: Int
+
+  """
+
+  """
+  delivery_time: Date
+
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  order: ID
+
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input deleteOrderHistoryInput {
+  """
+
+  """
+  where: InputID
+}
+
+"""
+
+"""
+input createOrderMaterialHistoryInput {
+  """
+
+  """
+  data: OrderMaterialHistoryInput
+}
+
+"""
+
+"""
+input OrderMaterialHistoryInput {
+  """
+
+  """
+  remark: String
+
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  attachment: [ID]
+
+  """
+
+  """
+  attachment_desc: String
+
+  """
+
+  """
+  content: JSON
+
+  """
+
+  """
+  order_id: ID
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input updateOrderMaterialHistoryInput {
+  """
+
+  """
+  where: InputID
+
+  """
+
+  """
+  data: editOrderMaterialHistoryInput
+}
+
+"""
+
+"""
+input editOrderMaterialHistoryInput {
+  """
+
+  """
+  remark: String
+
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  attachment: [ID]
+
+  """
+
+  """
+  attachment_desc: String
+
+  """
+
+  """
+  content: JSON
+
+  """
+
+  """
+  order_id: ID
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input deleteOrderMaterialHistoryInput {
+  """
+
+  """
+  where: InputID
+}
+
+"""
+
+"""
+input createOrderMaterialInput {
+  """
+
+  """
+  data: OrderMaterialInput
+}
+
+"""
+
+"""
+input OrderMaterialInput {
+  """
+
+  """
+  material: String
+
+  """
+
+  """
+  amount: Int
+
+  """
+
+  """
+  model: String
+
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  order_id: ID
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input updateOrderMaterialInput {
+  """
+
+  """
+  where: InputID
+
+  """
+
+  """
+  data: editOrderMaterialInput
+}
+
+"""
+
+"""
+input editOrderMaterialInput {
+  """
+
+  """
+  material: String
+
+  """
+
+  """
+  amount: Int
+
+  """
+
+  """
+  model: String
+
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  order_id: ID
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input deleteOrderMaterialInput {
+  """
+
+  """
+  where: InputID
+}
+
+"""
+
+"""
+input createOrderInput {
+  """
+
+  """
+  data: OrderInput
+}
+
+"""
+
+"""
+input OrderInput {
+  """
+
+  """
+  detail: String
+
+  """
+
+  """
+  amount: Int
+
+  """
+
+  """
+  delivery_time: Date
+
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  order_materials: [ID]
+
+  """
+
+  """
+  order_histories: [ID]
+
+  """
+
+  """
+  commodities: [ID]
+
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input updateOrderInput {
+  """
+
+  """
+  where: InputID
+
+  """
+
+  """
+  data: editOrderInput
+}
+
+"""
+
+"""
+input editOrderInput {
+  """
+
+  """
+  detail: String
+
+  """
+
+  """
+  amount: Int
+
+  """
+
+  """
+  delivery_time: Date
+
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  order_materials: [ID]
+
+  """
+
+  """
+  order_histories: [ID]
+
+  """
+
+  """
+  commodities: [ID]
+
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input deleteOrderInput {
+  """
+
+  """
+  where: InputID
+}
+
+"""
+
+"""
+input createWarehouseInput {
+  """
+
+  """
+  data: WarehouseInput
+}
+
+"""
+
+"""
+input WarehouseInput {
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  commodities: [ID]
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input updateWarehouseInput {
+  """
+
+  """
+  where: InputID
+
+  """
+
+  """
+  data: editWarehouseInput
+}
+
+"""
+
+"""
+input editWarehouseInput {
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  user: ID
+
+  """
+
+  """
+  commodities: [ID]
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input deleteWarehouseInput {
+  """
+
+  """
+  where: InputID
+}
+
+"""
+
+"""
+input createRoleInput {
+  """
+
+  """
+  data: RoleInput
+}
+
+"""
+
+"""
+input RoleInput {
+  """
+
+  """
+  name: String!
+
+  """
+
+  """
+  description: String
+
+  """
+
+  """
+  type: String
+
+  """
+
+  """
+  permissions: [ID]
+
+  """
+
+  """
+  users: [ID]
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input updateRoleInput {
+  """
+
+  """
+  where: InputID
+
+  """
+
+  """
+  data: editRoleInput
+}
+
+"""
+
+"""
+input editRoleInput {
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  description: String
+
+  """
+
+  """
+  type: String
+
+  """
+
+  """
+  permissions: [ID]
+
+  """
+
+  """
+  users: [ID]
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input deleteRoleInput {
+  """
+
+  """
+  where: InputID
+}
+
+"""
+
+"""
+input createUserInput {
+  """
+
+  """
+  data: UserInput
+}
+
+"""
+
+"""
+input UserInput {
+  """
+
+  """
+  username: String!
+
+  """
+
+  """
+  email: String!
+
+  """
+
+  """
+  provider: String
+
+  """
+
+  """
+  password: String
+
+  """
+
+  """
+  resetPasswordToken: String
+
+  """
+
+  """
+  confirmed: Boolean
+
+  """
+
+  """
+  blocked: Boolean
+
+  """
+
+  """
+  role: ID
+
+  """
+
+  """
+  avatar: String
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input updateUserInput {
+  """
+
+  """
+  where: InputID
+
+  """
+
+  """
+  data: editUserInput
+}
+
+"""
+
+"""
+input editUserInput {
+  """
+
+  """
+  username: String
+
+  """
+
+  """
+  email: String
+
+  """
+
+  """
+  provider: String
+
+  """
+
+  """
+  password: String
+
+  """
+
+  """
+  resetPasswordToken: String
+
+  """
+
+  """
+  confirmed: Boolean
+
+  """
+
+  """
+  blocked: Boolean
+
+  """
+
+  """
+  role: ID
+
+  """
+
+  """
+  avatar: String
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input deleteUserInput {
+  """
+
+  """
+  where: InputID
+}
+
+"""
+
+"""
+input outboundCommodityInput {
+  """
+
+  """
+  id: [ID!]
+
+  """
+
+  """
+  destination: String!
+
+  """
+
+  """
+  delivery_time: Date
+
+  """
+
+  """
+  outbound_user: ID!
+}
+
+"""
+
+"""
+input CreateOrderMaterialsInput {
+  """
+
+  """
+  order_id: ID!
+
+  """
+
+  """
+  materials: [MaterialsInput]!
+
+  """
+
+  """
+  user: ID!
+}
+
+"""
+
+"""
+input MaterialsInput {
+  """
+
+  """
+  id: ID
+
+  """
+
+  """
+  material: String!
+
+  """
+
+  """
+  amount: Int!
+
+  """
+
+  """
+  model: String!
+
+  """
+
+  """
+  action: Int!
+}
+
+"""
+
+"""
+input UpdateOrderMaterialsInput {
+  """
+
+  """
+  order_id: ID!
+
+  """
+
+  """
+  materials: [MaterialsInput]!
+
+  """
+
+  """
+  attachment: [ID]
+
+  """
+
+  """
+  attachment_desc: String
+
+  """
+
+  """
+  remark: String
+
+  """
+
+  """
+  user: ID!
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
+
+"""
+
+"""
+input UsersPermissionsLoginInput {
+  """
+
+  """
+  identifier: String!
+
+  """
+
+  """
+  password: String!
+
+  """
+
+  """
+  provider: String = "local"
+}
+
+"""
+
+"""
+input UsersPermissionsRegisterInput {
+  """
+
+  """
+  username: String!
+
+  """
+
+  """
+  email: String!
+
+  """
+
+  """
+  password: String!
+}
+
+"""
+
+"""
+input FileInput {
+  """
+
+  """
+  name: String!
+
+  """
+
+  """
+  alternativeText: String
+
+  """
+
+  """
+  caption: String
+
+  """
+
+  """
+  width: Int
+
+  """
+
+  """
+  height: Int
+
+  """
+
+  """
+  formats: JSON
+
+  """
+
+  """
+  hash: String!
+
+  """
+
+  """
+  ext: String
+
+  """
+
+  """
+  mime: String!
+
+  """
+
+  """
+  size: Float!
+
+  """
+
+  """
+  url: String!
+
+  """
+
+  """
+  httpUrl: String!
+
+  """
+
+  """
+  previewUrl: String
+
+  """
+
+  """
+  provider: String!
+
+  """
+
+  """
+  provider_metadata: JSON
+
+  """
+
+  """
+  related: [ID]
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+
+"""
+input editFileInput {
+  """
+
+  """
+  name: String
+
+  """
+
+  """
+  alternativeText: String
+
+  """
+
+  """
+  caption: String
+
+  """
+
+  """
+  width: Int
+
+  """
+
+  """
+  height: Int
+
+  """
+
+  """
+  formats: JSON
+
+  """
+
+  """
+  hash: String
+
+  """
+
+  """
+  ext: String
+
+  """
+
+  """
+  mime: String
+
+  """
+
+  """
+  size: Float
+
+  """
+
+  """
+  url: String
+
+  """
+
+  """
+  httpUrl: String
+
+  """
+
+  """
+  previewUrl: String
+
+  """
+
+  """
+  provider: String
+
+  """
+
+  """
+  provider_metadata: JSON
+
+  """
+
+  """
+  related: [ID]
+
+  """
+
+  """
+  created_by: ID
+
+  """
+
+  """
+  updated_by: ID
+}
+
+"""
+A time string with format: HH:mm:ss.SSS
+"""
+scalar Time
+
+"""
+The `Long` scalar type represents 52-bit integers
+"""
+scalar Long
+
+"""
+
+"""
+enum CacheControlScope {
+  """
+
+  """
+  PUBLIC
+
+  """
+
+  """
+  PRIVATE
+}

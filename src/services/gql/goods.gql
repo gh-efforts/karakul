@@ -1,0 +1,165 @@
+# 商品页订单详情
+query GoodsOrders($limit: Int, $start: Int, $where: JSON) {
+  orders: ordersConnection(sort: "createdAt:desc", limit: $limit, start: $start, where: $where) {
+    values {
+      id
+      name
+    }
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+
+# 商品页 order 对应的商品列表
+# TODO: commodities 需要分页
+query OrderCommodities($id: ID!) {
+  order(id: $id) {
+    id
+    commodities(start: 0, limit: 1000, sort: "createdAt:desc") {
+      id
+      code
+      commodity_type {
+        id
+        name
+      }
+      warehouse {
+        name
+        id
+      }
+      destination
+      createdAt
+      user {
+        username
+      }
+      accessories
+    }
+  }
+}
+
+# 商品页 order 出库弹窗对应的商品列表
+query OrderCommoditiesSimple($id: ID!, $start: Int, $limit: Int, $state: ENUM_COMMODITY_STATE) {
+  commodities: commoditiesConnection(start: $start, limit: $limit, where: { order: $id, state: $state }) {
+    values {
+      id
+      code
+      commodity_type {
+        id
+        name
+      }
+      destination
+      warehouse {
+        name
+        id
+      }
+    }
+    aggregate {
+      count
+      totalCount
+    }
+  }
+}
+
+# 查询商品分类
+query CommodityTypesSelect {
+  types: commodityTypes(start: 0, limit: 1000) {
+    id
+    name
+  }
+}
+
+# 查询仓库信息
+query WarehousesSelect {
+  pos: warehouses(start: 0, limit: 1000) {
+    id
+    name
+  }
+}
+
+# 商品出库
+mutation CommodityExWarehouse($input: outboundCommodityInput) {
+  commodities: outboundCommodity(input: $input) {
+    data
+  }
+}
+
+# 查询订单列表
+query Commodities($sort: String, $limit: Int, $start: Int, $where: JSON) {
+  commodities(sort: $sort, limit: $limit, start: $start, where: $where) {
+    id
+    accessories
+  }
+}
+
+# 创建商品
+mutation CreateCommodity($data: CommodityInput) {
+  res: createCommodity(input: { data: $data }) {
+    commodity {
+      id
+    }
+  }
+}
+
+# 编辑商品
+mutation UpdateCommodity($id: ID!, $data: editCommodityInput) {
+  res: updateCommodity(input: { where: { id: $id }, data: $data }) {
+    commodity {
+      id
+    }
+  }
+}
+
+# 提货记录
+query ExWarehouseHistory($limit: Int, $start: Int, $orderId: ID) {
+  commodities: commoditiesConnection(
+    sort: "createdAt:desc"
+    limit: $limit
+    start: $start
+    where: { order: $orderId, state: "out" }
+  ) {
+    values {
+      id
+      code
+      destination
+      delivery_time
+      user {
+        username
+      }
+      outbound_user {
+        username
+      }
+    }
+    aggregate {
+      count
+    }
+  }
+}
+
+# 商品库存
+query CommoditiesInWarehouse($limit: Int, $start: Int, $orderId: ID) {
+  commodities: commoditiesConnection(
+    sort: "createdAt:desc"
+    limit: $limit
+    start: $start
+    where: { order: $orderId, state: "in" }
+  ) {
+    values {
+      id
+      code
+      commodity_type {
+        name
+      }
+      warehouse {
+        name
+      }
+      createdAt
+      user {
+        username
+      }
+    }
+    aggregate {
+      count
+    }
+  }
+}

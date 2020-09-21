@@ -1,0 +1,16 @@
+.btns {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 16px;
+  padding: 32px 0;
+
+  &-center {
+    justify-content: center;
+  }
+  &-left {
+    justify-content: start;
+  }
+  &-right {
+    justify-content: end;
+  }
+}

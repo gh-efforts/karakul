@@ -1,0 +1,7 @@
+/build
+/public
+/.next
+/src/services/generated
+
+src/**/*.test.tsx
+/src/__test__

@@ -26,7 +26,6 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = withCssLoader({
   publicRuntimeConfig: {
     ENDPOINT: process.env.ENDPOINT,
-    ENDPOINT_JOB: process.env.ENDPOINT_JOB,
     BUILD_HASH,
   },
   lessLoaderOptions: {

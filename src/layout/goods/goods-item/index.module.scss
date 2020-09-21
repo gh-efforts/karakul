@@ -1,0 +1,49 @@
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr repeat(4, auto);
+  grid-gap: 16px;
+  align-items: center;
+  min-height: 70px;
+  border-bottom: 1px solid #efefef;
+  box-sizing: border-box;
+
+  :global {
+    .ant-btn-text {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+.table {
+  transition: all 0.5s ease-in-out;
+}
+
+.table-hide {
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.table-show {
+  height: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
+.btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  :global {
+    .ant-btn-text {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+.btn-disabled {
+  cursor: not-allowed !important;
+}

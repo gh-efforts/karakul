@@ -1,0 +1,11 @@
+.sub-header {
+  height: 64px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-content: space-between;
+
+  .title {
+    font-size: 20px;
+    color: #123046;
+  }
+}

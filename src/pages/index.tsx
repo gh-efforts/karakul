@@ -1,3 +1,1 @@
-// pages/index.js
-
-export { default } from "./order";
+export { default, getServerSideProps } from './order'

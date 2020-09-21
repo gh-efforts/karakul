@@ -1,0 +1,34 @@
+# https://graphql-code-generator.com/docs/plugins/typescript-react-apollo
+# https://significa.co/blog/generating-typescript-types-and-react-hooks-based-on-graphql-endpoint
+
+overwrite: true
+schema: ${ENDPOINT}/graphql
+documents: 'src/services/gql/*.gql'
+hooks:
+  afterAllFileWrite:
+    - prettier --write "src/**/*.+(js|jsx|ts|tsx|json|yml|yaml|scss|css|md)"
+generates:
+  src/services/generated/schema.dev.graphql:
+    plugins:
+      - schema-ast
+    config:
+      skipTypename: true
+  src/services/generated/schemas.tsx:
+    plugins:
+      - typescript
+  src/services/generated/operations.tsx:
+    preset: import-types
+    presetConfig:
+      typesPath: ./schemas
+    plugins:
+      - typescript-operations
+    config:
+      skipTypename: true
+  src/services/generated/hooks.tsx:
+    preset: import-types
+    presetConfig:
+      typesPath: ./operations
+    plugins:
+      - typescript-react-apollo
+    config:
+      addDocBlocks: false

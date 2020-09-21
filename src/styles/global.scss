@@ -9,6 +9,7 @@ body {
     'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f3fbfb;
 }
 
 ul,
@@ -54,7 +55,18 @@ select:-webkit-autofill:focus {
 }
 
 .action-pointer {
-  color: #6190e8;
+  color: #00b2b6 !important;
   outline: none;
   cursor: pointer;
+}
+
+.table-operation-group {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+
+  span[role='img'] {
+    font-size: 16px;
+    cursor: pointer;
+  }
 }

@@ -1,0 +1,46 @@
+.content {
+  background: #fff;
+  margin-top: 24px;
+}
+
+.btns {
+  margin-left: 32px;
+}
+
+.remake {
+  margin: 32px;
+  padding: 24px 0;
+
+  .content {
+    background: #f3fbfb;
+    border-radius: 6px;
+    width: 480px;
+    padding: 12px;
+    margin: 16px 0;
+  }
+
+  .picture-box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .picture-content {
+      position: relative;
+      .download {
+        position: absolute;
+        right: 30px;
+        top: 10px;
+      }
+    }
+    .picture {
+      width: 230px;
+      height: 180px;
+      border: 1px solid #daeced;
+      border-radius: 6px;
+      margin: 0 16px 16px 0;
+      display: grid;
+      grid-row-gap: 16px;
+      align-content: center;
+      justify-items: center;
+    }
+  }
+}
